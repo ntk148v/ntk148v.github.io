@@ -1,0 +1,3 @@
+[submodule "themes/hugo-toigian"]
+	path = themes/hugo-toigian
+	url = https://github.com/ntk148v/hugo-toigian.git
