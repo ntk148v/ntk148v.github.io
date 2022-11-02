@@ -1,0 +1,48 @@
+baseURL = 'http://ntk148v.github.io'
+languageCode = 'en-us'
+title = "kiennt26's home"
+theme = "hugo-toigian"
+
+[params]
+# (Optional, default true): Controls table of contents visibility on right side of pages.
+# Start and end levels can be controlled with markup.tableOfContents setting.
+toc = true
+# (Optional, default true) Enables comments template on pages
+# By default partials/docs/comments.html includes Disqus template
+# See https://gohugo.io/content-management/comments/#configure-disqus
+# Can be overwritten by same param in page frontmatter
+comments = true
+
+[params.author]
+name = "Kien Nguyen-Tuan"
+email = "kiennt2609@gmail.com"
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  # By default, Goldmark trims unsafe outputs which might prevent some shortcodes from rendering.
+  # It is recommended to set markup.goldmark.renderer.unsafe=true if you encounter problems.
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # Enable user to embed HTML snippets in Markdown content.
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    noClasses = false
+    tabWidth = 4
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = true
+
+# The left side navbar at the top
+[menu]
+  [[menu.nav]]
+  name = "Contact"
+  url = "/contact"
+  weight = 2
+
+  [[menu.nav]]
+  name = "Posts"
+  url = "/posts"
+  weight = 3
