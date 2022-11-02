@@ -36,7 +36,7 @@ jobs:
         run: rm -rf ./public/*
 
       - name: Setup Dependency
-        run: npm install
+        run: npm install postcss postcss-cli autoprefixer tailwindcss
 
       - name: Build
         run: hugo --minify --environment production -b https://ntk148v.github.io
