@@ -2,7 +2,7 @@
 title = "Contact"
 date = "2022-11-02T10:15:45+07:00"
 tags = []
-comment = false
+comments = false
 toc = false
 +++
 
