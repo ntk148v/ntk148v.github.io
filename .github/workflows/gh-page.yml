@@ -1,0 +1,50 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "latest"
+          extended: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Composite package.json
+        run: hugo mod npm pack
+
+      - name: Clean public
+        run: rm -rf ./public/*
+
+      - name: Setup Dependency
+        run: npm install
+
+      - name: Build
+        run: hugo --minify --environment production -b https://ntk148v.github.io
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/master' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./public
