@@ -1,7 +1,6 @@
 +++
 title = "Welcome"
 date = "2022-11-02T10:07:45+07:00"
-tags = []
 comments = false
 +++
 
