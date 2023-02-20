@@ -162,7 +162,7 @@
 </span></span></span><span class=line><span class=cl><span class=s>        local as 65500;
 </span></span></span><span class=line><span class=cl><span class=s>        neighbor 10.12.12.254 as 65500;
 </span></span></span><span class=line><span class=cl><span class=s>        import none;
-</span></span></span><span class=line><span class=cl><span class=s>        export where proto = &#34;static_bgp&#34;;
+</span></span></span><span class=line><span class=cl><span class=s>        export where proto: &#34;static_bgp&#34;;
 </span></span></span><span class=line><span class=cl><span class=s>}
 </span></span></span><span class=line><span class=cl><span class=s>EOF</span>
 </span></span></code></pre></div><ul><li>Start bird.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lb1$ sudo service bird start

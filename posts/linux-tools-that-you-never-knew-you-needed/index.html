@@ -22,17 +22,17 @@
 </span></span><span class=line><span class=cl><span class=c1># ...</span>
 </span></span><span class=line><span class=cl><span class=c1># For more examples, checkout: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md</span>
 </span></span></code></pre></div><h2 id=5-delta>5. delta</h2><ul><li><a href=https://github.com/dandavison/delta>delta</a>: Code evolves, and we all spend time studying diffs. Delta aims to make this both efficient and enjoyable: it allows you to make extensive changes to the layout and styling of diffs, as well as allowing you to stay arbitrarily close to the default git/diff output.</li><li>Diff/git diff doesn&rsquo;t show you exactly what was changed.</li></ul><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/git-diff.png></figure><ul><li>Delta shows within-line highlights based on a Levenshtein edit inference algorithm.</li></ul><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/delta.png></figure><ul><li>By default, delta restructures the git output slightly to make the hunk markers human-readable:</li></ul><figure class=figure><img src=https://user-images.githubusercontent.com/52205/81059276-254cf980-8e9e-11ea-95c3-8b757a4c11b5.png></figure><ul><li>Example config:</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>core<span class=o>]</span>
-</span></span><span class=line><span class=cl>    <span class=nv>pager</span> <span class=o>=</span> delta
+</span></span><span class=line><span class=cl>    pager: delta
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=o>[</span>delta<span class=o>]</span>
-</span></span><span class=line><span class=cl>    plus-style <span class=o>=</span> <span class=s2>&#34;syntax #98c379&#34;</span>
-</span></span><span class=line><span class=cl>    minus-style <span class=o>=</span> <span class=s2>&#34;syntax #e06c75&#34;</span>
-</span></span><span class=line><span class=cl>    syntax-theme <span class=o>=</span> OneHalfDark
-</span></span><span class=line><span class=cl>    <span class=nv>navigate</span> <span class=o>=</span> <span class=nb>true</span>
-</span></span><span class=line><span class=cl>    <span class=nv>features</span> <span class=o>=</span> line-numbers decorations
+</span></span><span class=line><span class=cl>    plus-style: <span class=s2>&#34;syntax #98c379&#34;</span>
+</span></span><span class=line><span class=cl>    minus-style: <span class=s2>&#34;syntax #e06c75&#34;</span>
+</span></span><span class=line><span class=cl>    syntax-theme: OneHalfDark
+</span></span><span class=line><span class=cl>    navigate: <span class=nb>true</span>
+</span></span><span class=line><span class=cl>    features: line-numbers decorations
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=o>[</span>interactive<span class=o>]</span>
-</span></span><span class=line><span class=cl>    <span class=nv>diffFilter</span> <span class=o>=</span> delta --color-only
+</span></span><span class=line><span class=cl>    diffFilter: delta --color-only
 </span></span></code></pre></div><ul><li>Completely replace <code>diff</code> with <code>delta</code>:</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>diff</span><span class=o>=</span><span class=s2>&#34;delta&#34;</span>
 </span></span></code></pre></div><h2 id=6-z>6. z</h2><ul><li>Tired for <code>cd</code>ing into the same directories over and over? Save your time with <code>z</code> command!</li><li><a href=https://github.com/rupa/z>z</a>: jump around. Z is a shell script that makes jumping around your file directory pleasantly simple. Instead of trying to remember the exact path of where you need to go, or worse, <code>cd</code>ing into the next directory followed by <code>ls</code>ing and then cding again over and over (we’ve all been there), Z allows you to “lazy type” where you want to go and it’ll handle the rest.</li><li>Examples:</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Takes me to my workspace folder from anywhere.</span>
 </span></span><span class=line><span class=cl>$ z workspace
