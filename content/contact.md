@@ -1,10 +1,10 @@
-+++
-title = "Contact"
-date = "2022-11-02T10:15:45+07:00"
-tags = []
-comments = false
-toc = false
-+++
+---
+title: "Contact"
+date: "2022-11-02T10:15:45+07:00"
+tags: []
+comments: false
+toc: false
+---
 
 You can reach me out on my online profiles :point_down:
 

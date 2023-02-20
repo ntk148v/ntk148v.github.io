@@ -1,10 +1,10 @@
-+++
-title = "Bgp Ecmp Load Balancing"
-date = 2022-02-07T15:35:08+07:00
-draft = false
-comments = true
-tags = ["tech", "network", "bgp", "ecmp"]
-+++
+---
+title: "Bgp Ecmp Load Balancing"
+date: 2022-02-07T15:35:08+07:00
+draft: false
+comments: true
+tags: ["tech", "network", "bgp", "ecmp"]
+---
 
 ## 1. Introduction
 
@@ -246,7 +246,7 @@ protocol bgp {
         local as 65500;
         neighbor 10.12.12.254 as 65500;
         import none;
-        export where proto = "static_bgp";
+        export where proto: "static_bgp";
 }
 EOF
 ```

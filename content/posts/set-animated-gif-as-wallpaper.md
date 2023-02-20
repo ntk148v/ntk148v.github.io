@@ -1,11 +1,11 @@
-+++
-title = "Set Animated Gif as Wallpaper"
-date = 2021-01-14T09:36:34+07:00
-lastmod = 2021-01-14T09:36:34+07:00
-tags = ["linux", "tips", "tech"]
-comments = true
-toc = true
-+++
+---
+title: "Set Animated Gif as Wallpaper"
+date: 2021-01-14T09:36:34+07:00
+lastmod: 2021-01-14T09:36:34+07:00
+tags: ["linux", "tips", "tech"]
+comments: true
+toc: true
+---
 
 > **NOTE**: Environment Ubuntu 20.04
 

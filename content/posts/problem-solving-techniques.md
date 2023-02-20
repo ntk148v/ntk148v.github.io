@@ -1,10 +1,10 @@
-+++
-title = "Problem Solving Techniques"
-date = "2023-01-18T15:18:34+07:00"
-tags = ["algorithm", "techniques"]
-draft = false
-comment = true
-+++
+---
+title: "Problem Solving Techniques"
+date: "2023-01-18T15:18:34+07:00"
+tags: ["algorithm", "techniques"]
+draft: false
+comment: true
+---
 
 <div align="center">
     <iframe src="https://giphy.com/embed/777Aby0ZetYE8" width="480" height="259" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/cute-think-pooh-777Aby0ZetYE8">via GIPHY</a></p>

@@ -1,10 +1,10 @@
-+++
-title = "Openstack Autoscaling New Approach"
-date = 2019-08-19T21:19:38+07:00
-tags = ["openstack", "prometheus", "faythe", "tech"]
-toc = true
-comments = true
-+++
+---
+title: "Openstack Autoscaling New Approach"
+date: 2019-08-19T21:19:38+07:00
+tags: ["openstack", "prometheus", "faythe", "tech"]
+toc: true
+comments: true
+---
 
 > NOTE(kiennt): There is a [legacy Faythe guideline](https://github.com/vCloud-DFTBA/faythe/blob/legacy/docs/autoscaling.md). The new version is coming soon, check [its repository](https://github.com/vCloud-DFTBA/faythe) for status.
 
@@ -62,28 +62,28 @@ The _another service_ is [Prometheus stack](https://prometheus.io/). The questio
 **The ideal architecture**
 
 <pre>
-                                               +++++++++++++++++++++++++++++++++++++++++++++++++--+
+                                               ------------------------------------------------+--+
                                                |                                                  |
-                                               |     ++++++++++++++++--+  ++++++++++++++++--+     |
-+++++++++++++++++++++++                        |     |   Instance 1    |  |   Instance 2    |     |
+                                               |     ---------------+--+  ---------------+--+     |
+---------------------++                        |     |   Instance 1    |  |   Instance 2    |     |
 |                     |                        |     |                 |  |                 |     |
-|                     |            Scrape Metrics    |  ++++++++++--+  |  |  ++++++++++--+  |     |
-|  Prometheus server  <+++++++++++++++++++++++++++++++--+Exporter(s)|  |  |  |Exporter(s)|  |     |
-|                     |                        |     |  ++++++++++--+  |  |  ++++++++++--+  |     |
-|                     |                        |     ++++++++++++++++--+  ++++++++++++++++--+     |
-++++++++++-++++++++++-+                        |     +++++++++++++++++++++++++++++++++++++--+     |
+|                     |            Scrape Metrics    |  ---------+--+  |  |  ---------+--+  |     |
+|  Prometheus server  <------------------------------+--+Exporter(s)|  |  |  |Exporter(s)|  |     |
+|                     |                        |     |  ---------+--+  |  |  ---------+--+  |     |
+|                     |                        |     ---------------+--+  ---------------+--+     |
+---------+----------+-+                        |     ------------------------------------+--+     |
            |                                   |     |           Autoscaling Group          |     |
-           | Fire alerts                       |     +++++++++++++++++++++++++++++++++++++--+     |
+           | Fire alerts                       |     ------------------------------------+--+     |
            |                                   |                                                  |
            |                                   |                                                  |
-++++++++++-v+++++++++++++                      |     +++++++++++++++++++++++++++++++++++++--+     |
+---------+-v------------+                      |     ------------------------------------+--+     |
 |                       |         Send scale request |                                      |     |
-|Prometheus Alertmanager++++++++++++++++++++++-++++-->          Scaling Policy              |     |
+|Prometheus Alertmanager---------------------+----+-->          Scaling Policy              |     |
 |                       |                      |     |                                      |     |
-++++++++++++++++++++++--+                      |     +++++++++++++++++++++++++++++++++++++--+     |
+---------------------+--+                      |     ------------------------------------+--+     |
                                                |                                                  |
                                                |                     Heat Stack                   |
-                                               +++++++++++++++++++++++++++++++++++++++++++++++++--+
+                                               ------------------------------------------------+--+
 </pre>
 
 - Prometheus server scrapes metrics from exporters that launch inside Instance.
@@ -104,34 +104,34 @@ We need a 3rd service to solve these problems - `Faythe does some magic`.
 **The reality architecture**
 
 <pre>
-                                              ++++++++++++++++++++++++++++++++++++++++++++++++++-+
+                                              ------------------------------------------------++-+
                                                |                                                  +
-                                               |     ++++++++++++++++--+  ++++++++++++++++--+     |
-+++++++++++++++++++++++                        |     |   Instance 1    |  |   Instance 2    |     |
+                                               |     ---------------+--+  ---------------+--+     |
+---------------------++                        |     |   Instance 1    |  |   Instance 2    |     |
 |                     |                        +     |                 |  |                 |     |
-|                     |            Scrape Metrics    |  ++++++++++--+  |  |  ++++++++++--+  |     |
-|  Prometheus server  <+++++++++++++++++++++++++++++++--+Exporter(s)|  |  |  |Exporter(s)|  |     |
-|                     |                        |     |  ++++++++++--+  |  |  ++++++++++--+  |     |
-|                     |                        |     ++++++++++++++++--+  ++++++++++++++++--+     |
-++++++++++-++++++++++-+                        |     +++++++++++++++++++++++++++++++++++++--+     |
+|                     |            Scrape Metrics    |  ---------+--+  |  |  ---------+--+  |     |
+|  Prometheus server  <------------------------------+--+Exporter(s)|  |  |  |Exporter(s)|  |     |
+|                     |                        |     |  ---------+--+  |  |  ---------+--+  |     |
+|                     |                        |     ---------------+--+  ---------------+--+     |
+---------+----------+-+                        |     ------------------------------------+--+     |
            |                                   |     |           Autoscaling Group          |     |
-           | Fire alerts                       |     +++++++++++++++++++++++++++++++++++++--+     |
+           | Fire alerts                       |     ------------------------------------+--+     |
            |                                   |                                                  |
            |                                   |                                                  |
-++++++++++-v+++++++++++++                      |     +++++++++++++++++++++++++++++++++++++--+     |
+---------+-v------------+                      |     ------------------------------------+--+     |
 |                       |                      |     |                                      |     |
 |Prometheus Alertmanager|                      |                Scaling Policy              |     |
 |                       |                      |     |                                      |     |
-++++++++++--++++++++++--+                      |     ++++--^++++++++++++++++++++++++++++++--+     |
+---------+-----------+--+                      |     ---+--^--------------------------------+     |
             |                                  |           |                                      |
             | Send request through             |           |         Heat Stack                   |
-            | pre-configured webhook           +++++++++++++++++++++++++++++++++++++++++++++++++--+
+            | pre-configured webhook           ------------------------------------------------+--+
             |                                              |
-++++++++++--v+++++++++--+                                  |
+---------+--v-----------+                                  |
 |                       |                                  |
-|        Faythe         ++++++++++++++++++++++++++++++++++-+
+|        Faythe         ---------------------------------+-+
 |                       |       Send actual scale request
-++++++++++++++++++++++--+
+---------------------+--+
 
 </pre>
 
@@ -156,7 +156,7 @@ The current aprroach requires some further setup and configuration from Promethe
 - Instance should have a cloud init script to enable and start Prometheus exporters automatically.
 
 ```yaml
-+++
+---
 resources:
   asg:
     type: OS::Heat::AutoScalingGroup

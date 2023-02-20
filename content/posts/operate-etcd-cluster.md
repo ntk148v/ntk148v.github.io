@@ -1,11 +1,11 @@
-+++
-title = "Operate Etcd cluster"
-date = 2020-04-28T11:24:04+07:00
-lastmod = 2020-04-28T11:24:04+07:00
-tags = ["tech", "etcd"]
-comments = true
-toc = true
-+++
+---
+title: "Operate Etcd cluster"
+date: 2020-04-28T11:24:04+07:00
+lastmod: 2020-04-28T11:24:04+07:00
+tags: ["tech", "etcd"]
+comments: true
+toc: true
+---
 
 > **NOTE**: This is my perspective aggregation. You can easily find these such of knowledges in [the references](#5-references).
 
@@ -60,7 +60,7 @@ $ fio --rw=write --ioengine=sync --fdatasync=1 --directory=test-data \
   * Default: **1000ms**.
   * Best practice: **>= 10 x RTT and < 50s**.
 * The heartbeat interval and election timeout value should be **the same for all members in one cluster**.
-  
+
 ```bash
 # Command line arguments:
 $ etcd --heartbeat-interval=100 --election-timeout=500
@@ -84,7 +84,7 @@ $ sudo ionice -c2 -n0 -p `pgrep etcd`
 * Solution: Make periodic snapshots (save the current and remove old logs).
 * Default: make snapshots after every **10 000 changes**.
 * Tuning: Just in case that etcd's memory and disk usage is too high, lower threshold.
-  
+
 ```bash
 # Command line arguments:
 $ etcd --snapshot-count=5000

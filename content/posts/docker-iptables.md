@@ -1,9 +1,9 @@
-+++
-title = "Docker and Iptables: You may do it wrong!"
-date = 2022-10-25T10:29:11+07:00
-tags = ["tech", "docker", "iptables"]
-comments = true
-+++
+---
+title: "Docker and Iptables: You may do it wrong!"
+date: 2022-10-25T10:29:11+07:00
+tags: ["tech", "docker", "iptables"]
+comments: true
+---
 
 ## 1. Mission
 

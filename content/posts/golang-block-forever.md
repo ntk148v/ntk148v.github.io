@@ -1,12 +1,12 @@
-+++
-title = "Golang: Block forever"
-date = 2020-04-27T15:59:21+07:00
-lastmod = 2020-04-27T15:59:21+07:00
-tags = ["golang", "trick", "note"]
-toc = true
-comments = true
-draft = false
-+++
+---
+title: "Golang: Block forever"
+date: 2020-04-27T15:59:21+07:00
+lastmod: 2020-04-27T15:59:21+07:00
+tags: ["golang", "trick", "note"]
+toc: true
+comments: true
+draft: false
+---
 
 Sometimes, you want to block the current goroutine when allowing others to continue. Here is some tricks I've collected:
 

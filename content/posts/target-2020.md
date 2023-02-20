@@ -1,10 +1,10 @@
-+++
-title = "Mục tiêu 2020"
-date = 2020-01-24T23:34:23+07:00
-comments = true
-draft = false
-toc = true
-+++
+---
+title: "Mục tiêu 2020"
+date: 2020-01-24T23:34:23+07:00
+comments: true
+draft: false
+toc: true
+---
 
 ## Tổng kết 2019
 

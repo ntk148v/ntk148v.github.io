@@ -1,11 +1,11 @@
-+++
-title = "Getting Started with Tiling WM [Part 1] - I3"
-date = 2021-04-19T10:10:21+07:00
-tags = ["tiling-wm", "linux", "tech", "i3"]
-comments = true
-toc = true
-draft = false
-+++
+---
+title: "Getting Started with Tiling WM [Part 1] - I3"
+date: 2021-04-19T10:10:21+07:00
+tags: ["tiling-wm", "linux", "tech", "i3"]
+comments: true
+toc: true
+draft: false
+---
 
 {{< quote info >}}
 **Disclaimer**

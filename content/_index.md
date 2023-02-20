@@ -1,8 +1,8 @@
-+++
-title = "Welcome"
-date = "2022-11-02T10:07:45+07:00"
-comments = false
-+++
+---
+title: "Welcome"
+date: "2022-11-02T10:07:45+07:00"
+comments: false
+---
 
 ```diff
 ╭─[home] as kiennt2609 in ~

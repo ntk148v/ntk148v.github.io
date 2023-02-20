@@ -1,12 +1,12 @@
-+++
-title = "Swap space note"
-date = 2020-05-20T09:30:28+07:00
-lastmod = 2020-05-20T09:30:28+07:00
-tags = ["linux", "tech"]
-toc = true
-comments = true
-draft = false
-+++
+---
+title: "Swap space note"
+date: 2020-05-20T09:30:28+07:00
+lastmod: 2020-05-20T09:30:28+07:00
+tags: ["linux", "tech"]
+toc: true
+comments: true
+draft: false
+---
 
 ## 1. What is Swap?
 
@@ -17,7 +17,7 @@ Swap file systems support virtual memory, data is written to a swap file system 
 ### 2.1. Old rule of thumb
 
 ```
-swap = 2 * the-amount-of-RAM
+swap: 2 * the-amount-of-RAM
 ```
 
 So if a computer had 64KB of RAM, a swap partition of 128KB would be an optimum size. This rule took into the facts that RAM sizes were typically quite small at the time. Nowadays, RAM has become a `cheap` & `affordable` commondity, so the 2x rule is outdated.
@@ -65,7 +65,7 @@ swap <= 10% * total-size-hard-drives && swap <= 128GB (if hibernation is allowed
   # Adjust the value
   echo 10 > /proc/sys/vm/swappiness
   sysctl -w vm.swappiness=10
-  echo "vm.swappiness = 10" >> /etc/sysctl.conf
+  echo "vm.swappiness: 10" >> /etc/sysctl.conf
   ```
 
 - On SSDs, swapping out anonymous pages and reclaiming file pages are essentially equivalent in terms of performance/latency. On older spinning disks, swap reads are slower due to random reads, so a lower vm.swappiness setting makes sense there.

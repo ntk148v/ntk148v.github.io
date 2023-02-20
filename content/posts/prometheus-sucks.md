@@ -1,11 +1,11 @@
-+++
-title = "Prometheus Sucks?"
-date = 2019-06-28T11:47:11+07:00
-comments = true
-tags = ["prometheus", "tech"]
-draft = true
-toc = true
-+++
+---
+title: "Prometheus Sucks?"
+date: 2019-06-28T11:47:11+07:00
+comments: true
+tags: ["prometheus", "tech"]
+draft: true
+toc: true
+---
 
 *Huh, really?*
 

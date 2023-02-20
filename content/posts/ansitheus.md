@@ -1,15 +1,15 @@
-+++
-title = "Ansitheus"
-date = 2020-05-05T13:51:59+07:00
-lastmod = 2020-05-05T13:51:59+07:00
-tags = ["tech", "ansible", "prometheus"]
-toc = true
-comments = true
-draft = false
-+++
+---
+title: "Ansitheus"
+date: 2020-05-05T13:51:59+07:00
+lastmod: 2020-05-05T13:51:59+07:00
+tags: ["tech", "ansible", "prometheus"]
+toc: true
+comments: true
+draft: false
+---
 
 ```bash
-Ansitheus = Ansible + Prometheus
+Ansitheus: Ansible + Prometheus
 ```
 
 ## 1. Prometheus overview

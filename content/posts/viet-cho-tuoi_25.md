@@ -1,10 +1,10 @@
-+++
-title = "Viết cho tuổi 25"
-date =2018-09-26T18:20:16+07:00
-comments = true
-draft = true
-toc = true
-+++
+---
+title: 'Viết cho tuổi 25'
+date: 2018-09-26T18:20:16+07:00
+comments: true
+draft: true
+toc: true
+---
 
 Hôm nay, 26/09 là sinh nhật tôi, sinh nhật lần thứ 25.
 
@@ -28,4 +28,4 @@ Viết đôi dòng cho tuổi 25, để trải lòng và tự trấn an bản th
 
 Viết cho tuổi 25 để 5 năm nữa, ở tuổi 30 nhìn lại xem từ tuổi 25 mình đã sống thế nào.
 
-*Hà Nội, 26/09/2018*
+_Hà Nội, 26/09/2018_

@@ -1,11 +1,11 @@
-+++
-title = "Mục tiêu 2019"
-date = 2019-02-04T23:16:47+07:00
-tags = ["ramblings","story"]
-comments = true
-draft = false
-toc = true
-+++
+---
+title: "Mục tiêu 2019"
+date: 2019-02-04T23:16:47+07:00
+tags: ["ramblings","story"]
+comments: true
+draft: false
+toc: true
+---
 
 Đến hẹn lại lên, thời điểm Tết đến xuân về, tui lại ngồi ~~copy & paste~~ viết mục tiêu phấn đấu cho năm mới. Tui khá là lười và dễ xao nhãng nên việc viết lên các mục tiêu năm mới đơn giản là một cách tự thúc ép bản thân. "Mày đã viết ra những điều này, cố mà làm", kiểu vậy. À khoan, hay không viết nữa nhỉ? Lười quá...
 
@@ -17,7 +17,7 @@ Nah, năm mới rồi nên thay đổi thôi, chững chạc lên nào! Năm nay
 * **Thu nhập**:
 
 ```
-<salary-2019-per-month> = <salary-2018-per-month> * 1.3.
+<salary-2019-per-month>: <salary-2018-per-month> * 1.3.
 ```
 
 * **Kỹ năng**: Cái này thì nhiều nè, cứ viết ra một số đầu mục, cập nhật sau.

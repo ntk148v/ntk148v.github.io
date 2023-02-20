@@ -1,11 +1,11 @@
-+++
-title = "Linux tools that you never knew you needed"
-date = 2021-04-07T09:45:59+07:00
-draft = false
-tags = ["linux", "tips", "tech"]
-comments = true
-toc = true
-+++
+---
+title: "Linux tools that you never knew you needed"
+date: 2021-04-07T09:45:59+07:00
+draft: false
+tags: ["linux", "tips", "tech"]
+comments: true
+toc: true
+---
 
 ## 1. bat - (cat alternative)
 
@@ -75,17 +75,17 @@ $ rg 'fn write\('
 
 ```bash
 [core]
-    pager = delta
+    pager: delta
 
 [delta]
-    plus-style = "syntax #98c379"
-    minus-style = "syntax #e06c75"
-    syntax-theme = OneHalfDark
-    navigate = true
-    features = line-numbers decorations
+    plus-style: "syntax #98c379"
+    minus-style: "syntax #e06c75"
+    syntax-theme: OneHalfDark
+    navigate: true
+    features: line-numbers decorations
 
 [interactive]
-    diffFilter = delta --color-only
+    diffFilter: delta --color-only
 ```
 
 - Completely replace `diff` with `delta`:

@@ -1,10 +1,10 @@
-+++
-title = "Lets Comment"
-date = 2018-10-02T09:47:11+07:00
-comments = true
-toc = true
-tags = ["tech"]
-+++
+---
+title: "Lets Comment"
+date: 2018-10-02T09:47:11+07:00
+comments: true
+toc: true
+tags: ["tech"]
+---
 
 Hugo ships with support for Disqus, a third-party service that provides comment and community capabilities to websites via JavaScript. But Disqus generates a shit load of page requests and heavy contents... which even with the benefits that come with having Disqus in place. People just want something that can be used to post a comment, that is.
 

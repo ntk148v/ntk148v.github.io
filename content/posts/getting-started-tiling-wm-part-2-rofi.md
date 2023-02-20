@@ -1,11 +1,11 @@
-+++
-title = "Getting Started with Tiling WM [Part 2] - Rofi"
-date = 2021-04-19T10:10:21+07:00
-tags = ["tiling-wm", "linux", "tech", "rofi"]
-toc = true
-comments = false
-draft = false
-+++
+---
+title: "Getting Started with Tiling WM [Part 2] - Rofi"
+date: 2021-04-19T10:10:21+07:00
+tags: ["tiling-wm", "linux", "tech", "rofi"]
+toc: true
+comments: false
+draft: false
+---
 
 {{< quote info >}}
 In the [part1]({{< ref "/posts/getting-started-tiling-wm-part-1-i3.md" >}}), I've used `rofi` instead of `dmenu`. This part will show you how to start with `rofi`.

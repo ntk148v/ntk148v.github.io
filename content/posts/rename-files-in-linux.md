@@ -1,11 +1,11 @@
-+++
-title = "Rename Files in Linux"
-date = 2021-12-16T10:22:05+07:00
-tags = ["linux", "tech"]
-toc = true
-comments = true
-draft = false
-+++
+---
+title: "Rename Files in Linux"
+date: 2021-12-16T10:22:05+07:00
+tags: ["linux", "tech"]
+toc: true
+comments: true
+draft: false
+---
 
 - Rename a single file with `mv`. Just a basic thing.
 - Rename multiple files with `mv`.

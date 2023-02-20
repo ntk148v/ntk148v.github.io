@@ -1,10 +1,10 @@
-+++
-title = "Goat Playground"
-date = "2023-01-31T14:15:12+07:00"
-tags = ["hugo", "tech", "playground"]
-draft = false
-comment = true
-+++
+---
+title: "Goat Playground"
+date: "2023-01-31T14:15:12+07:00"
+tags: ["hugo", "tech", "playground"]
+draft: false
+comment: true
+---
 
 Hey, this is a simple post to play with [GoAT Diagram](https://github.com/blampe/goat).
 

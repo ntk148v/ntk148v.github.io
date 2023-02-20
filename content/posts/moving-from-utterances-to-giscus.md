@@ -1,10 +1,10 @@
-+++
-title = "Moving from Utterances to Giscus"
-date = 2022-08-30T11:09:21+07:00
-comments = true
-tags = ["tech"]
-draft = false
-+++
+---
+title: "Moving from Utterances to Giscus"
+date: 2022-08-30T11:09:21+07:00
+comments: true
+tags: ["tech"]
+draft: false
+---
 
 I've used [Utterances](./lets-comment.md) for a while. Using Github's issue feature as a backend for comments is a very elegant solution IM O: no tracking, no ads, simple. But today, I decide to switch to a better alternative - [Giscus](https://github.com/giscus/giscus). Giscus is heavily inspired by Utterances except one thing: instead of using Github issues it uses the fairly new Discussions features to store comments.
 

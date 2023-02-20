@@ -1,9 +1,9 @@
-+++
-title = "Getting Started Tiling Wm [Part 6] I3 Rounded Corners"
-date = 2022-01-10T13:45:01+07:00
-tags = ["tech", "tiling-vm", "linux"]
-comments = true
-+++
+---
+title: "Getting Started Tiling Wm [Part 6] I3 Rounded Corners"
+date: 2022-01-10T13:45:01+07:00
+tags: ["tech", "tiling-vm", "linux"]
+comments: true
+---
 
 According to [Reddis post](https://www.reddit.com/r/unixporn/comments/7h0rm0/what_would_you_want_in_a_wm/) and [i3-gaps issue](https://github.com/Airblader/i3/issues/167), it seems like a lot of people would like this. But Airblade - i3-gaps maintainer [doesn't like it](https://github.com/Airblader/i3/issues/167#issuecomment-328562433). But nevermind, we still have two ways to achieve it.
 
@@ -51,7 +51,7 @@ border_radius 10
 
 ```
 # Path ~/.config/picom.conf
-corner_radius = 10;
+corner_radius: 10;
 ```
 
 - Result looks much smoother.
