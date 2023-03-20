@@ -7,7 +7,7 @@ A(You don't want to wait<br>for a running command) --> B{Do you want to see outp
 A --> C{Do you want the command to stay<br>running after the session ends?}
 C --> |Yes| E(screen)
 B --> |No| D(Ctrl-Z or &)
-	B --> |Yes| F{Do you have requirements<br>for log cutting, running users?}
+B --> |Yes| F{Do you have requirements<br>for log cutting, running users?}
 F --> |No| G(nohup)
 F --> |Yes| H(supervisor or systemd)</div><h2 id=ctrl-z-or->Ctrl-Z or &</h2><p>For example, you have to excute <code>ping</code> command:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>ping -c <span class=m>20</span> 8.8.8.8
 </span></span></code></pre></div><p>You want to send it to background, you can do the following:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ ping -c <span class=m>20</span> 8.8.8.8 <span class=p>&amp;</span>
