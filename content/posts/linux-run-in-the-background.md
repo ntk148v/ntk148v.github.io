@@ -1,7 +1,7 @@
 ---
-title: 'Linux Run in the Background'
-date: '2023-03-03T14:28:09+07:00'
-tags: ['tech', 'linux']
+title: "Linux Run in the Background"
+date: "2023-03-03T14:28:09+07:00"
+tags: ["tech", "linux"]
 draft: false
 comment: true
 ---
@@ -16,19 +16,18 @@ You run some commands, it may take a long time to execute, and you don't want to
 
 {{< mermaid >}}
 graph TD
-	A(You don't want to wait <br>for a running command) --> B{Do you want to see output?}
-	A --> C{Do you want the command to stay <br>running after the session ends?}
-	C --> |Yes| E(screen)
-	B --> |No| D(Ctrl-Z or &)
-	B --> |Yes| F{Do you have requirements <br>for log cutting, running users?}
-	F --> |No| G(nohup)
-	F --> |Yes| H(supervisor or systemd)
+A(You don't want to wait <br>for a running command) --> B{Do you want to see output?}
+A --> C{Do you want the command to stay <br>running after the session ends?}
+C --> |Yes| E(screen)
+B --> |No| D(Ctrl-Z or &)
+B --> |Yes| F{Do you have requirements <br>for log cutting, running users?}
+F --> |No| G(nohup)
+F --> |Yes| H(supervisor or systemd)
 {{</ mermaid >}}
 
 ## Ctrl-Z or &
 
 For example, you have to excute `ping` command:
-
 
 ```shell
 ping -c 20 8.8.8.8

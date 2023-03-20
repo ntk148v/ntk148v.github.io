@@ -85,6 +85,7 @@ rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -colum
            rofi -show run -sidebar-mode -lines 0
 
 ```
+
 {{</ details >}}
 
 {{< figure class="figure" src="/photos/getting-started-tiling-wm-part-1/rofi-default.png" >}}
@@ -98,7 +99,7 @@ rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -colum
 
 - The default setup looks quite boring. Let's tweak a bit!
 - There are currently three methods of setting configuration options:
-  - *Local configuration. Normally, depending on XDG, in ~/.config/rofi/config. This uses the Xresources format*.
+  - _Local configuration. Normally, depending on XDG, in ~/.config/rofi/config. This uses the Xresources format_.
   - Xresources: A method of storing key values in the Xserver. See here for more information.
   - Command line options: Arguments are passed to Rofi.
 - We will use configuration file.

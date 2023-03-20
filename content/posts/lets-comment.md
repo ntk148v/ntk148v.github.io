@@ -10,15 +10,15 @@ Hugo ships with support for Disqus, a third-party service that provides comment 
 
 That's why I choose a Disqus alternative - [Utterances](https://utteranc.es/). Utterances is a lightweight comments widget built on Github issues. Use Github issues for blog comments, wiki pages and more!
 
-* Open source. 🙌
+- Open source. 🙌
 
-* No tracking, no ads, always free. 📡🚫
+- No tracking, no ads, always free. 📡🚫
 
-* No lock-in. All data stored in GitHub issues. 🔓
+- No lock-in. All data stored in GitHub issues. 🔓
 
-* Styled with Primer, the css toolkit that powers GitHub. 💅
+- Styled with Primer, the css toolkit that powers GitHub. 💅
 
-* Lightweight. Vanilla TypeScript. No font downloads, JavaScript frameworks or polyfills for evergreen browsers. 🐦🌲
+- Lightweight. Vanilla TypeScript. No font downloads, JavaScript frameworks or polyfills for evergreen browsers. 🐦🌲
 
 > All these above lines are stolen from Utterances home page!
 

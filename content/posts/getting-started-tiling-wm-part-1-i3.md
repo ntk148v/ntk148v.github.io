@@ -136,22 +136,22 @@ This post doesn't aim to cover everything about i3, see the [official documentat
 {{< mermaid >}}
 
 graph TD;
-  i3-->Workspace1;
-  i3-->Workspace2;
-  Workspace1-->Container1;
-  Workspace1-->Container2;
-  Container1-->Window1;
-  Container2-->Window2;
-  Workspace2-->Container3;
-  Container3-->Window3;
-  Container3-->Window4;
+i3-->Workspace1;
+i3-->Workspace2;
+Workspace1-->Container1;
+Workspace1-->Container2;
+Container1-->Window1;
+Container2-->Window2;
+Workspace2-->Container3;
+Container3-->Window3;
+Container3-->Window4;
 
-  style i3 fill:#33ddaa;
-  style Workspace1 fill:#ea9999;
-  style Workspace2 fill:#ea9999;
-  style Container1 fill:#6fa8dc;
-  style Container2 fill:#6fa8dc;
-  style Container3 fill:#6fa8dc;
+style i3 fill:#33ddaa;
+style Workspace1 fill:#ea9999;
+style Workspace2 fill:#ea9999;
+style Container1 fill:#6fa8dc;
+style Container2 fill:#6fa8dc;
+style Container3 fill:#6fa8dc;
 
 {{</ mermaid >}}
 
@@ -159,7 +159,7 @@ graph TD;
 - i3 manages windows in a tree structure, with **containers** as building blocks.
 - A container contains one or multiple **windows**. Its windows will be positioned depending on the container's layout.
 - There are 3 different layouts possible:
-  - **Split**: Each window share the container space and are split horizontally (*splith*) or vertically (*splitv*). This is the default layout.
+  - **Split**: Each window share the container space and are split horizontally (_splith_) or vertically (_splitv_). This is the default layout.
   - **Stacked** - The focused window is visible and the other ones are stacked behind. You can change the window’s focus via keystrokes easily. You have access to the list of windows open too, at the top of the container itself.
   - **Tabbed** - This layout is similar as the stacked layout, except that the windows’ list is vertically split, and not horizontally.
 - A window, where an application is running, can be created in a container. It will automatically position itself and be in focus, depending on the container’s layout. You can move them around or even change the layout of the container using keystrokes.
@@ -365,6 +365,7 @@ exec_always hsetroot -solid "#F1CCBB"
 ## 6. Some tricks and tips
 
 - A trick with terminal emulator:
+
   - Disable scrollbar and menubar.
 
   {{< figure class="figure" src="/photos/getting-started-tiling-wm-part-1/terminal-trick-1.png" >}}

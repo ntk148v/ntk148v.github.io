@@ -33,7 +33,7 @@ Alright, before we make it right, there are some common mistakes.
 
 Docker generates iptables rules, then adds to `DOCKER` chains. Some users may manipulate this chain manually in order to block connections.
 
-*Please don't do it*. Yes, you are able to do it, there is nothing prevent you to perform this kind of action. But every time Docker daemon is reloaded, iptables rules are re-generated and your changes is gone.
+_Please don't do it_. Yes, you are able to do it, there is nothing prevent you to perform this kind of action. But every time Docker daemon is reloaded, iptables rules are re-generated and your changes is gone.
 
 {{< quote info >}}
 Right: Do not manipulate Docker rules manually.
@@ -42,6 +42,7 @@ Right: Do not manipulate Docker rules manually.
 ### 3.2. Insert you rules in the wrong chain
 
 iptables basic: iptables is divied into three levels: tables, chains and rules. We only use the filter tables, which contains:
+
 - INPUT: Packets sent to this host pass through this chain.
 - OUTPUT: Packets sent from this host pass through this chain.
 - FORWARD: Packets forwarded by this host pass through this chain.
@@ -55,6 +56,7 @@ Right: Add rules which load before Docker's rules, add them to DOCKER-USER.
 ### 3.3. Modify and persistent iptables wrong
 
 You modify and persistent iptables rules like this:
+
 - Save all rules `iptables-save`.
 - Modify your rules.
 - Restore all rules with `iptables-restore`.
@@ -75,6 +77,7 @@ I have create a repository for this, which is highly inspired by [systemd-servic
 - Whitelist strategy: block all, allow some.
 - `iptables-restore -n|--no-flush` turns off implicit global refresh and only performs our manual explicit refresh: only modified chains are flushed.
 - Control iptables with systemd: start iptables after other services.
+
   - iptables.service.
 
   ```
@@ -130,6 +133,7 @@ I have create a repository for this, which is highly inspired by [systemd-servic
   ```
 
 - Templating so nobody can't go wrong:
+
   - base.rules.empty.
 
   ```iptables
