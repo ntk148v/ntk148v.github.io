@@ -38,4 +38,14 @@ Template to look stupid, get it from [Hacker News's thread](https://news.ycombin
 
 Basically a common tactic of corporations is to espouse "we are family" but it is just a manipulation tactic for employees to work long-hours and to give their all to the company. The "we are a family" mantra would be fine if it was coupled with a healthy separation of work and life; with the biggest indicator being that healthy working hours (8-9 work hours only) is maintained.
 
-In contrast, something like Netflix culture which is "we are a team and not a family" seems like to be more a healthier alternative. On a last point, the "we are family" (i.e. we care about our employees as persons instead of just means or cogs) mantra is fine but it usually turns into "we are a toxic family" (i.e. give your all to the company) instead of it being a "we are a healthy family" (i.e. our company values each employee).
+In contrast, something like Netflix culture which is ["we are a team and not a family"](https://jobs.netflix.com/culture) seems like to be more a healthier alternative. On a last point, the "we are family" (i.e. we care about our employees as persons instead of just means or cogs) mantra is fine but it usually turns into "we are a toxic family" (i.e. give your all to the company) instead of it being a "we are a healthy family" (i.e. our company values each employee).
+
+```unknown
+We model ourselves on being a professional sports team, not a family.
+
+A family is about unconditional love.
+
+A dream team is about pushing yourself to be the best possible teammate, caring intensely about your team, and knowing that you may not be on the team forever.
+
+Dream teams are about performance, not seniority or tenure.
+```
