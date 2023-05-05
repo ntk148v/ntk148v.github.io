@@ -1,7 +1,7 @@
 ---
-title: "Thought"
-date: "2023-03-03T09:33:58+07:00"
-tags: ["though"]
+title: 'Thought'
+date: '2023-03-03T09:33:58+07:00'
+tags: ['though']
 draft: false
 comment: true
 ---
@@ -49,3 +49,17 @@ A dream team is about pushing yourself to be the best possible teammate, caring 
 
 Dream teams are about performance, not seniority or tenure.
 ```
+
+## How to write a resume
+
+Good writing from Huyen Chip: <https://huyenchip.com/2023/01/24/what-we-look-for-in-a-candidate.html>
+
+- **We look for demonstrated expertise, not keywords**
+  - Show how you acquired and use that skill in your job.
+  - Share your expertise on public channels such as: StackOverflow answers, open source contributions, papers, blog posts
+- **We look for people who get things done**
+- **We look for unique perspectives**
+- **We care about impact, not meaningless metrics**
+  - Metrics:
+    - How they can be tied to business objectives.
+    - Your contribution in achieving that metric.
