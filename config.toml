@@ -2,6 +2,7 @@ baseURL = 'http://ntk148v.github.io'
 languageCode = 'en-us'
 title = "kiennt26's home"
 theme = "hugo-toigian"
+enableGitInfo = true
 
 [params]
 # (Optional, default true): Controls table of contents visibility on right side of pages.
@@ -46,3 +47,9 @@ email = "kiennt2609@gmail.com"
   name = "Posts"
   url = "/posts"
   weight = 3
+
+[frontmatter]
+  date = ['date', 'publishDate', 'lastmod']
+  expiryDate = ['expiryDate']
+  lastmod = [':git', 'lastmod', 'date', 'publishDate']
+  publishDate = ['publishDate', 'date']
