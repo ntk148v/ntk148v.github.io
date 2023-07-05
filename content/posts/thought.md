@@ -63,3 +63,19 @@ Good writing from Huyen Chip: <https://huyenchip.com/2023/01/24/what-we-look-for
   - Metrics:
     - How they can be tied to business objectives.
     - Your contribution in achieving that metric.
+
+## Life vs. Work Balance
+
+From [Salvatore Sanfilippo aka antirez aka Redis's author blog](http://invece.org/):
+
+```unknown
+Life is too short to work like crazy for most of its part.
+```
+
+## Collin Powell's quote
+
+From [Collin Powell]():
+
+```unknown
+"Success is the result of perfection, hard work, learning from failure, loyalty, and persistence." - Colin Powell
+```
