@@ -1,7 +1,7 @@
 ---
-title: 'Golang Async'
-date: '2023-07-21T16:16:31+07:00'
-tags: ['tech', 'golang']
+title: "Golang Async"
+date: "2023-07-21T16:16:31+07:00"
+tags: ["tech", "golang"]
 draft: false
 comment: true
 ---
