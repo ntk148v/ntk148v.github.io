@@ -74,8 +74,24 @@ Life is too short to work like crazy for most of its part.
 
 ## Collin Powell's quote
 
-From [Collin Powell]():
+From [Collin Powell](https://en.wikipedia.org/wiki/Colin_Powell):
 
 ```unknown
 "Success is the result of perfection, hard work, learning from failure, loyalty, and persistence." - Colin Powell
 ```
+
+## Before you try to do something, make sure you can do nothing
+
+Source: <https://devblogs.microsoft.com/oldnewthing/20230725-00/?p=108482>
+
+When building a new thing, a good thing first step is to build a thing that _does nothing_. That way, you at least know you are starting from a good place. If I'm building a component that performns an action, I'll probably do it in these steps:
+
+0. Write a standalone program to perform the action -> ensure that the action is even possible.
+1. Once I have working code to perform the action, I write a component that _doesn't_ perform an action. That at least makes sure I know how to build a component.
+2. I register the component for the action, but have the Invoke method merely print the message "Yay!" to the debugger without doing anything else. This makes sure I know how to get the component to run at the proper time.
+3. I fill in the Invoke method with enough code to identify what action to perform and which object to perform it on, print that information to the debugger, and return without actually performing the action. This makes sure I can identify which action is supposed to be done.
+4. I fill in the rest of the Invoke method to perform the action on the desired object. For this, I can copy/paste the already-debugged code from the step zero.
+
+Too often, I see relatively inexperienced developers dive in and start writing a big complex thing: Then they can’t even get it to compile because it’s so big and complex. They ask for help, saying, “I’m having trouble with this one line of code,” but as you study what they have written, you realize that this one line of code is hardly the problem. The program hasn’t even gotten to the point where it can comprehend the possibility of executing that line of code. I mutter to myself, “How did you let it get this bad?”
+
+**Start with something that does nothing**. Make sure you can do nothing successfully. Only then should you start making changes so it starts doing something. That way, you know that any problems you have are related to your attempts to do something.
