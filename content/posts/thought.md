@@ -1,7 +1,7 @@
 ---
-title: "Thought"
-date: "2023-03-03T09:33:58+07:00"
-tags: ["though"]
+title: 'Thought'
+date: '2023-03-03T09:33:58+07:00'
+tags: ['though']
 draft: false
 comment: true
 ---
@@ -95,3 +95,7 @@ When building a new thing, a good thing first step is to build a thing that _doe
 Too often, I see relatively inexperienced developers dive in and start writing a big complex thing: Then they can’t even get it to compile because it’s so big and complex. They ask for help, saying, “I’m having trouble with this one line of code,” but as you study what they have written, you realize that this one line of code is hardly the problem. The program hasn’t even gotten to the point where it can comprehend the possibility of executing that line of code. I mutter to myself, “How did you let it get this bad?”
 
 **Start with something that does nothing**. Make sure you can do nothing successfully. Only then should you start making changes so it starts doing something. That way, you know that any problems you have are related to your attempts to do something.
+
+## Good code is like a love letter to the next developer who will maintain its
+
+Check out [Addy's blog post](https://addyosmani.com/blog/good-code/).
