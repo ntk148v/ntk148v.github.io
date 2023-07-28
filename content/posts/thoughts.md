@@ -1,10 +1,14 @@
 ---
-title: "Thought"
+title: "Thoughts"
 date: "2023-03-03T09:33:58+07:00"
-tags: ["though"]
+tags: ["thoughs", "non-tech", "ramblings"]
 draft: false
 comment: true
 ---
+
+{{< quote info >}}
+A collection of interesting thoughts and opinions that I come across
+{{< /quote >}}
 
 ## Willingness to look stupid
 
@@ -64,21 +68,13 @@ Good writing from Huyen Chip: <https://huyenchip.com/2023/01/24/what-we-look-for
     - How they can be tied to business objectives.
     - Your contribution in achieving that metric.
 
-## Life vs. Work Balance
+## Life is too short to work like crazy for most of its part
 
-From [Salvatore Sanfilippo aka antirez aka Redis's author blog](http://invece.org/):
+From [Salvatore Sanfilippo aka antirez aka Redis's author blog](http://invece.org/).
 
-```unknown
-Life is too short to work like crazy for most of its part.
-```
+## Success is the result of perfection, hard work, learning from failure, loyalty, and persistence
 
-## Collin Powell's quote
-
-From [Collin Powell](https://en.wikipedia.org/wiki/Colin_Powell):
-
-```unknown
-"Success is the result of perfection, hard work, learning from failure, loyalty, and persistence." - Colin Powell
-```
+From [Collin Powell](https://en.wikipedia.org/wiki/Colin_Powell).
 
 ## Before you try to do something, make sure you can do nothing
 
@@ -98,4 +94,4 @@ Too often, I see relatively inexperienced developers dive in and start writing a
 
 ## Good code is like a love letter to the next developer who will maintain its
 
-Check out [Addy's blog post](https://addyosmani.com/blog/good-code/).
+From [Addy's blog post](https://addyosmani.com/blog/good-code/).
