@@ -1,7 +1,7 @@
 ---
-title: "Thoughts"
-date: "2023-03-03T09:33:58+07:00"
-tags: ["thoughs", "non-tech", "ramblings"]
+title: 'Thoughts'
+date: '2023-03-03T09:33:58+07:00'
+tags: ['thoughs', 'non-tech', 'ramblings']
 draft: false
 comment: true
 ---
@@ -95,3 +95,13 @@ Too often, I see relatively inexperienced developers dive in and start writing a
 ## Good code is like a love letter to the next developer who will maintain its
 
 From [Addy's blog post](https://addyosmani.com/blog/good-code/).
+
+## 7 years cycle
+
+{{< figure class="figure" src="/photos/thoughts/we-build-7-years-cycle.png" >}}
+
+## Looking for peaceful
+
+Can't say that I apply that insight consciously but these days there's no over ambitious goal in my head. I just want a peaceful, quiet life. Cooking good food, doing good work, spending time with the people I love. I wanted to be someone famous. Someone that people will look up to and say woah. Now, I'm ok with being a no one.
+
+{{< figure class="figure" src="/photos/thoughts/we-build-another.png" >}}
