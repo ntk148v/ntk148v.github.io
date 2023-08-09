@@ -111,3 +111,16 @@ Can't say that I apply that insight consciously but these days there's no over a
 _Just do it_.
 
 From [Allen Pike's blog](https://allenpike.com/2023/do-something-so-we-can-change-it).
+
+## Sane work weeks make the News
+
+```text
+... try working damn hard for 40 hours, then going home and recharging ...
+```
+
+- <https://steamclock.com/blog/2013/04/sane-work-weeks>
+- <https://www.inc.com/jessica-stillman/why-working-more-than-40-hours-a-week-is-useless.html>
+
+## Titles are toxic
+
+From: <https://randsinrepose.com/archives/titles-are-toxic/>
