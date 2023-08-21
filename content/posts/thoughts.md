@@ -124,3 +124,17 @@ From [Allen Pike's blog](https://allenpike.com/2023/do-something-so-we-can-chang
 ## Titles are toxic
 
 From: <https://randsinrepose.com/archives/titles-are-toxic/>
+
+## Proof you can do hard things
+
+From: <https://blog.nateliason.com/p/proof-you-can-do-hard-things>
+
+Our self-image is composed of historical evidence of our abilities. **The more hard things you push yourself to do, the more competent you will see yourself to be**.
+
+...
+
+**The proof you can do hard things is one of the most powerful gifts you can give yourself.**.
+
+And if you’re not someone who knows they can do hard things, find a way to prove it to yourself. **Build a habit, learn a skill, create something, whatever it is that turns your default stance on challenges from "that seems hard" to "I can figure it out".**
+
+Create proof you can do hard things.
