@@ -1,7 +1,7 @@
 ---
-title: 'Writing a Simple Shell in C Sharp'
-date: '2023-08-20T23:15:34+07:00'
-tags: ['tech', 'csharp', 'shell']
+title: "Writing a Simple Shell in C Sharp"
+date: "2023-08-20T23:15:34+07:00"
+tags: ["tech", "csharp", "shell"]
 draft: false
 comment: true
 ---
