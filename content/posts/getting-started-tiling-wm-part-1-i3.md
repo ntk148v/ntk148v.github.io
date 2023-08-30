@@ -13,11 +13,11 @@ draft: false
 I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I've gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.
 {{< /quote >}}
 
-## 1. Overview Window Manager
+## Overview Window Manager
 
 First of all, you have to know the basic concepts.
 
-### 1.1. Desktop Environment vs. Window Manager
+###  Desktop Environment vs. Window Manager
 
 We'll begin by showing how the Linux graphical desktop is layered. There are basically 3 layers that can be included in the Linux desktop:
 
@@ -40,7 +40,7 @@ A[Desktop Environment] --> B[Window Manager];
 B --> C[X Windows];
 {{< /mermaid >}}
 
-### 1.2. Types of Window Manager
+###  Types of Window Manager
 
 - **Stack window manager**:
   - A stack window manager renders the window one-by-one onto the screen at specific co-orinates. If one window's area overlaps another, then the window "on top" overwites part of the other's visible appearance. This results in the appearance familiar to many users in which windows act a little like pieces of paper on a desktop, which can be moved around and allowed to overlap.
@@ -52,7 +52,7 @@ B --> C[X Windows];
   - A compositing window manager may appear to the user similar to a stacking window manager. However, the individual windows are first renders in individual buffers, and then theirs images are composited onto the screen buffer; this two-step process means that visual effects (such as shadows, translucency) can be applied.
   - Mutter (GNOME), Xfwm (XFCE), Compiz (Unity), KWin (KDE)
 
-## 2. Overview I3
+## Overview I3
 
 - [i3wm](https://i3wm.org) is a tiling window manager designed for [X11](https://en.wikipedia.org/wiki/X_Window_System).
 - It supports tiling, stacking, and tabbing layouts, which it handles dynamically.
@@ -63,9 +63,9 @@ B --> C[X Windows];
 - Floating pop-up windows.
 - Want more, check [this](https://i3wm.org/docs/userguide.html).
 
-## 3. Minimal I3 setup
+## Minimal I3 setup
 
-### 3.1. Operating System
+###  Operating System
 
 - Ubuntu 20.04 (Desktop/Server), download the [installer](https://ubuntu.com/download/) and install Ubuntu by walking through installer.
 - If you choose Ubuntu Server, you'll need a display server so let's install X Window System ([Xorg](https://wiki.archlinux.org/index.php/Xorg)).
@@ -76,7 +76,7 @@ sudo apt install xinit
 # You can override it by creating and modifying ~/.xinitrc
 ```
 
-### 3.2. Install I3
+###  Install I3
 
 - You can install i3 from [Ubuntu repository](https://packages.ubuntu.com/search?keywords=i3). It includes the window manager, a screen locker and two programs which write a status line to i3bar through stdout.
 
@@ -120,18 +120,18 @@ sudo ninja install
 
 {{< figure class="figure" src="/photos/getting-started-tiling-wm-part-1/i3-default-config-file.png" >}}
 
-## 4. Usage
+## Usage
 
 This post doesn't aim to cover everything about i3, see the [official documentation](https://i3wm.org/docs/userguide.html) for more information.
 
-### 4.1. Keybindings
+###  Keybindings
 
 - In i3, commands are invoked with a modifier key, referred to as `$mod`. This is `Alt (Mod1)` by default, with `Super (Mod4)` being a popular alternative. Super is the key usually represented on a keyboard as a Windows icon, or on an Apple keyboard as a Command key.
 - See [i3 reference card](https://i3wm.org/docs/refcard.html) and [Using i3](https://i3wm.org/docs/userguide.html#_using_i3) for defaults.
 
 {{< figure class="figure" src="/photos/getting-started-tiling-wm-part-1/i3-refcard.png" >}}
 
-### 4.2. Workspace, Container and Window
+###  Workspace, Container and Window
 
 {{< mermaid >}}
 
@@ -165,12 +165,12 @@ style Container3 fill:#6fa8dc;
 - A window, where an application is running, can be created in a container. It will automatically position itself and be in focus, depending on the container’s layout. You can move them around or even change the layout of the container using keystrokes.
 - There are two different sorts of windows: **fixed window**s (by default) and **floating windows**.
 
-### 4.3. Application launcher
+###  Application launcher
 
 - i3 uses [dmenu](https://wiki.archlinux.org/title/Dmenu) as an application launcher, which is bound by default to `$mod+d`.
 - [rofi]({{< ref "/posts/getting-started-tiling-wm-part-2-rofi.md" >}}) is a popular dmenu replacement and more that can list dekstop entries.
 
-## 5. Configuration
+## Configuration
 
 - You can use my minimal configuration. It requires some extra packages.
 
@@ -362,7 +362,7 @@ exec_always hsetroot -solid "#F1CCBB"
 
 {{< /details >}}
 
-## 6. Some tricks and tips
+## Some tricks and tips
 
 - A trick with terminal emulator:
 
@@ -387,7 +387,7 @@ EOT
 
 {{< figure class="figure" src="/photos/getting-started-tiling-wm-part-1/i3-gaps-config.png" >}}
 
-## 7. References
+## References
 
 1. https://www.lifewire.com/window-manager-vs-the-desktop-environment-in-linux-4588338
 2. https://en.wikipedia.org/wiki/X_window_manager

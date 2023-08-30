@@ -12,13 +12,13 @@ draft: false
 Ansitheus: Ansible + Prometheus
 ```
 
-## 1. Prometheus overview
+## Prometheus overview
 
 > **NOTE**: Checkout the [Prometheus official documentation](https://prometheus.io/docs/introduction/overview/).
 
 [Prometheus](https://github.com/prometheus) is an open-source systems monitoring & alerting toolkit originally built at SoundCloud.
 
-### 1.1. Features
+### Features
 
 - a multi-dimensional data model with time series data identified by metric name & key/value pairs
 - PromQL, a flexible query language to leverage this dimensionality
@@ -28,7 +28,7 @@ Ansitheus: Ansible + Prometheus
 - targets are discovered via service discovery or static configuration
 - multiple modes of graphing & dashboarding support
 
-### 1.2. Architecture & components
+### Architecture & components
 
 Prometheus scrapes metrics from instrumented jobs, either directly or via an intermediary push gateway for short-lived jobs. It stores all scraped samples locally & runs rules over this data to either aggregate & record new time series from existing data or generate alerts. Grafana or other API consumers can be used to visualize the collected data.
 
@@ -41,13 +41,13 @@ Prometheus scrapes metrics from instrumented jobs, either directly or via an int
 - client libraries: instrument application code.
 - Various support tools: Grafana,...
 
-## 2. Ansitheus
+## Ansitheus
 
-### 2.1. Why Ansitheus?
+### Why Ansitheus?
 
 As you can see that, Prometheus ecosystem consists of multiple components. The operator may need a lot of efforts to configure, deploy & maintain these components. To make life easier, it is necessary to enter the world of automation, using modern tools of configuration management, provisioning & orchestration. [Ansible](https://ansible.com) is one of them. It is [simple, agentless IT automation that anyone can use](https://www.ansible.com/overview/how-ansible-works). My team decided to choose it as the automation solution, & [Ansitheus](https://github.com/ntk148v/ansitheus) is the result.
 
-### 2.2. Features
+### Features
 
 The idea using Ansible to deploy Prometheus is not new. There are many existing solutions:
 
@@ -70,7 +70,7 @@ So what makes `Ansitheus` be different with others?
 - **Support centralized Docker logging** with Fluentd.
 - **Support Ansible vault** to work with sensitive data.
 
-### 2.3. Components
+### Components
 
 - [Prometheus Server](https://github.com/prometheus/prometheus)
 - [Prometheus Alertmanager](https://github.com/prometheus/alertmanager)
@@ -83,7 +83,7 @@ So what makes `Ansitheus` be different with others?
 - [Grafana](https://github.com/grafana/grafana)
 - Other Prometheus exporters - **TODO**
 
-### 2.4. Getting started
+### Getting started
 
 1. Install Ansible in deployment node.
 
@@ -134,7 +134,7 @@ So what makes `Ansitheus` be different with others?
 
    ```
 
-### 2.5. Contributors
+### Contributors
 
 1. [Kien Nguyen](https://github.com/ntk148v)
 2. [Dat Vu](https://github.com/vtdat)

@@ -11,7 +11,7 @@ draft: false
 In the [part1]({{< ref "/posts/getting-started-tiling-wm-part-1-i3.md" >}}), I've used `rofi` instead of `dmenu`. This part will show you how to start with `rofi`.
 {{< /quote >}}
 
-## 1. Introduction
+## Introduction
 
 - [Rofi](https://github.com/davatorium/rofi) is a window switcher, application launcher and dmenu replacement.
 - Features:
@@ -25,7 +25,7 @@ In the [part1]({{< ref "/posts/getting-started-tiling-wm-part-1-i3.md" >}}), I'v
   - History-based ordering.
   - ...
 
-## 2. Getting started
+## Getting started
 
 - Installing `rofi` is quite easy.
 
@@ -95,7 +95,7 @@ rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -colum
 - Press hot key (defined in i3 configuration file) `<Window>+d` to start rofi. Use `<Shift>+<left/right>` to switch between mode.
 - More details you can found in [rofi github](https://github.com/davatorium/rofi).
 
-## 3. Tweaking
+## Tweaking
 
 - The default setup looks quite boring. Let's tweak a bit!
 - There are currently three methods of setting configuration options:

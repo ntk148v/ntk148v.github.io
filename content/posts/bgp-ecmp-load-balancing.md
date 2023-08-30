@@ -6,7 +6,7 @@ comments: true
 tags: ["tech", "network", "bgp", "ecmp"]
 ---
 
-## 1. Introduction
+## Introduction
 
 We will build a Load balancer with [BGP](https://en.wikipedia.org/wiki/Border_Gateway_Protocol) and [Equal-Cost Multipath routing (ECMP)](https://en.wikipedia.org/wiki/Equal-cost_multi-path_routing) using both [Bird](https://bird.network.cz/) and [ExaBGP](https://github.com/Exa-Networks/exabgp).
 
@@ -16,7 +16,7 @@ References:
 - [Multi-tier load balancer](https://vincent.bernat.ch/en/blog/2018-multi-tier-loadbalancer#first-tier-ecmp-routing)
 - [Load balancing without Load balancers](https://blog.cloudflare.com/cloudflares-architecture-eliminating-single-p/)
 
-## 2. Lab overview
+## Lab overview
 
 - [EVE-NG](https://www.eve-ng.net/) version 2.0.3-112
 - QEMU version 2.4.0
@@ -29,9 +29,9 @@ References:
 - `client`, `lb1`, and `lb2` are Ubuntu server 18.04 instances. `lb1` and `lb2` will be in the `10.12.12.0/24` private LAN, we will install nginx (LB L7) on these. Both servers will announce the same public IP (10.13.13.1) to `EdgeRouter` using BGP. Incoming traffic from internet to this public IP will be routed to `lb1` or `lb2` depending of a hash.
 - You need to download and install device virtual images. Follow [EVE-NG guide](https://www.eve-ng.net/index.php/documentation/howtos/howto-add-fortinet-images/).
 
-## 3. Configure
+## Configure
 
-### 3.1. ISPRouter
+###  ISPRouter
 
 Follow the [Fortigate document](https://docs.fortinet.com/document/fortigate/7.0.3) for the basic commands.
 
@@ -82,7 +82,7 @@ config firewall policy
 end
 ```
 
-### 3.2. EdgeRouter
+###  EdgeRouter
 
 ```bash
 config system interface
@@ -147,7 +147,7 @@ config system settings
 end
 ```
 
-### 3.3. Switch
+###  Switch
 
 - Set up mode access.
 
@@ -160,7 +160,7 @@ exit
 copy running-config start-config
 ```
 
-### 3.4. Servers
+###  Servers
 
 - Configure `10.13.13.1` on the local loopback interface.
 
@@ -211,7 +211,7 @@ lb1$ sudo service nginx start
 
 Choose one of the follow configurations (Bird or ExaBGP).
 
-#### 3.4.1. Configure Bird
+#### . Configure Bird
 
 - We will use [Bird](https://github.com/CZ-NIC/bird).
 - Install bird
@@ -266,7 +266,7 @@ Feb 07 08:11:13 lb2 bird[884]: Chosen router ID 10.12.12.2 according to interfac
 Feb 07 08:11:13 lb2 bird[884]: Started
 ```
 
-#### 3.4.2. Configure ExaBGP
+#### . Configure ExaBGP
 
 - Instead of Bird, we can also use [ExaBGP](https://github.com/Exa-Networks/exabgp). ExaBGP provides a convenient way to implement Software Defined Networking by transforming BGP messages into friendly plain text or JSON, which can then be easily handled by simple scripts or your BSS/OSS.
 - Install ExaBGP
@@ -337,11 +337,11 @@ lb1$ sudo service exabgp start
 lb1$ sudo service exabgp status
 ```
 
-## 4. Validate
+## Validate
 
 To make sure everything works as expected.
 
-### 4.1. Scenario 1: Both servers are OK
+###  Scenario 1: Both servers are OK
 
 - Client check.
 
@@ -443,7 +443,7 @@ Origin codes: i - IGP, e - EGP, ? - incomplete
 Total number of prefixes 1
 ```
 
-### 4.2. Scenario 2: One lb is down
+###  Scenario 2: One lb is down
 
 - Stop nginx on lb2 (ExaBGP only, Bird may require the complete shutdown) or stop lb2 physically.
 

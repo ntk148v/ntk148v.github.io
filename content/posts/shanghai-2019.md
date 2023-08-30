@@ -8,22 +8,22 @@ draft: true
 
 > WIP
 
-## 1. Chuẩn bị
+## Chuẩn bị
 
-### 1.2. Ứng dụng cần cài đặt
+###  Ứng dụng cần cài đặt
 
-### 1.3. Tiền tệ
+###  Tiền tệ
 
-## 2. Di chuyển
+## Di chuyển
 
-## 3. Địa điểm thăm thú
+## Địa điểm thăm thú
 
-## 4. Ăn uống
+## Ăn uống
 
-## 5. Chuyện bên lề
+## Chuyện bên lề
 
-### 5.1. Trung Quốc và QR Code
+###  Trung Quốc và QR Code
 
-### 5.2. Ngôn ngữ
+###  Ngôn ngữ
 
-### 5.3. Đi vệ sinh...
+###  Đi vệ sinh...

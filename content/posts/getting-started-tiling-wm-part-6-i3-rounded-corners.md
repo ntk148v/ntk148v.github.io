@@ -7,7 +7,7 @@ comments: true
 
 According to [Reddis post](https://www.reddit.com/r/unixporn/comments/7h0rm0/what_would_you_want_in_a_wm/) and [i3-gaps issue](https://github.com/Airblader/i3/issues/167), it seems like a lot of people would like this. But Airblade - i3-gaps maintainer [doesn't like it](https://github.com/Airblader/i3/issues/167#issuecomment-328562433). But nevermind, we still have two ways to achieve it.
 
-## 1. Rounded i3-gaps
+## Rounded i3-gaps
 
 [Resloved](https://github.com/resloved) have an awesome [fork](https://github.com/resloved/i3) to implement rounded corners. I fork it again to keep it up-to-date with the upstream i3-gaps. You can check it [here](https://github.com/ntk148v/i3).
 
@@ -43,7 +43,7 @@ border_radius 10
 
 {{< figure class="figure" src="/photos/getting-started-tiling-wm-part-6/rounded-corners-4.png" >}}
 
-## 2. picom
+## picom
 
 - You can also achieve rounded corners by using [picom](https://github.com/yshui/picom).
 - Install picom.

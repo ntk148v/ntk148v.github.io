@@ -10,7 +10,7 @@ draft: false
 
 Sometimes, you want to block the current goroutine when allowing others to continue. Here is some tricks I've collected:
 
-## 1. References
+## References
 
 Firstly give them some credits:
 
@@ -19,7 +19,7 @@ Firstly give them some credits:
 
 > NOTE: I run these with Golang 1.12
 
-## 2. The original
+## The original
 
 ```go
 package main
@@ -39,7 +39,7 @@ func main() {
 }
 ```
 
-## 3. Bad - An empty infinite loop
+## Bad - An empty infinite loop
 
 ```go
 package main
@@ -71,7 +71,7 @@ func main() {
 
 An infinite loop here is a busy loop that does nothing except burn CPU time.
 
-## 4. Good - Busy blocking
+## Good - Busy blocking
 
 ```go
 package main
@@ -104,7 +104,7 @@ func main() {
 
 It will reduce your CPU usage but it isn't the preferable solution.
 
-## 5. Good - Waiting on itself
+## Good - Waiting on itself
 
 We wait but we never done XD
 
@@ -137,7 +137,7 @@ func main() {
 }
 ```
 
-## 6. Good - Empty select
+## Good - Empty select
 
 ```go
 package main
@@ -165,7 +165,7 @@ func main() {
 }
 ```
 
-## 7. Good - Double locking
+## Good - Double locking
 
 ```go
 package main
@@ -196,7 +196,7 @@ func main() {
 }
 ```
 
-## 8. Good - Reading an Empty Channel
+## Good - Reading an Empty Channel
 
 ```go
 package main
@@ -225,7 +225,7 @@ func main() {
 }
 ```
 
-## 9. Good - Self produce-and-consume
+## Good - Self produce-and-consume
 
 ```go
 package main

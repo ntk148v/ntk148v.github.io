@@ -17,7 +17,7 @@ Since its purpose demonstration (not feature completeness or even fitness for ca
 
 > Before we start, make sure you have .NET Core environment and knownledge.
 
-## 1. What is a shell?
+## What is a shell?
 
 In computing, a [shell](<https://en.wikipedia.org/wiki/Shell_(computing)>) is a computer program that exposes an operating system's services to a human user or other programs. In general, operating system shells use either a command-line interface (CLI) or graphical user interface (GUI), depending on a computer's role and particular operation. It is named a shell because it is the outermost layer around the operating system.
 
@@ -40,7 +40,7 @@ Documents   Downloads   Desktop
 
 That's it!
 
-## 2. Basic lifetime of a shell
+## Basic lifetime of a shell
 
 Let's look at a shell from the top down. A shell does three main things its lifetime.
 
@@ -99,7 +99,7 @@ kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/
 The input commmand: cd
 ```
 
-## 3. Execute command
+## Execute command
 
 Now, we want to execute the entered command in `ExecCommand(string input)` function.
 
@@ -176,11 +176,11 @@ Unhandled exception. System.ComponentModel.Win32Exception (2): An error occurred
 
 Huh, something went wrong here. Why does the `cd` command not work? `cd` is not [real](https://stackoverflow.com/a/38776411) command, the functionality is a built-in command of the shell.
 
-## 4. Shell Built-in Commands
+## Shell Built-in Commands
 
 Now, we will create some built-in commands. We have to modify the `ExecCommand` function: add a `switch` statement to the first argument (the command to execute) which is stored in `args[0]`.
 
-### 4.1. `cd`
+###  `cd`
 
 First, implement `cd`:
 
@@ -238,7 +238,7 @@ First, implement `cd`:
     }
 ```
 
-### 4.2. `exit`
+###  `exit`
 
 Similiarly, implement the `exit` command, it's quite simple.
 
@@ -263,7 +263,7 @@ Similiarly, implement the `exit` command, it's quite simple.
     }
 ```
 
-### 4.3. `which`
+###  `which`
 
 `which` returns the pathnames of the files (or links) which would be executed in the current environment. It does this by searching the PATH for executable files matching the file names of the arguments.
 
@@ -329,7 +329,7 @@ kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/
 
 ```
 
-### 4.4. `help`
+###  `help`
 
 A help page always necessary, let's create one. Logic is simple:
 
@@ -432,9 +432,9 @@ KShell aka. Kien's Shell, written in C#.
     help
 ```
 
-## 5. Improvement
+## Improvement
 
-### 5.1. Handle exception
+###  Handle exception
 
 Entering the wrong command, and a long stacktrace returns. It makes nonsense for the end user. The end user just need a message like: "command not found". Just it.
 
@@ -477,7 +477,7 @@ kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/
 An error occurred trying to start process 'wrongcommand' with working directory '/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0'. No such file or directory
 ```
 
-### 5.2. Handle command not found
+###  Handle command not found
 
 The exception's message is still not clear enough for the end user. We can check if the command is existing before execute it. Remember `search3`
 
@@ -499,7 +499,7 @@ wrongcommand: command not found
 
 ```
 
-## 6. Wrap up
+## Wrap up
 
 I hope you enjoyed it. I think, when you understand the concepts behind it, it's quite simple (especially with high-level programming language like C#).
 

@@ -15,7 +15,7 @@ Ok ok, calm down, the title is completely a clickbait. Prometheus is still a ver
 
 This post is my personal opinion, so if you are disagree, [leave some comments](https://ntk148v.github.io/blog/posts/lets-comment/).
 
-## 1. Doesn't support TLS or authentication
+## Doesn't support TLS or authentication
 
 Ok, look at [FAQ](https://prometheus.io/docs/introduction/faq/#why-dont-the-prometheus-server-components-support-tls-or-authentication-can-i-add-those):
 
@@ -27,7 +27,7 @@ server-side components.
 
 IMO, there should be a built-in feature rather than using 3rd-party components like a reverse proxy. Nicely, the Prometheus team has changed their stance (_Thanks!!!_ :bow:) on this during its development summit on August 11, 2018, and support for TLS and authentication in serving endpoints is now on [the project's roadmap](https://prometheus.io/docs/introduction/faq/#why-dont-the-prometheus-server-components-support-tls-or-authentication-can-i-add-those). TLS and authentication aren't available now, so let's list it as a drawback, right.
 
-## 2. Plain Configuration
+## Plain Configuration
 
 In general, there is `user experience`.
 
@@ -46,13 +46,13 @@ Even me, sometimes I wish that Prometheus provides an user interface to update i
 
 ![](https://raw.githubusercontent.com/line/promgen/master/docs/images/screenshot.png)
 
-## 3. Doesn't have RBAC (Role-based access control)
+## Doesn't have RBAC (Role-based access control)
 
 Prometheus doesn't have user, project, group, role and permission concepts. In production, the number of targets keeps increasing rapidly, I couldn't handle them all. I want to share Prometheus configuration with someone else, so they can update it for me. But at the same time, I don't want they change other set of targets. "Please don't touch anything rather than your targets!" and no guarantee that my configuration won't be changed suddenly. You know, _Humans are all curious creatures_.
 
 In my expectation, Prometheus could has an user/project management with RBAC.
 
-## 4. High-availability
+## High-availability
 
 Prometheus itself provides no real HA/clustering support. As such the best-practice is to run multiple (e.g N) hosts with the same config (and it should be **Active-Passive model** instead of **Active-Active**). Data between Prometheus servers aren't sync with each other. They aren't persistent data.
 
@@ -60,7 +60,7 @@ If we have 3 Prometheus servers, metrics have to be scraped 3 times. It increase
 
 Another thing should be considered as a drawback. Prometheus resource are restricted on a single physical servers that has its own limit. We can scale up only, to scale out we have to split a set of targets to other Prometheus servers manually.
 
-## 5. The lack of documentation
+## The lack of documentation
 
 IMO, Prometheus doesn't give enough necessary information for user. Many important tips I have to learn from [Robust Perception blog](https://www.robustperception.io/) instead of official documentation. But this is just a minor drawback, Prometheus is an open-source project so we can contribute to it :muscle:.
 

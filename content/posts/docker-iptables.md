@@ -5,11 +5,11 @@ tags: ["tech", "docker", "iptables"]
 comments: true
 ---
 
-## 1. Mission
+## Mission
 
 If you're running Docker on a host that is exposed to the Internet (network bridge), you will probably want to restrict external access.
 
-## 2. Docker network
+## Docker network
 
 Let's start with a fact that Docker manipulates `iptables` rules to provide network isolation, on Linux. Docker installs custom iptables chains named `DOCKER`, `DOCKER-USER` and `DOCKER-ISOLATION-STAGE-*`, and it ensures that incoming packets are always checked by these chains first.
 
@@ -25,11 +25,11 @@ This is a basic packet flow from outside:
 
 {{< figure class="figure" src="/photos/docker-iptables/docker-iptables-2.png" >}}
 
-## 3. You may do it wrong - common mistakes
+## You may do it wrong - common mistakes
 
 Alright, before we make it right, there are some common mistakes.
 
-### 3.1. Modify Docker generated rules manually
+###  Modify Docker generated rules manually
 
 Docker generates iptables rules, then adds to `DOCKER` chains. Some users may manipulate this chain manually in order to block connections.
 
@@ -39,7 +39,7 @@ _Please don't do it_. Yes, you are able to do it, there is nothing prevent you t
 Right: Do not manipulate Docker rules manually.
 {{< /quote >}}
 
-### 3.2. Insert you rules in the wrong chain
+###  Insert you rules in the wrong chain
 
 iptables basic: iptables is divied into three levels: tables, chains and rules. We only use the filter tables, which contains:
 
@@ -53,7 +53,7 @@ Commonly, to block connection from external, put reject rules in INPUT chain. Bu
 Right: Add rules which load before Docker's rules, add them to DOCKER-USER.
 {{< /quote >}}
 
-### 3.3. Modify and persistent iptables wrong
+###  Modify and persistent iptables wrong
 
 You modify and persistent iptables rules like this:
 
@@ -68,9 +68,9 @@ This implementation has a drawback, every time Docker container changes, you nee
 Right: Do not save, flush then restore all rules. Check the following solution.
 {{< /quote >}}
 
-## 4. Do it right!
+## Do it right!
 
-### 4.1. Overview
+###  Overview
 
 I have create a repository for this, which is highly inspired by [systemd-service-iptables](https://github.com/boTux-fr/systemd-service-iptables): https://github.com/ntk148v/systemd-iptables
 
@@ -234,7 +234,7 @@ I have create a repository for this, which is highly inspired by [systemd-servic
   COMMIT
   ```
 
-### 4.2. Getting started
+###  Getting started
 
 - Ofc you need iptables and systemd installed.
 - On the Linux, run as root:
@@ -270,7 +270,7 @@ systemctl status iptables@base.service
 systemctl restart iptables@base.service
 ```
 
-## 5. References
+## References
 
 1. https://docs.docker.com/network/iptables/
 2. https://github.com/boTux-fr/systemd-service-iptables

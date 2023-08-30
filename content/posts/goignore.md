@@ -10,19 +10,19 @@ draft: false
 [Goignore](https://github.com/ntk148v/goignore) - A `.gitignore` wizard which gnerates `.gitignore` files from the command line for you. Inspired by [joe](https://github.com/karan/joe)
 {{< /quote >}}
 
-## 1. Features
+## Features
 
 - No installation necessary - just use the binary.
 - Works on Linux, Windows & MacOS.
 - Interactive user interface with [bubbletea](https://github.com/charmbracelet/bubbletea): Pagination, Filtering, Help...
 - Supports all Github-supported [.gitignore files](https://github.com/github/gitignore.git).
 
-## 2. Install
+## Install
 
 - Download the latest binary from the [Release page](https://github.com/ntk148v/goignore/releases). It's the easiest way to get started with `goignore`.
 - Make sure to add the location of the binary to your `$PATH`.
 
-## 3. Usage
+## Usage
 
 - Just run.
 

@@ -7,21 +7,21 @@ comments: true
 toc: true
 ---
 
-## 1. bat - (cat alternative)
+## bat - (cat alternative)
 
 - [bat](https://github.com/sharkdp/bat): A cat(1) clone with syntax highlighting and Git integration.
 - Example:
 
 {{< figure class="figure" src="/photos/linux-tools-that-you-never-knew-you-needed/bat.png" >}}
 
-## 2. fd - (find alternative)
+## fd - (find alternative)
 
 - [fd](https://github.com/sharkdp/fd): a simple, fast and user-friendly alternative to `find`.
 - Examples:
 
 {{< figure class="figure" src="https://raw.githubusercontent.com/sharkdp/fd/master/doc/screencast.svg" >}}
 
-## 3. httpie - (wget/curl alternative)
+## httpie - (wget/curl alternative)
 
 - [httpie](https://httpie.io): a user-friendly command-line HTTP client for the API era. It comes with JSON support, syntax highlighting, persistent sessions, wget-like downloads, plugins, and more.
 - Examples:
@@ -39,7 +39,7 @@ $ http pie.dev/post < files/data.json
 # For more examples, check out: https://httpie.io
 ```
 
-## 4. ripgrep - (grep alternative)
+## ripgrep - (grep alternative)
 
 - [ripgrep](https://github.com/BurntSushi/ripgrep): a faster `grep`. ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern. By default, ripgrep will respect your .gitignore and automatically skip hidden files/directories and binary files.
 - [Benchmark](https://github.com/BurntSushi/ripgrep#quick-examples-comparing-tools).
@@ -56,7 +56,7 @@ $ rg 'fn write\('
 # For more examples, checkout: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md
 ```
 
-## 5. delta
+## delta
 
 - [delta](https://github.com/dandavison/delta): Code evolves, and we all spend time studying diffs. Delta aims to make this both efficient and enjoyable: it allows you to make extensive changes to the layout and styling of diffs, as well as allowing you to stay arbitrarily close to the default git/diff output.
 - Diff/git diff doesn't show you exactly what was changed.
@@ -94,7 +94,7 @@ $ rg 'fn write\('
 alias diff="delta"
 ```
 
-## 6. z
+## z
 
 - Tired for `cd`ing into the same directories over and over? Save your time with `z` command!
 - [z](https://github.com/rupa/z): jump around. Z is a shell script that makes jumping around your file directory pleasantly simple. Instead of trying to remember the exact path of where you need to go, or worse, `cd`ing into the next directory followed by `ls`ing and then cding again over and over (we’ve all been there), Z allows you to “lazy type” where you want to go and it’ll handle the rest.
@@ -105,7 +105,7 @@ alias diff="delta"
 $ z workspace
 ```
 
-## 7. fzf
+## fzf
 
 - [fzf](https://github.com/junegunn/fzf): fzf is a general-purpose command-line fuzzy finder.
 - It's an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.
@@ -150,7 +150,7 @@ $ unalias **<TAB>
 
 {{< figure class="figure" src="/photos/linux-tools-that-you-never-knew-you-needed/fzf-cd.png" >}}
 
-## 8. thefuck
+## thefuck
 
 - [thefuck](https://github.com/nvbn/thefuck): Magnificent app which corrects your previous console command.
 
@@ -171,7 +171,7 @@ Reading package lists... Done
 # For more examples, check out: https://github.com/nvbn/thefuck
 ```
 
-## 9. exa - (ls alternative)
+## exa - (ls alternative)
 
 - [exa](https://the.exa.website): A modern replacement for ls. `exa` is an improved file lister with more features and better defaults. It uses colours to distinguish file types and metadata. It knows about symlinks, extended attributes, and Git. And it’s small, fast, and just one single binary.
 - Examples:

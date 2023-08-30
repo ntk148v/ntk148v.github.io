@@ -96,7 +96,7 @@ Too often, I see relatively inexperienced developers dive in and start writing a
 
 From [Addy's blog post](https://addyosmani.com/blog/good-code/).
 
-## 7 years cycle
+## ears cycle
 
 {{< figure class="figure" src="/photos/thoughts/we-build-7-years-cycle.png" >}}
 
