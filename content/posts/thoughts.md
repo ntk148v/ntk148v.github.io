@@ -1,7 +1,7 @@
 ---
-title: "Thoughts"
-date: "2023-03-03T09:33:58+07:00"
-tags: ["thoughts", "non-tech", "ramblings"]
+title: 'Thoughts'
+date: '2023-03-03T09:33:58+07:00'
+tags: ['thoughts', 'non-tech', 'ramblings']
 draft: false
 comment: true
 ---
@@ -96,7 +96,7 @@ Too often, I see relatively inexperienced developers dive in and start writing a
 
 From [Addy's blog post](https://addyosmani.com/blog/good-code/).
 
-## ears cycle
+## 7 years cycle
 
 {{< figure class="figure" src="/photos/thoughts/we-build-7-years-cycle.png" >}}
 
