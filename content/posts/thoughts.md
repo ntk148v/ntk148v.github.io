@@ -138,3 +138,8 @@ Our self-image is composed of historical evidence of our abilities. **The more h
 And if you’re not someone who knows they can do hard things, find a way to prove it to yourself. **Build a habit, learn a skill, create something, whatever it is that turns your default stance on challenges from "that seems hard" to "I can figure it out".**
 
 Create proof you can do hard things.
+
+## Mindset
+
+
+{{< figure class="figure" src="/photos/thoughts/mindset.jpg" >}}
