@@ -142,3 +142,9 @@ Create proof you can do hard things.
 ## Mindset
 
 {{< figure class="figure" src="/photos/thoughts/mindset.jpg" >}}
+
+## Jack of all trades, master of none
+
+"Jack of all trades, master of none" is a figure of speech used in reference to a person who has dabbled in many skills, rather than gaining expertise by focusing on only one.
+
+The original version, "a jack of all trades", is often used as a compliment for a person who is good at fixing things and has a good level of broad knowledge. They may be a master of integration: an individual who knows enough from many learned trades and skills to be able to bring the disciplines together in a practical manner. This person is a generalist rather than a specialist.
