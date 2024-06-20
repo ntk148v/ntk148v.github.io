@@ -34,8 +34,6 @@ atop
 
 Once atop is launched, by default it shows system activity for CPU, memory, swap, disks, and network in 10-second intervals. In addition, for each process and thread, you can analyze CPU utilization, memory consumption, disk I/O, priority, username, state, and even exit codes:
 
-![](images/atop-overview.png)
-
 {{< figure class="figure" src="/photos/atop/atop-overview.png" >}}
 
 The first thing that you'll notice is that there is a lot of information on that one screen. The second thing you should notice is that the window is resizeable. This feature allows you to see what's in each column instead of it being cut off, with no way to know what's there. Enlarging the screen during some operations will add additional columns with even more information in them.
