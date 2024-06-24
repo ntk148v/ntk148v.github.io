@@ -3,7 +3,7 @@ title: "Mục tiêu 2020"
 date: 2020-01-24T23:34:23+07:00
 comments: true
 tags: ["ramblings", "non-tech"]
-draft: false
+draft: true
 toc: true
 ---
 

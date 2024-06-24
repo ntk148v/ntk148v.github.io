@@ -3,7 +3,7 @@ title: "Mục tiêu 2019"
 date: 2019-02-04T23:16:47+07:00
 tags: ["ramblings", "non-tech"]
 comments: true
-draft: false
+draft: true
 toc: true
 ---
 
