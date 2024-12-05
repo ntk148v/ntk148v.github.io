@@ -1,3 +1,111 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Etcd on kiennt26's home</title><link>https://ntk148v.github.io/tags/etcd/</link><description>Recent content in Etcd on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 30 Aug 2023 09:43:02 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/etcd/index.xml" rel="self" type="application/rss+xml"/><item><title>Operate Etcd cluster</title><link>https://ntk148v.github.io/posts/operate-etcd-cluster/</link><pubDate>Tue, 28 Apr 2020 11:24:04 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/operate-etcd-cluster/</guid><description>NOTE: This is my perspective aggregation. You can easily find these such of knowledges in the references.
-Context Etcd Version v3.4.0.
-Requirements Number of nodes &amp;gt;= 3 nodes. A etcd cluster needs a majority of nodes, a quorum to agree on updates to the cluster state. For a cluster with n-members, quorum is (n/2)+1. CPUs Etcd doesn&amp;rsquo;t require a lot of CPU capacity. Typical clusters need 2-4 cores to run smoothly.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Etcd on kiennt26's home</title><link>https://ntk148v.github.io/tags/etcd/</link><description>Recent content in Etcd on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 30 Aug 2023 09:43:02 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/etcd/index.xml" rel="self" type="application/rss+xml"/><item><title>Operate Etcd cluster</title><link>https://ntk148v.github.io/posts/operate-etcd-cluster/</link><pubDate>Tue, 28 Apr 2020 11:24:04 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/operate-etcd-cluster/</guid><description>&lt;blockquote>
+&lt;p>&lt;strong>NOTE&lt;/strong>: This is my perspective aggregation. You can easily find these such of knowledges in &lt;a href="#5-references">the references&lt;/a>.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="context">Context&lt;/h2>
+&lt;p>Etcd Version &lt;code>v3.4.0&lt;/code>.&lt;/p>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;h3 id="number-of-nodes">Number of nodes&lt;/h3>
+&lt;ul>
+&lt;li>&amp;gt;= 3 nodes. A etcd cluster needs a majority of nodes, a quorum to agree on updates to the cluster state. For a cluster with &lt;strong>n-members&lt;/strong>, quorum is &lt;strong>(n/2)+1&lt;/strong>.&lt;/li>
+&lt;/ul>
+&lt;h3 id="cpus">CPUs&lt;/h3>
+&lt;ul>
+&lt;li>Etcd doesn&amp;rsquo;t require a lot of CPU capacity.&lt;/li>
+&lt;li>Typical clusters need &lt;strong>2-4 cores&lt;/strong> to run smoothly.&lt;/li>
+&lt;/ul>
+&lt;h3 id="memory">Memory&lt;/h3>
+&lt;ul>
+&lt;li>Etcd performance depends on having enough memory (cache key-value data, tracking watchers&amp;hellip;).&lt;/li>
+&lt;li>Typical &lt;strong>8GB&lt;/strong> is enough.&lt;/li>
+&lt;/ul>
+&lt;h3 id="disk">Disk&lt;/h3>
+&lt;ul>
+&lt;li>An etcd cluster is very sensitive to disk latencies. Since etcd must persist proposals to its log, disk activity from other processes may cause long &lt;code>fsync&lt;/code> latencies. The upshot is etcd may miss heartbeats, causing request timeouts and temporary leader loss. An etcd server can sometimes stably run alongside these processes when given a high disk priority.&lt;/li>
+&lt;li>Check whether a disk is fast enough for etcd using &lt;a href="https://github.com/axboe/fio">fio&lt;/a>. If the 99th percentile of fdatasync is &lt;strong>&amp;lt;10ms&lt;/strong>, your storage is ok.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ fio --rw&lt;span class="o">=&lt;/span>write --ioengine&lt;span class="o">=&lt;/span>sync --fdatasync&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span> --directory&lt;span class="o">=&lt;/span>test-data &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> --size&lt;span class="o">=&lt;/span>22m --bs&lt;span class="o">=&lt;/span>&lt;span class="m">2300&lt;/span> --name&lt;span class="o">=&lt;/span>mytest
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;strong>SSD&lt;/strong> is recommended.&lt;/li>
+&lt;/ul>
+&lt;h3 id="network">Network&lt;/h3>
+&lt;ul>
+&lt;li>Etcd cluster should be deployed in a fast and reliable network. Low latency ensures etcd members can communicate fast. High bandwidth can reduce the time to recover a failed etcd member.&lt;/li>
+&lt;li>&lt;strong>1GbE&lt;/strong> is sufficient for common etcd.&lt;/li>
+&lt;li>Note that the network isn&amp;rsquo;t the only source of latency. Each request and response may be impacted by slow disks on both the leader and followers.&lt;/li>
+&lt;/ul>
+&lt;h2 id="tuning">Tuning&lt;/h2>
+&lt;h3 id="time-parameters">Time parameters&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>Heartbeat interval&lt;/code>.
+&lt;ul>
+&lt;li>The frequency with which the leader will notify followers that it is still the leader.&lt;/li>
+&lt;li>Default: &lt;strong>100ms&lt;/strong>.&lt;/li>
+&lt;li>Best practice: &lt;strong>Around 0.5-1.5 x round-trip time (RTT) between members&lt;/strong>. Measure RTT with &lt;code>ping&lt;/code>.&lt;/li>
+&lt;li>Tradeoff: Too low -&amp;gt; etcd will send unnecessary messages -&amp;gt; increase the usage of CPU and network resources. Too high -&amp;gt; leads to high election timeout.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>Election timeout&lt;/code>.
+&lt;ul>
+&lt;li>How long a follower node will go without hearing a heartbeat before attempting to become leader itself.&lt;/li>
+&lt;li>Default: &lt;strong>1000ms&lt;/strong>.&lt;/li>
+&lt;li>Best practice: &lt;strong>&amp;gt;= 10 x RTT and &amp;lt; 50s&lt;/strong>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>The heartbeat interval and election timeout value should be &lt;strong>the same for all members in one cluster&lt;/strong>.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Command line arguments:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ etcd --heartbeat-interval&lt;span class="o">=&lt;/span>&lt;span class="m">100&lt;/span> --election-timeout&lt;span class="o">=&lt;/span>&lt;span class="m">500&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Environment variables:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nv">ETCD_HEARTBEAT_INTERVAL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">100&lt;/span> &lt;span class="nv">ETCD_ELECTION_TIMEOUT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">500&lt;/span> etcd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="disk-1">Disk&lt;/h3>
+&lt;ul>
+&lt;li>An etcd server can sometimes stably run alongside these processes when given a high disk priority using &lt;a href="https://linux.die.net/man/1/ionice">ionice&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># best effort, highest priority&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ sudo ionice -c2 -n0 -p &lt;span class="sb">`&lt;/span>pgrep etcd&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="snapshot">Snapshot&lt;/h3>
+&lt;ul>
+&lt;li>etcd appends all key changes to a log file -&amp;gt; huge log that grows forever :point_up:&lt;/li>
+&lt;li>Solution: Make periodic snapshots (save the current and remove old logs).&lt;/li>
+&lt;li>Default: make snapshots after every &lt;strong>10 000 changes&lt;/strong>.&lt;/li>
+&lt;li>Tuning: Just in case that etcd&amp;rsquo;s memory and disk usage is too high, lower threshold.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Command line arguments:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ etcd --snapshot-count&lt;span class="o">=&lt;/span>&lt;span class="m">5000&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Environment variables:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nv">ETCD_SNAPSHOT_COUNT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">5000&lt;/span> etcd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="maintenance">Maintenance&lt;/h2>
+&lt;h3 id="history-compaction">History compaction&lt;/h3>
+&lt;ul>
+&lt;li>Etcd keeps an exact history of its keyspace, the history should be periodically compacted to avoid performance degradation and eventual storage space exhaustion.&lt;/li>
+&lt;li>Etcd can be set to automatically compact the keyspace with the &lt;code>--auto-compaction-*&lt;/code> option with a period of hours.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># keep one hour of history&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ etcd --auto-compaction-retention&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span> --auto-compaction-mode&lt;span class="o">=&lt;/span>periodic
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Compaction modes:
+&lt;ul>
+&lt;li>Revision-based: &lt;code>--auto-compaction-mode=revision --auto-compaction-retention=1000&lt;/code> automatically Compact on &amp;ldquo;latest revision&amp;rdquo; - 1000 every 5-minute (when latest revision is 30000, compact on revision 29000). Use this when having a large keyspace.&lt;/li>
+&lt;li>Periodic: &lt;code>--auto-compaction-mode=periodic --auto-compaction-retention=72h&lt;/code> automatically Compact with 72-hour retention window every 1-hour. Use this when having a huge number of revisions for a key-value pair.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="defragmentation">Defragmentation&lt;/h3>
+&lt;ul>
+&lt;li>Compacting old revisions internally fragments etcd by leaving gaps in backend database - &lt;code>internal fragmentation&lt;/code>.&lt;/li>
+&lt;li>Internal fragmentation space is available for use by etcd but unavailable to the host filesystem.&lt;/li>
+&lt;li>Solution: Release this space back to the filesystem with defrag.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ etcdctl defrag
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>It should be run rather infrequently, as there is always going to be an unavoidable pause.&lt;/li>
+&lt;/ul>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>Etcd hardware: &lt;a href="https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/hardware.md">https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/hardware.md&lt;/a>&lt;/li>
+&lt;li>Etcd tuning: &lt;a href="https://github.com/etcd-io/etcd/blob/master/Documentation/tuning.md">https://github.com/etcd-io/etcd/blob/master/Documentation/tuning.md&lt;/a>&lt;/li>
+&lt;li>Etcd maintainence: &lt;a href="https://etcd.io/docs/v3.4.0/op-guide/maintenance/">https://etcd.io/docs/v3.4.0/op-guide/maintenance/&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

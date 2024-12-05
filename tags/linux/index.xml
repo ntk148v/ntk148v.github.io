@@ -1,31 +1,623 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on kiennt26's home</title><link>https://ntk148v.github.io/tags/linux/</link><description>Recent content in Linux on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Fri, 19 Jul 2024 08:53:02 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Atop</title><link>https://ntk148v.github.io/posts/atop/</link><pubDate>Thu, 20 Jun 2024 17:06:26 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/atop/</guid><description>Source:
-https://www.redhat.com/sysadmin/analyzing-linux-server-performance-atop http://freesoftwaremagazine.com/articles/atop_when_you_need_know_exactly_whats_happening_systemresource_level/ https://www.digitalocean.com/community/tutorials/atop-command-in-linux https://www.atoptool.nl/index.php top is great, we&amp;rsquo;re all familiar with it. htop is even better, (and with eye-catching look). But sometimes these tools aren&amp;rsquo;t enough, they only give the 10,000 foot overview of resource. They don&amp;rsquo;t allow you to see what part of which program or process is eating up too much RAM or which part is creating race conditions on lock files. And the most important drawback is the lack of historical data.</description></item><item><title>Linux Run in the Background</title><link>https://ntk148v.github.io/posts/linux-run-in-the-background/</link><pubDate>Fri, 03 Mar 2023 14:28:09 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-run-in-the-background/</guid><description>Environment: Ubuntu 22.04, but it should work in other Linux distributions.
-Source: https://www.sobyte.net/post/2023-03/linux-services-in-the-background/
-You run some commands, it may take a long time to execute, and you don&amp;rsquo;t want to wait for it. So what should you do in that scenario?
-graph TD A(You don't want to wait for a running command) --> B{Do you want to see output?} A --> C{Do you want the command to stay running after the session ends?</description></item><item><title>Linux Network Performance Ultimate Guide</title><link>https://ntk148v.github.io/posts/linux-network-performance-ultimate-guide/</link><pubDate>Fri, 24 Feb 2023 17:22:02 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-network-performance-ultimate-guide/</guid><description>The following content is from my #til github. Source
-https://github.com/leandromoreira/linux-network-performance-parameters/ https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf https://www.coverfire.com/articles/queueing-in-the-linux-network-stack/ https://blog.cloudflare.com/how-to-achieve-low-latency/ https://blog.cloudflare.com/how-to-receive-a-million-packets/ https://beej.us/guide/bgnet/html/ https://blog.csdn.net/armlinuxww/article/details/111930788 https://www.ibm.com/docs/en/linux-on-systems?topic=recommendations-network-performance-tuning Linux Networking stack Source:
-https://blog.packagecloud.io/illustrated-guide-monitoring-tuning-linux-networking-stack-receiving-data/
-https://blog.packagecloud.io/monitoring-tuning-linux-networking-stack-receiving-data/
-https://blog.packagecloud.io/monitoring-tuning-linux-networking-stack-sending-data/
-https://www.sobyte.net/post/2022-10/linux-net-snd-rcv/
-https://juejin.cn/post/7106345054368694280
-https://openwrt.org/docs/guide-developer/networking/praxis
-https://blog.51cto.com/u_15169172/2710604
-https://sn0rt.github.io/media/paper/TCPlinux.pdf
-https://medium.com/coccoc-engineering-blog/linux-network-ring-buffers-cea7ead0b8e8
-The complete network data flow:
-It&amp;rsquo;s a getting started. Before perform any tuning, let make sure that we understand how computers running Linux receive packets. Linux queue: NOTE: The follow sections will heavily use sysctl. If you don&amp;rsquo;t familiar with this command, take a look at HOWTO#sysctl section.</description></item><item><title>Iptables</title><link>https://ntk148v.github.io/posts/iptables/</link><pubDate>Fri, 24 Feb 2023 17:19:31 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/iptables/</guid><description>Iptables Source:
-https://www.thegeekstuff.com/2011/01/iptables-fundamentals/
-https://www.opsist.com/blog/2015/08/11/how-do-i-see-what-iptables-is-doing.html
-https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture
-https://www.sobyte.net/post/2022-04/understanding-netfilter-and-iptables/ - advanced
-Iptables
-1. Introduction 2. Netfilter hooks 3. iptables tables and chains 4. iptables rules 5. iptables drawbacks 6. iptables TRACE 1. Introduction iptables is used to manage packet filtering and NAT rules. iptables works with the kernel netfilter packet filtering framework. iptables is replaced with nftables, but iptables syntax is still commonly used as a baseline. iptables on a high-level. iptables tables chains rules 2.</description></item><item><title>Getting Started Tiling Wm [Part 6] I3 Rounded Corners</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-6-i3-rounded-corners/</link><pubDate>Mon, 10 Jan 2022 13:45:01 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-6-i3-rounded-corners/</guid><description>According to Reddis post and i3-gaps issue, it seems like a lot of people would like this. But Airblade - i3-gaps maintainer doesn&amp;rsquo;t like it. But nevermind, we still have two ways to achieve it.
-Rounded i3-gaps Resloved have an awesome fork to implement rounded corners. I fork it again to keep it up-to-date with the upstream i3-gaps. You can check it here.
-Install i3-gaps. # Dependencies sudo apt install git libxcb1-dev libxcb-keysyms1-dev libpango1.</description></item><item><title>Rename Files in Linux</title><link>https://ntk148v.github.io/posts/rename-files-in-linux/</link><pubDate>Thu, 16 Dec 2021 10:22:05 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/rename-files-in-linux/</guid><description>Rename a single file with mv. Just a basic thing. Rename multiple files with mv. # Rename files with suffix .yaml to yml for f in *.yaml; do mv -- &amp;#34;$f&amp;#34; &amp;#34;${f%.yaml}.yml&amp;#34; done Rename multiple files with rename. # Install rename command # Ubuntu/Debian-derived distros sudo apt install rename # RedHat-derived distros sudo yum install prename # The follow examples are performed in Ubuntu/Debian-derived distros rename &amp;#39;s/.yaml/.yml/&amp;#39; *.yaml # Replace all occurrences of &amp;#34;prev_&amp;#34; with &amp;#34;next_&amp;#34; rename &amp;#39;s/prev_/next_&amp;#39; *.</description></item><item><title>Getting Started with Tiling WM [Part 1] - I3</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</guid><description>Disclaimer
-I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I&amp;rsquo;ve gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.
-Overview Window Manager First of all, you have to know the basic concepts.</description></item><item><title>Getting Started with Tiling WM [Part 2] - Rofi</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</guid><description>In the part1, I&amp;rsquo;ve used rofi instead of dmenu. This part will show you how to start with rofi. Introduction Rofi is a window switcher, application launcher and dmenu replacement. Features: Fully configurable keyboard navigation. Type to filer. Built-in modes: Window switcher mode. Application laucher. Desktop file application launcher. SSH laucher mode. History-based ordering. &amp;hellip; Getting started Installing rofi is quite easy. sudo apt install rofi -y Run it for the first time.</description></item><item><title>Getting Started with Tiling WM [Part 3] - Polybar</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</guid><description>Overview According to Polybar frontpage, Polybar is A fast and easy to use tool for creating status bars .
-WIP</description></item><item><title>Getting Started with Tiling WM [Part 4] - Xresources</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</guid><description> WIP</description></item><item><title>Getting Started with Tiling WM [Part 5] - Compton</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</guid><description> WIP</description></item><item><title>Linux tools that you never knew you needed</title><link>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</link><pubDate>Wed, 07 Apr 2021 09:45:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</guid><description>bat - (cat alternative) bat: A cat(1) clone with syntax highlighting and Git integration. Example: fd - (find alternative) fd: a simple, fast and user-friendly alternative to find. Examples: httpie - (wget/curl alternative) httpie: a user-friendly command-line HTTP client for the API era. It comes with JSON support, syntax highlighting, persistent sessions, wget-like downloads, plugins, and more. Examples: # Hello world $ http httpie.io/hello # Custom HTTP method, HTTP headers and JSON data $ http PUT pie.</description></item><item><title>Set Animated Gif as Wallpaper</title><link>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</link><pubDate>Thu, 14 Jan 2021 09:36:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</guid><description>NOTE: Environment Ubuntu 20.04
-Dependencies Xwinwrap: sudo apt-get install xorg-dev build-essential libx11-dev x11proto-xext-dev libxrender-dev libxext-dev git clone https://github.com/ujjwal96/xwinwrap.git cd xwinwrap make sudo make install make clean Gifsicle: sudo apt install gifsicle The helper script A helper script to setup animated .gif in dual monitors.
-#!/bin/bash # Uses xwinwrap to display given animated .gif in dual monitors. if [ $# -ne 1 ]; then echo 1&amp;gt;&amp;amp;2 Usage: $0 image.gif exit 1 fi gif=$1 killall -9 xwinwrap killall -9 gifview # Get monitors resolution SCR1=`xrandr | awk &amp;#39;/primary/ &amp;amp;&amp;amp; /connected/ { print $4 }&amp;#39;` SCR2=`xrandr | awk &amp;#39;!</description></item><item><title>Swap space note</title><link>https://ntk148v.github.io/posts/linux-swap-space-note/</link><pubDate>Wed, 20 May 2020 09:30:28 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-swap-space-note/</guid><description>What is Swap? Swap file systems support virtual memory, data is written to a swap file system when there is not enough RAM to store the data your system is processing.
-Swap partition size Old rule of thumb swap: 2 * the-amount-of-RAM So if a computer had 64KB of RAM, a swap partition of 128KB would be an optimum size. This rule took into the facts that RAM sizes were typically quite small at the time.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on kiennt26's home</title><link>https://ntk148v.github.io/tags/linux/</link><description>Recent content in Linux on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Thu, 05 Dec 2024 10:36:54 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Magic System Request Key Hacks</title><link>https://ntk148v.github.io/posts/linux-sysrq/</link><pubDate>Thu, 05 Dec 2024 09:44:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-sysrq/</guid><description>&lt;p>Source: &lt;a href="https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html">https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html&lt;/a>&lt;/p>
+&lt;h2 id="giới-thiệu">Giới thiệu&lt;/h2>
+&lt;p>Trong quá trình vận hành, bạn đã bao giờ gặp tình trạng hệ thống Linux của mình bị &amp;ldquo;treo&amp;rdquo; hoặc không phản hồi? Khi đó, hãy sử dụng &lt;strong>Magic System Request Key (SysRq)&lt;/strong> để được cứu rỗi. Vậy nó là gì và có thể làm gì?&lt;/p>
+&lt;p>SysRq là một tính năng của Linux, cho phép người dùng gửi &amp;ldquo;tín hiệu cầu cứu&amp;rdquo; trực tiếp đến kernel của hệ điều hành.&lt;/p></description></item><item><title>Atop</title><link>https://ntk148v.github.io/posts/atop/</link><pubDate>Thu, 20 Jun 2024 17:06:26 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/atop/</guid><description>&lt;p>Source:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://www.redhat.com/sysadmin/analyzing-linux-server-performance-atop">https://www.redhat.com/sysadmin/analyzing-linux-server-performance-atop&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://freesoftwaremagazine.com/articles/atop_when_you_need_know_exactly_whats_happening_systemresource_level/">http://freesoftwaremagazine.com/articles/atop_when_you_need_know_exactly_whats_happening_systemresource_level/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.digitalocean.com/community/tutorials/atop-command-in-linux">https://www.digitalocean.com/community/tutorials/atop-command-in-linux&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.atoptool.nl/index.php">https://www.atoptool.nl/index.php&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>top&lt;/code> is great, we&amp;rsquo;re all familiar with it. &lt;code>htop&lt;/code> is even better, (and with eye-catching look). But sometimes these tools aren&amp;rsquo;t enough, they only give the 10,000 foot overview of resource. They don&amp;rsquo;t allow you to see what part of which program or process is eating up too much RAM or which part is creating race conditions on lock files. And the most important drawback is the lack of historical data. But &lt;a href="https://www.atoptool.nl/index.php">&lt;code>atop&lt;/code>&lt;/a> can. A powerful monitor program that allows you to see system-level counters concerning utilization of CPU and memory/swap, as well as see disk I/O and network utilization counters at the system level &amp;ndash; in real time or &lt;em>historically&lt;/em>. It also allows you to store raw counters in a file for long-term analysis on system levels and process levels, as well as seeing resource consumption for each thread within a process of a multi-processor program.&lt;/p></description></item><item><title>Linux Run in the Background</title><link>https://ntk148v.github.io/posts/linux-run-in-the-background/</link><pubDate>Fri, 03 Mar 2023 14:28:09 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-run-in-the-background/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-iris">
+ &lt;p>&lt;strong>Environment:&lt;/strong> Ubuntu 22.04, but it should work in other Linux distributions.&lt;/p>
+&lt;p>&lt;strong>Source&lt;/strong>: &lt;a href="https://www.sobyte.net/post/2023-03/linux-services-in-the-background/">https://www.sobyte.net/post/2023-03/linux-services-in-the-background/&lt;/a>&lt;/p>
+
+&lt;/blockquote>
+
+&lt;p>You run some commands, it may take a long time to execute, and you don&amp;rsquo;t want to wait for it. So what should you do in that scenario?&lt;/p>
+
+&lt;div class="mermaid" align="center">
+graph TD
+A(You don't want to wait &lt;br>for a running command) --> B{Do you want to see output?}
+A --> C{Do you want the command to stay &lt;br>running after the session ends?}
+C --> |Yes| E(screen)
+B --> |No| D(Ctrl-Z or &amp;)
+B --> |Yes| F{Do you have requirements &lt;br>for log cutting, running users?}
+F --> |No| G(nohup)
+F --> |Yes| H(supervisor or systemd)
+&lt;/div>
+
+&lt;h2 id="ctrl-z-or-">Ctrl-Z or &amp;amp;&lt;/h2>
+&lt;p>For example, you have to excute &lt;code>ping&lt;/code> command:&lt;/p></description></item><item><title>Linux Network Performance Ultimate Guide</title><link>https://ntk148v.github.io/posts/linux-network-performance-ultimate-guide/</link><pubDate>Fri, 24 Feb 2023 17:22:02 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-network-performance-ultimate-guide/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-gold">
+ The following content is from &lt;a href="https://github.com/ntk148v/til/blob/master/linux/network-performance-ultimate-guide.md">my #til github&lt;/a>.
+&lt;/blockquote>
+
+&lt;p>&lt;strong>Source&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/leandromoreira/linux-network-performance-parameters/">https://github.com/leandromoreira/linux-network-performance-parameters/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf">https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.coverfire.com/articles/queueing-in-the-linux-network-stack/">https://www.coverfire.com/articles/queueing-in-the-linux-network-stack/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blog.cloudflare.com/how-to-achieve-low-latency/">https://blog.cloudflare.com/how-to-achieve-low-latency/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blog.cloudflare.com/how-to-receive-a-million-packets/">https://blog.cloudflare.com/how-to-receive-a-million-packets/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://beej.us/guide/bgnet/html/">https://beej.us/guide/bgnet/html/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blog.csdn.net/armlinuxww/article/details/111930788">https://blog.csdn.net/armlinuxww/article/details/111930788&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.ibm.com/docs/en/linux-on-systems?topic=recommendations-network-performance-tuning">https://www.ibm.com/docs/en/linux-on-systems?topic=recommendations-network-performance-tuning&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="linux-networking-stack">Linux Networking stack&lt;/h2>
+&lt;p>&lt;strong>Source:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://blog.packagecloud.io/illustrated-guide-monitoring-tuning-linux-networking-stack-receiving-data/">https://blog.packagecloud.io/illustrated-guide-monitoring-tuning-linux-networking-stack-receiving-data/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://blog.packagecloud.io/monitoring-tuning-linux-networking-stack-receiving-data/">https://blog.packagecloud.io/monitoring-tuning-linux-networking-stack-receiving-data/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://blog.packagecloud.io/monitoring-tuning-linux-networking-stack-sending-data/">https://blog.packagecloud.io/monitoring-tuning-linux-networking-stack-sending-data/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://www.sobyte.net/post/2022-10/linux-net-snd-rcv/">https://www.sobyte.net/post/2022-10/linux-net-snd-rcv/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://juejin.cn/post/7106345054368694280">https://juejin.cn/post/7106345054368694280&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://openwrt.org/docs/guide-developer/networking/praxis">https://openwrt.org/docs/guide-developer/networking/praxis&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://blog.51cto.com/u_15169172/2710604">https://blog.51cto.com/u_15169172/2710604&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://sn0rt.github.io/media/paper/TCPlinux.pdf">https://sn0rt.github.io/media/paper/TCPlinux.pdf&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://medium.com/coccoc-engineering-blog/linux-network-ring-buffers-cea7ead0b8e8">https://medium.com/coccoc-engineering-blog/linux-network-ring-buffers-cea7ead0b8e8&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>The complete network data flow:&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="http://web.archive.org/web/20170905131225if_/https://wiki.linuxfoundation.org/images/1/1c/Network_data_flow_through_kernel.png" alt="">&lt;/p>
+&lt;ul>
+&lt;li>It&amp;rsquo;s a getting started. Before perform any tuning, let make sure that we understand how computers running Linux receive packets.&lt;/li>
+&lt;li>Linux queue:&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://github.com/leandromoreira/linux-network-performance-parameters/raw/master/img/linux_network_flow.png" alt="">&lt;/p>
+&lt;p>&lt;strong>NOTE&lt;/strong>: The follow sections will heavily use &lt;code>sysctl&lt;/code>. If you don&amp;rsquo;t familiar with this command, take a look at &lt;a href="#204-sysctl">HOWTO#sysctl section&lt;/a>.&lt;/p></description></item><item><title>Iptables</title><link>https://ntk148v.github.io/posts/iptables/</link><pubDate>Fri, 24 Feb 2023 17:19:31 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/iptables/</guid><description>&lt;h1 id="iptables">Iptables&lt;/h1>
+&lt;p>Source:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://www.thegeekstuff.com/2011/01/iptables-fundamentals/">https://www.thegeekstuff.com/2011/01/iptables-fundamentals/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://www.opsist.com/blog/2015/08/11/how-do-i-see-what-iptables-is-doing.html">https://www.opsist.com/blog/2015/08/11/how-do-i-see-what-iptables-is-doing.html&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture">https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://www.sobyte.net/post/2022-04/understanding-netfilter-and-iptables/">https://www.sobyte.net/post/2022-04/understanding-netfilter-and-iptables/&lt;/a> - advanced&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="#iptables">Iptables&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#1-introduction">1. Introduction&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-netfilter-hooks">2. Netfilter hooks&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#3-iptables-tables-and-chains">3. iptables tables and chains&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#4-iptables-rules">4. iptables rules&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#5-iptables-drawbacks">5. iptables drawbacks&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#6-iptables-trace">6. iptables TRACE&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="1-introduction">1. Introduction&lt;/h2>
+&lt;ul>
+&lt;li>iptables is used to manage packet filtering and NAT rules.&lt;/li>
+&lt;li>iptables works with the kernel &lt;code>netfilter&lt;/code> packet filtering framework.
+&lt;ul>
+&lt;li>iptables is replaced with &lt;code>nftables&lt;/code>, but &lt;code>iptables&lt;/code> syntax is still commonly used as a baseline.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>iptables on a high-level.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">iptables
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> tables
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> chains
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rules
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-netfilter-hooks">2. Netfilter hooks&lt;/h2>
+&lt;ul>
+&lt;li>There are 4 netfilter hooks that programs can register with. As packets progress through the stack, they will trigger the kernel modules that have registered with these hooks.
+&lt;ul>
+&lt;li>&lt;code>NF_IP_PRE_ROUTING&lt;/code>: triggered by any incoming traffic very soon after entering network stack. This hook is processed before any routing decisions have been made regarding where to send the packet.&lt;/li>
+&lt;li>&lt;code>NF_IP_LOCAL_IN&lt;/code>: triggered after an incoming packet has been routed if the packet is destined for the local system.&lt;/li>
+&lt;li>&lt;code>NF_IP_FORWARD&lt;/code>: triggered after an incoming packet has been routed if the packet is to be forwarded to another host.&lt;/li>
+&lt;li>&lt;code>NF_IP_LOCAL_OUT&lt;/code>: triggered by any locally created outbound traffic as soon as it hits the network stack.&lt;/li>
+&lt;li>&lt;code>NF_IP_POST_ROUTING&lt;/code>: triggerd by any outgoing or forwarded traffic after routing has taken place and just before being sent out on the wire.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://people.netfilter.org/pablo/nf-hooks.png" alt="">&lt;/p></description></item><item><title>Getting Started Tiling Wm [Part 6] I3 Rounded Corners</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-6-i3-rounded-corners/</link><pubDate>Mon, 10 Jan 2022 13:45:01 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-6-i3-rounded-corners/</guid><description>&lt;p>According to &lt;a href="https://www.reddit.com/r/unixporn/comments/7h0rm0/what_would_you_want_in_a_wm/">Reddis post&lt;/a> and &lt;a href="https://github.com/Airblader/i3/issues/167">i3-gaps issue&lt;/a>, it seems like a lot of people would like this. But Airblade - i3-gaps maintainer &lt;a href="https://github.com/Airblader/i3/issues/167#issuecomment-328562433">doesn&amp;rsquo;t like it&lt;/a>. But nevermind, we still have two ways to achieve it.&lt;/p>
+&lt;h2 id="rounded-i3-gaps">Rounded i3-gaps&lt;/h2>
+&lt;p>&lt;a href="https://github.com/resloved">Resloved&lt;/a> have an awesome &lt;a href="https://github.com/resloved/i3">fork&lt;/a> to implement rounded corners. I fork it again to keep it up-to-date with the upstream i3-gaps. You can check it &lt;a href="https://github.com/ntk148v/i3">here&lt;/a>.&lt;/p>
+&lt;ul>
+&lt;li>Install i3-gaps.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Dependencies&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install git libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> libxcb-util0-dev libxcb-icccm4-dev libyajl-dev &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> libstartup-notification0-dev libxcb-randr0-dev &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> libev-dev libxcb-cursor-dev libxcb-xinerama0-dev &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> autoconf libxcb-xrm0 libxcb-xrm-dev automake i3status &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> ninja-build meson libxcb-shape0-dev build-essential -y
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git clone https://github.com/ntk148v/i3.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> i3/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Compile&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p build &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> build
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">meson ..
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ninja
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo ninja install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Configure rounded corners by adding this to your config.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">border_radius 10
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Result, but you can see that these corners look so jagged (check out this &lt;a href="https://github.com/Airblader/i3/issues/167#issuecomment-485263770">comment&lt;/a>).&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-1.png">
+&lt;/figure>
+
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-4.png">
+&lt;/figure>
+
+&lt;h2 id="picom">picom&lt;/h2>
+&lt;ul>
+&lt;li>You can also achieve rounded corners by using &lt;a href="https://github.com/yshui/picom">picom&lt;/a>.&lt;/li>
+&lt;li>Install picom.&lt;/li>
+&lt;li>Configure rounded corners by changing &lt;code>corner_radius&lt;/code> value.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"># Path ~/.config/picom.conf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">corner_radius: 10;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Result looks much smoother.&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-2.png">
+&lt;/figure>
+
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-3.png">
+&lt;/figure></description></item><item><title>Rename Files in Linux</title><link>https://ntk148v.github.io/posts/rename-files-in-linux/</link><pubDate>Thu, 16 Dec 2021 10:22:05 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/rename-files-in-linux/</guid><description>&lt;ul>
+&lt;li>Rename a single file with &lt;code>mv&lt;/code>. Just a basic thing.&lt;/li>
+&lt;li>Rename multiple files with &lt;code>mv&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Rename files with suffix .yaml to yml&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> f in *.yaml&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span> mv -- &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">f&lt;/span>&lt;span class="p">%.yaml&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">.yml&amp;#34;&lt;/span> &lt;span class="k">done&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Rename multiple files with &lt;code>rename&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Install rename command&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Ubuntu/Debian-derived distros&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install rename
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># RedHat-derived distros&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo yum install prename
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># The follow examples are performed in Ubuntu/Debian-derived distros&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rename &lt;span class="s1">&amp;#39;s/.yaml/.yml/&amp;#39;&lt;/span> *.yaml
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Replace all occurrences of &amp;#34;prev_&amp;#34; with &amp;#34;next_&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rename &lt;span class="s1">&amp;#39;s/prev_/next_&amp;#39;&lt;/span> *.c
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Delete part of a filename&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rename &lt;span class="s1">&amp;#39;s/next_//&amp;#39;&lt;/span> *.c
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Limit changes to specific parts of filenames&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Only change the files that start with &amp;#34;paramater&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rename &lt;span class="s1">&amp;#39;s/^param/parameter/&amp;#39;&lt;/span> *.c
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Search with grouping&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Replace all occurrences of &amp;#34;string&amp;#34; and &amp;#34;strong&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rename &lt;span class="s1">&amp;#39;s/(str|stro)ng/strength&amp;#39;&lt;/span> *.c
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Use translations with rename&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Force filenames to uppercase&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rename &lt;span class="s1">&amp;#39;y/a-z/A-Z&amp;#39;&lt;/span> *.py
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># More?&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">man rename
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Getting Started with Tiling WM [Part 1] - I3</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-foam">
+ &lt;p>&lt;strong>Disclaimer&lt;/strong>&lt;/p>
+&lt;p>I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I&amp;rsquo;ve gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.&lt;/p>
+
+&lt;/blockquote>
+
+&lt;h2 id="overview-window-manager">Overview Window Manager&lt;/h2>
+&lt;p>First of all, you have to know the basic concepts.&lt;/p></description></item><item><title>Getting Started with Tiling WM [Part 2] - Rofi</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-foam">
+ In the &lt;a href="https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/">part1&lt;/a>, I&amp;rsquo;ve used &lt;code>rofi&lt;/code> instead of &lt;code>dmenu&lt;/code>. This part will show you how to start with &lt;code>rofi&lt;/code>.
+&lt;/blockquote>
+
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/davatorium/rofi">Rofi&lt;/a> is a window switcher, application launcher and dmenu replacement.&lt;/li>
+&lt;li>Features:
+&lt;ul>
+&lt;li>Fully configurable keyboard navigation.&lt;/li>
+&lt;li>Type to filer.&lt;/li>
+&lt;li>Built-in modes:
+&lt;ul>
+&lt;li>Window switcher mode.&lt;/li>
+&lt;li>Application laucher.&lt;/li>
+&lt;li>Desktop file application launcher.&lt;/li>
+&lt;li>SSH laucher mode.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>History-based ordering.&lt;/li>
+&lt;li>&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="getting-started">Getting started&lt;/h2>
+&lt;ul>
+&lt;li>Installing &lt;code>rofi&lt;/code> is quite easy.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt install rofi -y
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Run it for the first time.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rofi -lines &lt;span class="m">12&lt;/span> -padding &lt;span class="m">18&lt;/span> -width &lt;span class="m">60&lt;/span> -location &lt;span class="m">0&lt;/span> -show drun -sidebar-mode -columns &lt;span class="m">3&lt;/span> -font &lt;span class="s1">&amp;#39;DejaVu Sans 8&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;details >&lt;summary>&lt;/summary>
+ &lt;div>
+ &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl"> -show mode
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Open rofi in a certain mode. Available modes are window, run, drun, ssh, combi. The
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> special argument keys can be used to open a searchable list of supported key bind‐
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ings &lt;span class="o">(&lt;/span>see KEY BINDINGS&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> To show the run-dialog:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rofi -show run
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -lines
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Maximum number of lines to show before scrolling.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rofi -lines &lt;span class="m">25&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Default: &lt;span class="m">15&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -location
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Specify where the window should be located. The numbers map to the following loca‐
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> tions on screen:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">1&lt;/span> &lt;span class="m">2&lt;/span> &lt;span class="m">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">8&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">4&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">7&lt;/span> &lt;span class="m">6&lt;/span> &lt;span class="m">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Default: &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -padding
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Define the inner margin of the window.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Default: &lt;span class="m">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -sidebar-mode
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Open in sidebar-mode. In this mode a list of all enabled modes is shown at the bot‐
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> tom. &lt;span class="o">(&lt;/span>See -modi option&lt;span class="o">)&lt;/span> To show sidebar, use:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rofi -show run -sidebar-mode -lines &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+ &lt;/div>
+&lt;/details>
+
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-1/rofi-default.png">
+&lt;/figure>
+
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-1/rofi-default-2.png">
+&lt;/figure>
+
+&lt;ul>
+&lt;li>Press hot key (defined in i3 configuration file) &lt;code>&amp;lt;Window&amp;gt;+d&lt;/code> to start rofi. Use &lt;code>&amp;lt;Shift&amp;gt;+&amp;lt;left/right&amp;gt;&lt;/code> to switch between mode.&lt;/li>
+&lt;li>More details you can found in &lt;a href="https://github.com/davatorium/rofi">rofi github&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="tweaking">Tweaking&lt;/h2>
+&lt;ul>
+&lt;li>The default setup looks quite boring. Let&amp;rsquo;s tweak a bit!&lt;/li>
+&lt;li>There are currently three methods of setting configuration options:
+&lt;ul>
+&lt;li>&lt;em>Local configuration. Normally, depending on XDG, in ~/.config/rofi/config. This uses the Xresources format&lt;/em>.&lt;/li>
+&lt;li>Xresources: A method of storing key values in the Xserver. See here for more information.&lt;/li>
+&lt;li>Command line options: Arguments are passed to Rofi.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>We will use configuration file.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p ~/.config/rofi/themes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">touch ~/.config/rofi/themes/onedark.theme
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Copy the follow content into &lt;code>~/.config/rofi/themes/onedark.theme&lt;/code>:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">configuration {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> show-icons: true;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> font: &amp;#34;DejaVu Sans Mono 10&amp;#34;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> modi: &amp;#34;window,run,drun&amp;#34;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> background: #282c34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> foreground: #abb2bf;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> background-color: @background;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> selected-normal-foreground: @foreground;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> selected-normal-background: #98c379;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> selected-urgent-background: #e5c07b;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> selected-urgent-foreground: @foreground;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> border: 5;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> lines: 12;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> padding: 0;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> margin: 0;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> spacing: 0;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">window {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> width: 50%;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> transparency: &amp;#34;real&amp;#34;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mainbox {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> children: [inputbar, listview];
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">listview {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> columns: 1;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">element {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> padding: 12;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> orientation: vertical;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> text-color: @foreground;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">element selected {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> background-color: @selected-normal-background;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> text-color: @background;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">inputbar {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> background-color: @background;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> children: [prompt, entry];
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">prompt {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> enabled: true;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> font: &amp;#34;DejaVu Sans Mono 10&amp;#34;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> padding: 12 0 0 12;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> text-color: @selected-urgent-background;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">entry {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> padding: 12;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> text-color: @selected-urgent-background;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Run it and you can see the magic!&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rofi -theme ~/.config/rofi/themes/onedark.theme -show drun
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-1/rofi-custom.png">
+&lt;/figure>
+
+&lt;ul>
+&lt;li>Don&amp;rsquo;t forget to update hotkey in i3 configuration file.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">bindsym $mod+d exec rofi -theme ~/.config/rofi/themes/onedark.theme -show drun
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Getting Started with Tiling WM [Part 3] - Polybar</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</guid><description>&lt;h2 id="overview">Overview&lt;/h2>
+&lt;p>&lt;a href="https://polybar.github.io/">According to Polybar frontpage&lt;/a>, &lt;code>Polybar is A fast and easy to use tool for creating status bars &lt;/code>.&lt;/p>
+ 
+
+&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-iris">
+ &lt;strong>WIP&lt;/strong>
+&lt;/blockquote></description></item><item><title>Getting Started with Tiling WM [Part 4] - Xresources</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-iris">
+ &lt;strong>WIP&lt;/strong>
+&lt;/blockquote></description></item><item><title>Getting Started with Tiling WM [Part 5] - Compton</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-iris">
+ &lt;strong>WIP&lt;/strong>
+&lt;/blockquote></description></item><item><title>Linux tools that you never knew you needed</title><link>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</link><pubDate>Wed, 07 Apr 2021 09:45:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</guid><description>&lt;h2 id="bat---cat-alternative">bat - (cat alternative)&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/sharkdp/bat">bat&lt;/a>: A cat(1) clone with syntax highlighting and Git integration.&lt;/li>
+&lt;li>Example:&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/bat.png">
+&lt;/figure>
+
+&lt;h2 id="fd---find-alternative">fd - (find alternative)&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/sharkdp/fd">fd&lt;/a>: a simple, fast and user-friendly alternative to &lt;code>find&lt;/code>.&lt;/li>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://raw.githubusercontent.com/sharkdp/fd/master/doc/screencast.svg">
+&lt;/figure>
+
+&lt;h2 id="httpie---wgetcurl-alternative">httpie - (wget/curl alternative)&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://httpie.io">httpie&lt;/a>: a user-friendly command-line HTTP client for the API era. It comes with JSON support, syntax highlighting, persistent sessions, wget-like downloads, plugins, and more.&lt;/li>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Hello world&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ http httpie.io/hello
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Custom HTTP method, HTTP headers and JSON data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ http PUT pie.dev/put X-API-Token:123 &lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>John
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Submitting forms&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ http -f POST pie.dev/post &lt;span class="nv">hello&lt;/span>&lt;span class="o">=&lt;/span>World
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Upload a file using redirect input&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ http pie.dev/post &amp;lt; files/data.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For more examples, check out: https://httpie.io&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="ripgrep---grep-alternative">ripgrep - (grep alternative)&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/BurntSushi/ripgrep">ripgrep&lt;/a>: a faster &lt;code>grep&lt;/code>. ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern. By default, ripgrep will respect your .gitignore and automatically skip hidden files/directories and binary files.&lt;/li>
+&lt;li>&lt;a href="https://github.com/BurntSushi/ripgrep#quick-examples-comparing-tools">Benchmark&lt;/a>.&lt;/li>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Basic use&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ rg fast README.md
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Regular expressions&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ rg &lt;span class="s1">&amp;#39;fast\w+&amp;#39;&lt;/span> README.md
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Recursive search - recursively searching the directory (current directory is default)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ rg &lt;span class="s1">&amp;#39;fn write\(&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For more examples, checkout: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="delta">delta&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/dandavison/delta">delta&lt;/a>: Code evolves, and we all spend time studying diffs. Delta aims to make this both efficient and enjoyable: it allows you to make extensive changes to the layout and styling of diffs, as well as allowing you to stay arbitrarily close to the default git/diff output.&lt;/li>
+&lt;li>Diff/git diff doesn&amp;rsquo;t show you exactly what was changed.&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/git-diff.png">
+&lt;/figure>
+
+&lt;ul>
+&lt;li>Delta shows within-line highlights based on a Levenshtein edit inference algorithm.&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/delta.png">
+&lt;/figure>
+
+&lt;ul>
+&lt;li>By default, delta restructures the git output slightly to make the hunk markers human-readable:&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://user-images.githubusercontent.com/52205/81059276-254cf980-8e9e-11ea-95c3-8b757a4c11b5.png">
+&lt;/figure>
+
+&lt;ul>
+&lt;li>Example config:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>core&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> pager: delta
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>delta&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> plus-style: &lt;span class="s2">&amp;#34;syntax #98c379&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> minus-style: &lt;span class="s2">&amp;#34;syntax #e06c75&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> syntax-theme: OneHalfDark
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> navigate: &lt;span class="nb">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> features: line-numbers decorations
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>interactive&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> diffFilter: delta --color-only
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Completely replace &lt;code>diff&lt;/code> with &lt;code>delta&lt;/code>:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">diff&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;delta&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="z">z&lt;/h2>
+&lt;ul>
+&lt;li>Tired for &lt;code>cd&lt;/code>ing into the same directories over and over? Save your time with &lt;code>z&lt;/code> command!&lt;/li>
+&lt;li>&lt;a href="https://github.com/rupa/z">z&lt;/a>: jump around. Z is a shell script that makes jumping around your file directory pleasantly simple. Instead of trying to remember the exact path of where you need to go, or worse, &lt;code>cd&lt;/code>ing into the next directory followed by &lt;code>ls&lt;/code>ing and then cding again over and over (we’ve all been there), Z allows you to “lazy type” where you want to go and it’ll handle the rest.&lt;/li>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Takes me to my workspace folder from anywhere.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ z workspace
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="fzf">fzf&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/junegunn/fzf">fzf&lt;/a>: fzf is a general-purpose command-line fuzzy finder.&lt;/li>
+&lt;li>It&amp;rsquo;s an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.&lt;/li>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Read the list from STDIN and write the selected item to STDOUT&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ find * -type f &lt;span class="p">|&lt;/span> fzf &amp;gt; selected
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ vim &lt;span class="k">$(&lt;/span>fzf&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># COMMAND **&amp;lt;TAB&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Files under the current directory&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># - You can select multiple items with TAB key&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ vim **&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Files under parent directory&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ vim ../**&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Files under parent directory that match `fzf`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ vim ../fzf**&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Files under your home directory&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ vim ~/**&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Directories under current directory (single-selection)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">cd&lt;/span> **&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Directories under ~/github that match `fzf`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">cd&lt;/span> ~/github/fzf**&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Can select multiple processes with &amp;lt;TAB&amp;gt; or &amp;lt;Shift-TAB&amp;gt; keys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">kill&lt;/span> -9 &amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">unset&lt;/span> **&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">export&lt;/span> **&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">unalias&lt;/span> **&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For more examples, checkout: https://github.com/junegunn/fzf&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/fzf-vim.png">
+&lt;/figure>
+
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/fzf-cd.png">
+&lt;/figure>
+
+&lt;h2 id="thefuck">thefuck&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/nvbn/thefuck">thefuck&lt;/a>: Magnificent app which corrects your previous console command.&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://raw.githubusercontent.com/nvbn/thefuck/master/example.gif">
+&lt;/figure>
+
+&lt;ul>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ apt-get install vim
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">E: Could not open lock file /var/lib/dpkg/lock - open &lt;span class="o">(&lt;/span>13: Permission denied&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">E: Unable to lock the administration directory &lt;span class="o">(&lt;/span>/var/lib/dpkg/&lt;span class="o">)&lt;/span>, are you root?
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ fuck
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt-get install vim &lt;span class="o">[&lt;/span>enter/↑/↓/ctrl+c&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Reading package lists... Done
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For more examples, check out: https://github.com/nvbn/thefuck&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="exa---ls-alternative">exa - (ls alternative)&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://the.exa.website">exa&lt;/a>: A modern replacement for ls. &lt;code>exa&lt;/code> is an improved file lister with more features and better defaults. It uses colours to distinguish file types and metadata. It knows about symlinks, extended attributes, and Git. And it’s small, fast, and just one single binary.&lt;/li>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/exa.png">
+&lt;/figure>
+
+&lt;ul>
+&lt;li>Completely replace &lt;code>ls&lt;/code> with &lt;code>exa&lt;/code>:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">ls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;exa&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/exa-ls.png">
+&lt;/figure></description></item><item><title>Set Animated Gif as Wallpaper</title><link>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</link><pubDate>Thu, 14 Jan 2021 09:36:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</guid><description>&lt;blockquote>
+&lt;p>&lt;strong>NOTE&lt;/strong>: Environment Ubuntu 20.04&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="dependencies">Dependencies&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/ujjwal96/xwinwrap">Xwinwrap&lt;/a>:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt-get install xorg-dev build-essential libx11-dev x11proto-xext-dev libxrender-dev libxext-dev
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git clone https://github.com/ujjwal96/xwinwrap.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> xwinwrap
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo make install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make clean
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Gifsicle:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt install gifsicle
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="the-helper-script">The helper script&lt;/h2>
+&lt;p>A helper script to setup animated .gif in dual monitors.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="c1"># Uses xwinwrap to display given animated .gif in dual monitors.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$#&lt;/span> -ne &lt;span class="m">1&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> 1&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">2&lt;/span> Usage: &lt;span class="nv">$0&lt;/span> image.gif
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">exit&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">gif&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">killall -9 xwinwrap
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">killall -9 gifview
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Get monitors resolution&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">SCR1&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>xrandr &lt;span class="p">|&lt;/span> awk &lt;span class="s1">&amp;#39;/primary/ &amp;amp;&amp;amp; /connected/ { print $4 }&amp;#39;&lt;/span>&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">SCR2&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>xrandr &lt;span class="p">|&lt;/span> awk &lt;span class="s1">&amp;#39;!/primary/ &amp;amp;&amp;amp; /connected/ { print $3 }&amp;#39;&lt;/span>&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xwinwrap -g &lt;span class="nv">$SCR1&lt;/span> -ov -ni -s -nf -- gifview -w WID &lt;span class="nv">$gif&lt;/span> -a &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xwinwrap -g &lt;span class="nv">$SCR2&lt;/span> -ov -ni -s -nf -- gifview -w WID &lt;span class="nv">$gif&lt;/span> -a &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>If you want to run xwinwrap by yourself, here is the example:&lt;/p></description></item><item><title>Swap space note</title><link>https://ntk148v.github.io/posts/linux-swap-space-note/</link><pubDate>Wed, 20 May 2020 09:30:28 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-swap-space-note/</guid><description>&lt;h2 id="what-is-swap">What is Swap?&lt;/h2>
+&lt;p>Swap file systems support virtual memory, data is written to a swap file system when there is not enough RAM to store the data your system is processing.&lt;/p>
+&lt;h2 id="swap-partition-size">Swap partition size&lt;/h2>
+&lt;h3 id="old-rule-of-thumb">Old rule of thumb&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">swap: 2 * the-amount-of-RAM
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>So if a computer had 64KB of RAM, a swap partition of 128KB would be an optimum size. This rule took into the facts that RAM sizes were typically quite small at the time. Nowadays, RAM has become a &lt;code>cheap&lt;/code> &amp;amp; &lt;code>affordable&lt;/code> commondity, so the 2x rule is outdated.&lt;/p></description></item></channel></rss>

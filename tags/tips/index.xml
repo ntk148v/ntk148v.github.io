@@ -1,3 +1,207 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tips on kiennt26's home</title><link>https://ntk148v.github.io/tags/tips/</link><description>Recent content in Tips on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 30 Aug 2023 09:43:02 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/tips/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux tools that you never knew you needed</title><link>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</link><pubDate>Wed, 07 Apr 2021 09:45:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</guid><description>bat - (cat alternative) bat: A cat(1) clone with syntax highlighting and Git integration. Example: fd - (find alternative) fd: a simple, fast and user-friendly alternative to find. Examples: httpie - (wget/curl alternative) httpie: a user-friendly command-line HTTP client for the API era. It comes with JSON support, syntax highlighting, persistent sessions, wget-like downloads, plugins, and more. Examples: # Hello world $ http httpie.io/hello # Custom HTTP method, HTTP headers and JSON data $ http PUT pie.</description></item><item><title>Set Animated Gif as Wallpaper</title><link>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</link><pubDate>Thu, 14 Jan 2021 09:36:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</guid><description>NOTE: Environment Ubuntu 20.04
-Dependencies Xwinwrap: sudo apt-get install xorg-dev build-essential libx11-dev x11proto-xext-dev libxrender-dev libxext-dev git clone https://github.com/ujjwal96/xwinwrap.git cd xwinwrap make sudo make install make clean Gifsicle: sudo apt install gifsicle The helper script A helper script to setup animated .gif in dual monitors.
-#!/bin/bash # Uses xwinwrap to display given animated .gif in dual monitors. if [ $# -ne 1 ]; then echo 1&amp;gt;&amp;amp;2 Usage: $0 image.gif exit 1 fi gif=$1 killall -9 xwinwrap killall -9 gifview # Get monitors resolution SCR1=`xrandr | awk &amp;#39;/primary/ &amp;amp;&amp;amp; /connected/ { print $4 }&amp;#39;` SCR2=`xrandr | awk &amp;#39;!</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tips on kiennt26's home</title><link>https://ntk148v.github.io/tags/tips/</link><description>Recent content in Tips on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Thu, 05 Dec 2024 10:36:54 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/tips/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Magic System Request Key Hacks</title><link>https://ntk148v.github.io/posts/linux-sysrq/</link><pubDate>Thu, 05 Dec 2024 09:44:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-sysrq/</guid><description>&lt;p>Source: &lt;a href="https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html">https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html&lt;/a>&lt;/p>
+&lt;h2 id="giới-thiệu">Giới thiệu&lt;/h2>
+&lt;p>Trong quá trình vận hành, bạn đã bao giờ gặp tình trạng hệ thống Linux của mình bị &amp;ldquo;treo&amp;rdquo; hoặc không phản hồi? Khi đó, hãy sử dụng &lt;strong>Magic System Request Key (SysRq)&lt;/strong> để được cứu rỗi. Vậy nó là gì và có thể làm gì?&lt;/p>
+&lt;p>SysRq là một tính năng của Linux, cho phép người dùng gửi &amp;ldquo;tín hiệu cầu cứu&amp;rdquo; trực tiếp đến kernel của hệ điều hành.&lt;/p></description></item><item><title>Linux tools that you never knew you needed</title><link>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</link><pubDate>Wed, 07 Apr 2021 09:45:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</guid><description>&lt;h2 id="bat---cat-alternative">bat - (cat alternative)&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/sharkdp/bat">bat&lt;/a>: A cat(1) clone with syntax highlighting and Git integration.&lt;/li>
+&lt;li>Example:&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/bat.png">
+&lt;/figure>
+
+&lt;h2 id="fd---find-alternative">fd - (find alternative)&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/sharkdp/fd">fd&lt;/a>: a simple, fast and user-friendly alternative to &lt;code>find&lt;/code>.&lt;/li>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://raw.githubusercontent.com/sharkdp/fd/master/doc/screencast.svg">
+&lt;/figure>
+
+&lt;h2 id="httpie---wgetcurl-alternative">httpie - (wget/curl alternative)&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://httpie.io">httpie&lt;/a>: a user-friendly command-line HTTP client for the API era. It comes with JSON support, syntax highlighting, persistent sessions, wget-like downloads, plugins, and more.&lt;/li>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Hello world&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ http httpie.io/hello
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Custom HTTP method, HTTP headers and JSON data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ http PUT pie.dev/put X-API-Token:123 &lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>John
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Submitting forms&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ http -f POST pie.dev/post &lt;span class="nv">hello&lt;/span>&lt;span class="o">=&lt;/span>World
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Upload a file using redirect input&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ http pie.dev/post &amp;lt; files/data.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For more examples, check out: https://httpie.io&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="ripgrep---grep-alternative">ripgrep - (grep alternative)&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/BurntSushi/ripgrep">ripgrep&lt;/a>: a faster &lt;code>grep&lt;/code>. ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern. By default, ripgrep will respect your .gitignore and automatically skip hidden files/directories and binary files.&lt;/li>
+&lt;li>&lt;a href="https://github.com/BurntSushi/ripgrep#quick-examples-comparing-tools">Benchmark&lt;/a>.&lt;/li>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Basic use&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ rg fast README.md
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Regular expressions&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ rg &lt;span class="s1">&amp;#39;fast\w+&amp;#39;&lt;/span> README.md
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Recursive search - recursively searching the directory (current directory is default)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ rg &lt;span class="s1">&amp;#39;fn write\(&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For more examples, checkout: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="delta">delta&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/dandavison/delta">delta&lt;/a>: Code evolves, and we all spend time studying diffs. Delta aims to make this both efficient and enjoyable: it allows you to make extensive changes to the layout and styling of diffs, as well as allowing you to stay arbitrarily close to the default git/diff output.&lt;/li>
+&lt;li>Diff/git diff doesn&amp;rsquo;t show you exactly what was changed.&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/git-diff.png">
+&lt;/figure>
+
+&lt;ul>
+&lt;li>Delta shows within-line highlights based on a Levenshtein edit inference algorithm.&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/delta.png">
+&lt;/figure>
+
+&lt;ul>
+&lt;li>By default, delta restructures the git output slightly to make the hunk markers human-readable:&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://user-images.githubusercontent.com/52205/81059276-254cf980-8e9e-11ea-95c3-8b757a4c11b5.png">
+&lt;/figure>
+
+&lt;ul>
+&lt;li>Example config:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>core&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> pager: delta
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>delta&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> plus-style: &lt;span class="s2">&amp;#34;syntax #98c379&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> minus-style: &lt;span class="s2">&amp;#34;syntax #e06c75&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> syntax-theme: OneHalfDark
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> navigate: &lt;span class="nb">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> features: line-numbers decorations
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>interactive&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> diffFilter: delta --color-only
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Completely replace &lt;code>diff&lt;/code> with &lt;code>delta&lt;/code>:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">diff&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;delta&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="z">z&lt;/h2>
+&lt;ul>
+&lt;li>Tired for &lt;code>cd&lt;/code>ing into the same directories over and over? Save your time with &lt;code>z&lt;/code> command!&lt;/li>
+&lt;li>&lt;a href="https://github.com/rupa/z">z&lt;/a>: jump around. Z is a shell script that makes jumping around your file directory pleasantly simple. Instead of trying to remember the exact path of where you need to go, or worse, &lt;code>cd&lt;/code>ing into the next directory followed by &lt;code>ls&lt;/code>ing and then cding again over and over (we’ve all been there), Z allows you to “lazy type” where you want to go and it’ll handle the rest.&lt;/li>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Takes me to my workspace folder from anywhere.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ z workspace
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="fzf">fzf&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/junegunn/fzf">fzf&lt;/a>: fzf is a general-purpose command-line fuzzy finder.&lt;/li>
+&lt;li>It&amp;rsquo;s an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.&lt;/li>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Read the list from STDIN and write the selected item to STDOUT&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ find * -type f &lt;span class="p">|&lt;/span> fzf &amp;gt; selected
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ vim &lt;span class="k">$(&lt;/span>fzf&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># COMMAND **&amp;lt;TAB&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Files under the current directory&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># - You can select multiple items with TAB key&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ vim **&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Files under parent directory&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ vim ../**&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Files under parent directory that match `fzf`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ vim ../fzf**&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Files under your home directory&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ vim ~/**&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Directories under current directory (single-selection)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">cd&lt;/span> **&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Directories under ~/github that match `fzf`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">cd&lt;/span> ~/github/fzf**&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Can select multiple processes with &amp;lt;TAB&amp;gt; or &amp;lt;Shift-TAB&amp;gt; keys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">kill&lt;/span> -9 &amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">unset&lt;/span> **&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">export&lt;/span> **&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">unalias&lt;/span> **&amp;lt;TAB&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For more examples, checkout: https://github.com/junegunn/fzf&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/fzf-vim.png">
+&lt;/figure>
+
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/fzf-cd.png">
+&lt;/figure>
+
+&lt;h2 id="thefuck">thefuck&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/nvbn/thefuck">thefuck&lt;/a>: Magnificent app which corrects your previous console command.&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://raw.githubusercontent.com/nvbn/thefuck/master/example.gif">
+&lt;/figure>
+
+&lt;ul>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ apt-get install vim
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">E: Could not open lock file /var/lib/dpkg/lock - open &lt;span class="o">(&lt;/span>13: Permission denied&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">E: Unable to lock the administration directory &lt;span class="o">(&lt;/span>/var/lib/dpkg/&lt;span class="o">)&lt;/span>, are you root?
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ fuck
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt-get install vim &lt;span class="o">[&lt;/span>enter/↑/↓/ctrl+c&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Reading package lists... Done
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># For more examples, check out: https://github.com/nvbn/thefuck&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="exa---ls-alternative">exa - (ls alternative)&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://the.exa.website">exa&lt;/a>: A modern replacement for ls. &lt;code>exa&lt;/code> is an improved file lister with more features and better defaults. It uses colours to distinguish file types and metadata. It knows about symlinks, extended attributes, and Git. And it’s small, fast, and just one single binary.&lt;/li>
+&lt;li>Examples:&lt;/li>
+&lt;/ul>
+&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/exa.png">
+&lt;/figure>
+
+&lt;ul>
+&lt;li>Completely replace &lt;code>ls&lt;/code> with &lt;code>exa&lt;/code>:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">ls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;exa&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/exa-ls.png">
+&lt;/figure></description></item><item><title>Set Animated Gif as Wallpaper</title><link>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</link><pubDate>Thu, 14 Jan 2021 09:36:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</guid><description>&lt;blockquote>
+&lt;p>&lt;strong>NOTE&lt;/strong>: Environment Ubuntu 20.04&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="dependencies">Dependencies&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/ujjwal96/xwinwrap">Xwinwrap&lt;/a>:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt-get install xorg-dev build-essential libx11-dev x11proto-xext-dev libxrender-dev libxext-dev
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git clone https://github.com/ujjwal96/xwinwrap.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> xwinwrap
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo make install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make clean
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Gifsicle:&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt install gifsicle
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="the-helper-script">The helper script&lt;/h2>
+&lt;p>A helper script to setup animated .gif in dual monitors.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="c1"># Uses xwinwrap to display given animated .gif in dual monitors.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$#&lt;/span> -ne &lt;span class="m">1&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> 1&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">2&lt;/span> Usage: &lt;span class="nv">$0&lt;/span> image.gif
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">exit&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">gif&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">killall -9 xwinwrap
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">killall -9 gifview
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Get monitors resolution&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">SCR1&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>xrandr &lt;span class="p">|&lt;/span> awk &lt;span class="s1">&amp;#39;/primary/ &amp;amp;&amp;amp; /connected/ { print $4 }&amp;#39;&lt;/span>&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">SCR2&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>xrandr &lt;span class="p">|&lt;/span> awk &lt;span class="s1">&amp;#39;!/primary/ &amp;amp;&amp;amp; /connected/ { print $3 }&amp;#39;&lt;/span>&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xwinwrap -g &lt;span class="nv">$SCR1&lt;/span> -ov -ni -s -nf -- gifview -w WID &lt;span class="nv">$gif&lt;/span> -a &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xwinwrap -g &lt;span class="nv">$SCR2&lt;/span> -ov -ni -s -nf -- gifview -w WID &lt;span class="nv">$gif&lt;/span> -a &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>If you want to run xwinwrap by yourself, here is the example:&lt;/p></description></item></channel></rss>

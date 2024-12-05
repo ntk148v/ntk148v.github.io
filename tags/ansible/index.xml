@@ -1,5 +1,46 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ansible on kiennt26's home</title><link>https://ntk148v.github.io/tags/ansible/</link><description>Recent content in Ansible on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 30 Aug 2023 09:43:02 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/ansible/index.xml" rel="self" type="application/rss+xml"/><item><title>Testing Ansible With Molecule</title><link>https://ntk148v.github.io/posts/testing-ansible-with-molecule/</link><pubDate>Mon, 20 Mar 2023 14:41:38 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/testing-ansible-with-molecule/</guid><description>The following content is rendered from my #til github. Testing Ansible with Molecule Source:
-https://molecule.readthedocs.io/en/latest/getting-started/ https://www.jeffgeerling.com/blog/2018/testing-your-ansible-roles-molecule Table of contents:
-Testing Ansible with Molecule 0. Problem 1. Introduction 2. Play with Molecule 2.1. Getting started 2.2. Custom Docker image 2.3. Test an existing role 2.4. Test Cluster 0. Problem You wrote an Ansible playbook, good job, congratulations! Now you have to (should) check if the playbook works correctly. You may have multiple choices:</description></item><item><title>Ansitheus</title><link>https://ntk148v.github.io/posts/ansitheus/</link><pubDate>Tue, 05 May 2020 13:51:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/ansitheus/</guid><description>Ansitheus: Ansible + Prometheus Prometheus overview NOTE: Checkout the Prometheus official documentation.
-Prometheus is an open-source systems monitoring &amp;amp; alerting toolkit originally built at SoundCloud.
-Features a multi-dimensional data model with time series data identified by metric name &amp;amp; key/value pairs PromQL, a flexible query language to leverage this dimensionality no reliance on distributed storage; single server nodes are autonomous time series collection happens via a pull model over HTTP pushing time series is supported via an intermediary gateway targets are discovered via service discovery or static configuration multiple modes of graphing &amp;amp; dashboarding support Architecture &amp;amp; components Prometheus scrapes metrics from instrumented jobs, either directly or via an intermediary push gateway for short-lived jobs.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ansible on kiennt26's home</title><link>https://ntk148v.github.io/tags/ansible/</link><description>Recent content in Ansible on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 30 Aug 2023 09:43:02 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/ansible/index.xml" rel="self" type="application/rss+xml"/><item><title>Testing Ansible With Molecule</title><link>https://ntk148v.github.io/posts/testing-ansible-with-molecule/</link><pubDate>Mon, 20 Mar 2023 14:41:38 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/testing-ansible-with-molecule/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-gold">
+ The following content is rendered from &lt;a href="https://github.com/ntk148v/til/blob/master/ansible/molecule.md">my #til github&lt;/a>.
+&lt;/blockquote>
+
+&lt;h1 id="testing-ansible-with-molecule">Testing Ansible with Molecule&lt;/h1>
+&lt;p>Source:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://molecule.readthedocs.io/en/latest/getting-started/">https://molecule.readthedocs.io/en/latest/getting-started/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.jeffgeerling.com/blog/2018/testing-your-ansible-roles-molecule">https://www.jeffgeerling.com/blog/2018/testing-your-ansible-roles-molecule&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Table of contents:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#testing-ansible-with-molecule">Testing Ansible with Molecule&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#0-problem">0. Problem&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#1-introduction">1. Introduction&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#2-play-with-molecule">2. Play with Molecule&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#21-getting-started">2.1. Getting started&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#22-custom-docker-image">2.2. Custom Docker image&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#23-test-an-existing-role">2.3. Test an existing role&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#24-test-cluster">2.4. Test Cluster&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="0-problem">0. Problem&lt;/h2>
+&lt;p>You wrote an Ansible playbook, good job, congratulations! Now you have to (should) check if the playbook works correctly. You may have multiple choices:&lt;/p></description></item><item><title>Ansitheus</title><link>https://ntk148v.github.io/posts/ansitheus/</link><pubDate>Tue, 05 May 2020 13:51:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/ansitheus/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Ansitheus: Ansible + Prometheus
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="prometheus-overview">Prometheus overview&lt;/h2>
+&lt;blockquote>
+&lt;p>&lt;strong>NOTE&lt;/strong>: Checkout the &lt;a href="https://prometheus.io/docs/introduction/overview/">Prometheus official documentation&lt;/a>.&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;a href="https://github.com/prometheus">Prometheus&lt;/a> is an open-source systems monitoring &amp;amp; alerting toolkit originally built at SoundCloud.&lt;/p>
+&lt;h3 id="features">Features&lt;/h3>
+&lt;ul>
+&lt;li>a multi-dimensional data model with time series data identified by metric name &amp;amp; key/value pairs&lt;/li>
+&lt;li>PromQL, a flexible query language to leverage this dimensionality&lt;/li>
+&lt;li>no reliance on distributed storage; single server nodes are autonomous&lt;/li>
+&lt;li>time series collection happens via a pull model over HTTP&lt;/li>
+&lt;li>pushing time series is supported via an intermediary gateway&lt;/li>
+&lt;li>targets are discovered via service discovery or static configuration&lt;/li>
+&lt;li>multiple modes of graphing &amp;amp; dashboarding support&lt;/li>
+&lt;/ul>
+&lt;h3 id="architecture--components">Architecture &amp;amp; components&lt;/h3>
+&lt;p>Prometheus scrapes metrics from instrumented jobs, either directly or via an intermediary push gateway for short-lived jobs. It stores all scraped samples locally &amp;amp; runs rules over this data to either aggregate &amp;amp; record new time series from existing data or generate alerts. Grafana or other API consumers can be used to visualize the collected data.&lt;/p></description></item></channel></rss>
