@@ -1,7 +1,7 @@
 ---
-title: 'Thoughts'
-date: '2023-03-03T09:33:58+07:00'
-tags: ['thoughts', 'non-tech', 'ramblings']
+title: "Thoughts"
+date: "2023-03-03T09:33:58+07:00"
+tags: ["thoughts", "non-tech", "ramblings"]
 draft: true
 comment: true
 ---
