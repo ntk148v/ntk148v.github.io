@@ -29,7 +29,7 @@ This is a basic packet flow from outside:
 
 Alright, before we make it right, there are some common mistakes.
 
-###  Modify Docker generated rules manually
+### Modify Docker generated rules manually
 
 Docker generates iptables rules, then adds to `DOCKER` chains. Some users may manipulate this chain manually in order to block connections.
 
@@ -39,7 +39,7 @@ _Please don't do it_. Yes, you are able to do it, there is nothing prevent you t
 Right: Do not manipulate Docker rules manually.
 {{< /quote >}}
 
-###  Insert you rules in the wrong chain
+### Insert you rules in the wrong chain
 
 iptables basic: iptables is divied into three levels: tables, chains and rules. We only use the filter tables, which contains:
 
@@ -53,7 +53,7 @@ Commonly, to block connection from external, put reject rules in INPUT chain. Bu
 Right: Add rules which load before Docker's rules, add them to DOCKER-USER.
 {{< /quote >}}
 
-###  Modify and persistent iptables wrong
+### Modify and persistent iptables wrong
 
 You modify and persistent iptables rules like this:
 
@@ -70,7 +70,7 @@ Right: Do not save, flush then restore all rules. Check the following solution.
 
 ## Do it right!
 
-###  Overview
+### Overview
 
 I have create a repository for this, which is highly inspired by [systemd-service-iptables](https://github.com/boTux-fr/systemd-service-iptables): https://github.com/ntk148v/systemd-iptables
 
@@ -234,7 +234,7 @@ I have create a repository for this, which is highly inspired by [systemd-servic
   COMMIT
   ```
 
-###  Getting started
+### Getting started
 
 - Ofc you need iptables and systemd installed.
 - On the Linux, run as root:

@@ -14,7 +14,7 @@ This guide describes how to automatically scale out your Compute instances in re
 
 Let's talk about the standard OpenStack Autoscaling approach before goes to the new approach.
 
-###  Main components
+### Main components
 
 - Orchestration: The core component providing automatic scaling is Orchestration (heat). Orchestration allows you to define rules using human-readable YAML templates. These rules are applied to evaluate system load based on Telemetry data to find out whether there is need to more instances into the stack. Once the load has dropped, Orchestration can automatically remove the unused instances again.
 
@@ -23,11 +23,11 @@ Let's talk about the standard OpenStack Autoscaling approach before goes to the 
   - Gnocchi: provides a time-series resource indexing, metric storage service with enables users to capture OpenStack resources and the metrics associated with them.
   - Aodh: enables the abiltity to trigger actions based on defined rules against sample or event data collected by Ceilometer.
 
-###  Autoscaling process
+### Autoscaling process
 
 For more details, you could check [IBM help documentation](https://ibm-blue-box-help.github.io/help-documentation/heat/autoscaling-with-heat/)
 
-###  Drawbacks
+### Drawbacks
 
 - Ceilometer, Aodh are lacking of contribution. Ceilometer API was [deprecated](https://review.opendev.org/#/c/512286/). Either Transform and pipeline was [the same state](https://review.opendev.org/#/c/560854/), it means cpu_util will be unusable soon. In the commit message, @sileht - Ceilometer Core reviewer wrote that "Also backend like Gnocchi offers a better alternative to compute them". But Aodh still [deprecated Gnocchi aggregation API](https://github.com/openstack/aodh/blob/master/aodh/evaluator/gnocchi.py#L140) which doesn't support `rate:mean`. For more details, you can follow the [issue I've opened before](https://github.com/gnocchixyz/gnocchi/issues/999). Be honest, I was gave up on it - 3 projects which was tightly related together, one change might cause a sequence and break the whole stack, how can I handle that?
 - Aodh has its own formula to define rule based on Ceilometer metrics (that were stored in Gnocchi). But it isn't correct sometimes cause the wrong scaling action.
@@ -36,7 +36,7 @@ For more details, you could check [IBM help documentation](https://ibm-blue-box-
 
 ## The new approach with Faythe
 
-###  The idea
+### The idea
 
 Actually, this isn't a complete new approach, it still leverages Orchestration (heat) to do scaling action. The different comes from Monitor service.
 
@@ -57,7 +57,7 @@ The _another service_ is [Prometheus stack](https://prometheus.io/). The questio
 - Flexibile: Beside the system factor like CPU/Memory usage, I can evaluate any metrics I can collect, for example: JVM metrics.
 - // Take time to investigate about Prometheus and fill it here by yourself
 
-###  The implementation
+### The implementation
 
 **The ideal architecture**
 
@@ -143,7 +143,7 @@ We need a 3rd service to solve these problems - `Faythe does some magic`.
 - Prometheus alertmanager sends Alerts via pre-configured webhook URL - Faythe endpoint.
 - Faythe receives and processes Alerts (dedup, group alert and generate a Heat signal URL) and creates a POST request to scale endpoint.
 
-###  Guideline
+### Guideline
 
 The current aprroach requires some further setup and configuration from Prometheus and Heat stack. You will see that it's quite complicated.
 
@@ -304,7 +304,7 @@ server_config:
 
 <center><iframe src="https://giphy.com/embed/cLlVn5zC5UOSmQZKJ7" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/RobertEBlackmon-bye-go-away-anna-wintour-cLlVn5zC5UOSmQZKJ7">via GIPHY</a></p></center>
 
-###  Drawbacks and TODO
+### Drawbacks and TODO
 
 **Drawbacks**
 

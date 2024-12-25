@@ -31,7 +31,7 @@ References:
 
 ## Configure
 
-###  ISPRouter
+### ISPRouter
 
 Follow the [Fortigate document](https://docs.fortinet.com/document/fortigate/7.0.3) for the basic commands.
 
@@ -82,7 +82,7 @@ config firewall policy
 end
 ```
 
-###  EdgeRouter
+### EdgeRouter
 
 ```bash
 config system interface
@@ -147,7 +147,7 @@ config system settings
 end
 ```
 
-###  Switch
+### Switch
 
 - Set up mode access.
 
@@ -160,7 +160,7 @@ exit
 copy running-config start-config
 ```
 
-###  Servers
+### Servers
 
 - Configure `10.13.13.1` on the local loopback interface.
 
@@ -341,7 +341,7 @@ lb1$ sudo service exabgp status
 
 To make sure everything works as expected.
 
-###  Scenario 1: Both servers are OK
+### Scenario 1: Both servers are OK
 
 - Client check.
 
@@ -443,7 +443,7 @@ Origin codes: i - IGP, e - EGP, ? - incomplete
 Total number of prefixes 1
 ```
 
-###  Scenario 2: One lb is down
+### Scenario 2: One lb is down
 
 - Stop nginx on lb2 (ExaBGP only, Bird may require the complete shutdown) or stop lb2 physically.
 

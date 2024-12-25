@@ -15,21 +15,21 @@ Etcd Version `v3.4.0`.
 
 ## Requirements
 
-###  Number of nodes
+### Number of nodes
 
 - \>= 3 nodes. A etcd cluster needs a majority of nodes, a quorum to agree on updates to the cluster state. For a cluster with **n-members**, quorum is **(n/2)+1**.
 
-###  CPUs
+### CPUs
 
 - Etcd doesn't require a lot of CPU capacity.
 - Typical clusters need **2-4 cores** to run smoothly.
 
-###  Memory
+### Memory
 
 - Etcd performance depends on having enough memory (cache key-value data, tracking watchers...).
 - Typical **8GB** is enough.
 
-###  Disk
+### Disk
 
 - An etcd cluster is very sensitive to disk latencies. Since etcd must persist proposals to its log, disk activity from other processes may cause long `fsync` latencies. The upshot is etcd may miss heartbeats, causing request timeouts and temporary leader loss. An etcd server can sometimes stably run alongside these processes when given a high disk priority.
 - Check whether a disk is fast enough for etcd using [fio](https://github.com/axboe/fio). If the 99th percentile of fdatasync is **<10ms**, your storage is ok.
@@ -41,7 +41,7 @@ $ fio --rw=write --ioengine=sync --fdatasync=1 --directory=test-data \
 
 - **SSD** is recommended.
 
-###  Network
+### Network
 
 - Etcd cluster should be deployed in a fast and reliable network. Low latency ensures etcd members can communicate fast. High bandwidth can reduce the time to recover a failed etcd member.
 - **1GbE** is sufficient for common etcd.
@@ -49,7 +49,7 @@ $ fio --rw=write --ioengine=sync --fdatasync=1 --directory=test-data \
 
 ## Tuning
 
-###  Time parameters
+### Time parameters
 
 - `Heartbeat interval`.
   - The frequency with which the leader will notify followers that it is still the leader.
@@ -70,7 +70,7 @@ $ etcd --heartbeat-interval=100 --election-timeout=500
 $ ETCD_HEARTBEAT_INTERVAL=100 ETCD_ELECTION_TIMEOUT=500 etcd
 ```
 
-###  Disk
+### Disk
 
 - An etcd server can sometimes stably run alongside these processes when given a high disk priority using [ionice](https://linux.die.net/man/1/ionice).
 
@@ -79,7 +79,7 @@ $ ETCD_HEARTBEAT_INTERVAL=100 ETCD_ELECTION_TIMEOUT=500 etcd
 $ sudo ionice -c2 -n0 -p `pgrep etcd`
 ```
 
-###  Snapshot
+### Snapshot
 
 - etcd appends all key changes to a log file -> huge log that grows forever :point_up:
 - Solution: Make periodic snapshots (save the current and remove old logs).
@@ -96,7 +96,7 @@ $ ETCD_SNAPSHOT_COUNT=5000 etcd
 
 ## Maintenance
 
-###  History compaction
+### History compaction
 
 - Etcd keeps an exact history of its keyspace, the history should be periodically compacted to avoid performance degradation and eventual storage space exhaustion.
 - Etcd can be set to automatically compact the keyspace with the `--auto-compaction-*` option with a period of hours.
@@ -110,7 +110,7 @@ $ etcd --auto-compaction-retention=1 --auto-compaction-mode=periodic
   - Revision-based: `--auto-compaction-mode=revision --auto-compaction-retention=1000` automatically Compact on "latest revision" - 1000 every 5-minute (when latest revision is 30000, compact on revision 29000). Use this when having a large keyspace.
   - Periodic: `--auto-compaction-mode=periodic --auto-compaction-retention=72h` automatically Compact with 72-hour retention window every 1-hour. Use this when having a huge number of revisions for a key-value pair.
 
-###  Defragmentation
+### Defragmentation
 
 - Compacting old revisions internally fragments etcd by leaving gaps in backend database - `internal fragmentation`.
 - Internal fragmentation space is available for use by etcd but unavailable to the host filesystem.

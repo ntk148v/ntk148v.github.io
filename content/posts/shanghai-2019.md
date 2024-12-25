@@ -10,9 +10,9 @@ draft: true
 
 ## Chuẩn bị
 
-###  Ứng dụng cần cài đặt
+### Ứng dụng cần cài đặt
 
-###  Tiền tệ
+### Tiền tệ
 
 ## Di chuyển
 
@@ -22,8 +22,8 @@ draft: true
 
 ## Chuyện bên lề
 
-###  Trung Quốc và QR Code
+### Trung Quốc và QR Code
 
-###  Ngôn ngữ
+### Ngôn ngữ
 
-###  Đi vệ sinh...
+### Đi vệ sinh...

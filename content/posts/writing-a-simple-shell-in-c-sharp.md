@@ -180,7 +180,7 @@ Huh, something went wrong here. Why does the `cd` command not work? `cd` is not 
 
 Now, we will create some built-in commands. We have to modify the `ExecCommand` function: add a `switch` statement to the first argument (the command to execute) which is stored in `args[0]`.
 
-###  `cd`
+### `cd`
 
 First, implement `cd`:
 
@@ -238,7 +238,7 @@ First, implement `cd`:
     }
 ```
 
-###  `exit`
+### `exit`
 
 Similiarly, implement the `exit` command, it's quite simple.
 
@@ -263,7 +263,7 @@ Similiarly, implement the `exit` command, it's quite simple.
     }
 ```
 
-###  `which`
+### `which`
 
 `which` returns the pathnames of the files (or links) which would be executed in the current environment. It does this by searching the PATH for executable files matching the file names of the arguments.
 
@@ -329,7 +329,7 @@ kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/
 
 ```
 
-###  `help`
+### `help`
 
 A help page always necessary, let's create one. Logic is simple:
 
@@ -434,7 +434,7 @@ KShell aka. Kien's Shell, written in C#.
 
 ## Improvement
 
-###  Handle exception
+### Handle exception
 
 Entering the wrong command, and a long stacktrace returns. It makes nonsense for the end user. The end user just need a message like: "command not found". Just it.
 
@@ -477,7 +477,7 @@ kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/
 An error occurred trying to start process 'wrongcommand' with working directory '/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0'. No such file or directory
 ```
 
-###  Handle command not found
+### Handle command not found
 
 The exception's message is still not clear enough for the end user. We can check if the command is existing before execute it. Remember `search3`
 

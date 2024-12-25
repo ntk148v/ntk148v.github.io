@@ -17,7 +17,7 @@ I love customizing desktop. I make changes in my desktop everyday, make it look 
 
 First of all, you have to know the basic concepts.
 
-###  Desktop Environment vs. Window Manager
+### Desktop Environment vs. Window Manager
 
 We'll begin by showing how the Linux graphical desktop is layered. There are basically 3 layers that can be included in the Linux desktop:
 
@@ -40,7 +40,7 @@ A[Desktop Environment] --> B[Window Manager];
 B --> C[X Windows];
 {{< /mermaid >}}
 
-###  Types of Window Manager
+### Types of Window Manager
 
 - **Stack window manager**:
   - A stack window manager renders the window one-by-one onto the screen at specific co-orinates. If one window's area overlaps another, then the window "on top" overwites part of the other's visible appearance. This results in the appearance familiar to many users in which windows act a little like pieces of paper on a desktop, which can be moved around and allowed to overlap.
@@ -65,7 +65,7 @@ B --> C[X Windows];
 
 ## Minimal I3 setup
 
-###  Operating System
+### Operating System
 
 - Ubuntu 20.04 (Desktop/Server), download the [installer](https://ubuntu.com/download/) and install Ubuntu by walking through installer.
 - If you choose Ubuntu Server, you'll need a display server so let's install X Window System ([Xorg](https://wiki.archlinux.org/index.php/Xorg)).
@@ -76,7 +76,7 @@ sudo apt install xinit
 # You can override it by creating and modifying ~/.xinitrc
 ```
 
-###  Install I3
+### Install I3
 
 - You can install i3 from [Ubuntu repository](https://packages.ubuntu.com/search?keywords=i3). It includes the window manager, a screen locker and two programs which write a status line to i3bar through stdout.
 
@@ -124,14 +124,14 @@ sudo ninja install
 
 This post doesn't aim to cover everything about i3, see the [official documentation](https://i3wm.org/docs/userguide.html) for more information.
 
-###  Keybindings
+### Keybindings
 
 - In i3, commands are invoked with a modifier key, referred to as `$mod`. This is `Alt (Mod1)` by default, with `Super (Mod4)` being a popular alternative. Super is the key usually represented on a keyboard as a Windows icon, or on an Apple keyboard as a Command key.
 - See [i3 reference card](https://i3wm.org/docs/refcard.html) and [Using i3](https://i3wm.org/docs/userguide.html#_using_i3) for defaults.
 
 {{< figure class="figure" src="/photos/getting-started-tiling-wm-part-1/i3-refcard.png" >}}
 
-###  Workspace, Container and Window
+### Workspace, Container and Window
 
 {{< mermaid >}}
 
@@ -165,7 +165,7 @@ style Container3 fill:#6fa8dc;
 - A window, where an application is running, can be created in a container. It will automatically position itself and be in focus, depending on the container’s layout. You can move them around or even change the layout of the container using keystrokes.
 - There are two different sorts of windows: **fixed window**s (by default) and **floating windows**.
 
-###  Application launcher
+### Application launcher
 
 - i3 uses [dmenu](https://wiki.archlinux.org/title/Dmenu) as an application launcher, which is bound by default to `$mod+d`.
 - [rofi]({{< ref "/posts/getting-started-tiling-wm-part-2-rofi.md" >}}) is a popular dmenu replacement and more that can list dekstop entries.
