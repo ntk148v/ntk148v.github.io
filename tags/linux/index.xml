@@ -582,8 +582,7 @@ F --> |Yes| H(supervisor or systemd)
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">ls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;exa&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/exa-ls.png">
 &lt;/figure></description></item><item><title>Set Animated Gif as Wallpaper</title><link>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</link><pubDate>Thu, 14 Jan 2021 09:36:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</guid><description>&lt;blockquote>
-&lt;p>&lt;strong>NOTE&lt;/strong>: Environment Ubuntu 20.04&lt;/p>
-&lt;/blockquote>
+&lt;p>&lt;strong>NOTE&lt;/strong>: Environment Ubuntu 20.04&lt;/p>&lt;/blockquote>
 &lt;h2 id="dependencies">Dependencies&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/ujjwal96/xwinwrap">Xwinwrap&lt;/a>:&lt;/li>

@@ -38,7 +38,7 @@
  The following content is rendered from &lt;a href="https://github.com/ntk148v/til/blob/master/recurse-center/README.md">my #til github&lt;/a>.
 &lt;/blockquote>
 
-&lt;h1 id="recurse-center">Recurse Center&lt;/h1>
+ &lt;h1 id="recurse-center">Recurse Center&lt;/h1>
 &lt;p>Source: &lt;a href="https://www.recurse.com/">https://www.recurse.com/&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">The retreat where curious programmers recharge and grow
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>I&amp;rsquo;ve founded out about Recurse Center, formerly known as Hacker School, from &lt;a href="https://jvns.ca/blog/2017/09/17/how-i-spent-my-time-at-the-recurse-center/">Julia Evan&amp;rsquo;s blog&lt;/a>.&lt;/p>
@@ -68,7 +68,7 @@
  The following content is rendered from &lt;a href="https://github.com/ntk148v/til/blob/master/ansible/molecule.md">my #til github&lt;/a>.
 &lt;/blockquote>
 
-&lt;h1 id="testing-ansible-with-molecule">Testing Ansible with Molecule&lt;/h1>
+ &lt;h1 id="testing-ansible-with-molecule">Testing Ansible with Molecule&lt;/h1>
 &lt;p>Source:&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://molecule.readthedocs.io/en/latest/getting-started/">https://molecule.readthedocs.io/en/latest/getting-started/&lt;/a>&lt;/li>
@@ -1534,8 +1534,7 @@ F --> |Yes| H(supervisor or systemd)
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">alias&lt;/span> &lt;span class="nv">ls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;exa&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/exa-ls.png">
 &lt;/figure></description></item><item><title>Set Animated Gif as Wallpaper</title><link>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</link><pubDate>Thu, 14 Jan 2021 09:36:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</guid><description>&lt;blockquote>
-&lt;p>&lt;strong>NOTE&lt;/strong>: Environment Ubuntu 20.04&lt;/p>
-&lt;/blockquote>
+&lt;p>&lt;strong>NOTE&lt;/strong>: Environment Ubuntu 20.04&lt;/p>&lt;/blockquote>
 &lt;h2 id="dependencies">Dependencies&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/ujjwal96/xwinwrap">Xwinwrap&lt;/a>:&lt;/li>
@@ -1575,8 +1574,7 @@ F --> |Yes| H(supervisor or systemd)
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>So if a computer had 64KB of RAM, a swap partition of 128KB would be an optimum size. This rule took into the facts that RAM sizes were typically quite small at the time. Nowadays, RAM has become a &lt;code>cheap&lt;/code> &amp;amp; &lt;code>affordable&lt;/code> commondity, so the 2x rule is outdated.&lt;/p></description></item><item><title>Ansitheus</title><link>https://ntk148v.github.io/posts/ansitheus/</link><pubDate>Tue, 05 May 2020 13:51:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/ansitheus/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Ansitheus: Ansible + Prometheus
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="prometheus-overview">Prometheus overview&lt;/h2>
 &lt;blockquote>
-&lt;p>&lt;strong>NOTE&lt;/strong>: Checkout the &lt;a href="https://prometheus.io/docs/introduction/overview/">Prometheus official documentation&lt;/a>.&lt;/p>
-&lt;/blockquote>
+&lt;p>&lt;strong>NOTE&lt;/strong>: Checkout the &lt;a href="https://prometheus.io/docs/introduction/overview/">Prometheus official documentation&lt;/a>.&lt;/p>&lt;/blockquote>
 &lt;p>&lt;a href="https://github.com/prometheus">Prometheus&lt;/a> is an open-source systems monitoring &amp;amp; alerting toolkit originally built at SoundCloud.&lt;/p>
 &lt;h3 id="features">Features&lt;/h3>
 &lt;ul>
@@ -1590,8 +1588,7 @@ F --> |Yes| H(supervisor or systemd)
 &lt;/ul>
 &lt;h3 id="architecture--components">Architecture &amp;amp; components&lt;/h3>
 &lt;p>Prometheus scrapes metrics from instrumented jobs, either directly or via an intermediary push gateway for short-lived jobs. It stores all scraped samples locally &amp;amp; runs rules over this data to either aggregate &amp;amp; record new time series from existing data or generate alerts. Grafana or other API consumers can be used to visualize the collected data.&lt;/p></description></item><item><title>Operate Etcd cluster</title><link>https://ntk148v.github.io/posts/operate-etcd-cluster/</link><pubDate>Tue, 28 Apr 2020 11:24:04 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/operate-etcd-cluster/</guid><description>&lt;blockquote>
-&lt;p>&lt;strong>NOTE&lt;/strong>: This is my perspective aggregation. You can easily find these such of knowledges in &lt;a href="#5-references">the references&lt;/a>.&lt;/p>
-&lt;/blockquote>
+&lt;p>&lt;strong>NOTE&lt;/strong>: This is my perspective aggregation. You can easily find these such of knowledges in &lt;a href="#5-references">the references&lt;/a>.&lt;/p>&lt;/blockquote>
 &lt;h2 id="context">Context&lt;/h2>
 &lt;p>Etcd Version &lt;code>v3.4.0&lt;/code>.&lt;/p>
 &lt;h2 id="requirements">Requirements&lt;/h2>
@@ -1707,8 +1704,7 @@ F --> |Yes| H(supervisor or systemd)
 &lt;li>&lt;a href="https://pliutau.com/different-ways-to-block-go-runtime-forever/">https://pliutau.com/different-ways-to-block-go-runtime-forever/&lt;/a>&lt;/li>
 &lt;/ol>
 &lt;blockquote>
-&lt;p>NOTE: I run these with Golang 1.12&lt;/p>
-&lt;/blockquote>
+&lt;p>NOTE: I run these with Golang 1.12&lt;/p>&lt;/blockquote>
 &lt;h2 id="the-original">The original&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
@@ -1722,8 +1718,8 @@ F --> |Yes| H(supervisor or systemd)
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">go&lt;/span> &lt;span class="nf">show&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1">// The main goroutine is exited before the show() be done.
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;OK we&amp;#39;re done&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">go&lt;/span> &lt;span class="nf">show&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1">// The main goroutine is exited before the show() be done.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;OK we&amp;#39;re done&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="bad---an-empty-infinite-loop">Bad - An empty infinite loop&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
@@ -1735,8 +1731,8 @@ F --> |Yes| H(supervisor or systemd)
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">forever&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Empty, just do nothing
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Empty, just do nothing&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">show&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
@@ -1756,8 +1752,7 @@ F --> |Yes| H(supervisor or systemd)
 &lt;p>I am not Kobe fan honestly but just like him, basketball is something I love. I hope he&amp;rsquo;s at peace because although his journey in life is over, the legacy he left behind is etched in all our souls.&lt;/p>
 &lt;p>Rest In Peace Mamba :basketball:&lt;/p>
 &lt;p>&lt;img src="./kobe.jpg" alt="">&lt;/p></description></item><item><title>Openstack Autoscaling New Approach</title><link>https://ntk148v.github.io/posts/openstack-autoscaling-new-approach/</link><pubDate>Mon, 19 Aug 2019 21:19:38 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/openstack-autoscaling-new-approach/</guid><description>&lt;blockquote>
-&lt;p>NOTE(kiennt): There is a &lt;a href="https://github.com/vCloud-DFTBA/faythe/blob/legacy/docs/autoscaling.md">legacy Faythe guideline&lt;/a>. The new version is coming soon, check &lt;a href="https://github.com/vCloud-DFTBA/faythe">its repository&lt;/a> for status.&lt;/p>
-&lt;/blockquote>
+&lt;p>NOTE(kiennt): There is a &lt;a href="https://github.com/vCloud-DFTBA/faythe/blob/legacy/docs/autoscaling.md">legacy Faythe guideline&lt;/a>. The new version is coming soon, check &lt;a href="https://github.com/vCloud-DFTBA/faythe">its repository&lt;/a> for status.&lt;/p>&lt;/blockquote>
 &lt;p>This guide describes how to automatically scale out your Compute instances in response to heavy system usage. By combining with Prometheus pre-defined rules that consider factors such as CPU or memory usage, you can configure OpenStack Orchestration (Heat) to add and remove additional instances automatically, when they are needed.&lt;/p>
 &lt;h2 id="the-standard-openstack-autoscaling-approach">The standard OpenStack Autoscaling approach&lt;/h2>
 &lt;p>Let&amp;rsquo;s talk about the standard OpenStack Autoscaling approach before goes to the new approach.&lt;/p></description></item><item><title>Lets Comment</title><link>https://ntk148v.github.io/posts/lets-comment/</link><pubDate>Tue, 02 Oct 2018 09:47:11 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/lets-comment/</guid><description>&lt;p>Hugo ships with support for Disqus, a third-party service that provides comment and community capabilities to websites via JavaScript. But Disqus generates a shit load of page requests and heavy contents&amp;hellip; which even with the benefits that come with having Disqus in place. People just want something that can be used to post a comment, that is.&lt;/p>
