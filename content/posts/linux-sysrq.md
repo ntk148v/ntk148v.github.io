@@ -4,7 +4,7 @@ date: "2024-12-05T09:44:34+07:00"
 tags: ["linux", "tips", "tech"]
 comments: true
 toc: true
-draft: false
+draft: true
 ---
 
 Source: <https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html>

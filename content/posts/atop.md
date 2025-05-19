@@ -2,7 +2,7 @@
 title: "Atop"
 date: "2024-06-20T17:06:26+07:00"
 tags: ["tech", "linux", "tool"]
-draft: false
+draft: true
 comment: true
 ---
 

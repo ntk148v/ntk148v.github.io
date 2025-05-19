@@ -2,7 +2,7 @@
 title: "Recurse-Center"
 date: "2023-08-23T09:19:35+07:00"
 tags: ["tech"]
-draft: false
+draft: true
 comment: true
 ---
 
