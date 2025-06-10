@@ -34,27 +34,33 @@ That's basically SSE! The server (your friend) sends updates whenever something 
 Server-Sent Events (SSE) is a web standard that enables servers to push data to web clients via HTTP. Here's what makes it special:
 
 1. **The Connection**
+
    ```http
    GET /livescore HTTP/1.1
    Accept: text/event-stream
    ```
+
    The client makes a single HTTP request with `Accept: text/event-stream`, and the connection stays open. It's like subscribing to your friend's match updates on WhatsApp.
 
 2. **The Message Format**
+
    ```
    event: goal  # Optional event type
    data: {"score": {"home": 1, "away": 0}}
 
    data: {"status": "Game in progress"}
    ```
+
    Messages are sent as UTF-8 text, with each message separated by double newlines. Like your friend sending multiple texts, but way more organized!
 
 3. **Event Types**
+
    - `message` - Default event
    - Custom events (like 'goal', 'halftime', 'fulltime')
    - Each type can have its own event handler on the client
 
 4. **Built-in Goodies**
+
    - Automatic reconnection (configurable with `retry: 3000`)
    - Event IDs for tracking last received message
    - Cross-origin support with standard CORS
@@ -108,6 +114,7 @@ async def livescore():
 ```
 
 Let's break down what's happening:
+
 1. The `CORSMiddleware` allows our frontend to connect from any origin
 2. `livescore_generator()` is an async generator that:
    - Loads match data (in real life, this would be live data)
@@ -119,33 +126,33 @@ Let's break down what's happening:
 
 ```javascript
 // 1. Create the connection
-const eventSource = new EventSource('http://localhost:8000/livescore');
+const eventSource = new EventSource("http://localhost:8000/livescore");
 
 // 2. Set up our event handlers
 eventSource.onopen = () => {
-    console.log('Connection established!');
+  console.log("Connection established!");
 };
 
 eventSource.onmessage = (event) => {
-    // Parse the JSON data from the event
-    const data = JSON.parse(event.data);
-    // Update our UI with the new match data
-    updateMatch(data);
+  // Parse the JSON data from the event
+  const data = JSON.parse(event.data);
+  // Update our UI with the new match data
+  updateMatch(data);
 };
 
 eventSource.onerror = (error) => {
-    console.error('Connection lost! Attempting to reconnect...');
-    // The browser will automatically try to reconnect
+  console.error("Connection lost! Attempting to reconnect...");
+  // The browser will automatically try to reconnect
 };
 
 // 3. Update the UI with the match data
 function updateMatch(data) {
-    // Update score
-    document.querySelector('.score').textContent =
-        `${data.score.home} - ${data.score.away}`;
-    // Update match status
-    document.querySelector('.match-status').textContent = data.status;
-    // ... more UI updates
+  // Update score
+  document.querySelector(".score").textContent =
+    `${data.score.home} - ${data.score.away}`;
+  // Update match status
+  document.querySelector(".match-status").textContent = data.status;
+  // ... more UI updates
 }
 ```
 
@@ -162,12 +169,14 @@ function updateMatch(data) {
 ## Try It Yourself! 🚀
 
 1. Clone this repo:
+
    ```bash
    git clone https://github.com/ntk148v/sse-fastapi.git
    cd sse-fastapi
    ```
 
 2. Install dependencies (we use `uv` because we're cool):
+
    ```bash
    uv venv .venv
    . .venv/bin/activate
@@ -175,6 +184,7 @@ function updateMatch(data) {
    ```
 
 3. Run the server:
+
    ```bash
    python main.py
    ```
@@ -186,12 +196,14 @@ function updateMatch(data) {
 ## When to Use SSE? 🤓
 
 Use SSE when:
+
 - You need real-time updates
 - The data flow is mostly server → client
 - You want to keep things simple
 - Your server is feeling particularly chatty
 
 Don't use SSE when:
+
 - You need two-way communication (use WebSocket)
 - Your server has social anxiety
 - You're building a multiplayer game (unless it's a very slow chess match)
@@ -199,22 +211,27 @@ Don't use SSE when:
 ## Real-World Use Cases & Best Practices 🎯
 
 ### Perfect Fits for SSE 🎯
+
 1. **Live Sports Updates**
+
    - Real-time scores (like our example!)
    - Play-by-play commentary
    - Team statistics
 
 2. **Financial Applications**
+
    - Stock price updates
    - Currency exchange rates
    - Trading notifications
 
 3. **Social Media Features**
+
    - News feeds
    - Notification systems
    - Like/comment counters
 
 4. **System Monitoring**
+
    - Server health metrics
    - Log streaming
    - Resource usage stats
@@ -227,10 +244,11 @@ Don't use SSE when:
 ### Best Practices 🏆
 
 1. **Connection Management**
+
    ```javascript
    // Always handle reconnection gracefully
    const connect = () => {
-     const eventSource = new EventSource('/events');
+     const eventSource = new EventSource("/events");
      eventSource.onerror = (error) => {
        eventSource.close();
        setTimeout(connect, 5000); // Custom reconnect logic
@@ -240,6 +258,7 @@ Don't use SSE when:
    ```
 
 2. **Event ID Tracking**
+
    ```python
    # Server-side
    async def generator():
@@ -253,9 +272,11 @@ Don't use SSE when:
    ```
 
 3. **Resource Management**
+
    - Keep payload sizes small (< 10KB recommended)
    - Batch updates when possible
    - Use compression for large datasets
+
    ```python
    # Batch updates example
    async def batch_generator():
@@ -268,9 +289,11 @@ Don't use SSE when:
    ```
 
 4. **Error Handling**
+
    - Always include error events
    - Implement custom retry logic when needed
    - Monitor connection health
+
    ```python
    # Server-side error handling
    @app.get("/stream")
@@ -282,9 +305,11 @@ Don't use SSE when:
    ```
 
 5. **Security Considerations**
+
    - Implement proper authentication
    - Use HTTPS in production
    - Rate limit connections per client
+
    ```python
    # Basic rate limiting example
    from fastapi import HTTPException
