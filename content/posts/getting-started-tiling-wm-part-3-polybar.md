@@ -10,6 +10,4 @@ draft: false
 
 [According to Polybar frontpage](https://polybar.github.io/), `Polybar is A fast and easy to use tool for creating status bars `.
 
-{{< quote warning >}}
-**WIP**
-{{< /quote >}}
+> **WIP**

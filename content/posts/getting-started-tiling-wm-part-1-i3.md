@@ -7,11 +7,9 @@ toc: true
 draft: false
 ---
 
-{{< quote info >}}
-**Disclaimer**
-
-I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I've gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.
-{{< /quote >}}
+> **Disclaimer**
+>
+> I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I've gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.
 
 ## Overview Window Manager
 
@@ -38,7 +36,7 @@ We'll begin by showing how the Linux graphical desktop is layered. There are bas
 graph TD;
 A[Desktop Environment] --> B[Window Manager];
 B --> C[X Windows];
-{{< /mermaid >}}
+{{</ mermaid >}}
 
 ### Types of Window Manager
 
@@ -80,9 +78,7 @@ sudo apt install xinit
 
 - You can install i3 from [Ubuntu repository](https://packages.ubuntu.com/search?keywords=i3). It includes the window manager, a screen locker and two programs which write a status line to i3bar through stdout.
 
-{{< quote warning >}}
-Note that, i3-wm conflicts with [i3-gaps](https://github.com/Airblader/i3) (a fork of i3 with gaps and other features).
-{{< /quote >}}
+> Note that, i3-wm conflicts with [i3-gaps](https://github.com/Airblader/i3) (a fork of i3 with gaps and other features).
 
 ```bash
 sudo apt install i3
@@ -114,6 +110,8 @@ sudo ninja install
 
 {{< figure class="figure" src="/photos/getting-started-tiling-wm-part-1/i3-prompt.png" >}}
 
+![](/photos/getting-started-tiling-wm-part-1/i3-prompt.png)
+
 - `<mod>` key is `Window` now. Hit `<mod>+Enter` to start terminal emulator.
 
 - We have i3 first setup here with the default configuration. As mentioned before, configuration is achieved via plain text file.
@@ -134,7 +132,6 @@ This post doesn't aim to cover everything about i3, see the [official documentat
 ### Workspace, Container and Window
 
 {{< mermaid >}}
-
 graph TD;
 i3-->Workspace1;
 i3-->Workspace2;
@@ -152,7 +149,6 @@ style Workspace2 fill:#ea9999;
 style Container1 fill:#6fa8dc;
 style Container2 fill:#6fa8dc;
 style Container3 fill:#6fa8dc;
-
 {{</ mermaid >}}
 
 - In i3, **workspace** is simply the equivalent of a [virtual desktop](https://en.wikipedia.org/wiki/Virtual_desktop). You can have as many workspaces as you want.

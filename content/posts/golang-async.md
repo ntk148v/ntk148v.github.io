@@ -6,11 +6,9 @@ draft: false
 comment: true
 ---
 
-{{< quote danger >}}
-This article is Golang version of [Asynchronous programming with async and await guideline](https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/). They did really good job to demonstrate how asynchronous programming looks like.
-
-You can find source code [here](https://github.com/ntk148v/testing/tree/master/golang/breakfast).
-{{< /quote >}}
+> This article is Golang version of [Asynchronous programming with async and await guideline](https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/). They did really good job to demonstrate how asynchronous programming looks like.
+>
+> You can find source code [here](https://github.com/ntk148v/testing/tree/master/golang/breakfast).
 
 Throughout this article, we'll write the instructions to make a breakfast.
 
@@ -163,9 +161,7 @@ If you have experience with cooking, that isn't how we cook. Those instructions 
 
 Cooking breakfast is a good example of asynchronous work that isn't parallel. One person (or thread/goroutine) can handle all these tasks. Continuing the breakfast analogy, one person can make breakfast asynchronously by starting the next task before the first task completes. For a parallel, you'd need multiple cooks (or threads). One would make the eggs, one the bacon, and so on. Each one would be focused on just that one task.
 
-{{< quote info >}}
-To clear up the conflation between _concurrency (asynchronous)_ and _parallel_, you should check out [Rob Pike's talk - Concurrency is not parallelism](https://go.dev/blog/waza-talk).
-{{</ quote >}}
+> To clear up the conflation between _concurrency (asynchronous)_ and _parallel_, you should check out [Rob Pike's talk - Concurrency is not parallelism](https://go.dev/blog/waza-talk).
 
 We need an **asynchronous-breakfast**, but you should know about **Goroutine** before we start. A _goroutine_ is a lightweight thread of execution. The following example is taken from [gobyexample](https://gobyexample.com/goroutines):
 

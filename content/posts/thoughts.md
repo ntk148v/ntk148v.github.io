@@ -6,9 +6,7 @@ draft: true
 comment: true
 ---
 
-{{< quote info >}}
-A collection of interesting thoughts and opinions that I come across
-{{< /quote >}}
+> A collection of interesting thoughts and opinions that I come across
 
 ## Willingness to look stupid
 
@@ -114,9 +112,7 @@ From [Allen Pike's blog](https://allenpike.com/2023/do-something-so-we-can-chang
 
 ## Sane work weeks make the News
 
-```text
-... try working damn hard for 40 hours, then going home and recharging ...
-```
+> ... try working damn hard for 40 hours, then going home and recharging ...
 
 - <https://steamclock.com/blog/2013/04/sane-work-weeks>
 - <https://www.inc.com/jessica-stillman/why-working-more-than-40-hours-a-week-is-useless.html>

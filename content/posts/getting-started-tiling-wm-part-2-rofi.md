@@ -7,9 +7,7 @@ comments: false
 draft: false
 ---
 
-{{< quote info >}}
-In the [part1]({{< ref "/posts/getting-started-tiling-wm-part-1-i3.md" >}}), I've used `rofi` instead of `dmenu`. This part will show you how to start with `rofi`.
-{{< /quote >}}
+> In the [part1]({{< ref "/posts/getting-started-tiling-wm-part-1-i3.md" >}}), I've used `rofi` instead of `dmenu`. This part will show you how to start with `rofi`.
 
 ## Introduction
 

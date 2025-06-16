@@ -6,15 +6,13 @@ draft: false
 comment: true
 ---
 
-{{< quote >}}
-**Environment:** Ubuntu 22.04, but it should work in other Linux distributions.
-
-**Source**: https://www.sobyte.net/post/2023-03/linux-services-in-the-background/
-{{</ quote >}}
+> **Environment:** Ubuntu 22.04, but it should work in other Linux distributions.
+>
+> **Source**: https://www.sobyte.net/post/2023-03/linux-services-in-the-background/
 
 You run some commands, it may take a long time to execute, and you don't want to wait for it. So what should you do in that scenario?
 
-{{< mermaid >}}
+```mermaid
 graph TD
 A(You don't want to wait <br>for a running command) --> B{Do you want to see output?}
 A --> C{Do you want the command to stay <br>running after the session ends?}
@@ -23,7 +21,7 @@ B --> |No| D(Ctrl-Z or &)
 B --> |Yes| F{Do you have requirements <br>for log cutting, running users?}
 F --> |No| G(nohup)
 F --> |Yes| H(supervisor or systemd)
-{{</ mermaid >}}
+```
 
 ## Ctrl-Z or &
 

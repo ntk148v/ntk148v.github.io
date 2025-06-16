@@ -1,7 +1,7 @@
 baseURL = 'http://ntk148v.github.io'
 languageCode = 'en-us'
 title = "kiennt26's home"
-theme = "hugo-toigian"
+theme = "shibui"
 enableGitInfo = true
 
 [params]

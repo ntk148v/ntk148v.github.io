@@ -6,6 +6,4 @@ comments: false
 draft: false
 ---
 
-{{< quote warning >}}
-**WIP**
-{{< /quote >}}
+> **WIP**

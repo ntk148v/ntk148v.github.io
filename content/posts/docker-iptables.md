@@ -35,9 +35,7 @@ Docker generates iptables rules, then adds to `DOCKER` chains. Some users may ma
 
 _Please don't do it_. Yes, you are able to do it, there is nothing prevent you to perform this kind of action. But every time Docker daemon is reloaded, iptables rules are re-generated and your changes is gone.
 
-{{< quote info >}}
-Right: Do not manipulate Docker rules manually.
-{{< /quote >}}
+> **Right**: Do not manipulate Docker rules manually.
 
 ### Insert you rules in the wrong chain
 
@@ -49,9 +47,7 @@ iptables basic: iptables is divied into three levels: tables, chains and rules. 
 
 Commonly, to block connection from external, put reject rules in INPUT chain. But in Docker, it doesn't work. Look at the above packet flow, the packet doesn't pass through INPUT chain, it goes in FORWARD chain. Since Docker connects the bridge (default docker0) to the default gateway (external interface ens33 for example) via Network Address Translation (NAT) by default, setting INPUT is useless and the FORWARD chain should be set. And since the FORWARD chain defaults to DROP, all forwarding is blocked by DOCKER-USER.
 
-{{< quote info >}}
-Right: Add rules which load before Docker's rules, add them to DOCKER-USER.
-{{< /quote >}}
+> **Right**: Add rules which load before Docker's rules, add them to DOCKER-USER.
 
 ### Modify and persistent iptables wrong
 
@@ -64,9 +60,7 @@ You modify and persistent iptables rules like this:
 
 This implementation has a drawback, every time Docker container changes, you need to save the current iptables configuration, otherwise when executing `iptables-restore`, it will load the old rules, which will lead to confusing iptables rules.
 
-{{< quote info >}}
-Right: Do not save, flush then restore all rules. Check the following solution.
-{{< /quote >}}
+> **Right**: Do not save, flush then restore all rules. Check the following solution.
 
 ## Do it right!
 

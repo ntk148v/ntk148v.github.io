@@ -6,9 +6,7 @@ comments: true
 draft: false
 ---
 
-{{< quote info >}}
-[Goignore](https://github.com/ntk148v/goignore) - A `.gitignore` wizard which gnerates `.gitignore` files from the command line for you. Inspired by [joe](https://github.com/karan/joe)
-{{< /quote >}}
+> [Goignore](https://github.com/ntk148v/goignore) - A `.gitignore` wizard which gnerates `.gitignore` files from the command line for you. Inspired by [joe](https://github.com/karan/joe)
 
 ## Features
 
