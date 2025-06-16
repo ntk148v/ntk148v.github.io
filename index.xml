@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Welcome on kiennt26's home</title><link>https://ntk148v.github.io/</link><description>Recent content in Welcome on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Tue, 10 Jun 2025 06:40:12 +0000</lastBuildDate><atom:link href="https://ntk148v.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Server-sent Events (SSE)</title><link>https://ntk148v.github.io/posts/sse-fastapi/</link><pubDate>Tue, 10 Jun 2025 13:34:12 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/sse-fastapi/</guid><description>&lt;h1 id="the-introverts-guide-to-real-time-web-updates-">The Introvert&amp;rsquo;s Guide to Real-time Web Updates 🙈&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Welcome on kiennt26's home</title><link>https://ntk148v.github.io/</link><description>Recent content in Welcome on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Mon, 16 Jun 2025 11:00:28 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Server-sent Events (SSE)</title><link>https://ntk148v.github.io/posts/sse-fastapi/</link><pubDate>Tue, 10 Jun 2025 13:34:12 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/sse-fastapi/</guid><description>&lt;h1 id="the-introverts-guide-to-real-time-web-updates-">The Introvert&amp;rsquo;s Guide to Real-time Web Updates 🙈&lt;/h1>
 &lt;p>Ever felt like WebSocket is that extroverted friend who&amp;rsquo;s always trying to start a conversation? &amp;ldquo;Hey server, how are you?&amp;rdquo; &amp;ldquo;I&amp;rsquo;m fine client, how are you?&amp;rdquo; &amp;ldquo;I&amp;rsquo;m good too!&amp;rdquo; 🙄&lt;/p>
 &lt;p>Well, meet Server-sent Events (SSE) - the introvert&amp;rsquo;s dream come true in the world of real-time web communications. It&amp;rsquo;s like having a friend who&amp;rsquo;s totally cool with you just listening while they do all the talking. Perfect, right?&lt;/p></description></item><item><title>A clumsy Docker network notes</title><link>https://ntk148v.github.io/posts/clumsy-docker-network-notes/</link><pubDate>Tue, 12 Dec 2023 14:47:26 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/clumsy-docker-network-notes/</guid><description>&lt;h1 id="a-clumsy-docker-networking-notes">A clumsy Docker networking notes&lt;/h1>
 &lt;p>Nguồn:&lt;/p>
@@ -35,12 +35,9 @@
 &lt;li>No piping or redirection.&lt;/li>
 &lt;/ul>
 &lt;blockquote>
-&lt;p>Before we start, make sure you have .NET Core environment and knownledge.&lt;/p></description></item><item><title>Golang Async</title><link>https://ntk148v.github.io/posts/golang-async/</link><pubDate>Fri, 21 Jul 2023 16:16:31 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/golang-async/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-iris">
- &lt;p>This article is Golang version of &lt;a href="https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/">Asynchronous programming with async and await guideline&lt;/a>. They did really good job to demonstrate how asynchronous programming looks like.&lt;/p>
-&lt;p>You can find source code &lt;a href="https://github.com/ntk148v/testing/tree/master/golang/breakfast">here&lt;/a>.&lt;/p>
-
-&lt;/blockquote>
-
+&lt;p>Before we start, make sure you have .NET Core environment and knownledge.&lt;/p></description></item><item><title>Golang Async</title><link>https://ntk148v.github.io/posts/golang-async/</link><pubDate>Fri, 21 Jul 2023 16:16:31 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/golang-async/</guid><description>&lt;blockquote>
+&lt;p>This article is Golang version of &lt;a href="https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/">Asynchronous programming with async and await guideline&lt;/a>. They did really good job to demonstrate how asynchronous programming looks like.&lt;/p>
+&lt;p>You can find source code &lt;a href="https://github.com/ntk148v/testing/tree/master/golang/breakfast">here&lt;/a>.&lt;/p>&lt;/blockquote>
 &lt;p>Throughout this article, we&amp;rsquo;ll write the instructions to make a breakfast.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">1. Pour a cup of coffee.
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. Heat a pan, then fry two eggs.
@@ -48,58 +45,21 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">4. Toast two pieces of bread.
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">5. Add butter and jam to the toast.
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">6. Pour a glass of orange juice.
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Each step takes time to finish, for example, you have to wait X seconds to make a glass of orange juice. Let&amp;rsquo;s write those instructions as Golang:&lt;/p></description></item><item><title>Testing Ansible With Molecule</title><link>https://ntk148v.github.io/posts/testing-ansible-with-molecule/</link><pubDate>Mon, 20 Mar 2023 14:41:38 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/testing-ansible-with-molecule/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-gold">
- The following content is rendered from &lt;a href="https://github.com/ntk148v/til/blob/master/ansible/molecule.md">my #til github&lt;/a>.
-&lt;/blockquote>
-
- &lt;h1 id="testing-ansible-with-molecule">Testing Ansible with Molecule&lt;/h1>
-&lt;p>Source:&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://molecule.readthedocs.io/en/latest/getting-started/">https://molecule.readthedocs.io/en/latest/getting-started/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.jeffgeerling.com/blog/2018/testing-your-ansible-roles-molecule">https://www.jeffgeerling.com/blog/2018/testing-your-ansible-roles-molecule&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;p>Table of contents:&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="#testing-ansible-with-molecule">Testing Ansible with Molecule&lt;/a>
-&lt;ul>
-&lt;li>&lt;a href="#0-problem">0. Problem&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#1-introduction">1. Introduction&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#2-play-with-molecule">2. Play with Molecule&lt;/a>
-&lt;ul>
-&lt;li>&lt;a href="#21-getting-started">2.1. Getting started&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#22-custom-docker-image">2.2. Custom Docker image&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#23-test-an-existing-role">2.3. Test an existing role&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#24-test-cluster">2.4. Test Cluster&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="0-problem">0. Problem&lt;/h2>
-&lt;p>You wrote an Ansible playbook, good job, congratulations! Now you have to (should) check if the playbook works correctly. You may have multiple choices:&lt;/p></description></item><item><title>Linux Run in the Background</title><link>https://ntk148v.github.io/posts/linux-run-in-the-background/</link><pubDate>Fri, 03 Mar 2023 14:28:09 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-run-in-the-background/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-iris">
- &lt;p>&lt;strong>Environment:&lt;/strong> Ubuntu 22.04, but it should work in other Linux distributions.&lt;/p>
-&lt;p>&lt;strong>Source&lt;/strong>: &lt;a href="https://www.sobyte.net/post/2023-03/linux-services-in-the-background/">https://www.sobyte.net/post/2023-03/linux-services-in-the-background/&lt;/a>&lt;/p>
-
-&lt;/blockquote>
-
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Each step takes time to finish, for example, you have to wait X seconds to make a glass of orange juice. Let&amp;rsquo;s write those instructions as Golang:&lt;/p></description></item><item><title>Linux Run in the Background</title><link>https://ntk148v.github.io/posts/linux-run-in-the-background/</link><pubDate>Fri, 03 Mar 2023 14:28:09 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-run-in-the-background/</guid><description>&lt;blockquote>
+&lt;p>&lt;strong>Environment:&lt;/strong> Ubuntu 22.04, but it should work in other Linux distributions.&lt;/p>
+&lt;p>&lt;strong>Source&lt;/strong>: &lt;a href="https://www.sobyte.net/post/2023-03/linux-services-in-the-background/">https://www.sobyte.net/post/2023-03/linux-services-in-the-background/&lt;/a>&lt;/p>&lt;/blockquote>
 &lt;p>You run some commands, it may take a long time to execute, and you don&amp;rsquo;t want to wait for it. So what should you do in that scenario?&lt;/p>
-
-&lt;div class="mermaid" align="center">
-graph TD
-A(You don't want to wait &lt;br>for a running command) --> B{Do you want to see output?}
-A --> C{Do you want the command to stay &lt;br>running after the session ends?}
-C --> |Yes| E(screen)
-B --> |No| D(Ctrl-Z or &amp;)
-B --> |Yes| F{Do you have requirements &lt;br>for log cutting, running users?}
-F --> |No| G(nohup)
-F --> |Yes| H(supervisor or systemd)
-&lt;/div>
-
-&lt;h2 id="ctrl-z-or-">Ctrl-Z or &amp;amp;&lt;/h2>
-&lt;p>For example, you have to excute &lt;code>ping&lt;/code> command:&lt;/p></description></item><item><title>Linux Network Performance Ultimate Guide</title><link>https://ntk148v.github.io/posts/linux-network-performance-ultimate-guide/</link><pubDate>Fri, 24 Feb 2023 17:22:02 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-network-performance-ultimate-guide/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-gold">
- The following content is from &lt;a href="https://github.com/ntk148v/til/blob/master/linux/network-performance-ultimate-guide.md">my #til github&lt;/a>.
-&lt;/blockquote>
-
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">graph TD
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">A(You don&amp;#39;t want to wait &amp;lt;br&amp;gt;for a running command) --&amp;gt; B{Do you want to see output?}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">A --&amp;gt; C{Do you want the command to stay &amp;lt;br&amp;gt;running after the session ends?}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">C --&amp;gt; |Yes| E(screen)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">B --&amp;gt; |No| D(Ctrl-Z or &amp;amp;)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">B --&amp;gt; |Yes| F{Do you have requirements &amp;lt;br&amp;gt;for log cutting, running users?}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">F --&amp;gt; |No| G(nohup)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">F --&amp;gt; |Yes| H(supervisor or systemd)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="ctrl-z-or-">Ctrl-Z or &amp;amp;&lt;/h2>
+&lt;p>For example, you have to excute &lt;code>ping&lt;/code> command:&lt;/p></description></item><item><title>Linux Network Performance Ultimate Guide</title><link>https://ntk148v.github.io/posts/linux-network-performance-ultimate-guide/</link><pubDate>Fri, 24 Feb 2023 17:22:02 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-network-performance-ultimate-guide/</guid><description>&lt;blockquote>
+&lt;p>The following content is from &lt;a href="https://github.com/ntk148v/til/blob/master/linux/network-performance-ultimate-guide.md">my #til github&lt;/a>.&lt;/p>&lt;/blockquote>
 &lt;p>&lt;strong>Source&lt;/strong>&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/leandromoreira/linux-network-performance-parameters/">https://github.com/leandromoreira/linux-network-performance-parameters/&lt;/a>&lt;/li>
@@ -151,60 +111,7 @@ F --> |Yes| H(supervisor or systemd)
 &lt;li>Linux queue:&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://github.com/leandromoreira/linux-network-performance-parameters/raw/master/img/linux_network_flow.png" alt="">&lt;/p>
-&lt;p>&lt;strong>NOTE&lt;/strong>: The follow sections will heavily use &lt;code>sysctl&lt;/code>. If you don&amp;rsquo;t familiar with this command, take a look at &lt;a href="#204-sysctl">HOWTO#sysctl section&lt;/a>.&lt;/p></description></item><item><title>Iptables</title><link>https://ntk148v.github.io/posts/iptables/</link><pubDate>Fri, 24 Feb 2023 17:19:31 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/iptables/</guid><description>&lt;h1 id="iptables">Iptables&lt;/h1>
-&lt;p>Source:&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>&lt;a href="https://www.thegeekstuff.com/2011/01/iptables-fundamentals/">https://www.thegeekstuff.com/2011/01/iptables-fundamentals/&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://www.opsist.com/blog/2015/08/11/how-do-i-see-what-iptables-is-doing.html">https://www.opsist.com/blog/2015/08/11/how-do-i-see-what-iptables-is-doing.html&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture">https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://www.sobyte.net/post/2022-04/understanding-netfilter-and-iptables/">https://www.sobyte.net/post/2022-04/understanding-netfilter-and-iptables/&lt;/a> - advanced&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="#iptables">Iptables&lt;/a>&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="#1-introduction">1. Introduction&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#2-netfilter-hooks">2. Netfilter hooks&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#3-iptables-tables-and-chains">3. iptables tables and chains&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#4-iptables-rules">4. iptables rules&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#5-iptables-drawbacks">5. iptables drawbacks&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#6-iptables-trace">6. iptables TRACE&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="1-introduction">1. Introduction&lt;/h2>
-&lt;ul>
-&lt;li>iptables is used to manage packet filtering and NAT rules.&lt;/li>
-&lt;li>iptables works with the kernel &lt;code>netfilter&lt;/code> packet filtering framework.
-&lt;ul>
-&lt;li>iptables is replaced with &lt;code>nftables&lt;/code>, but &lt;code>iptables&lt;/code> syntax is still commonly used as a baseline.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>iptables on a high-level.&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">iptables
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> tables
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> chains
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rules
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="2-netfilter-hooks">2. Netfilter hooks&lt;/h2>
-&lt;ul>
-&lt;li>There are 4 netfilter hooks that programs can register with. As packets progress through the stack, they will trigger the kernel modules that have registered with these hooks.
-&lt;ul>
-&lt;li>&lt;code>NF_IP_PRE_ROUTING&lt;/code>: triggered by any incoming traffic very soon after entering network stack. This hook is processed before any routing decisions have been made regarding where to send the packet.&lt;/li>
-&lt;li>&lt;code>NF_IP_LOCAL_IN&lt;/code>: triggered after an incoming packet has been routed if the packet is destined for the local system.&lt;/li>
-&lt;li>&lt;code>NF_IP_FORWARD&lt;/code>: triggered after an incoming packet has been routed if the packet is to be forwarded to another host.&lt;/li>
-&lt;li>&lt;code>NF_IP_LOCAL_OUT&lt;/code>: triggered by any locally created outbound traffic as soon as it hits the network stack.&lt;/li>
-&lt;li>&lt;code>NF_IP_POST_ROUTING&lt;/code>: triggerd by any outgoing or forwarded traffic after routing has taken place and just before being sent out on the wire.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;p>&lt;img src="https://people.netfilter.org/pablo/nf-hooks.png" alt="">&lt;/p></description></item><item><title>Goat Playground</title><link>https://ntk148v.github.io/posts/goat-playground/</link><pubDate>Tue, 31 Jan 2023 14:15:12 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/goat-playground/</guid><description>&lt;p>Hey, this is a simple post to play with &lt;a href="https://github.com/blampe/goat">GoAT Diagram&lt;/a>.&lt;/p>
+&lt;p>&lt;strong>NOTE&lt;/strong>: The follow sections will heavily use &lt;code>sysctl&lt;/code>. If you don&amp;rsquo;t familiar with this command, take a look at &lt;a href="#204-sysctl">HOWTO#sysctl section&lt;/a>.&lt;/p></description></item><item><title>Goat Playground</title><link>https://ntk148v.github.io/posts/goat-playground/</link><pubDate>Tue, 31 Jan 2023 14:15:12 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/goat-playground/</guid><description>&lt;p>Hey, this is a simple post to play with &lt;a href="https://github.com/blampe/goat">GoAT Diagram&lt;/a>.&lt;/p>
 
 
 
@@ -1133,10 +1040,8 @@ F --> |Yes| H(supervisor or systemd)
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rename &lt;span class="s1">&amp;#39;y/a-z/A-Z&amp;#39;&lt;/span> *.py
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># More?&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">man rename
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Goignore</title><link>https://ntk148v.github.io/posts/goignore/</link><pubDate>Fri, 26 Nov 2021 17:26:44 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/goignore/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-foam">
- &lt;a href="https://github.com/ntk148v/goignore">Goignore&lt;/a> - A &lt;code>.gitignore&lt;/code> wizard which gnerates &lt;code>.gitignore&lt;/code> files from the command line for you. Inspired by &lt;a href="https://github.com/karan/joe">joe&lt;/a>
-&lt;/blockquote>
-
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Goignore</title><link>https://ntk148v.github.io/posts/goignore/</link><pubDate>Fri, 26 Nov 2021 17:26:44 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/goignore/</guid><description>&lt;blockquote>
+&lt;p>&lt;a href="https://github.com/ntk148v/goignore">Goignore&lt;/a> - A &lt;code>.gitignore&lt;/code> wizard which gnerates &lt;code>.gitignore&lt;/code> files from the command line for you. Inspired by &lt;a href="https://github.com/karan/joe">joe&lt;/a>&lt;/p>&lt;/blockquote>
 &lt;h2 id="features">Features&lt;/h2>
 &lt;ul>
 &lt;li>No installation necessary - just use the binary.&lt;/li>
@@ -1157,17 +1062,12 @@ F --> |Yes| H(supervisor or systemd)
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">goignore
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>
-&lt;p>At the first time, &lt;code>goignore&lt;/code> will download the Gitignore templates from Github. It may take a few seconds (depend on your network).&lt;/p></description></item><item><title>Getting Started with Tiling WM [Part 1] - I3</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-foam">
- &lt;p>&lt;strong>Disclaimer&lt;/strong>&lt;/p>
-&lt;p>I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I&amp;rsquo;ve gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.&lt;/p>
-
-&lt;/blockquote>
-
+&lt;p>At the first time, &lt;code>goignore&lt;/code> will download the Gitignore templates from Github. It may take a few seconds (depend on your network).&lt;/p></description></item><item><title>Getting Started with Tiling WM [Part 1] - I3</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</guid><description>&lt;blockquote>
+&lt;p>&lt;strong>Disclaimer&lt;/strong>&lt;/p>
+&lt;p>I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I&amp;rsquo;ve gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.&lt;/p>&lt;/blockquote>
 &lt;h2 id="overview-window-manager">Overview Window Manager&lt;/h2>
-&lt;p>First of all, you have to know the basic concepts.&lt;/p></description></item><item><title>Getting Started with Tiling WM [Part 2] - Rofi</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-foam">
- In the &lt;a href="https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/">part1&lt;/a>, I&amp;rsquo;ve used &lt;code>rofi&lt;/code> instead of &lt;code>dmenu&lt;/code>. This part will show you how to start with &lt;code>rofi&lt;/code>.
-&lt;/blockquote>
-
+&lt;p>First of all, you have to know the basic concepts.&lt;/p></description></item><item><title>Getting Started with Tiling WM [Part 2] - Rofi</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</guid><description>&lt;blockquote>
+&lt;p>In the &lt;a href="https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/">part1&lt;/a>, I&amp;rsquo;ve used &lt;code>rofi&lt;/code> instead of &lt;code>dmenu&lt;/code>. This part will show you how to start with &lt;code>rofi&lt;/code>.&lt;/p>&lt;/blockquote>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/davatorium/rofi">Rofi&lt;/a> is a window switcher, application launcher and dmenu replacement.&lt;/li>
@@ -1197,8 +1097,9 @@ F --> |Yes| H(supervisor or systemd)
 &lt;li>Run it for the first time.&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rofi -lines &lt;span class="m">12&lt;/span> -padding &lt;span class="m">18&lt;/span> -width &lt;span class="m">60&lt;/span> -location &lt;span class="m">0&lt;/span> -show drun -sidebar-mode -columns &lt;span class="m">3&lt;/span> -font &lt;span class="s1">&amp;#39;DejaVu Sans 8&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;details >&lt;summary>&lt;/summary>
- &lt;div>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+&lt;details>
+ &lt;summary>Details&lt;/summary>
  &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl"> -show mode
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Open rofi in a certain mode. Available modes are window, run, drun, ssh, combi. The
@@ -1240,9 +1141,7 @@ F --> |Yes| H(supervisor or systemd)
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> tom. &lt;span class="o">(&lt;/span>See -modi option&lt;span class="o">)&lt;/span> To show sidebar, use:
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rofi -show run -sidebar-mode -lines &lt;span class="m">0&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
- &lt;/div>
-&lt;/details>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/details>
 
 &lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-1/rofi-default.png">
 &lt;/figure>
@@ -1345,15 +1244,10 @@ F --> |Yes| H(supervisor or systemd)
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">bindsym $mod+d exec rofi -theme ~/.config/rofi/themes/onedark.theme -show drun
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Getting Started with Tiling WM [Part 3] - Polybar</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</guid><description>&lt;h2 id="overview">Overview&lt;/h2>
 &lt;p>&lt;a href="https://polybar.github.io/">According to Polybar frontpage&lt;/a>, &lt;code>Polybar is A fast and easy to use tool for creating status bars &lt;/code>.&lt;/p>
- 
-
-&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-iris">
- &lt;strong>WIP&lt;/strong>
-&lt;/blockquote></description></item><item><title>Getting Started with Tiling WM [Part 4] - Xresources</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-iris">
- &lt;strong>WIP&lt;/strong>
-&lt;/blockquote></description></item><item><title>Getting Started with Tiling WM [Part 5] - Compton</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-iris">
- &lt;strong>WIP&lt;/strong>
-&lt;/blockquote></description></item><item><title>Linux tools that you never knew you needed</title><link>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</link><pubDate>Wed, 07 Apr 2021 09:45:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</guid><description>&lt;h2 id="bat---cat-alternative">bat - (cat alternative)&lt;/h2>
+&lt;blockquote>
+&lt;p>&lt;strong>WIP&lt;/strong>&lt;/p>&lt;/blockquote></description></item><item><title>Getting Started with Tiling WM [Part 4] - Xresources</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</guid><description>&lt;blockquote>
+&lt;p>&lt;strong>WIP&lt;/strong>&lt;/p>&lt;/blockquote></description></item><item><title>Getting Started with Tiling WM [Part 5] - Compton</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</guid><description>&lt;blockquote>
+&lt;p>&lt;strong>WIP&lt;/strong>&lt;/p>&lt;/blockquote></description></item><item><title>Linux tools that you never knew you needed</title><link>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</link><pubDate>Wed, 07 Apr 2021 09:45:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</guid><description>&lt;h2 id="bat---cat-alternative">bat - (cat alternative)&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/sharkdp/bat">bat&lt;/a>: A cat(1) clone with syntax highlighting and Git integration.&lt;/li>
 &lt;li>Example:&lt;/li>

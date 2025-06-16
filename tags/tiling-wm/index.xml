@@ -1,14 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tiling-Wm on kiennt26's home</title><link>https://ntk148v.github.io/tags/tiling-wm/</link><description>Recent content in Tiling-Wm on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 25 Dec 2024 10:38:20 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/tiling-wm/index.xml" rel="self" type="application/rss+xml"/><item><title>Getting Started with Tiling WM [Part 1] - I3</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-foam">
- &lt;p>&lt;strong>Disclaimer&lt;/strong>&lt;/p>
-&lt;p>I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I&amp;rsquo;ve gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.&lt;/p>
-
-&lt;/blockquote>
-
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tiling-Wm on kiennt26's home</title><link>https://ntk148v.github.io/tags/tiling-wm/</link><description>Recent content in Tiling-Wm on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Mon, 16 Jun 2025 11:00:28 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/tiling-wm/index.xml" rel="self" type="application/rss+xml"/><item><title>Getting Started with Tiling WM [Part 1] - I3</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</guid><description>&lt;blockquote>
+&lt;p>&lt;strong>Disclaimer&lt;/strong>&lt;/p>
+&lt;p>I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I&amp;rsquo;ve gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.&lt;/p>&lt;/blockquote>
 &lt;h2 id="overview-window-manager">Overview Window Manager&lt;/h2>
-&lt;p>First of all, you have to know the basic concepts.&lt;/p></description></item><item><title>Getting Started with Tiling WM [Part 2] - Rofi</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-foam">
- In the &lt;a href="https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/">part1&lt;/a>, I&amp;rsquo;ve used &lt;code>rofi&lt;/code> instead of &lt;code>dmenu&lt;/code>. This part will show you how to start with &lt;code>rofi&lt;/code>.
-&lt;/blockquote>
-
+&lt;p>First of all, you have to know the basic concepts.&lt;/p></description></item><item><title>Getting Started with Tiling WM [Part 2] - Rofi</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</guid><description>&lt;blockquote>
+&lt;p>In the &lt;a href="https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/">part1&lt;/a>, I&amp;rsquo;ve used &lt;code>rofi&lt;/code> instead of &lt;code>dmenu&lt;/code>. This part will show you how to start with &lt;code>rofi&lt;/code>.&lt;/p>&lt;/blockquote>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/davatorium/rofi">Rofi&lt;/a> is a window switcher, application launcher and dmenu replacement.&lt;/li>
@@ -38,8 +33,9 @@
 &lt;li>Run it for the first time.&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rofi -lines &lt;span class="m">12&lt;/span> -padding &lt;span class="m">18&lt;/span> -width &lt;span class="m">60&lt;/span> -location &lt;span class="m">0&lt;/span> -show drun -sidebar-mode -columns &lt;span class="m">3&lt;/span> -font &lt;span class="s1">&amp;#39;DejaVu Sans 8&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;details >&lt;summary>&lt;/summary>
- &lt;div>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
+&lt;details>
+ &lt;summary>Details&lt;/summary>
  &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl"> -show mode
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Open rofi in a certain mode. Available modes are window, run, drun, ssh, combi. The
@@ -81,9 +77,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> tom. &lt;span class="o">(&lt;/span>See -modi option&lt;span class="o">)&lt;/span> To show sidebar, use:
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rofi -show run -sidebar-mode -lines &lt;span class="m">0&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
- &lt;/div>
-&lt;/details>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/details>
 
 &lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-1/rofi-default.png">
 &lt;/figure>
@@ -186,12 +180,7 @@
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">bindsym $mod+d exec rofi -theme ~/.config/rofi/themes/onedark.theme -show drun
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Getting Started with Tiling WM [Part 3] - Polybar</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</guid><description>&lt;h2 id="overview">Overview&lt;/h2>
 &lt;p>&lt;a href="https://polybar.github.io/">According to Polybar frontpage&lt;/a>, &lt;code>Polybar is A fast and easy to use tool for creating status bars &lt;/code>.&lt;/p>
- 
-
-&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-iris">
- &lt;strong>WIP&lt;/strong>
-&lt;/blockquote></description></item><item><title>Getting Started with Tiling WM [Part 4] - Xresources</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-iris">
- &lt;strong>WIP&lt;/strong>
-&lt;/blockquote></description></item><item><title>Getting Started with Tiling WM [Part 5] - Compton</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</guid><description>&lt;blockquote class="my-5 p-4 rounded border-solid border-2 border-iris">
- &lt;strong>WIP&lt;/strong>
-&lt;/blockquote></description></item></channel></rss>
+&lt;blockquote>
+&lt;p>&lt;strong>WIP&lt;/strong>&lt;/p>&lt;/blockquote></description></item><item><title>Getting Started with Tiling WM [Part 4] - Xresources</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</guid><description>&lt;blockquote>
+&lt;p>&lt;strong>WIP&lt;/strong>&lt;/p>&lt;/blockquote></description></item><item><title>Getting Started with Tiling WM [Part 5] - Compton</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</guid><description>&lt;blockquote>
+&lt;p>&lt;strong>WIP&lt;/strong>&lt;/p>&lt;/blockquote></description></item></channel></rss>
