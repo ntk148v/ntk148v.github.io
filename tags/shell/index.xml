@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Shell on kiennt26's home</title><link>https://ntk148v.github.io/tags/shell/</link><description>Recent content in Shell on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 25 Dec 2024 10:38:20 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/shell/index.xml" rel="self" type="application/rss+xml"/><item><title>Writing a Simple Shell in C Sharp</title><link>https://ntk148v.github.io/posts/writing-a-simple-shell-in-c-sharp/</link><pubDate>Sun, 20 Aug 2023 23:15:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/writing-a-simple-shell-in-c-sharp/</guid><description>&lt;p>In this post, we will write a minimalistic shell for UNIX(-like) operating systems in C# programming language. I create this for learning C# purpose.&lt;/p>
-&lt;p>Since its purpose demonstration (not feature completeness or even fitness for causual use), it has many limitations, including:&lt;/p>
-&lt;ul>
-&lt;li>Commands must be on a single line.&lt;/li>
-&lt;li>Arguments must be separated by whitespace.&lt;/li>
-&lt;li>No quoting arguments or escaping whitespace.&lt;/li>
-&lt;li>No piping or redirection.&lt;/li>
-&lt;/ul>
-&lt;blockquote>
-&lt;p>Before we start, make sure you have .NET Core environment and knownledge.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Shell on kiennt26's home</title><link>https://ntk148v.github.io/tags/shell/</link><description>Recent content in Shell on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 25 Dec 2024 10:38:20 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/shell/index.xml" rel="self" type="application/rss+xml"/><item><title>Writing a Simple Shell in C Sharp</title><link>https://ntk148v.github.io/posts/writing-a-simple-shell-in-c-sharp/</link><pubDate>Sun, 20 Aug 2023 23:15:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/writing-a-simple-shell-in-c-sharp/</guid><description>&lt;p&gt;In this post, we will write a minimalistic shell for UNIX(-like) operating systems in C# programming language. I create this for learning C# purpose.&lt;/p&gt;
+&lt;p&gt;Since its purpose demonstration (not feature completeness or even fitness for causual use), it has many limitations, including:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Commands must be on a single line.&lt;/li&gt;
+&lt;li&gt;Arguments must be separated by whitespace.&lt;/li&gt;
+&lt;li&gt;No quoting arguments or escaping whitespace.&lt;/li&gt;
+&lt;li&gt;No piping or redirection.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Before we start, make sure you have .NET Core environment and knownledge.&lt;/p&gt;</description></item></channel></rss>

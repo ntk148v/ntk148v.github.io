@@ -1,26 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ecmp on kiennt26's home</title><link>https://ntk148v.github.io/tags/ecmp/</link><description>Recent content in Ecmp on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 25 Dec 2024 10:38:20 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/ecmp/index.xml" rel="self" type="application/rss+xml"/><item><title>Bgp Ecmp Load Balancing</title><link>https://ntk148v.github.io/posts/bgp-ecmp-load-balancing/</link><pubDate>Mon, 07 Feb 2022 15:35:08 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/bgp-ecmp-load-balancing/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>We will build a Load balancer with &lt;a href="https://en.wikipedia.org/wiki/Border_Gateway_Protocol">BGP&lt;/a> and &lt;a href="https://en.wikipedia.org/wiki/Equal-cost_multi-path_routing">Equal-Cost Multipath routing (ECMP)&lt;/a> using both &lt;a href="https://bird.network.cz/">Bird&lt;/a> and &lt;a href="https://github.com/Exa-Networks/exabgp">ExaBGP&lt;/a>.&lt;/p>
-&lt;p>References:&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://gist.github.com/bufadu/0c3ba661c141a2176cd048f65430ae8d">How to build a load balancer with BGP and ECMP using VyOS&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://vincent.bernat.ch/en/blog/2018-multi-tier-loadbalancer#first-tier-ecmp-routing">Multi-tier load balancer&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://blog.cloudflare.com/cloudflares-architecture-eliminating-single-p/">Load balancing without Load balancers&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h2 id="lab-overview">Lab overview&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://www.eve-ng.net/">EVE-NG&lt;/a> version 2.0.3-112&lt;/li>
-&lt;li>QEMU version 2.4.0&lt;/li>
-&lt;/ul>
-&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/bgp-ecmp-load-balancing/ecmp-bgp.png">
-&lt;/figure>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ecmp on kiennt26's home</title><link>https://ntk148v.github.io/tags/ecmp/</link><description>Recent content in Ecmp on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 25 Dec 2024 10:38:20 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/ecmp/index.xml" rel="self" type="application/rss+xml"/><item><title>Bgp Ecmp Load Balancing</title><link>https://ntk148v.github.io/posts/bgp-ecmp-load-balancing/</link><pubDate>Mon, 07 Feb 2022 15:35:08 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/bgp-ecmp-load-balancing/</guid><description>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;We will build a Load balancer with &lt;a href="https://en.wikipedia.org/wiki/Border_Gateway_Protocol"&gt;BGP&lt;/a&gt; and &lt;a href="https://en.wikipedia.org/wiki/Equal-cost_multi-path_routing"&gt;Equal-Cost Multipath routing (ECMP)&lt;/a&gt; using both &lt;a href="https://bird.network.cz/"&gt;Bird&lt;/a&gt; and &lt;a href="https://github.com/Exa-Networks/exabgp"&gt;ExaBGP&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;References:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://gist.github.com/bufadu/0c3ba661c141a2176cd048f65430ae8d"&gt;How to build a load balancer with BGP and ECMP using VyOS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://vincent.bernat.ch/en/blog/2018-multi-tier-loadbalancer#first-tier-ecmp-routing"&gt;Multi-tier load balancer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://blog.cloudflare.com/cloudflares-architecture-eliminating-single-p/"&gt;Load balancing without Load balancers&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="lab-overview"&gt;Lab overview&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.eve-ng.net/"&gt;EVE-NG&lt;/a&gt; version 2.0.3-112&lt;/li&gt;
+&lt;li&gt;QEMU version 2.4.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/bgp-ecmp-load-balancing/ecmp-bgp.png"&gt;
+&lt;/figure&gt;
 
-&lt;ul>
-&lt;li>&lt;code>AS 65000&lt;/code>: internet service provider. In this post, we will build a BGP session between EdgeRouter and ISP router.&lt;/li>
-&lt;li>&lt;code>ISPRouter&lt;/code> and &lt;code>EdgeRouter&lt;/code> are &lt;a href="https://docs.fortinet.com/document/fortigate/7.0.3">Fortinet Fortigate v7.0.3&lt;/a> instances. You can use other routers as well.&lt;/li>
-&lt;li>&lt;code>Switch&lt;/code> is a Cisco switch.&lt;/li>
-&lt;li>&lt;code>client&lt;/code>, &lt;code>lb1&lt;/code>, and &lt;code>lb2&lt;/code> are Ubuntu server 18.04 instances. &lt;code>lb1&lt;/code> and &lt;code>lb2&lt;/code> will be in the &lt;code>10.12.12.0/24&lt;/code> private LAN, we will install nginx (LB L7) on these. Both servers will announce the same public IP (10.13.13.1) to &lt;code>EdgeRouter&lt;/code> using BGP. Incoming traffic from internet to this public IP will be routed to &lt;code>lb1&lt;/code> or &lt;code>lb2&lt;/code> depending of a hash.&lt;/li>
-&lt;li>You need to download and install device virtual images. Follow &lt;a href="https://www.eve-ng.net/index.php/documentation/howtos/howto-add-fortinet-images/">EVE-NG guide&lt;/a>.&lt;/li>
-&lt;/ul>
-&lt;h2 id="configure">Configure&lt;/h2>
-&lt;h3 id="isprouter">ISPRouter&lt;/h3>
-&lt;p>Follow the &lt;a href="https://docs.fortinet.com/document/fortigate/7.0.3">Fortigate document&lt;/a> for the basic commands.&lt;/p></description></item></channel></rss>
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;AS 65000&lt;/code&gt;: internet service provider. In this post, we will build a BGP session between EdgeRouter and ISP router.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ISPRouter&lt;/code&gt; and &lt;code&gt;EdgeRouter&lt;/code&gt; are &lt;a href="https://docs.fortinet.com/document/fortigate/7.0.3"&gt;Fortinet Fortigate v7.0.3&lt;/a&gt; instances. You can use other routers as well.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Switch&lt;/code&gt; is a Cisco switch.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;client&lt;/code&gt;, &lt;code&gt;lb1&lt;/code&gt;, and &lt;code&gt;lb2&lt;/code&gt; are Ubuntu server 18.04 instances. &lt;code&gt;lb1&lt;/code&gt; and &lt;code&gt;lb2&lt;/code&gt; will be in the &lt;code&gt;10.12.12.0/24&lt;/code&gt; private LAN, we will install nginx (LB L7) on these. Both servers will announce the same public IP (10.13.13.1) to &lt;code&gt;EdgeRouter&lt;/code&gt; using BGP. Incoming traffic from internet to this public IP will be routed to &lt;code&gt;lb1&lt;/code&gt; or &lt;code&gt;lb2&lt;/code&gt; depending of a hash.&lt;/li&gt;
+&lt;li&gt;You need to download and install device virtual images. Follow &lt;a href="https://www.eve-ng.net/index.php/documentation/howtos/howto-add-fortinet-images/"&gt;EVE-NG guide&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="configure"&gt;Configure&lt;/h2&gt;
+&lt;h3 id="isprouter"&gt;ISPRouter&lt;/h3&gt;
+&lt;p&gt;Follow the &lt;a href="https://docs.fortinet.com/document/fortigate/7.0.3"&gt;Fortigate document&lt;/a&gt; for the basic commands.&lt;/p&gt;</description></item></channel></rss>

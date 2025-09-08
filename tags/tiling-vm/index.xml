@@ -1,50 +1,50 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tiling-Vm on kiennt26's home</title><link>https://ntk148v.github.io/tags/tiling-vm/</link><description>Recent content in Tiling-Vm on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 30 Aug 2023 09:43:02 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/tiling-vm/index.xml" rel="self" type="application/rss+xml"/><item><title>Getting Started Tiling Wm [Part 6] I3 Rounded Corners</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-6-i3-rounded-corners/</link><pubDate>Mon, 10 Jan 2022 13:45:01 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-6-i3-rounded-corners/</guid><description>&lt;p>According to &lt;a href="https://www.reddit.com/r/unixporn/comments/7h0rm0/what_would_you_want_in_a_wm/">Reddis post&lt;/a> and &lt;a href="https://github.com/Airblader/i3/issues/167">i3-gaps issue&lt;/a>, it seems like a lot of people would like this. But Airblade - i3-gaps maintainer &lt;a href="https://github.com/Airblader/i3/issues/167#issuecomment-328562433">doesn&amp;rsquo;t like it&lt;/a>. But nevermind, we still have two ways to achieve it.&lt;/p>
-&lt;h2 id="rounded-i3-gaps">Rounded i3-gaps&lt;/h2>
-&lt;p>&lt;a href="https://github.com/resloved">Resloved&lt;/a> have an awesome &lt;a href="https://github.com/resloved/i3">fork&lt;/a> to implement rounded corners. I fork it again to keep it up-to-date with the upstream i3-gaps. You can check it &lt;a href="https://github.com/ntk148v/i3">here&lt;/a>.&lt;/p>
-&lt;ul>
-&lt;li>Install i3-gaps.&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Dependencies&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install git libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> libxcb-util0-dev libxcb-icccm4-dev libyajl-dev &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> libstartup-notification0-dev libxcb-randr0-dev &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> libev-dev libxcb-cursor-dev libxcb-xinerama0-dev &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> autoconf libxcb-xrm0 libxcb-xrm-dev automake i3status &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> ninja-build meson libxcb-shape0-dev build-essential -y
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git clone https://github.com/ntk148v/i3.git
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> i3/
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Compile&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p build &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> build
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">meson ..
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ninja
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo ninja install
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>Configure rounded corners by adding this to your config.&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">border_radius 10
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>Result, but you can see that these corners look so jagged (check out this &lt;a href="https://github.com/Airblader/i3/issues/167#issuecomment-485263770">comment&lt;/a>).&lt;/li>
-&lt;/ul>
-&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-1.png">
-&lt;/figure>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tiling-Vm on kiennt26's home</title><link>https://ntk148v.github.io/tags/tiling-vm/</link><description>Recent content in Tiling-Vm on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 30 Aug 2023 09:43:02 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/tiling-vm/index.xml" rel="self" type="application/rss+xml"/><item><title>Getting Started Tiling Wm [Part 6] I3 Rounded Corners</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-6-i3-rounded-corners/</link><pubDate>Mon, 10 Jan 2022 13:45:01 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-6-i3-rounded-corners/</guid><description>&lt;p&gt;According to &lt;a href="https://www.reddit.com/r/unixporn/comments/7h0rm0/what_would_you_want_in_a_wm/"&gt;Reddis post&lt;/a&gt; and &lt;a href="https://github.com/Airblader/i3/issues/167"&gt;i3-gaps issue&lt;/a&gt;, it seems like a lot of people would like this. But Airblade - i3-gaps maintainer &lt;a href="https://github.com/Airblader/i3/issues/167#issuecomment-328562433"&gt;doesn&amp;rsquo;t like it&lt;/a&gt;. But nevermind, we still have two ways to achieve it.&lt;/p&gt;
+&lt;h2 id="rounded-i3-gaps"&gt;Rounded i3-gaps&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://github.com/resloved"&gt;Resloved&lt;/a&gt; have an awesome &lt;a href="https://github.com/resloved/i3"&gt;fork&lt;/a&gt; to implement rounded corners. I fork it again to keep it up-to-date with the upstream i3-gaps. You can check it &lt;a href="https://github.com/ntk148v/i3"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Install i3-gaps.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Dependencies&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo apt install git libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; libxcb-util0-dev libxcb-icccm4-dev libyajl-dev &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; libstartup-notification0-dev libxcb-randr0-dev &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; libev-dev libxcb-cursor-dev libxcb-xinerama0-dev &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; autoconf libxcb-xrm0 libxcb-xrm-dev automake i3status &lt;span class="se"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="se"&gt;&lt;/span&gt; ninja-build meson libxcb-shape0-dev build-essential -y
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git clone https://github.com/ntk148v/i3.git
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; i3/
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Compile&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mkdir -p build &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;cd&lt;/span&gt; build
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;meson ..
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ninja
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo ninja install
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Configure rounded corners by adding this to your config.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;border_radius 10
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Result, but you can see that these corners look so jagged (check out this &lt;a href="https://github.com/Airblader/i3/issues/167#issuecomment-485263770"&gt;comment&lt;/a&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-1.png"&gt;
+&lt;/figure&gt;
 
-&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-4.png">
-&lt;/figure>
+&lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-4.png"&gt;
+&lt;/figure&gt;
 
-&lt;h2 id="picom">picom&lt;/h2>
-&lt;ul>
-&lt;li>You can also achieve rounded corners by using &lt;a href="https://github.com/yshui/picom">picom&lt;/a>.&lt;/li>
-&lt;li>Install picom.&lt;/li>
-&lt;li>Configure rounded corners by changing &lt;code>corner_radius&lt;/code> value.&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"># Path ~/.config/picom.conf
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">corner_radius: 10;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>Result looks much smoother.&lt;/li>
-&lt;/ul>
-&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-2.png">
-&lt;/figure>
+&lt;h2 id="picom"&gt;picom&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;You can also achieve rounded corners by using &lt;a href="https://github.com/yshui/picom"&gt;picom&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Install picom.&lt;/li&gt;
+&lt;li&gt;Configure rounded corners by changing &lt;code&gt;corner_radius&lt;/code&gt; value.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# Path ~/.config/picom.conf
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;corner_radius: 10;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Result looks much smoother.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-2.png"&gt;
+&lt;/figure&gt;
 
-&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-3.png">
-&lt;/figure></description></item></channel></rss>
+&lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-3.png"&gt;
+&lt;/figure&gt;</description></item></channel></rss>

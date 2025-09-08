@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ansible on kiennt26's home</title><link>https://ntk148v.github.io/tags/ansible/</link><description>Recent content in Ansible on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 30 Aug 2023 09:43:02 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/ansible/index.xml" rel="self" type="application/rss+xml"/><item><title>Ansitheus</title><link>https://ntk148v.github.io/posts/ansitheus/</link><pubDate>Tue, 05 May 2020 13:51:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/ansitheus/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Ansitheus: Ansible + Prometheus
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="prometheus-overview">Prometheus overview&lt;/h2>
-&lt;blockquote>
-&lt;p>&lt;strong>NOTE&lt;/strong>: Checkout the &lt;a href="https://prometheus.io/docs/introduction/overview/">Prometheus official documentation&lt;/a>.&lt;/p>&lt;/blockquote>
-&lt;p>&lt;a href="https://github.com/prometheus">Prometheus&lt;/a> is an open-source systems monitoring &amp;amp; alerting toolkit originally built at SoundCloud.&lt;/p>
-&lt;h3 id="features">Features&lt;/h3>
-&lt;ul>
-&lt;li>a multi-dimensional data model with time series data identified by metric name &amp;amp; key/value pairs&lt;/li>
-&lt;li>PromQL, a flexible query language to leverage this dimensionality&lt;/li>
-&lt;li>no reliance on distributed storage; single server nodes are autonomous&lt;/li>
-&lt;li>time series collection happens via a pull model over HTTP&lt;/li>
-&lt;li>pushing time series is supported via an intermediary gateway&lt;/li>
-&lt;li>targets are discovered via service discovery or static configuration&lt;/li>
-&lt;li>multiple modes of graphing &amp;amp; dashboarding support&lt;/li>
-&lt;/ul>
-&lt;h3 id="architecture--components">Architecture &amp;amp; components&lt;/h3>
-&lt;p>Prometheus scrapes metrics from instrumented jobs, either directly or via an intermediary push gateway for short-lived jobs. It stores all scraped samples locally &amp;amp; runs rules over this data to either aggregate &amp;amp; record new time series from existing data or generate alerts. Grafana or other API consumers can be used to visualize the collected data.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ansible on kiennt26's home</title><link>https://ntk148v.github.io/tags/ansible/</link><description>Recent content in Ansible on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 30 Aug 2023 09:43:02 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/ansible/index.xml" rel="self" type="application/rss+xml"/><item><title>Ansitheus</title><link>https://ntk148v.github.io/posts/ansitheus/</link><pubDate>Tue, 05 May 2020 13:51:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/ansitheus/</guid><description>&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Ansitheus: Ansible + Prometheus
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="prometheus-overview"&gt;Prometheus overview&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: Checkout the &lt;a href="https://prometheus.io/docs/introduction/overview/"&gt;Prometheus official documentation&lt;/a&gt;.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href="https://github.com/prometheus"&gt;Prometheus&lt;/a&gt; is an open-source systems monitoring &amp;amp; alerting toolkit originally built at SoundCloud.&lt;/p&gt;
+&lt;h3 id="features"&gt;Features&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;a multi-dimensional data model with time series data identified by metric name &amp;amp; key/value pairs&lt;/li&gt;
+&lt;li&gt;PromQL, a flexible query language to leverage this dimensionality&lt;/li&gt;
+&lt;li&gt;no reliance on distributed storage; single server nodes are autonomous&lt;/li&gt;
+&lt;li&gt;time series collection happens via a pull model over HTTP&lt;/li&gt;
+&lt;li&gt;pushing time series is supported via an intermediary gateway&lt;/li&gt;
+&lt;li&gt;targets are discovered via service discovery or static configuration&lt;/li&gt;
+&lt;li&gt;multiple modes of graphing &amp;amp; dashboarding support&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="architecture--components"&gt;Architecture &amp;amp; components&lt;/h3&gt;
+&lt;p&gt;Prometheus scrapes metrics from instrumented jobs, either directly or via an intermediary push gateway for short-lived jobs. It stores all scraped samples locally &amp;amp; runs rules over this data to either aggregate &amp;amp; record new time series from existing data or generate alerts. Grafana or other API consumers can be used to visualize the collected data.&lt;/p&gt;</description></item></channel></rss>

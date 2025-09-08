@@ -1,186 +1,186 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tiling-Wm on kiennt26's home</title><link>https://ntk148v.github.io/tags/tiling-wm/</link><description>Recent content in Tiling-Wm on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Mon, 16 Jun 2025 11:00:28 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/tiling-wm/index.xml" rel="self" type="application/rss+xml"/><item><title>Getting Started with Tiling WM [Part 1] - I3</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</guid><description>&lt;blockquote>
-&lt;p>&lt;strong>Disclaimer&lt;/strong>&lt;/p>
-&lt;p>I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I&amp;rsquo;ve gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.&lt;/p>&lt;/blockquote>
-&lt;h2 id="overview-window-manager">Overview Window Manager&lt;/h2>
-&lt;p>First of all, you have to know the basic concepts.&lt;/p></description></item><item><title>Getting Started with Tiling WM [Part 2] - Rofi</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</guid><description>&lt;blockquote>
-&lt;p>In the &lt;a href="https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/">part1&lt;/a>, I&amp;rsquo;ve used &lt;code>rofi&lt;/code> instead of &lt;code>dmenu&lt;/code>. This part will show you how to start with &lt;code>rofi&lt;/code>.&lt;/p>&lt;/blockquote>
-&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://github.com/davatorium/rofi">Rofi&lt;/a> is a window switcher, application launcher and dmenu replacement.&lt;/li>
-&lt;li>Features:
-&lt;ul>
-&lt;li>Fully configurable keyboard navigation.&lt;/li>
-&lt;li>Type to filer.&lt;/li>
-&lt;li>Built-in modes:
-&lt;ul>
-&lt;li>Window switcher mode.&lt;/li>
-&lt;li>Application laucher.&lt;/li>
-&lt;li>Desktop file application launcher.&lt;/li>
-&lt;li>SSH laucher mode.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>History-based ordering.&lt;/li>
-&lt;li>&amp;hellip;&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="getting-started">Getting started&lt;/h2>
-&lt;ul>
-&lt;li>Installing &lt;code>rofi&lt;/code> is quite easy.&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt install rofi -y
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>Run it for the first time.&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rofi -lines &lt;span class="m">12&lt;/span> -padding &lt;span class="m">18&lt;/span> -width &lt;span class="m">60&lt;/span> -location &lt;span class="m">0&lt;/span> -show drun -sidebar-mode -columns &lt;span class="m">3&lt;/span> -font &lt;span class="s1">&amp;#39;DejaVu Sans 8&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>
-&lt;details>
- &lt;summary>Details&lt;/summary>
- &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl"> -show mode
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Open rofi in a certain mode. Available modes are window, run, drun, ssh, combi. The
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> special argument keys can be used to open a searchable list of supported key bind‐
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ings &lt;span class="o">(&lt;/span>see KEY BINDINGS&lt;span class="o">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> To show the run-dialog:
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rofi -show run
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -lines
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Maximum number of lines to show before scrolling.
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rofi -lines &lt;span class="m">25&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Default: &lt;span class="m">15&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -location
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Specify where the window should be located. The numbers map to the following loca‐
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> tions on screen:
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">1&lt;/span> &lt;span class="m">2&lt;/span> &lt;span class="m">3&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">8&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">4&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="m">7&lt;/span> &lt;span class="m">6&lt;/span> &lt;span class="m">5&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Default: &lt;span class="m">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -padding
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Define the inner margin of the window.
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Default: &lt;span class="m">5&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -sidebar-mode
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Open in sidebar-mode. In this mode a list of all enabled modes is shown at the bot‐
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> tom. &lt;span class="o">(&lt;/span>See -modi option&lt;span class="o">)&lt;/span> To show sidebar, use:
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rofi -show run -sidebar-mode -lines &lt;span class="m">0&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/details>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tiling-Wm on kiennt26's home</title><link>https://ntk148v.github.io/tags/tiling-wm/</link><description>Recent content in Tiling-Wm on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Mon, 16 Jun 2025 11:00:28 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/tiling-wm/index.xml" rel="self" type="application/rss+xml"/><item><title>Getting Started with Tiling WM [Part 1] - I3</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Disclaimer&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I&amp;rsquo;ve gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id="overview-window-manager"&gt;Overview Window Manager&lt;/h2&gt;
+&lt;p&gt;First of all, you have to know the basic concepts.&lt;/p&gt;</description></item><item><title>Getting Started with Tiling WM [Part 2] - Rofi</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;In the &lt;a href="https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/"&gt;part1&lt;/a&gt;, I&amp;rsquo;ve used &lt;code&gt;rofi&lt;/code&gt; instead of &lt;code&gt;dmenu&lt;/code&gt;. This part will show you how to start with &lt;code&gt;rofi&lt;/code&gt;.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/davatorium/rofi"&gt;Rofi&lt;/a&gt; is a window switcher, application launcher and dmenu replacement.&lt;/li&gt;
+&lt;li&gt;Features:
+&lt;ul&gt;
+&lt;li&gt;Fully configurable keyboard navigation.&lt;/li&gt;
+&lt;li&gt;Type to filer.&lt;/li&gt;
+&lt;li&gt;Built-in modes:
+&lt;ul&gt;
+&lt;li&gt;Window switcher mode.&lt;/li&gt;
+&lt;li&gt;Application laucher.&lt;/li&gt;
+&lt;li&gt;Desktop file application launcher.&lt;/li&gt;
+&lt;li&gt;SSH laucher mode.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;History-based ordering.&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="getting-started"&gt;Getting started&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Installing &lt;code&gt;rofi&lt;/code&gt; is quite easy.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo apt install rofi -y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Run it for the first time.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;rofi -lines &lt;span class="m"&gt;12&lt;/span&gt; -padding &lt;span class="m"&gt;18&lt;/span&gt; -width &lt;span class="m"&gt;60&lt;/span&gt; -location &lt;span class="m"&gt;0&lt;/span&gt; -show drun -sidebar-mode -columns &lt;span class="m"&gt;3&lt;/span&gt; -font &lt;span class="s1"&gt;&amp;#39;DejaVu Sans 8&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;details&gt;
+ &lt;summary&gt;Details&lt;/summary&gt;
+ &lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -show mode
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Open rofi in a certain mode. Available modes are window, run, drun, ssh, combi. The
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; special argument keys can be used to open a searchable list of supported key bind‐
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; ings &lt;span class="o"&gt;(&lt;/span&gt;see KEY BINDINGS&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; To show the run-dialog:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; rofi -show run
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -lines
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Maximum number of lines to show before scrolling.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; rofi -lines &lt;span class="m"&gt;25&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Default: &lt;span class="m"&gt;15&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -location
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Specify where the window should be located. The numbers map to the following loca‐
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; tions on screen:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="m"&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="m"&gt;8&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="m"&gt;4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="m"&gt;7&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt; &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Default: &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -padding
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Define the inner margin of the window.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Default: &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; -sidebar-mode
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; Open in sidebar-mode. In this mode a list of all enabled modes is shown at the bot‐
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; tom. &lt;span class="o"&gt;(&lt;/span&gt;See -modi option&lt;span class="o"&gt;)&lt;/span&gt; To show sidebar, use:
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; rofi -show run -sidebar-mode -lines &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/details&gt;
 
-&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-1/rofi-default.png">
-&lt;/figure>
+&lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-1/rofi-default.png"&gt;
+&lt;/figure&gt;
 
-&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-1/rofi-default-2.png">
-&lt;/figure>
+&lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-1/rofi-default-2.png"&gt;
+&lt;/figure&gt;
 
-&lt;ul>
-&lt;li>Press hot key (defined in i3 configuration file) &lt;code>&amp;lt;Window&amp;gt;+d&lt;/code> to start rofi. Use &lt;code>&amp;lt;Shift&amp;gt;+&amp;lt;left/right&amp;gt;&lt;/code> to switch between mode.&lt;/li>
-&lt;li>More details you can found in &lt;a href="https://github.com/davatorium/rofi">rofi github&lt;/a>.&lt;/li>
-&lt;/ul>
-&lt;h2 id="tweaking">Tweaking&lt;/h2>
-&lt;ul>
-&lt;li>The default setup looks quite boring. Let&amp;rsquo;s tweak a bit!&lt;/li>
-&lt;li>There are currently three methods of setting configuration options:
-&lt;ul>
-&lt;li>&lt;em>Local configuration. Normally, depending on XDG, in ~/.config/rofi/config. This uses the Xresources format&lt;/em>.&lt;/li>
-&lt;li>Xresources: A method of storing key values in the Xserver. See here for more information.&lt;/li>
-&lt;li>Command line options: Arguments are passed to Rofi.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>We will use configuration file.&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p ~/.config/rofi/themes
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">touch ~/.config/rofi/themes/onedark.theme
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>Copy the follow content into &lt;code>~/.config/rofi/themes/onedark.theme&lt;/code>:&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">configuration {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> show-icons: true;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> font: &amp;#34;DejaVu Sans Mono 10&amp;#34;;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> modi: &amp;#34;window,run,drun&amp;#34;;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> background: #282c34;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> foreground: #abb2bf;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> background-color: @background;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> selected-normal-foreground: @foreground;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> selected-normal-background: #98c379;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> selected-urgent-background: #e5c07b;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> selected-urgent-foreground: @foreground;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> border: 5;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> lines: 12;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> padding: 0;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> margin: 0;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> spacing: 0;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">window {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> width: 50%;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> transparency: &amp;#34;real&amp;#34;;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mainbox {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> children: [inputbar, listview];
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">listview {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> columns: 1;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">element {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> padding: 12;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> orientation: vertical;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> text-color: @foreground;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">element selected {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> background-color: @selected-normal-background;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> text-color: @background;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">inputbar {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> background-color: @background;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> children: [prompt, entry];
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">prompt {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> enabled: true;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> font: &amp;#34;DejaVu Sans Mono 10&amp;#34;;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> padding: 12 0 0 12;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> text-color: @selected-urgent-background;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">entry {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> padding: 12;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> text-color: @selected-urgent-background;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>Run it and you can see the magic!&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rofi -theme ~/.config/rofi/themes/onedark.theme -show drun
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;figure class="figure">&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-1/rofi-custom.png">
-&lt;/figure>
+&lt;ul&gt;
+&lt;li&gt;Press hot key (defined in i3 configuration file) &lt;code&gt;&amp;lt;Window&amp;gt;+d&lt;/code&gt; to start rofi. Use &lt;code&gt;&amp;lt;Shift&amp;gt;+&amp;lt;left/right&amp;gt;&lt;/code&gt; to switch between mode.&lt;/li&gt;
+&lt;li&gt;More details you can found in &lt;a href="https://github.com/davatorium/rofi"&gt;rofi github&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="tweaking"&gt;Tweaking&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The default setup looks quite boring. Let&amp;rsquo;s tweak a bit!&lt;/li&gt;
+&lt;li&gt;There are currently three methods of setting configuration options:
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Local configuration. Normally, depending on XDG, in ~/.config/rofi/config. This uses the Xresources format&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Xresources: A method of storing key values in the Xserver. See here for more information.&lt;/li&gt;
+&lt;li&gt;Command line options: Arguments are passed to Rofi.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;We will use configuration file.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mkdir -p ~/.config/rofi/themes
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;touch ~/.config/rofi/themes/onedark.theme
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Copy the follow content into &lt;code&gt;~/.config/rofi/themes/onedark.theme&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;configuration {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; show-icons: true;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; font: &amp;#34;DejaVu Sans Mono 10&amp;#34;;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; modi: &amp;#34;window,run,drun&amp;#34;;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;* {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; background: #282c34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; foreground: #abb2bf;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; background-color: @background;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; selected-normal-foreground: @foreground;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; selected-normal-background: #98c379;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; selected-urgent-background: #e5c07b;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; selected-urgent-foreground: @foreground;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; border: 5;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; lines: 12;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; padding: 0;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; margin: 0;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; spacing: 0;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;window {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; width: 50%;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; transparency: &amp;#34;real&amp;#34;;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;mainbox {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; children: [inputbar, listview];
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;listview {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; columns: 1;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;element {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; padding: 12;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; orientation: vertical;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; text-color: @foreground;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;element selected {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; background-color: @selected-normal-background;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; text-color: @background;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;inputbar {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; background-color: @background;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; children: [prompt, entry];
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;prompt {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; enabled: true;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; font: &amp;#34;DejaVu Sans Mono 10&amp;#34;;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; padding: 12 0 0 12;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; text-color: @selected-urgent-background;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;entry {
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; padding: 12;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; text-color: @selected-urgent-background;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Run it and you can see the magic!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;rofi -theme ~/.config/rofi/themes/onedark.theme -show drun
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-1/rofi-custom.png"&gt;
+&lt;/figure&gt;
 
-&lt;ul>
-&lt;li>Don&amp;rsquo;t forget to update hotkey in i3 configuration file.&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">bindsym $mod+d exec rofi -theme ~/.config/rofi/themes/onedark.theme -show drun
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Getting Started with Tiling WM [Part 3] - Polybar</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</guid><description>&lt;h2 id="overview">Overview&lt;/h2>
-&lt;p>&lt;a href="https://polybar.github.io/">According to Polybar frontpage&lt;/a>, &lt;code>Polybar is A fast and easy to use tool for creating status bars &lt;/code>.&lt;/p>
-&lt;blockquote>
-&lt;p>&lt;strong>WIP&lt;/strong>&lt;/p>&lt;/blockquote></description></item><item><title>Getting Started with Tiling WM [Part 4] - Xresources</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</guid><description>&lt;blockquote>
-&lt;p>&lt;strong>WIP&lt;/strong>&lt;/p>&lt;/blockquote></description></item><item><title>Getting Started with Tiling WM [Part 5] - Compton</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</guid><description>&lt;blockquote>
-&lt;p>&lt;strong>WIP&lt;/strong>&lt;/p>&lt;/blockquote></description></item></channel></rss>
+&lt;ul&gt;
+&lt;li&gt;Don&amp;rsquo;t forget to update hotkey in i3 configuration file.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;bindsym $mod+d exec rofi -theme ~/.config/rofi/themes/onedark.theme -show drun
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Getting Started with Tiling WM [Part 3] - Polybar</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://polybar.github.io/"&gt;According to Polybar frontpage&lt;/a&gt;, &lt;code&gt;Polybar is A fast and easy to use tool for creating status bars &lt;/code&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;WIP&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;</description></item><item><title>Getting Started with Tiling WM [Part 4] - Xresources</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-4-xresources/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;WIP&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;</description></item><item><title>Getting Started with Tiling WM [Part 5] - Compton</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;WIP&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;</description></item></channel></rss>
