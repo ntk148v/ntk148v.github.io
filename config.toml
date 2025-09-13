@@ -29,8 +29,9 @@ email = "kiennt2609@gmail.com"
     codeFences = true
     guessSyntax = true
     lineNos = false
-    noClasses = false
+    noClasses = true
     tabWidth = 4
+    style = "algol_nu"
   [markup.tableOfContents]
     startLevel = 2
     endLevel = 4
