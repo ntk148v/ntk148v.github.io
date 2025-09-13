@@ -1,81 +1,81 @@
 <!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Linux tools that you never knew you needed | kiennt26's home</title><link rel=apple-touch-icon sizes=57x57 href=/favicon_io/apple-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=/favicon_io/apple-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=/favicon_io/apple-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=/favicon_io/apple-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=/favicon_io/apple-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=/favicon_io/apple-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=/favicon_io/apple-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=/favicon_io/apple-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=/favicon_io/apple-icon-180x180.png><link rel=icon type=image/png sizes=192x192 href=/favicon_io/android-icon-192x192.png><link rel=icon type=image/png sizes=32x32 href=/favicon_io/favicon-32x32.png><link rel=icon type=image/png sizes=96x96 href=/favicon_io/favicon-96x96.png><link rel=icon type=image/png sizes=16x16 href=/favicon_io/favicon-16x16.png><link rel=manifest href=/favicon_io/manifest.json><meta name=msapplication-TileColor content="#ffffff"><meta name=msapplication-TileImage content="/favicon_io/ms-icon-144x144.png"><meta name=theme-color content="#ffffff"><link rel=stylesheet href=/css/main.min.38925bdd47aabb0eb892bbce566836b59b62905bd8a5aec203df13887e0ef16f.css integrity="sha256-OJJb3Uequw64krvOVmg2tZtikFvYpa7CA98TiH4O8W8=" crossorigin=anonymous><script src=/js/main.23cd0c7d837263b9eaeb96ee2d9ccfa2969daa3fa00fa1c1fe8701a9b87251a1.js integrity="sha256-I80MfYNyY7nq65buLZzPopadqj+gD6HB/ocBqbhyUaE=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js></script></head><body><header><header><nav class=path-nav><ol><li>/
 <a href=/>kiennt26's home</a>
 /</li><li><a href=/posts/>Posts</a>
-/</li><li class=current><a href=/posts/linux-tools-that-you-never-knew-you-needed/>Linux tools that you never knew you needed</a></li></ol></nav></header></header><main><h1>Linux tools that you never knew you needed</h1><div class=terms-list><ul><li><a href=/tags/linux/>#Linux</a></li><li><a href=/tags/tips/>#Tips</a></li><li><a href=/tags/tech/>#Tech</a></li></ul></div><nav class=toc><strong>Table of contents</strong><div class=toc-content><nav id=TableOfContents><ol><li><a href=#bat---cat-alternative>bat - (cat alternative)</a></li><li><a href=#fd---find-alternative>fd - (find alternative)</a></li><li><a href=#httpie---wgetcurl-alternative>httpie - (wget/curl alternative)</a></li><li><a href=#ripgrep---grep-alternative>ripgrep - (grep alternative)</a></li><li><a href=#delta>delta</a></li><li><a href=#z>z</a></li><li><a href=#fzf>fzf</a></li><li><a href=#thefuck>thefuck</a></li><li><a href=#exa---ls-alternative>exa - (ls alternative)</a></li></ol></nav></div></nav><h2 id=bat---cat-alternative>bat - (cat alternative)</h2><ul><li><a href=https://github.com/sharkdp/bat>bat</a>: A cat(1) clone with syntax highlighting and Git integration.</li><li>Example:</li></ul><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/bat.png></figure><h2 id=fd---find-alternative>fd - (find alternative)</h2><ul><li><a href=https://github.com/sharkdp/fd>fd</a>: a simple, fast and user-friendly alternative to <code>find</code>.</li><li>Examples:</li></ul><figure class=figure><img src=https://raw.githubusercontent.com/sharkdp/fd/master/doc/screencast.svg></figure><h2 id=httpie---wgetcurl-alternative>httpie - (wget/curl alternative)</h2><ul><li><a href=https://httpie.io>httpie</a>: a user-friendly command-line HTTP client for the API era. It comes with JSON support, syntax highlighting, persistent sessions, wget-like downloads, plugins, and more.</li><li>Examples:</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Hello world</span>
-</span></span><span class=line><span class=cl>$ http httpie.io/hello
-</span></span><span class=line><span class=cl><span class=c1># Custom HTTP method, HTTP headers and JSON data</span>
-</span></span><span class=line><span class=cl>$ http PUT pie.dev/put X-API-Token:123 <span class=nv>name</span><span class=o>=</span>John
-</span></span><span class=line><span class=cl><span class=c1># Submitting forms</span>
-</span></span><span class=line><span class=cl>$ http -f POST pie.dev/post <span class=nv>hello</span><span class=o>=</span>World
-</span></span><span class=line><span class=cl><span class=c1># Upload a file using redirect input</span>
-</span></span><span class=line><span class=cl>$ http pie.dev/post &lt; files/data.json
-</span></span><span class=line><span class=cl><span class=c1># ...</span>
-</span></span><span class=line><span class=cl><span class=c1># For more examples, check out: https://httpie.io</span>
-</span></span></code></pre></div><h2 id=ripgrep---grep-alternative>ripgrep - (grep alternative)</h2><ul><li><a href=https://github.com/BurntSushi/ripgrep>ripgrep</a>: a faster <code>grep</code>. ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern. By default, ripgrep will respect your .gitignore and automatically skip hidden files/directories and binary files.</li><li><a href=https://github.com/BurntSushi/ripgrep#quick-examples-comparing-tools>Benchmark</a>.</li><li>Examples:</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Basic use</span>
-</span></span><span class=line><span class=cl>$ rg fast README.md
-</span></span><span class=line><span class=cl><span class=c1># Regular expressions</span>
-</span></span><span class=line><span class=cl>$ rg <span class=s1>&#39;fast\w+&#39;</span> README.md
-</span></span><span class=line><span class=cl><span class=c1># Recursive search - recursively searching the directory (current directory is default)</span>
-</span></span><span class=line><span class=cl>$ rg <span class=s1>&#39;fn write\(&#39;</span>
-</span></span><span class=line><span class=cl><span class=c1># ...</span>
-</span></span><span class=line><span class=cl><span class=c1># For more examples, checkout: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md</span>
-</span></span></code></pre></div><h2 id=delta>delta</h2><ul><li><a href=https://github.com/dandavison/delta>delta</a>: Code evolves, and we all spend time studying diffs. Delta aims to make this both efficient and enjoyable: it allows you to make extensive changes to the layout and styling of diffs, as well as allowing you to stay arbitrarily close to the default git/diff output.</li><li>Diff/git diff doesn&rsquo;t show you exactly what was changed.</li></ul><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/git-diff.png></figure><ul><li>Delta shows within-line highlights based on a Levenshtein edit inference algorithm.</li></ul><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/delta.png></figure><ul><li>By default, delta restructures the git output slightly to make the hunk markers human-readable:</li></ul><figure class=figure><img src=https://user-images.githubusercontent.com/52205/81059276-254cf980-8e9e-11ea-95c3-8b757a4c11b5.png></figure><ul><li>Example config:</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>core<span class=o>]</span>
-</span></span><span class=line><span class=cl>    pager: delta
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=o>[</span>delta<span class=o>]</span>
-</span></span><span class=line><span class=cl>    plus-style: <span class=s2>&#34;syntax #98c379&#34;</span>
-</span></span><span class=line><span class=cl>    minus-style: <span class=s2>&#34;syntax #e06c75&#34;</span>
-</span></span><span class=line><span class=cl>    syntax-theme: OneHalfDark
-</span></span><span class=line><span class=cl>    navigate: <span class=nb>true</span>
-</span></span><span class=line><span class=cl>    features: line-numbers decorations
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=o>[</span>interactive<span class=o>]</span>
-</span></span><span class=line><span class=cl>    diffFilter: delta --color-only
-</span></span></code></pre></div><ul><li>Completely replace <code>diff</code> with <code>delta</code>:</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>diff</span><span class=o>=</span><span class=s2>&#34;delta&#34;</span>
-</span></span></code></pre></div><h2 id=z>z</h2><ul><li>Tired for <code>cd</code>ing into the same directories over and over? Save your time with <code>z</code> command!</li><li><a href=https://github.com/rupa/z>z</a>: jump around. Z is a shell script that makes jumping around your file directory pleasantly simple. Instead of trying to remember the exact path of where you need to go, or worse, <code>cd</code>ing into the next directory followed by <code>ls</code>ing and then cding again over and over (we’ve all been there), Z allows you to “lazy type” where you want to go and it’ll handle the rest.</li><li>Examples:</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Takes me to my workspace folder from anywhere.</span>
-</span></span><span class=line><span class=cl>$ z workspace
-</span></span></code></pre></div><h2 id=fzf>fzf</h2><ul><li><a href=https://github.com/junegunn/fzf>fzf</a>: fzf is a general-purpose command-line fuzzy finder.</li><li>It&rsquo;s an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.</li><li>Examples:</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Read the list from STDIN and write the selected item to STDOUT</span>
-</span></span><span class=line><span class=cl>$ find * -type f <span class=p>|</span> fzf &gt; selected
-</span></span><span class=line><span class=cl>$ vim <span class=k>$(</span>fzf<span class=k>)</span>
-</span></span><span class=line><span class=cl><span class=c1># COMMAND **&lt;TAB&gt;</span>
-</span></span><span class=line><span class=cl><span class=c1># Files under the current directory</span>
-</span></span><span class=line><span class=cl><span class=c1># - You can select multiple items with TAB key</span>
-</span></span><span class=line><span class=cl>$ vim **&lt;TAB&gt;
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Files under parent directory</span>
-</span></span><span class=line><span class=cl>$ vim ../**&lt;TAB&gt;
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Files under parent directory that match `fzf`</span>
-</span></span><span class=line><span class=cl>$ vim ../fzf**&lt;TAB&gt;
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Files under your home directory</span>
-</span></span><span class=line><span class=cl>$ vim ~/**&lt;TAB&gt;
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Directories under current directory (single-selection)</span>
-</span></span><span class=line><span class=cl>$ <span class=nb>cd</span> **&lt;TAB&gt;
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Directories under ~/github that match `fzf`</span>
-</span></span><span class=line><span class=cl>$ <span class=nb>cd</span> ~/github/fzf**&lt;TAB&gt;
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Can select multiple processes with &lt;TAB&gt; or &lt;Shift-TAB&gt; keys</span>
-</span></span><span class=line><span class=cl>$ <span class=nb>kill</span> -9 &lt;TAB&gt;
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>$ <span class=nb>unset</span> **&lt;TAB&gt;
-</span></span><span class=line><span class=cl>$ <span class=nb>export</span> **&lt;TAB&gt;
-</span></span><span class=line><span class=cl>$ <span class=nb>unalias</span> **&lt;TAB&gt;
-</span></span><span class=line><span class=cl><span class=c1># ...</span>
-</span></span><span class=line><span class=cl><span class=c1># For more examples, checkout: https://github.com/junegunn/fzf</span>
-</span></span></code></pre></div><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/fzf-vim.png></figure><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/fzf-cd.png></figure><h2 id=thefuck>thefuck</h2><ul><li><a href=https://github.com/nvbn/thefuck>thefuck</a>: Magnificent app which corrects your previous console command.</li></ul><figure class=figure><img src=https://raw.githubusercontent.com/nvbn/thefuck/master/example.gif></figure><ul><li>Examples:</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ apt-get install vim
-</span></span><span class=line><span class=cl>E: Could not open lock file /var/lib/dpkg/lock - open <span class=o>(</span>13: Permission denied<span class=o>)</span>
-</span></span><span class=line><span class=cl>E: Unable to lock the administration directory <span class=o>(</span>/var/lib/dpkg/<span class=o>)</span>, are you root?
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>$ fuck
-</span></span><span class=line><span class=cl>sudo apt-get install vim <span class=o>[</span>enter/↑/↓/ctrl+c<span class=o>]</span>
-</span></span><span class=line><span class=cl>Reading package lists... Done
-</span></span><span class=line><span class=cl>...
-</span></span><span class=line><span class=cl><span class=c1># ...</span>
-</span></span><span class=line><span class=cl><span class=c1># For more examples, check out: https://github.com/nvbn/thefuck</span>
-</span></span></code></pre></div><h2 id=exa---ls-alternative>exa - (ls alternative)</h2><ul><li><a href=https://the.exa.website>exa</a>: A modern replacement for ls. <code>exa</code> is an improved file lister with more features and better defaults. It uses colours to distinguish file types and metadata. It knows about symlinks, extended attributes, and Git. And it’s small, fast, and just one single binary.</li><li>Examples:</li></ul><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/exa.png></figure><ul><li>Completely replace <code>ls</code> with <code>exa</code>:</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>ls</span><span class=o>=</span><span class=s2>&#34;exa&#34;</span>
+/</li><li class=current><a href=/posts/linux-tools-that-you-never-knew-you-needed/>Linux tools that you never knew you needed</a></li></ol></nav></header></header><main><h1>Linux tools that you never knew you needed</h1><div class=terms-list><ul><li><a href=/tags/linux/>#Linux</a></li><li><a href=/tags/tips/>#Tips</a></li><li><a href=/tags/tech/>#Tech</a></li></ul></div><nav class=toc><strong>Table of contents</strong><div class=toc-content><nav id=TableOfContents><ol><li><a href=#bat---cat-alternative>bat - (cat alternative)</a></li><li><a href=#fd---find-alternative>fd - (find alternative)</a></li><li><a href=#httpie---wgetcurl-alternative>httpie - (wget/curl alternative)</a></li><li><a href=#ripgrep---grep-alternative>ripgrep - (grep alternative)</a></li><li><a href=#delta>delta</a></li><li><a href=#z>z</a></li><li><a href=#fzf>fzf</a></li><li><a href=#thefuck>thefuck</a></li><li><a href=#exa---ls-alternative>exa - (ls alternative)</a></li></ol></nav></div></nav><h2 id=bat---cat-alternative>bat - (cat alternative)</h2><ul><li><a href=https://github.com/sharkdp/bat>bat</a>: A cat(1) clone with syntax highlighting and Git integration.</li><li>Example:</li></ul><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/bat.png></figure><h2 id=fd---find-alternative>fd - (find alternative)</h2><ul><li><a href=https://github.com/sharkdp/fd>fd</a>: a simple, fast and user-friendly alternative to <code>find</code>.</li><li>Examples:</li></ul><figure class=figure><img src=https://raw.githubusercontent.com/sharkdp/fd/master/doc/screencast.svg></figure><h2 id=httpie---wgetcurl-alternative>httpie - (wget/curl alternative)</h2><ul><li><a href=https://httpie.io>httpie</a>: a user-friendly command-line HTTP client for the API era. It comes with JSON support, syntax highlighting, persistent sessions, wget-like downloads, plugins, and more.</li><li>Examples:</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#888;font-style:italic># Hello world</span>
+</span></span><span style=display:flex><span>$ http httpie.io/hello
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Custom HTTP method, HTTP headers and JSON data</span>
+</span></span><span style=display:flex><span>$ http PUT pie.dev/put X-API-Token:123 <span style=color:#666;font-weight:700;font-style:italic>name</span>=John
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Submitting forms</span>
+</span></span><span style=display:flex><span>$ http -f POST pie.dev/post <span style=color:#666;font-weight:700;font-style:italic>hello</span>=World
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Upload a file using redirect input</span>
+</span></span><span style=display:flex><span>$ http pie.dev/post &lt; files/data.json
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># ...</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># For more examples, check out: https://httpie.io</span>
+</span></span></code></pre></div><h2 id=ripgrep---grep-alternative>ripgrep - (grep alternative)</h2><ul><li><a href=https://github.com/BurntSushi/ripgrep>ripgrep</a>: a faster <code>grep</code>. ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern. By default, ripgrep will respect your .gitignore and automatically skip hidden files/directories and binary files.</li><li><a href=https://github.com/BurntSushi/ripgrep#quick-examples-comparing-tools>Benchmark</a>.</li><li>Examples:</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#888;font-style:italic># Basic use</span>
+</span></span><span style=display:flex><span>$ rg fast README.md
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Regular expressions</span>
+</span></span><span style=display:flex><span>$ rg <span style=color:#666;font-style:italic>&#39;fast\w+&#39;</span> README.md
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Recursive search - recursively searching the directory (current directory is default)</span>
+</span></span><span style=display:flex><span>$ rg <span style=color:#666;font-style:italic>&#39;fn write\(&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># ...</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># For more examples, checkout: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md</span>
+</span></span></code></pre></div><h2 id=delta>delta</h2><ul><li><a href=https://github.com/dandavison/delta>delta</a>: Code evolves, and we all spend time studying diffs. Delta aims to make this both efficient and enjoyable: it allows you to make extensive changes to the layout and styling of diffs, as well as allowing you to stay arbitrarily close to the default git/diff output.</li><li>Diff/git diff doesn&rsquo;t show you exactly what was changed.</li></ul><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/git-diff.png></figure><ul><li>Delta shows within-line highlights based on a Levenshtein edit inference algorithm.</li></ul><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/delta.png></figure><ul><li>By default, delta restructures the git output slightly to make the hunk markers human-readable:</li></ul><figure class=figure><img src=https://user-images.githubusercontent.com/52205/81059276-254cf980-8e9e-11ea-95c3-8b757a4c11b5.png></figure><ul><li>Example config:</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>[core]
+</span></span><span style=display:flex><span>    pager: delta
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[delta]
+</span></span><span style=display:flex><span>    plus-style: <span style=color:#666;font-style:italic>&#34;syntax #98c379&#34;</span>
+</span></span><span style=display:flex><span>    minus-style: <span style=color:#666;font-style:italic>&#34;syntax #e06c75&#34;</span>
+</span></span><span style=display:flex><span>    syntax-theme: OneHalfDark
+</span></span><span style=display:flex><span>    navigate: <span style=font-weight:700;font-style:italic>true</span>
+</span></span><span style=display:flex><span>    features: line-numbers decorations
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>[interactive]
+</span></span><span style=display:flex><span>    diffFilter: delta --color-only
+</span></span></code></pre></div><ul><li>Completely replace <code>diff</code> with <code>delta</code>:</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=font-weight:700;font-style:italic>alias</span> <span style=color:#666;font-weight:700;font-style:italic>diff</span>=<span style=color:#666;font-style:italic>&#34;delta&#34;</span>
+</span></span></code></pre></div><h2 id=z>z</h2><ul><li>Tired for <code>cd</code>ing into the same directories over and over? Save your time with <code>z</code> command!</li><li><a href=https://github.com/rupa/z>z</a>: jump around. Z is a shell script that makes jumping around your file directory pleasantly simple. Instead of trying to remember the exact path of where you need to go, or worse, <code>cd</code>ing into the next directory followed by <code>ls</code>ing and then cding again over and over (we’ve all been there), Z allows you to “lazy type” where you want to go and it’ll handle the rest.</li><li>Examples:</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#888;font-style:italic># Takes me to my workspace folder from anywhere.</span>
+</span></span><span style=display:flex><span>$ z workspace
+</span></span></code></pre></div><h2 id=fzf>fzf</h2><ul><li><a href=https://github.com/junegunn/fzf>fzf</a>: fzf is a general-purpose command-line fuzzy finder.</li><li>It&rsquo;s an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.</li><li>Examples:</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#888;font-style:italic># Read the list from STDIN and write the selected item to STDOUT</span>
+</span></span><span style=display:flex><span>$ find * -type f | fzf &gt; selected
+</span></span><span style=display:flex><span>$ vim <span style=font-weight:700>$(</span>fzf<span style=font-weight:700>)</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># COMMAND **&lt;TAB&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Files under the current directory</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># - You can select multiple items with TAB key</span>
+</span></span><span style=display:flex><span>$ vim **&lt;TAB&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Files under parent directory</span>
+</span></span><span style=display:flex><span>$ vim ../**&lt;TAB&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Files under parent directory that match `fzf`</span>
+</span></span><span style=display:flex><span>$ vim ../fzf**&lt;TAB&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Files under your home directory</span>
+</span></span><span style=display:flex><span>$ vim ~/**&lt;TAB&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Directories under current directory (single-selection)</span>
+</span></span><span style=display:flex><span>$ <span style=font-weight:700;font-style:italic>cd</span> **&lt;TAB&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Directories under ~/github that match `fzf`</span>
+</span></span><span style=display:flex><span>$ <span style=font-weight:700;font-style:italic>cd</span> ~/github/fzf**&lt;TAB&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Can select multiple processes with &lt;TAB&gt; or &lt;Shift-TAB&gt; keys</span>
+</span></span><span style=display:flex><span>$ <span style=font-weight:700;font-style:italic>kill</span> -9 &lt;TAB&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ <span style=font-weight:700;font-style:italic>unset</span> **&lt;TAB&gt;
+</span></span><span style=display:flex><span>$ <span style=font-weight:700;font-style:italic>export</span> **&lt;TAB&gt;
+</span></span><span style=display:flex><span>$ <span style=font-weight:700;font-style:italic>unalias</span> **&lt;TAB&gt;
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># ...</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># For more examples, checkout: https://github.com/junegunn/fzf</span>
+</span></span></code></pre></div><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/fzf-vim.png></figure><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/fzf-cd.png></figure><h2 id=thefuck>thefuck</h2><ul><li><a href=https://github.com/nvbn/thefuck>thefuck</a>: Magnificent app which corrects your previous console command.</li></ul><figure class=figure><img src=https://raw.githubusercontent.com/nvbn/thefuck/master/example.gif></figure><ul><li>Examples:</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ apt-get install vim
+</span></span><span style=display:flex><span>E: Could not open lock file /var/lib/dpkg/lock - open (13: Permission denied)
+</span></span><span style=display:flex><span>E: Unable to lock the administration directory (/var/lib/dpkg/), are you root?
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$ fuck
+</span></span><span style=display:flex><span>sudo apt-get install vim [enter/↑/↓/ctrl+c]
+</span></span><span style=display:flex><span>Reading package lists... Done
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># ...</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># For more examples, check out: https://github.com/nvbn/thefuck</span>
+</span></span></code></pre></div><h2 id=exa---ls-alternative>exa - (ls alternative)</h2><ul><li><a href=https://the.exa.website>exa</a>: A modern replacement for ls. <code>exa</code> is an improved file lister with more features and better defaults. It uses colours to distinguish file types and metadata. It knows about symlinks, extended attributes, and Git. And it’s small, fast, and just one single binary.</li><li>Examples:</li></ul><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/exa.png></figure><ul><li>Completely replace <code>ls</code> with <code>exa</code>:</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=font-weight:700;font-style:italic>alias</span> <span style=color:#666;font-weight:700;font-style:italic>ls</span>=<span style=color:#666;font-style:italic>&#34;exa&#34;</span>
 </span></span></code></pre></div><figure class=figure><img src=/photos/linux-tools-that-you-never-knew-you-needed/exa-ls.png></figure><time datetime=2021-04-07>2021-04-07&nbsp;</time><div class=terminal-nav><div class=back-nav><a href=../ class=back-link>../</a></div></div></main><footer><p>&copy; Copyright 2025 &#183;
 <a href=https://github.com/ntk148v/shibui>shibui</a></p></footer></body></html>

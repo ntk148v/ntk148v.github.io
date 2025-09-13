@@ -1,199 +1,199 @@
 <!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Golang: Block forever | kiennt26's home</title><link rel=apple-touch-icon sizes=57x57 href=/favicon_io/apple-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=/favicon_io/apple-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=/favicon_io/apple-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=/favicon_io/apple-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=/favicon_io/apple-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=/favicon_io/apple-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=/favicon_io/apple-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=/favicon_io/apple-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=/favicon_io/apple-icon-180x180.png><link rel=icon type=image/png sizes=192x192 href=/favicon_io/android-icon-192x192.png><link rel=icon type=image/png sizes=32x32 href=/favicon_io/favicon-32x32.png><link rel=icon type=image/png sizes=96x96 href=/favicon_io/favicon-96x96.png><link rel=icon type=image/png sizes=16x16 href=/favicon_io/favicon-16x16.png><link rel=manifest href=/favicon_io/manifest.json><meta name=msapplication-TileColor content="#ffffff"><meta name=msapplication-TileImage content="/favicon_io/ms-icon-144x144.png"><meta name=theme-color content="#ffffff"><link rel=stylesheet href=/css/main.min.38925bdd47aabb0eb892bbce566836b59b62905bd8a5aec203df13887e0ef16f.css integrity="sha256-OJJb3Uequw64krvOVmg2tZtikFvYpa7CA98TiH4O8W8=" crossorigin=anonymous><script src=/js/main.23cd0c7d837263b9eaeb96ee2d9ccfa2969daa3fa00fa1c1fe8701a9b87251a1.js integrity="sha256-I80MfYNyY7nq65buLZzPopadqj+gD6HB/ocBqbhyUaE=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js></script></head><body><header><header><nav class=path-nav><ol><li>/
 <a href=/>kiennt26's home</a>
 /</li><li><a href=/posts/>Posts</a>
-/</li><li class=current><a href=/posts/golang-block-forever/>Golang: Block forever</a></li></ol></nav></header></header><main><h1>Golang: Block forever</h1><div class=terms-list><ul><li><a href=/tags/golang/>#Golang</a></li><li><a href=/tags/trick/>#Trick</a></li><li><a href=/tags/note/>#Note</a></li></ul></div><nav class=toc><strong>Table of contents</strong><div class=toc-content><nav id=TableOfContents><ol><li><a href=#references>References</a></li><li><a href=#the-original>The original</a></li><li><a href=#bad---an-empty-infinite-loop>Bad - An empty infinite loop</a></li><li><a href=#good---busy-blocking>Good - Busy blocking</a></li><li><a href=#good---waiting-on-itself>Good - Waiting on itself</a></li><li><a href=#good---empty-select>Good - Empty select</a></li><li><a href=#good---double-locking>Good - Double locking</a></li><li><a href=#good---reading-an-empty-channel>Good - Reading an Empty Channel</a></li><li><a href=#good---self-produce-and-consume>Good - Self produce-and-consume</a></li></ol></nav></div></nav><p>Sometimes, you want to block the current goroutine when allowing others to continue. Here is some tricks I&rsquo;ve collected:</p><h2 id=references>References</h2><p>Firstly give them some credits:</p><ol><li><a href=https://blog.sgmansfield.com/2016/06/how-to-block-forever-in-go/>https://blog.sgmansfield.com/2016/06/how-to-block-forever-in-go/</a></li><li><a href=https://pliutau.com/different-ways-to-block-go-runtime-forever/>https://pliutau.com/different-ways-to-block-go-runtime-forever/</a></li></ol><blockquote><p>NOTE: I run these with Golang 1.12</p></blockquote><h2 id=the-original>The original</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=s>&#34;fmt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=mi>9696969</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>1000</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>go</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w> </span><span class=c1>// The main goroutine is exited before the show() be done.</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;OK we&#39;re done&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h2 id=bad---an-empty-infinite-loop>Bad - An empty infinite loop</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;fmt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;time&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>forever</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>// Empty, just do nothing</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=mi>9696969</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>5</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>go</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>forever</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;OK we&#39;re done&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><p>An infinite loop here is a busy loop that does nothing except burn CPU time.</p><h2 id=good---busy-blocking>Good - Busy blocking</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;fmt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;runtime&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;time&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>forever</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>runtime</span><span class=p>.</span><span class=nf>Gosched</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=mi>9696969</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>5</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>go</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>forever</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;OK we&#39;re done&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><p>It will reduce your CPU usage but it isn&rsquo;t the preferable solution.</p><h2 id=good---waiting-on-itself>Good - Waiting on itself</h2><p>We wait but we never done XD</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;fmt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;sync&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;time&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>forever</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>wg</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>sync</span><span class=p>.</span><span class=nx>WaitGroup</span><span class=p>{}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>wg</span><span class=p>.</span><span class=nf>Add</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>wg</span><span class=p>.</span><span class=nf>Wait</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=mi>9696969</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>5</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>go</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>forever</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;OK we&#39;re done&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h2 id=good---empty-select>Good - Empty select</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;fmt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;time&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>forever</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>select</span><span class=p>{</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=mi>9696969</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>5</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>go</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>forever</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;OK we&#39;re done&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h2 id=good---double-locking>Good - Double locking</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;fmt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;sync&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;time&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>forever</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>m</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>sync</span><span class=p>.</span><span class=nx>Mutex</span><span class=p>{}</span><span class=w> </span><span class=c1>// Same with sync.RWMutex</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>m</span><span class=p>.</span><span class=nf>Lock</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>m</span><span class=p>.</span><span class=nf>Lock</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=mi>9696969</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>5</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>go</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>forever</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;OK we&#39;re done&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h2 id=good---reading-an-empty-channel>Good - Reading an Empty Channel</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;fmt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;time&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>forever</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>c</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>make</span><span class=p>(</span><span class=kd>chan</span><span class=w> </span><span class=kd>struct</span><span class=p>{})</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=o>&lt;-</span><span class=nx>c</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=mi>9696969</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>5</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>go</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>forever</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;OK we&#39;re done&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><h2 id=good---self-produce-and-consume>Good - Self produce-and-consume</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;fmt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;time&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>forever</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>c</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>make</span><span class=p>(</span><span class=kd>chan</span><span class=w> </span><span class=kd>struct</span><span class=p>{},</span><span class=w> </span><span class=mi>1</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>select</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>case</span><span class=w> </span><span class=o>&lt;-</span><span class=nx>c</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>case</span><span class=w> </span><span class=nx>c</span><span class=w> </span><span class=o>&lt;-</span><span class=w> </span><span class=kd>struct</span><span class=p>{}{}:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=mi>9696969</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>5</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>i</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>go</span><span class=w> </span><span class=nf>show</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>forever</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;OK we&#39;re done&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><time datetime=2020-04-27>2020-04-27&nbsp;</time><div class=terminal-nav><div class=back-nav><a href=../ class=back-link>../</a></div></div></main><footer><p>&copy; Copyright 2025 &#183;
+/</li><li class=current><a href=/posts/golang-block-forever/>Golang: Block forever</a></li></ol></nav></header></header><main><h1>Golang: Block forever</h1><div class=terms-list><ul><li><a href=/tags/golang/>#Golang</a></li><li><a href=/tags/trick/>#Trick</a></li><li><a href=/tags/note/>#Note</a></li></ul></div><nav class=toc><strong>Table of contents</strong><div class=toc-content><nav id=TableOfContents><ol><li><a href=#references>References</a></li><li><a href=#the-original>The original</a></li><li><a href=#bad---an-empty-infinite-loop>Bad - An empty infinite loop</a></li><li><a href=#good---busy-blocking>Good - Busy blocking</a></li><li><a href=#good---waiting-on-itself>Good - Waiting on itself</a></li><li><a href=#good---empty-select>Good - Empty select</a></li><li><a href=#good---double-locking>Good - Double locking</a></li><li><a href=#good---reading-an-empty-channel>Good - Reading an Empty Channel</a></li><li><a href=#good---self-produce-and-consume>Good - Self produce-and-consume</a></li></ol></nav></div></nav><p>Sometimes, you want to block the current goroutine when allowing others to continue. Here is some tricks I&rsquo;ve collected:</p><h2 id=references>References</h2><p>Firstly give them some credits:</p><ol><li><a href=https://blog.sgmansfield.com/2016/06/how-to-block-forever-in-go/>https://blog.sgmansfield.com/2016/06/how-to-block-forever-in-go/</a></li><li><a href=https://pliutau.com/different-ways-to-block-go-runtime-forever/>https://pliutau.com/different-ways-to-block-go-runtime-forever/</a></li></ol><blockquote><p>NOTE: I run these with Golang 1.12</p></blockquote><h2 id=the-original>The original</h2><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=font-weight:700>package</span> main
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700>import</span> <span style=color:#666;font-style:italic>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>for</span> i := 1; i &lt; 9696969; i++ {
+</span></span><span style=display:flex><span>        time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(1000)
+</span></span><span style=display:flex><span>        fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(i)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>main</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>go</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>() <span style=color:#888;font-style:italic>// The main goroutine is exited before the show() be done.</span>
+</span></span><span style=display:flex><span>    fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;OK we&#39;re done&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=bad---an-empty-infinite-loop>Bad - An empty infinite loop</h2><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=font-weight:700>package</span> main
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700>import</span> (
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>forever</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>for</span> {
+</span></span><span style=display:flex><span>        <span style=color:#888;font-style:italic>// Empty, just do nothing</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>for</span> i := 1; i &lt; 9696969; i++ {
+</span></span><span style=display:flex><span>        time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(5 * time.Second)
+</span></span><span style=display:flex><span>        fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(i)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>main</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>go</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>()
+</span></span><span style=display:flex><span>    <span style=color:#666;font-weight:700;font-style:italic>forever</span>()
+</span></span><span style=display:flex><span>    fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;OK we&#39;re done&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>An infinite loop here is a busy loop that does nothing except burn CPU time.</p><h2 id=good---busy-blocking>Good - Busy blocking</h2><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=font-weight:700>package</span> main
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700>import</span> (
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;runtime&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>forever</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>for</span> {
+</span></span><span style=display:flex><span>        runtime.<span style=color:#666;font-weight:700;font-style:italic>Gosched</span>()
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>for</span> i := 1; i &lt; 9696969; i++ {
+</span></span><span style=display:flex><span>        time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(5 * time.Second)
+</span></span><span style=display:flex><span>        fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(i)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>main</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>go</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>()
+</span></span><span style=display:flex><span>    <span style=color:#666;font-weight:700;font-style:italic>forever</span>()
+</span></span><span style=display:flex><span>    fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;OK we&#39;re done&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>It will reduce your CPU usage but it isn&rsquo;t the preferable solution.</p><h2 id=good---waiting-on-itself>Good - Waiting on itself</h2><p>We wait but we never done XD</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=font-weight:700>package</span> main
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700>import</span> (
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;sync&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>forever</span>() {
+</span></span><span style=display:flex><span>    wg := sync.WaitGroup{}
+</span></span><span style=display:flex><span>    wg.<span style=color:#666;font-weight:700;font-style:italic>Add</span>(1)
+</span></span><span style=display:flex><span>    wg.<span style=color:#666;font-weight:700;font-style:italic>Wait</span>()
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>for</span> i := 1; i &lt; 9696969; i++ {
+</span></span><span style=display:flex><span>        time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(5 * time.Second)
+</span></span><span style=display:flex><span>        fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(i)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>main</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>go</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>()
+</span></span><span style=display:flex><span>    <span style=color:#666;font-weight:700;font-style:italic>forever</span>()
+</span></span><span style=display:flex><span>    fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;OK we&#39;re done&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=good---empty-select>Good - Empty select</h2><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=font-weight:700>package</span> main
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700>import</span> (
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>forever</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>select</span>{ }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>for</span> i := 1; i &lt; 9696969; i++ {
+</span></span><span style=display:flex><span>        time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(5 * time.Second)
+</span></span><span style=display:flex><span>        fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(i)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>main</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>go</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>()
+</span></span><span style=display:flex><span>    <span style=color:#666;font-weight:700;font-style:italic>forever</span>()
+</span></span><span style=display:flex><span>    fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;OK we&#39;re done&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=good---double-locking>Good - Double locking</h2><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=font-weight:700>package</span> main
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700>import</span> (
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;sync&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>forever</span>() {
+</span></span><span style=display:flex><span>    m := sync.Mutex{} <span style=color:#888;font-style:italic>// Same with sync.RWMutex</span>
+</span></span><span style=display:flex><span>    m.<span style=color:#666;font-weight:700;font-style:italic>Lock</span>()
+</span></span><span style=display:flex><span>    m.<span style=color:#666;font-weight:700;font-style:italic>Lock</span>()
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>for</span> i := 1; i &lt; 9696969; i++ {
+</span></span><span style=display:flex><span>        time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(5 * time.Second)
+</span></span><span style=display:flex><span>        fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(i)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>main</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>go</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>()
+</span></span><span style=display:flex><span>    <span style=color:#666;font-weight:700;font-style:italic>forever</span>()
+</span></span><span style=display:flex><span>    fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;OK we&#39;re done&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=good---reading-an-empty-channel>Good - Reading an Empty Channel</h2><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=font-weight:700>package</span> main
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700>import</span> (
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>forever</span>() {
+</span></span><span style=display:flex><span>    c := <span style=font-weight:700;font-style:italic>make</span>(<span style=font-weight:700;font-style:italic>chan</span> <span style=font-weight:700;font-style:italic>struct</span>{})
+</span></span><span style=display:flex><span>    &lt;-c
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>for</span> i := 1; i &lt; 9696969; i++ {
+</span></span><span style=display:flex><span>        time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(5 * time.Second)
+</span></span><span style=display:flex><span>        fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(i)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>main</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>go</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>()
+</span></span><span style=display:flex><span>    <span style=color:#666;font-weight:700;font-style:italic>forever</span>()
+</span></span><span style=display:flex><span>    fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;OK we&#39;re done&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=good---self-produce-and-consume>Good - Self produce-and-consume</h2><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=font-weight:700>package</span> main
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700>import</span> (
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>forever</span>() {
+</span></span><span style=display:flex><span>    c := <span style=font-weight:700;font-style:italic>make</span>(<span style=font-weight:700;font-style:italic>chan</span> <span style=font-weight:700;font-style:italic>struct</span>{}, 1)
+</span></span><span style=display:flex><span>    <span style=font-weight:700>for</span> {
+</span></span><span style=display:flex><span>        <span style=font-weight:700>select</span> {
+</span></span><span style=display:flex><span>        <span style=font-weight:700>case</span> &lt;-c:
+</span></span><span style=display:flex><span>        <span style=font-weight:700>case</span> c &lt;- <span style=font-weight:700;font-style:italic>struct</span>{}{}:
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>for</span> i := 1; i &lt; 9696969; i++ {
+</span></span><span style=display:flex><span>        time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(5 * time.Second)
+</span></span><span style=display:flex><span>        fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(i)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>main</span>() {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>go</span> <span style=color:#666;font-weight:700;font-style:italic>show</span>()
+</span></span><span style=display:flex><span>    <span style=color:#666;font-weight:700;font-style:italic>forever</span>()
+</span></span><span style=display:flex><span>    fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;OK we&#39;re done&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><time datetime=2020-04-27>2020-04-27&nbsp;</time><div class=terminal-nav><div class=back-nav><a href=../ class=back-link>../</a></div></div></main><footer><p>&copy; Copyright 2025 &#183;
 <a href=https://github.com/ntk148v/shibui>shibui</a></p></footer></body></html>

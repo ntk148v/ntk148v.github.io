@@ -1,419 +1,419 @@
 <!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Golang Async | kiennt26's home</title><link rel=apple-touch-icon sizes=57x57 href=/favicon_io/apple-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=/favicon_io/apple-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=/favicon_io/apple-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=/favicon_io/apple-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=/favicon_io/apple-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=/favicon_io/apple-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=/favicon_io/apple-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=/favicon_io/apple-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=/favicon_io/apple-icon-180x180.png><link rel=icon type=image/png sizes=192x192 href=/favicon_io/android-icon-192x192.png><link rel=icon type=image/png sizes=32x32 href=/favicon_io/favicon-32x32.png><link rel=icon type=image/png sizes=96x96 href=/favicon_io/favicon-96x96.png><link rel=icon type=image/png sizes=16x16 href=/favicon_io/favicon-16x16.png><link rel=manifest href=/favicon_io/manifest.json><meta name=msapplication-TileColor content="#ffffff"><meta name=msapplication-TileImage content="/favicon_io/ms-icon-144x144.png"><meta name=theme-color content="#ffffff"><link rel=stylesheet href=/css/main.min.38925bdd47aabb0eb892bbce566836b59b62905bd8a5aec203df13887e0ef16f.css integrity="sha256-OJJb3Uequw64krvOVmg2tZtikFvYpa7CA98TiH4O8W8=" crossorigin=anonymous><script src=/js/main.23cd0c7d837263b9eaeb96ee2d9ccfa2969daa3fa00fa1c1fe8701a9b87251a1.js integrity="sha256-I80MfYNyY7nq65buLZzPopadqj+gD6HB/ocBqbhyUaE=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js></script></head><body><header><header><nav class=path-nav><ol><li>/
 <a href=/>kiennt26's home</a>
 /</li><li><a href=/posts/>Posts</a>
-/</li><li class=current><a href=/posts/golang-async/>Golang Async</a></li></ol></nav></header></header><main><h1>Golang Async</h1><div class=terms-list><ul><li><a href=/tags/tech/>#Tech</a></li><li><a href=/tags/golang/>#Golang</a></li></ul></div><blockquote><p>This article is Golang version of <a href=https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/>Asynchronous programming with async and await guideline</a>. They did really good job to demonstrate how asynchronous programming looks like.</p><p>You can find source code <a href=https://github.com/ntk148v/testing/tree/master/golang/breakfast>here</a>.</p></blockquote><p>Throughout this article, we&rsquo;ll write the instructions to make a breakfast.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>1. Pour a cup of coffee.
-</span></span><span class=line><span class=cl>2. Heat a pan, then fry two eggs.
-</span></span><span class=line><span class=cl>3. Fry three slices of bacon.
-</span></span><span class=line><span class=cl>4. Toast two pieces of bread.
-</span></span><span class=line><span class=cl>5. Add butter and jam to the toast.
-</span></span><span class=line><span class=cl>6. Pour a glass of orange juice.
-</span></span></code></pre></div><p>Each step takes time to finish, for example, you have to wait X seconds to make a glass of orange juice. Let&rsquo;s write those instructions as Golang:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;fmt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;time&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// These structs intentionally empty for the purpose of this example.</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// They are simply marker classes for the purpose of demonstration, contain no properties, and serve no other purpose.</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Bacon</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>fried</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Coffee</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>poured</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Egg</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>fried</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Juice</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>poured</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Toast</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>toasted</span><span class=p>,</span><span class=w> </span><span class=nx>butter</span><span class=p>,</span><span class=w> </span><span class=nx>jam</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>pourOJ</span><span class=p>()</span><span class=w> </span><span class=o>*</span><span class=nx>Juice</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Pouring orange juice&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Juice</span><span class=p>{</span><span class=nx>poured</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>applyJam</span><span class=p>(</span><span class=nx>toast</span><span class=w> </span><span class=o>*</span><span class=nx>Toast</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Putting jam on the toast&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>toast</span><span class=p>.</span><span class=nx>jam</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=kc>true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>applyButter</span><span class=p>(</span><span class=nx>toast</span><span class=w> </span><span class=o>*</span><span class=nx>Toast</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Putting butter on the toast&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>toast</span><span class=p>.</span><span class=nx>butter</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=kc>true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>toastBread</span><span class=p>(</span><span class=nx>slices</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=o>*</span><span class=nx>Toast</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>slice</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=nx>slice</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=nx>slices</span><span class=p>;</span><span class=w> </span><span class=nx>slice</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Putting a slices of bread in the toaster&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Start toasting...&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=mi>3</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Toast</span><span class=p>{</span><span class=nx>toasted</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>fryBacon</span><span class=p>(</span><span class=nx>slices</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=o>*</span><span class=nx>Bacon</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Putting %d slices of bacon in the pan\n&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>slices</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Cooking first side of bacon...&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>3</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>slice</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=nx>slice</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=nx>slices</span><span class=p>;</span><span class=w> </span><span class=nx>slice</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Flipping a slice of bacon&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Cooking the second side of bacon...&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>3</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Put bacon on plate&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Bacon</span><span class=p>{</span><span class=nx>fried</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>fryEggs</span><span class=p>(</span><span class=nx>howMany</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=o>*</span><span class=nx>Egg</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Warming the egg pan...&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>3</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Cracking %d eggs\n&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>howMany</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>3</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Put eggs on plate&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Egg</span><span class=p>{</span><span class=nx>fried</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>pourCoffee</span><span class=p>()</span><span class=w> </span><span class=o>*</span><span class=nx>Coffee</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Pouring coffee&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Coffee</span><span class=p>{</span><span class=nx>poured</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>start</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nf>Now</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>cup</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>pourCoffee</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Coffee is ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>cup</span><span class=p>.</span><span class=nx>poured</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>egg</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>fryEggs</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Eggs are ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>egg</span><span class=p>.</span><span class=nx>fried</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>bacon</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>fryBacon</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Bacon is ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>bacon</span><span class=p>.</span><span class=nx>fried</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>toast</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>toastBread</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nf>applyButter</span><span class=p>(</span><span class=nx>toast</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nf>applyJam</span><span class=p>(</span><span class=nx>toast</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Toast is ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>toast</span><span class=p>.</span><span class=nx>toasted</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=nx>toast</span><span class=p>.</span><span class=nx>butter</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=nx>toast</span><span class=p>.</span><span class=nx>jam</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>oj</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>pourOJ</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Orange juice is ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>oj</span><span class=p>.</span><span class=nx>poured</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;* Breakfast is ready, it took %s\n&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nf>Since</span><span class=p>(</span><span class=nx>start</span><span class=p>))</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><p><img src=https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/media/synchronous-breakfast.png alt></p><p>Cook it:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go run ./main.go
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>Pouring coffee
-</span></span><span class=line><span class=cl>* Coffee is ready: <span class=nb>true</span>
-</span></span><span class=line><span class=cl>Warming the egg pan...
-</span></span><span class=line><span class=cl>Cracking <span class=m>2</span> eggs
-</span></span><span class=line><span class=cl>Put eggs on plate
-</span></span><span class=line><span class=cl>* Eggs are ready: <span class=nb>true</span>
-</span></span><span class=line><span class=cl>Putting <span class=m>3</span> slices of bacon in the pan
-</span></span><span class=line><span class=cl>Cooking first side of bacon...
-</span></span><span class=line><span class=cl>Flipping a slice of bacon
-</span></span><span class=line><span class=cl>Flipping a slice of bacon
-</span></span><span class=line><span class=cl>Flipping a slice of bacon
-</span></span><span class=line><span class=cl>Cooking the second side of bacon...
-</span></span><span class=line><span class=cl>Put bacon on plate
-</span></span><span class=line><span class=cl>* Bacon is ready: <span class=nb>true</span>
-</span></span><span class=line><span class=cl>Putting a slices of bread in the toaster
-</span></span><span class=line><span class=cl>Putting a slices of bread in the toaster
-</span></span><span class=line><span class=cl>Start toasting...
-</span></span><span class=line><span class=cl>Putting butter on the toast
-</span></span><span class=line><span class=cl>Putting jam on the toast
-</span></span><span class=line><span class=cl>* Toast is ready: <span class=nb>true</span>
-</span></span><span class=line><span class=cl>Pouring orange juice
-</span></span><span class=line><span class=cl>* Orange juice is ready: <span class=nb>true</span>
-</span></span><span class=line><span class=cl>* Breakfast is ready, it took 19.006261366s
-</span></span></code></pre></div><p>We call this one is the <strong>synchronous-breakfast</strong> version. It took roughly 19 seconds (yeah, I known, no one can cook the breakfast in 19 seconds in the real life. But I can&rsquo;t wait for 30 minutes) because the total is the sum of each task.</p><p>The computer will block on each statement until the work is complete before moving on to the next statement. That creates an unsatisfying breakfast. The later tasks wouldn&rsquo;t be started until the earlier tasks had been completed. It would take much longer to create the breakfast, and some items would have gotten cold before being served.</p><p>If you have experience with cooking, that isn&rsquo;t how we cook. Those instructions should be executed <strong>asynchronously</strong>. You&rsquo;d start warming the pan for eggs, then start the bacon. You&rsquo;d put the bread in the toaster, then start the eggs. At each step of the process, you&rsquo;d start a task, then turn your attention to tasks that are ready for your attention.</p><p>Cooking breakfast is a good example of asynchronous work that isn&rsquo;t parallel. One person (or thread/goroutine) can handle all these tasks. Continuing the breakfast analogy, one person can make breakfast asynchronously by starting the next task before the first task completes. For a parallel, you&rsquo;d need multiple cooks (or threads). One would make the eggs, one the bacon, and so on. Each one would be focused on just that one task.</p><blockquote><p>To clear up the conflation between <em>concurrency (asynchronous)</em> and <em>parallel</em>, you should check out <a href=https://go.dev/blog/waza-talk>Rob Pike&rsquo;s talk - Concurrency is not parallelism</a>.</p></blockquote><p>We need an <strong>asynchronous-breakfast</strong>, but you should know about <strong>Goroutine</strong> before we start. A <em>goroutine</em> is a lightweight thread of execution. The following example is taken from <a href=https://gobyexample.com/goroutines>gobyexample</a>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;fmt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;time&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>f</span><span class=p>(</span><span class=nx>from</span><span class=w> </span><span class=kt>string</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=mi>3</span><span class=p>;</span><span class=w> </span><span class=nx>i</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>from</span><span class=p>,</span><span class=w> </span><span class=s>&#34;:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>i</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// Suppose we have a function call f(s).</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// Here’s how we’d call that in the usual way, running it synchronously.</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>f</span><span class=p>(</span><span class=s>&#34;direct&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// To invoke this function in a goroutine, use go f(s).</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// This new goroutine will execute concurrently with the calling one.</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>go</span><span class=w> </span><span class=nf>f</span><span class=p>(</span><span class=s>&#34;goroutine&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// You can also start a goroutine for an anonymous function call.</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>go</span><span class=w> </span><span class=kd>func</span><span class=p>(</span><span class=nx>msg</span><span class=w> </span><span class=kt>string</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>msg</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}(</span><span class=s>&#34;going&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// Our two function calls are running asynchronously in separate goroutines now.</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;done&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><p>What do we do now? <em>Put each step in a separate goroutine!</em>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;fmt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;time&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// These structs intentionally empty for the purpose of this example.</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// They are simply marker classes for the purpose of demonstration, contain no properties, and serve no other purpose.</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Bacon</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>fried</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Coffee</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>poured</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Egg</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>fried</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Juice</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>poured</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Toast</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>toasted</span><span class=p>,</span><span class=w> </span><span class=nx>butter</span><span class=p>,</span><span class=w> </span><span class=nx>jam</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>pourOJ</span><span class=p>()</span><span class=w> </span><span class=o>*</span><span class=nx>Juice</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Pouring orange juice&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Juice</span><span class=p>{</span><span class=nx>poured</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>applyJam</span><span class=p>(</span><span class=nx>toast</span><span class=w> </span><span class=o>*</span><span class=nx>Toast</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Putting jam on the toast&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>toast</span><span class=p>.</span><span class=nx>jam</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=kc>true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>applyButter</span><span class=p>(</span><span class=nx>toast</span><span class=w> </span><span class=o>*</span><span class=nx>Toast</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Putting butter on the toast&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>toast</span><span class=p>.</span><span class=nx>butter</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=kc>true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>toastBread</span><span class=p>(</span><span class=nx>slices</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=o>*</span><span class=nx>Toast</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>slice</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=nx>slice</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=nx>slices</span><span class=p>;</span><span class=w> </span><span class=nx>slice</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Putting a slices of bread in the toaster&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Start toasting...&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=mi>3</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Toast</span><span class=p>{</span><span class=nx>toasted</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>fryBacon</span><span class=p>(</span><span class=nx>slices</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=o>*</span><span class=nx>Bacon</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Putting %d slices of bacon in the pan\n&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>slices</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Cooking first side of bacon...&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>3</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>slice</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=nx>slice</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=nx>slices</span><span class=p>;</span><span class=w> </span><span class=nx>slice</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Flipping a slice of bacon&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Cooking the second side of bacon...&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>3</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Put bacon on plate&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Bacon</span><span class=p>{</span><span class=nx>fried</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>fryEggs</span><span class=p>(</span><span class=nx>howMany</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=o>*</span><span class=nx>Egg</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Warming the egg pan...&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>3</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Cracking %d eggs\n&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>howMany</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>3</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Put eggs on plate&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Egg</span><span class=p>{</span><span class=nx>fried</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>pourCoffee</span><span class=p>()</span><span class=w> </span><span class=o>*</span><span class=nx>Coffee</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Pouring coffee&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Coffee</span><span class=p>{</span><span class=nx>poured</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>start</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nf>Now</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>go</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>cup</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>pourCoffee</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Coffee is ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>cup</span><span class=p>.</span><span class=nx>poured</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>go</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>egg</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>fryEggs</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Eggs are ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>egg</span><span class=p>.</span><span class=nx>fried</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>go</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>bacon</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>fryBacon</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Bacon is ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>bacon</span><span class=p>.</span><span class=nx>fried</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>go</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>toast</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>toastBread</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nf>applyButter</span><span class=p>(</span><span class=nx>toast</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nf>applyJam</span><span class=p>(</span><span class=nx>toast</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Toast is ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>toast</span><span class=p>.</span><span class=nx>toasted</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=nx>toast</span><span class=p>.</span><span class=nx>butter</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=nx>toast</span><span class=p>.</span><span class=nx>jam</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>go</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>oj</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>pourOJ</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Orange juice is ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>oj</span><span class=p>.</span><span class=nx>poured</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;* Breakfast is ready, it took %s\n&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nf>Since</span><span class=p>(</span><span class=nx>start</span><span class=p>))</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go run ./main.go
-</span></span><span class=line><span class=cl>* Breakfast is ready, it took 5.727µs
-</span></span></code></pre></div><p>Oh no, something went wrong here! Nothing was done, we didn&rsquo;t get a breakfast because the program didn&rsquo;t wait for goroutines to finish. To solve this problem, we can use a <a href=https://gobyexample.com/waitgroups>sync.WaitGroup</a>. The WaitGroup is used to wait for all the goroutines launched to finish.</p><p>Modify the code and we have a new <strong>asynchronous-breakfast</strong> version:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;fmt&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;sync&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;time&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// These structs intentionally empty for the purpose of this example.</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>// They are simply marker classes for the purpose of demonstration, contain no properties, and serve no other purpose.</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Bacon</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>fried</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Coffee</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>poured</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Egg</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>fried</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Juice</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>poured</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>type</span><span class=w> </span><span class=nx>Toast</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=nx>toasted</span><span class=p>,</span><span class=w> </span><span class=nx>butter</span><span class=p>,</span><span class=w> </span><span class=nx>jam</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>pourOJ</span><span class=p>()</span><span class=w> </span><span class=o>*</span><span class=nx>Juice</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Pouring orange juice&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Juice</span><span class=p>{</span><span class=nx>poured</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>applyJam</span><span class=p>(</span><span class=nx>toast</span><span class=w> </span><span class=o>*</span><span class=nx>Toast</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Putting jam on the toast&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>toast</span><span class=p>.</span><span class=nx>jam</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=kc>true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>applyButter</span><span class=p>(</span><span class=nx>toast</span><span class=w> </span><span class=o>*</span><span class=nx>Toast</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Putting butter on the toast&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>toast</span><span class=p>.</span><span class=nx>butter</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=kc>true</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>toastBread</span><span class=p>(</span><span class=nx>slices</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=o>*</span><span class=nx>Toast</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>slice</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=nx>slice</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=nx>slices</span><span class=p>;</span><span class=w> </span><span class=nx>slice</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Putting a slices of bread in the toaster&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Start toasting...&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=mi>3</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Toast</span><span class=p>{</span><span class=nx>toasted</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>fryBacon</span><span class=p>(</span><span class=nx>slices</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=o>*</span><span class=nx>Bacon</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Putting %d slices of bacon in the pan\n&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>slices</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Cooking first side of bacon...&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>3</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>slice</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=nx>slice</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=nx>slices</span><span class=p>;</span><span class=w> </span><span class=nx>slice</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Flipping a slice of bacon&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Cooking the second side of bacon...&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>3</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Put bacon on plate&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Bacon</span><span class=p>{</span><span class=nx>fried</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>fryEggs</span><span class=p>(</span><span class=nx>howMany</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=o>*</span><span class=nx>Egg</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Warming the egg pan...&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>3</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Cracking %d eggs\n&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>howMany</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>3</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Put eggs on plate&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Egg</span><span class=p>{</span><span class=nx>fried</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>pourCoffee</span><span class=p>()</span><span class=w> </span><span class=o>*</span><span class=nx>Coffee</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Pouring coffee&#34;</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>&amp;</span><span class=nx>Coffee</span><span class=p>{</span><span class=nx>poured</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>start</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nf>Now</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>var</span><span class=w> </span><span class=nx>wg</span><span class=w> </span><span class=nx>sync</span><span class=p>.</span><span class=nx>WaitGroup</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>wg</span><span class=p>.</span><span class=nf>Add</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>go</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>defer</span><span class=w> </span><span class=nx>wg</span><span class=p>.</span><span class=nf>Done</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>cup</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>pourCoffee</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Coffee is ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>cup</span><span class=p>.</span><span class=nx>poured</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>wg</span><span class=p>.</span><span class=nf>Add</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>go</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>defer</span><span class=w> </span><span class=nx>wg</span><span class=p>.</span><span class=nf>Done</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>egg</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>fryEggs</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Eggs are ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>egg</span><span class=p>.</span><span class=nx>fried</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>wg</span><span class=p>.</span><span class=nf>Add</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>go</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>defer</span><span class=w> </span><span class=nx>wg</span><span class=p>.</span><span class=nf>Done</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>bacon</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>fryBacon</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Bacon is ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>bacon</span><span class=p>.</span><span class=nx>fried</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>wg</span><span class=p>.</span><span class=nf>Add</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>go</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>defer</span><span class=w> </span><span class=nx>wg</span><span class=p>.</span><span class=nf>Done</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>toast</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>toastBread</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nf>applyButter</span><span class=p>(</span><span class=nx>toast</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nf>applyJam</span><span class=p>(</span><span class=nx>toast</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Toast is ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>toast</span><span class=p>.</span><span class=nx>toasted</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=nx>toast</span><span class=p>.</span><span class=nx>butter</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=nx>toast</span><span class=p>.</span><span class=nx>jam</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>wg</span><span class=p>.</span><span class=nf>Add</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>go</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>defer</span><span class=w> </span><span class=nx>wg</span><span class=p>.</span><span class=nf>Done</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>oj</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>pourOJ</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;* Orange juice is ready:&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>oj</span><span class=p>.</span><span class=nx>poured</span><span class=p>)</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// Wait for all things be done</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>wg</span><span class=p>.</span><span class=nf>Wait</span><span class=p>()</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;* Breakfast is ready, it took %s\n&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>time</span><span class=p>.</span><span class=nf>Since</span><span class=p>(</span><span class=nx>start</span><span class=p>))</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
-</span></span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go run ./main.go
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>Pouring orange juice
-</span></span><span class=line><span class=cl>Pouring coffee
-</span></span><span class=line><span class=cl>Warming the egg pan...
-</span></span><span class=line><span class=cl>Putting <span class=m>3</span> slices of bacon in the pan
-</span></span><span class=line><span class=cl>Cooking first side of bacon...
-</span></span><span class=line><span class=cl>Putting a slices of bread in the toaster
-</span></span><span class=line><span class=cl>Putting a slices of bread in the toaster
-</span></span><span class=line><span class=cl>Start toasting...
-</span></span><span class=line><span class=cl>* Orange juice is ready: <span class=nb>true</span>
-</span></span><span class=line><span class=cl>* Coffee is ready: <span class=nb>true</span>
-</span></span><span class=line><span class=cl>Putting butter on the toast
-</span></span><span class=line><span class=cl>Cracking <span class=m>2</span> eggs
-</span></span><span class=line><span class=cl>Flipping a slice of bacon
-</span></span><span class=line><span class=cl>Flipping a slice of bacon
-</span></span><span class=line><span class=cl>Flipping a slice of bacon
-</span></span><span class=line><span class=cl>Cooking the second side of bacon...
-</span></span><span class=line><span class=cl>Putting jam on the toast
-</span></span><span class=line><span class=cl>* Toast is ready: <span class=nb>true</span>
-</span></span><span class=line><span class=cl>Put bacon on plate
-</span></span><span class=line><span class=cl>* Bacon is ready: <span class=nb>true</span>
-</span></span><span class=line><span class=cl>Put eggs on plate
-</span></span><span class=line><span class=cl>* Eggs are ready: <span class=nb>true</span>
-</span></span><span class=line><span class=cl>* Breakfast is ready, it took 6.00254463s
+/</li><li class=current><a href=/posts/golang-async/>Golang Async</a></li></ol></nav></header></header><main><h1>Golang Async</h1><div class=terms-list><ul><li><a href=/tags/tech/>#Tech</a></li><li><a href=/tags/golang/>#Golang</a></li></ul></div><blockquote><p>This article is Golang version of <a href=https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/>Asynchronous programming with async and await guideline</a>. They did really good job to demonstrate how asynchronous programming looks like.</p><p>You can find source code <a href=https://github.com/ntk148v/testing/tree/master/golang/breakfast>here</a>.</p></blockquote><p>Throughout this article, we&rsquo;ll write the instructions to make a breakfast.</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>1. Pour a cup of coffee.
+</span></span><span style=display:flex><span>2. Heat a pan, then fry two eggs.
+</span></span><span style=display:flex><span>3. Fry three slices of bacon.
+</span></span><span style=display:flex><span>4. Toast two pieces of bread.
+</span></span><span style=display:flex><span>5. Add butter and jam to the toast.
+</span></span><span style=display:flex><span>6. Pour a glass of orange juice.
+</span></span></code></pre></div><p>Each step takes time to finish, for example, you have to wait X seconds to make a glass of orange juice. Let&rsquo;s write those instructions as Golang:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=font-weight:700>package</span> main
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700>import</span> (
+</span></span><span style=display:flex><span>	<span style=color:#666;font-style:italic>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#666;font-style:italic>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic>// These structs intentionally empty for the purpose of this example.</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic>// They are simply marker classes for the purpose of demonstration, contain no properties, and serve no other purpose.</span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Bacon <span style=font-weight:700;font-style:italic>struct</span>{ fried <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Coffee <span style=font-weight:700;font-style:italic>struct</span>{ poured <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Egg <span style=font-weight:700;font-style:italic>struct</span>{ fried <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Juice <span style=font-weight:700;font-style:italic>struct</span>{ poured <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Toast <span style=font-weight:700;font-style:italic>struct</span>{ toasted, butter, jam <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>pourOJ</span>() *Juice {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Pouring orange juice&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Juice{poured: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>applyJam</span>(toast *Toast) {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Putting jam on the toast&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second)
+</span></span><span style=display:flex><span>	toast.jam = <span style=font-weight:700>true</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>applyButter</span>(toast *Toast) {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Putting butter on the toast&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second)
+</span></span><span style=display:flex><span>	toast.butter = <span style=font-weight:700>true</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>toastBread</span>(slices <span style=font-weight:700>int</span>) *Toast {
+</span></span><span style=display:flex><span>	<span style=font-weight:700>for</span> slice := 0; slice &lt; slices; slice++ {
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Putting a slices of bread in the toaster&#34;</span>)
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Start toasting...&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second * 3)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Toast{toasted: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>fryBacon</span>(slices <span style=font-weight:700>int</span>) *Bacon {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Printf</span>(<span style=color:#666;font-style:italic>&#34;Putting %d slices of bacon in the pan\n&#34;</span>, slices)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Cooking first side of bacon...&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(3 * time.Second)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>for</span> slice := 0; slice &lt; slices; slice++ {
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Flipping a slice of bacon&#34;</span>)
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Cooking the second side of bacon...&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(3 * time.Second)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Put bacon on plate&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Bacon{fried: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>fryEggs</span>(howMany <span style=font-weight:700>int</span>) *Egg {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Warming the egg pan...&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(3 * time.Second)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Printf</span>(<span style=color:#666;font-style:italic>&#34;Cracking %d eggs\n&#34;</span>, howMany)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(3 * time.Second)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Put eggs on plate&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Egg{fried: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>pourCoffee</span>() *Coffee {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Pouring coffee&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Coffee{poured: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>main</span>() {
+</span></span><span style=display:flex><span>	start := time.<span style=color:#666;font-weight:700;font-style:italic>Now</span>()
+</span></span><span style=display:flex><span>	cup := <span style=color:#666;font-weight:700;font-style:italic>pourCoffee</span>()
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Coffee is ready:&#34;</span>, cup.poured)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	egg := <span style=color:#666;font-weight:700;font-style:italic>fryEggs</span>(2)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Eggs are ready:&#34;</span>, egg.fried)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	bacon := <span style=color:#666;font-weight:700;font-style:italic>fryBacon</span>(3)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Bacon is ready:&#34;</span>, bacon.fried)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	toast := <span style=color:#666;font-weight:700;font-style:italic>toastBread</span>(2)
+</span></span><span style=display:flex><span>	<span style=color:#666;font-weight:700;font-style:italic>applyButter</span>(toast)
+</span></span><span style=display:flex><span>	<span style=color:#666;font-weight:700;font-style:italic>applyJam</span>(toast)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Toast is ready:&#34;</span>, toast.toasted &amp;&amp; toast.butter &amp;&amp; toast.jam)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	oj := <span style=color:#666;font-weight:700;font-style:italic>pourOJ</span>()
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Orange juice is ready:&#34;</span>, oj.poured)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Printf</span>(<span style=color:#666;font-style:italic>&#34;* Breakfast is ready, it took %s\n&#34;</span>, time.<span style=color:#666;font-weight:700;font-style:italic>Since</span>(start))
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><img src=https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/media/synchronous-breakfast.png alt></p><p>Cook it:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>$ go run ./main.go
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Pouring coffee
+</span></span><span style=display:flex><span>* Coffee is ready: <span style=font-weight:700;font-style:italic>true</span>
+</span></span><span style=display:flex><span>Warming the egg pan...
+</span></span><span style=display:flex><span>Cracking 2 eggs
+</span></span><span style=display:flex><span>Put eggs on plate
+</span></span><span style=display:flex><span>* Eggs are ready: <span style=font-weight:700;font-style:italic>true</span>
+</span></span><span style=display:flex><span>Putting 3 slices of bacon in the pan
+</span></span><span style=display:flex><span>Cooking first side of bacon...
+</span></span><span style=display:flex><span>Flipping a slice of bacon
+</span></span><span style=display:flex><span>Flipping a slice of bacon
+</span></span><span style=display:flex><span>Flipping a slice of bacon
+</span></span><span style=display:flex><span>Cooking the second side of bacon...
+</span></span><span style=display:flex><span>Put bacon on plate
+</span></span><span style=display:flex><span>* Bacon is ready: <span style=font-weight:700;font-style:italic>true</span>
+</span></span><span style=display:flex><span>Putting a slices of bread in the toaster
+</span></span><span style=display:flex><span>Putting a slices of bread in the toaster
+</span></span><span style=display:flex><span>Start toasting...
+</span></span><span style=display:flex><span>Putting butter on the toast
+</span></span><span style=display:flex><span>Putting jam on the toast
+</span></span><span style=display:flex><span>* Toast is ready: <span style=font-weight:700;font-style:italic>true</span>
+</span></span><span style=display:flex><span>Pouring orange juice
+</span></span><span style=display:flex><span>* Orange juice is ready: <span style=font-weight:700;font-style:italic>true</span>
+</span></span><span style=display:flex><span>* Breakfast is ready, it took 19.006261366s
+</span></span></code></pre></div><p>We call this one is the <strong>synchronous-breakfast</strong> version. It took roughly 19 seconds (yeah, I known, no one can cook the breakfast in 19 seconds in the real life. But I can&rsquo;t wait for 30 minutes) because the total is the sum of each task.</p><p>The computer will block on each statement until the work is complete before moving on to the next statement. That creates an unsatisfying breakfast. The later tasks wouldn&rsquo;t be started until the earlier tasks had been completed. It would take much longer to create the breakfast, and some items would have gotten cold before being served.</p><p>If you have experience with cooking, that isn&rsquo;t how we cook. Those instructions should be executed <strong>asynchronously</strong>. You&rsquo;d start warming the pan for eggs, then start the bacon. You&rsquo;d put the bread in the toaster, then start the eggs. At each step of the process, you&rsquo;d start a task, then turn your attention to tasks that are ready for your attention.</p><p>Cooking breakfast is a good example of asynchronous work that isn&rsquo;t parallel. One person (or thread/goroutine) can handle all these tasks. Continuing the breakfast analogy, one person can make breakfast asynchronously by starting the next task before the first task completes. For a parallel, you&rsquo;d need multiple cooks (or threads). One would make the eggs, one the bacon, and so on. Each one would be focused on just that one task.</p><blockquote><p>To clear up the conflation between <em>concurrency (asynchronous)</em> and <em>parallel</em>, you should check out <a href=https://go.dev/blog/waza-talk>Rob Pike&rsquo;s talk - Concurrency is not parallelism</a>.</p></blockquote><p>We need an <strong>asynchronous-breakfast</strong>, but you should know about <strong>Goroutine</strong> before we start. A <em>goroutine</em> is a lightweight thread of execution. The following example is taken from <a href=https://gobyexample.com/goroutines>gobyexample</a>:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=font-weight:700>package</span> main
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700>import</span> (
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#666;font-style:italic>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>f</span>(from <span style=font-weight:700>string</span>) {
+</span></span><span style=display:flex><span>    <span style=font-weight:700>for</span> i := 0; i &lt; 3; i++ {
+</span></span><span style=display:flex><span>        fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(from, <span style=color:#666;font-style:italic>&#34;:&#34;</span>, i)
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>main</span>() {
+</span></span><span style=display:flex><span>    <span style=color:#888;font-style:italic>// Suppose we have a function call f(s).</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-style:italic>// Here’s how we’d call that in the usual way, running it synchronously.</span>
+</span></span><span style=display:flex><span>    <span style=color:#666;font-weight:700;font-style:italic>f</span>(<span style=color:#666;font-style:italic>&#34;direct&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-style:italic>// To invoke this function in a goroutine, use go f(s).</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-style:italic>// This new goroutine will execute concurrently with the calling one.</span>
+</span></span><span style=display:flex><span>    <span style=font-weight:700>go</span> <span style=color:#666;font-weight:700;font-style:italic>f</span>(<span style=color:#666;font-style:italic>&#34;goroutine&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-style:italic>// You can also start a goroutine for an anonymous function call.</span>
+</span></span><span style=display:flex><span>    <span style=font-weight:700>go</span> <span style=font-weight:700;font-style:italic>func</span>(msg <span style=font-weight:700>string</span>) {
+</span></span><span style=display:flex><span>        fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(msg)
+</span></span><span style=display:flex><span>    }(<span style=color:#666;font-style:italic>&#34;going&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-style:italic>// Our two function calls are running asynchronously in separate goroutines now.</span>
+</span></span><span style=display:flex><span>    time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second)
+</span></span><span style=display:flex><span>    fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;done&#34;</span>)
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>What do we do now? <em>Put each step in a separate goroutine!</em>:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=font-weight:700>package</span> main
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700>import</span> (
+</span></span><span style=display:flex><span>	<span style=color:#666;font-style:italic>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#666;font-style:italic>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic>// These structs intentionally empty for the purpose of this example.</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic>// They are simply marker classes for the purpose of demonstration, contain no properties, and serve no other purpose.</span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Bacon <span style=font-weight:700;font-style:italic>struct</span>{ fried <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Coffee <span style=font-weight:700;font-style:italic>struct</span>{ poured <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Egg <span style=font-weight:700;font-style:italic>struct</span>{ fried <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Juice <span style=font-weight:700;font-style:italic>struct</span>{ poured <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Toast <span style=font-weight:700;font-style:italic>struct</span>{ toasted, butter, jam <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>pourOJ</span>() *Juice {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Pouring orange juice&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Juice{poured: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>applyJam</span>(toast *Toast) {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Putting jam on the toast&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second)
+</span></span><span style=display:flex><span>	toast.jam = <span style=font-weight:700>true</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>applyButter</span>(toast *Toast) {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Putting butter on the toast&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second)
+</span></span><span style=display:flex><span>	toast.butter = <span style=font-weight:700>true</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>toastBread</span>(slices <span style=font-weight:700>int</span>) *Toast {
+</span></span><span style=display:flex><span>	<span style=font-weight:700>for</span> slice := 0; slice &lt; slices; slice++ {
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Putting a slices of bread in the toaster&#34;</span>)
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Start toasting...&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second * 3)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Toast{toasted: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>fryBacon</span>(slices <span style=font-weight:700>int</span>) *Bacon {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Printf</span>(<span style=color:#666;font-style:italic>&#34;Putting %d slices of bacon in the pan\n&#34;</span>, slices)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Cooking first side of bacon...&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(3 * time.Second)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>for</span> slice := 0; slice &lt; slices; slice++ {
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Flipping a slice of bacon&#34;</span>)
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Cooking the second side of bacon...&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(3 * time.Second)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Put bacon on plate&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Bacon{fried: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>fryEggs</span>(howMany <span style=font-weight:700>int</span>) *Egg {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Warming the egg pan...&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(3 * time.Second)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Printf</span>(<span style=color:#666;font-style:italic>&#34;Cracking %d eggs\n&#34;</span>, howMany)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(3 * time.Second)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Put eggs on plate&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Egg{fried: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>pourCoffee</span>() *Coffee {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Pouring coffee&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Coffee{poured: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>main</span>() {
+</span></span><span style=display:flex><span>	start := time.<span style=color:#666;font-weight:700;font-style:italic>Now</span>()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>go</span> <span style=font-weight:700;font-style:italic>func</span>() {
+</span></span><span style=display:flex><span>		cup := <span style=color:#666;font-weight:700;font-style:italic>pourCoffee</span>()
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Coffee is ready:&#34;</span>, cup.poured)
+</span></span><span style=display:flex><span>	}()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>go</span> <span style=font-weight:700;font-style:italic>func</span>() {
+</span></span><span style=display:flex><span>		egg := <span style=color:#666;font-weight:700;font-style:italic>fryEggs</span>(2)
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Eggs are ready:&#34;</span>, egg.fried)
+</span></span><span style=display:flex><span>	}()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>go</span> <span style=font-weight:700;font-style:italic>func</span>() {
+</span></span><span style=display:flex><span>		bacon := <span style=color:#666;font-weight:700;font-style:italic>fryBacon</span>(3)
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Bacon is ready:&#34;</span>, bacon.fried)
+</span></span><span style=display:flex><span>	}()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>go</span> <span style=font-weight:700;font-style:italic>func</span>() {
+</span></span><span style=display:flex><span>		toast := <span style=color:#666;font-weight:700;font-style:italic>toastBread</span>(2)
+</span></span><span style=display:flex><span>		<span style=color:#666;font-weight:700;font-style:italic>applyButter</span>(toast)
+</span></span><span style=display:flex><span>		<span style=color:#666;font-weight:700;font-style:italic>applyJam</span>(toast)
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Toast is ready:&#34;</span>, toast.toasted &amp;&amp; toast.butter &amp;&amp; toast.jam)
+</span></span><span style=display:flex><span>	}()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>go</span> <span style=font-weight:700;font-style:italic>func</span>() {
+</span></span><span style=display:flex><span>		oj := <span style=color:#666;font-weight:700;font-style:italic>pourOJ</span>()
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Orange juice is ready:&#34;</span>, oj.poured)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	}()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Printf</span>(<span style=color:#666;font-style:italic>&#34;* Breakfast is ready, it took %s\n&#34;</span>, time.<span style=color:#666;font-weight:700;font-style:italic>Since</span>(start))
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>$ go run ./main.go
+</span></span><span style=display:flex><span>* Breakfast is ready, it took 5.727µs
+</span></span></code></pre></div><p>Oh no, something went wrong here! Nothing was done, we didn&rsquo;t get a breakfast because the program didn&rsquo;t wait for goroutines to finish. To solve this problem, we can use a <a href=https://gobyexample.com/waitgroups>sync.WaitGroup</a>. The WaitGroup is used to wait for all the goroutines launched to finish.</p><p>Modify the code and we have a new <strong>asynchronous-breakfast</strong> version:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span><span style=font-weight:700>package</span> main
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700>import</span> (
+</span></span><span style=display:flex><span>	<span style=color:#666;font-style:italic>&#34;fmt&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#666;font-style:italic>&#34;sync&#34;</span>
+</span></span><span style=display:flex><span>	<span style=color:#666;font-style:italic>&#34;time&#34;</span>
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic>// These structs intentionally empty for the purpose of this example.</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic>// They are simply marker classes for the purpose of demonstration, contain no properties, and serve no other purpose.</span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Bacon <span style=font-weight:700;font-style:italic>struct</span>{ fried <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Coffee <span style=font-weight:700;font-style:italic>struct</span>{ poured <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Egg <span style=font-weight:700;font-style:italic>struct</span>{ fried <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Juice <span style=font-weight:700;font-style:italic>struct</span>{ poured <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>type</span> Toast <span style=font-weight:700;font-style:italic>struct</span>{ toasted, butter, jam <span style=font-weight:700>bool</span> }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>pourOJ</span>() *Juice {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Pouring orange juice&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Juice{poured: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>applyJam</span>(toast *Toast) {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Putting jam on the toast&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second)
+</span></span><span style=display:flex><span>	toast.jam = <span style=font-weight:700>true</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>applyButter</span>(toast *Toast) {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Putting butter on the toast&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second)
+</span></span><span style=display:flex><span>	toast.butter = <span style=font-weight:700>true</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>toastBread</span>(slices <span style=font-weight:700>int</span>) *Toast {
+</span></span><span style=display:flex><span>	<span style=font-weight:700>for</span> slice := 0; slice &lt; slices; slice++ {
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Putting a slices of bread in the toaster&#34;</span>)
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Start toasting...&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second * 3)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Toast{toasted: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>fryBacon</span>(slices <span style=font-weight:700>int</span>) *Bacon {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Printf</span>(<span style=color:#666;font-style:italic>&#34;Putting %d slices of bacon in the pan\n&#34;</span>, slices)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Cooking first side of bacon...&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(3 * time.Second)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>for</span> slice := 0; slice &lt; slices; slice++ {
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Flipping a slice of bacon&#34;</span>)
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Cooking the second side of bacon...&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(3 * time.Second)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Put bacon on plate&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Bacon{fried: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>fryEggs</span>(howMany <span style=font-weight:700>int</span>) *Egg {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Warming the egg pan...&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(3 * time.Second)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Printf</span>(<span style=color:#666;font-style:italic>&#34;Cracking %d eggs\n&#34;</span>, howMany)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(3 * time.Second)
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Put eggs on plate&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Egg{fried: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>pourCoffee</span>() *Coffee {
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;Pouring coffee&#34;</span>)
+</span></span><span style=display:flex><span>	time.<span style=color:#666;font-weight:700;font-style:italic>Sleep</span>(time.Second)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>return</span> &amp;Coffee{poured: <span style=font-weight:700>true</span>}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>func</span> <span style=color:#666;font-weight:700;font-style:italic>main</span>() {
+</span></span><span style=display:flex><span>	start := time.<span style=color:#666;font-weight:700;font-style:italic>Now</span>()
+</span></span><span style=display:flex><span>	<span style=font-weight:700;font-style:italic>var</span> wg sync.WaitGroup
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	wg.<span style=color:#666;font-weight:700;font-style:italic>Add</span>(1)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>go</span> <span style=font-weight:700;font-style:italic>func</span>() {
+</span></span><span style=display:flex><span>		<span style=font-weight:700>defer</span> wg.<span style=color:#666;font-weight:700;font-style:italic>Done</span>()
+</span></span><span style=display:flex><span>		cup := <span style=color:#666;font-weight:700;font-style:italic>pourCoffee</span>()
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Coffee is ready:&#34;</span>, cup.poured)
+</span></span><span style=display:flex><span>	}()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	wg.<span style=color:#666;font-weight:700;font-style:italic>Add</span>(1)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>go</span> <span style=font-weight:700;font-style:italic>func</span>() {
+</span></span><span style=display:flex><span>		<span style=font-weight:700>defer</span> wg.<span style=color:#666;font-weight:700;font-style:italic>Done</span>()
+</span></span><span style=display:flex><span>		egg := <span style=color:#666;font-weight:700;font-style:italic>fryEggs</span>(2)
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Eggs are ready:&#34;</span>, egg.fried)
+</span></span><span style=display:flex><span>	}()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	wg.<span style=color:#666;font-weight:700;font-style:italic>Add</span>(1)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>go</span> <span style=font-weight:700;font-style:italic>func</span>() {
+</span></span><span style=display:flex><span>		<span style=font-weight:700>defer</span> wg.<span style=color:#666;font-weight:700;font-style:italic>Done</span>()
+</span></span><span style=display:flex><span>		bacon := <span style=color:#666;font-weight:700;font-style:italic>fryBacon</span>(3)
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Bacon is ready:&#34;</span>, bacon.fried)
+</span></span><span style=display:flex><span>	}()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	wg.<span style=color:#666;font-weight:700;font-style:italic>Add</span>(1)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>go</span> <span style=font-weight:700;font-style:italic>func</span>() {
+</span></span><span style=display:flex><span>		<span style=font-weight:700>defer</span> wg.<span style=color:#666;font-weight:700;font-style:italic>Done</span>()
+</span></span><span style=display:flex><span>		toast := <span style=color:#666;font-weight:700;font-style:italic>toastBread</span>(2)
+</span></span><span style=display:flex><span>		<span style=color:#666;font-weight:700;font-style:italic>applyButter</span>(toast)
+</span></span><span style=display:flex><span>		<span style=color:#666;font-weight:700;font-style:italic>applyJam</span>(toast)
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Toast is ready:&#34;</span>, toast.toasted &amp;&amp; toast.butter &amp;&amp; toast.jam)
+</span></span><span style=display:flex><span>	}()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	wg.<span style=color:#666;font-weight:700;font-style:italic>Add</span>(1)
+</span></span><span style=display:flex><span>	<span style=font-weight:700>go</span> <span style=font-weight:700;font-style:italic>func</span>() {
+</span></span><span style=display:flex><span>		<span style=font-weight:700>defer</span> wg.<span style=color:#666;font-weight:700;font-style:italic>Done</span>()
+</span></span><span style=display:flex><span>		oj := <span style=color:#666;font-weight:700;font-style:italic>pourOJ</span>()
+</span></span><span style=display:flex><span>		fmt.<span style=color:#666;font-weight:700;font-style:italic>Println</span>(<span style=color:#666;font-style:italic>&#34;* Orange juice is ready:&#34;</span>, oj.poured)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	}()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#888;font-style:italic>// Wait for all things be done</span>
+</span></span><span style=display:flex><span>	wg.<span style=color:#666;font-weight:700;font-style:italic>Wait</span>()
+</span></span><span style=display:flex><span>	fmt.<span style=color:#666;font-weight:700;font-style:italic>Printf</span>(<span style=color:#666;font-style:italic>&#34;* Breakfast is ready, it took %s\n&#34;</span>, time.<span style=color:#666;font-weight:700;font-style:italic>Since</span>(start))
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>$ go run ./main.go
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Pouring orange juice
+</span></span><span style=display:flex><span>Pouring coffee
+</span></span><span style=display:flex><span>Warming the egg pan...
+</span></span><span style=display:flex><span>Putting 3 slices of bacon in the pan
+</span></span><span style=display:flex><span>Cooking first side of bacon...
+</span></span><span style=display:flex><span>Putting a slices of bread in the toaster
+</span></span><span style=display:flex><span>Putting a slices of bread in the toaster
+</span></span><span style=display:flex><span>Start toasting...
+</span></span><span style=display:flex><span>* Orange juice is ready: <span style=font-weight:700;font-style:italic>true</span>
+</span></span><span style=display:flex><span>* Coffee is ready: <span style=font-weight:700;font-style:italic>true</span>
+</span></span><span style=display:flex><span>Putting butter on the toast
+</span></span><span style=display:flex><span>Cracking 2 eggs
+</span></span><span style=display:flex><span>Flipping a slice of bacon
+</span></span><span style=display:flex><span>Flipping a slice of bacon
+</span></span><span style=display:flex><span>Flipping a slice of bacon
+</span></span><span style=display:flex><span>Cooking the second side of bacon...
+</span></span><span style=display:flex><span>Putting jam on the toast
+</span></span><span style=display:flex><span>* Toast is ready: <span style=font-weight:700;font-style:italic>true</span>
+</span></span><span style=display:flex><span>Put bacon on plate
+</span></span><span style=display:flex><span>* Bacon is ready: <span style=font-weight:700;font-style:italic>true</span>
+</span></span><span style=display:flex><span>Put eggs on plate
+</span></span><span style=display:flex><span>* Eggs are ready: <span style=font-weight:700;font-style:italic>true</span>
+</span></span><span style=display:flex><span>* Breakfast is ready, it took 6.00254463s
 </span></span></code></pre></div><p><img src=https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/media/whenany-async-breakfast.png alt></p><p>Breakfast is ready after roughly 6 seconds. Compare to the previous result, it&rsquo;s a huge improvement. The instructions are a bit mess, indicating that the steps were performed concurrency.</p><iframe src=https://giphy.com/embed/yJFeycRK2DB4c width=480 height=384 frameborder=0 class=giphy-embed allowfullscreen></iframe><p><a href=https://giphy.com/gifs/yJFeycRK2DB4c>via GIPHY</a></p><p>Enjoy your breakfast!</p><time datetime=2023-07-21>2023-07-21&nbsp;</time><div class=terminal-nav><div class=back-nav><a href=../ class=back-link>../</a></div></div></main><footer><p>&copy; Copyright 2025 &#183;
 <a href=https://github.com/ntk148v/shibui>shibui</a></p></footer></body></html>

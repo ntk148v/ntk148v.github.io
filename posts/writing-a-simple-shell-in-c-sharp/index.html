@@ -1,329 +1,329 @@
 <!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Writing a Simple Shell in C Sharp | kiennt26's home</title><link rel=apple-touch-icon sizes=57x57 href=/favicon_io/apple-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=/favicon_io/apple-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=/favicon_io/apple-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=/favicon_io/apple-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=/favicon_io/apple-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=/favicon_io/apple-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=/favicon_io/apple-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=/favicon_io/apple-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=/favicon_io/apple-icon-180x180.png><link rel=icon type=image/png sizes=192x192 href=/favicon_io/android-icon-192x192.png><link rel=icon type=image/png sizes=32x32 href=/favicon_io/favicon-32x32.png><link rel=icon type=image/png sizes=96x96 href=/favicon_io/favicon-96x96.png><link rel=icon type=image/png sizes=16x16 href=/favicon_io/favicon-16x16.png><link rel=manifest href=/favicon_io/manifest.json><meta name=msapplication-TileColor content="#ffffff"><meta name=msapplication-TileImage content="/favicon_io/ms-icon-144x144.png"><meta name=theme-color content="#ffffff"><link rel=stylesheet href=/css/main.min.38925bdd47aabb0eb892bbce566836b59b62905bd8a5aec203df13887e0ef16f.css integrity="sha256-OJJb3Uequw64krvOVmg2tZtikFvYpa7CA98TiH4O8W8=" crossorigin=anonymous><script src=/js/main.23cd0c7d837263b9eaeb96ee2d9ccfa2969daa3fa00fa1c1fe8701a9b87251a1.js integrity="sha256-I80MfYNyY7nq65buLZzPopadqj+gD6HB/ocBqbhyUaE=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js></script></head><body><header><header><nav class=path-nav><ol><li>/
 <a href=/>kiennt26's home</a>
 /</li><li><a href=/posts/>Posts</a>
-/</li><li class=current><a href=/posts/writing-a-simple-shell-in-c-sharp/>Writing a Simple Shell in C Sharp</a></li></ol></nav></header></header><main><h1>Writing a Simple Shell in C Sharp</h1><div class=terms-list><ul><li><a href=/tags/tech/>#Tech</a></li><li><a href=/tags/csharp/>#Csharp</a></li><li><a href=/tags/shell/>#Shell</a></li></ul></div><nav class=toc><strong>Table of contents</strong><div class=toc-content><nav id=TableOfContents><ol><li><a href=#what-is-a-shell>What is a shell?</a></li><li><a href=#basic-lifetime-of-a-shell>Basic lifetime of a shell</a></li><li><a href=#execute-command>Execute command</a></li><li><a href=#shell-built-in-commands>Shell Built-in Commands</a><ol><li><a href=#cd><code>cd</code></a></li><li><a href=#exit><code>exit</code></a></li><li><a href=#which><code>which</code></a></li><li><a href=#help><code>help</code></a></li></ol></li><li><a href=#improvement>Improvement</a><ol><li><a href=#handle-exception>Handle exception</a></li><li><a href=#handle-command-not-found>Handle command not found</a></li></ol></li><li><a href=#wrap-up>Wrap up</a></li></ol></nav></div></nav><p>In this post, we will write a minimalistic shell for UNIX(-like) operating systems in C# programming language. I create this for learning C# purpose.</p><p>Since its purpose demonstration (not feature completeness or even fitness for causual use), it has many limitations, including:</p><ul><li>Commands must be on a single line.</li><li>Arguments must be separated by whitespace.</li><li>No quoting arguments or escaping whitespace.</li><li>No piping or redirection.</li></ul><blockquote><p>Before we start, make sure you have .NET Core environment and knownledge.</p></blockquote><h2 id=what-is-a-shell>What is a shell?</h2><p>In computing, a <a href=https://en.wikipedia.org/wiki/Shell_(computing)>shell</a> is a computer program that exposes an operating system&rsquo;s services to a human user or other programs. In general, operating system shells use either a command-line interface (CLI) or graphical user interface (GUI), depending on a computer&rsquo;s role and particular operation. It is named a shell because it is the outermost layer around the operating system.</p><p>Some examples:</p><ul><li>Bash</li><li>Zsh</li><li>Gnome Shell</li></ul><p>In this article, I describe <em>a simple text-based, non-graphical shell</em> with the basic functionality: give an input command and receive the output of this command.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># Input</span>
-</span></span><span class=line><span class=cl>$ ls
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Output</span>
-</span></span><span class=line><span class=cl>Documents   Downloads   Desktop
-</span></span><span class=line><span class=cl>...
-</span></span></code></pre></div><p>That&rsquo;s it!</p><h2 id=basic-lifetime-of-a-shell>Basic lifetime of a shell</h2><p>Let&rsquo;s look at a shell from the top down. A shell does three main things its lifetime.</p><ul><li><strong>Initialize</strong>: A typical shell would read and execute its configuration files. These change aspects of the shell&rsquo;s behavior. If you&rsquo;re familiar with bash shell, you may know <code>.bashrc</code> file, where you put the custom configuration.</li><li><strong>Interpret</strong>: The shell reads commands from stdin (which could be interactive, or a file) and executes them.</li><li><strong>Terminate</strong>: After its commands are executed, the seehll executes any shutdown commands, fres up and memory, and terminates.</li></ul><p>But in our case, the shell will be simple as possible that there won&rsquo;t be any configuration files, and there won&rsquo;t be any shutdown command. So, we&rsquo;ll just call the input looping function and then terminate.</p><p>The basic structure looks like the following:</p><ul><li>Call our shell as <code>KShell</code></li><li>Print a prefix, just like Bash shell.</li><li>Read the user input from keyboard.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=line><span class=cl><span class=k>namespace</span> <span class=nn>KShell</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>KShell</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=c1>// Test it in Linux only</span>
-</span></span><span class=line><span class=cl>    <span class=kd>private</span> <span class=kd>static</span> <span class=kt>string</span> <span class=n>_currUser</span> <span class=p>=</span> <span class=n>Environment</span><span class=p>.</span><span class=n>UserName</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=kd>private</span> <span class=kd>static</span> <span class=kt>string</span> <span class=n>_currDir</span> <span class=p>=</span> <span class=n>Directory</span><span class=p>.</span><span class=n>GetCurrentDirectory</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>    <span class=kd>private</span> <span class=kd>static</span> <span class=kt>string</span> <span class=n>_hostname</span> <span class=p>=</span> <span class=n>Environment</span><span class=p>.</span><span class=n>MachineName</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=kd>static</span> <span class=k>void</span> <span class=n>Main</span><span class=p>(</span><span class=kt>string</span><span class=p>[]</span> <span class=n>args</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=c1>// Load config files, if any.</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=c1>// Run the input loop</span>
-</span></span><span class=line><span class=cl>        <span class=k>while</span> <span class=p>(</span><span class=kc>true</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=n>Console</span><span class=p>.</span><span class=n>Write</span><span class=p>(</span><span class=s>$&#34;{_currUser}@{_hostname}:{_currDir}$ &#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>            <span class=c1>// Read the keyboard input</span>
-</span></span><span class=line><span class=cl>            <span class=kt>string?</span> <span class=n>input</span> <span class=p>=</span> <span class=n>Console</span><span class=p>.</span><span class=n>ReadLine</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=p>(</span><span class=n>String</span><span class=p>.</span><span class=n>IsNullOrEmpty</span><span class=p>(</span><span class=n>input</span><span class=p>))</span>
-</span></span><span class=line><span class=cl>                <span class=k>continue</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>            <span class=n>ExecCommand</span><span class=p>(</span><span class=n>input</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=kd>static</span> <span class=k>void</span> <span class=n>ExecCommand</span><span class=p>(</span><span class=kt>string</span> <span class=n>input</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=c1>// Just print</span>
-</span></span><span class=line><span class=cl>        <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=s>$&#34;The input commmand: {input}&#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></div><p>Build, run and we have the result, do you feel familiar?</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ <span class=nb>cd</span>
-</span></span><span class=line><span class=cl>The input commmand: <span class=nb>cd</span>
-</span></span></code></pre></div><h2 id=execute-command>Execute command</h2><p>Now, we want to execute the entered command in <code>ExecCommand(string input)</code> function.</p><ul><li>First, remove the trailing blank spaces of the input, then parse the input separate the command and the arguments.</li><li>Prepare the command.</li><li>Clear the standard output, this is a trick to remove the prefix (we created before) from the output.</li><li>Execute the command.<ul><li>Starting processes is the main function of shells.</li><li>C# and .NET takes care all the difficult stuffs for us, but I recommend you to read about how shells start processes on Unix-like operating systems.<ul><li>There are only two ways of starting processes on Unix. The first one (almost doesn&rsquo;t count) is by being <code>Init</code>. You see, when a Unix computer boots, its kernel is loaded. Once it is loaded and initialized, the kernel starts only one process, which is called Init. This process runs for the entire length of time that the computer is on, and it manages loading up the rest of the processes that you need for your computer to be useful.</li><li>Since most program aren&rsquo;t <code>Init</code>, that leaves only one practical way for processes to get started: the <code>fork()</code> system call. When this function is called, the operating system makes a duplicate of the process and starts them both running. The original process is called the &ldquo;parent&rdquo;, and the new one is called the &ldquo;child&rdquo;. <code>fork()</code> returns 0 to the child process, and it returns to the parent the process ID number (PID) of its child. In essence, this means that the only way for new processes is to start is by an existing one duplicating itself.</li><li>Typically, when you want to run a new process, you don&rsquo;t just want another copy of the same program - you want to run a different program. That&rsquo;s what the <code>exec()</code> system call is all about.</li><li>With the two system calls, we have the building blocks for how most program are run on Unix. First, an existing process forks itself into two separate ones. Then, the child uses <code>exec()</code> to replace itself with a new program. The parent process can continue doing other things, and it can even keep tabs on its children, using the system call <code>wait()</code>.</li></ul></li></ul></li></ul><figure class=figure><img src=http://www.it.uu.se/education/course/homepage/os/vt18/images/module-2/fork-exec-exit-wait.png alt="From it.uu.se: Operating systems"><figcaption><p>From it.uu.se: Operating systems</p></figcaption></figure><div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=line><span class=cl><span class=kd>static</span> <span class=k>void</span> <span class=n>ExecCommand</span><span class=p>(</span><span class=kt>string</span> <span class=n>input</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=c1>// Split the input separate the command and the arguments</span>
-</span></span><span class=line><span class=cl>    <span class=kt>string</span><span class=p>[]</span> <span class=n>args</span> <span class=p>=</span> <span class=n>input</span><span class=p>.</span><span class=n>TrimEnd</span><span class=p>().</span><span class=n>Split</span><span class=p>(</span><span class=s>&#34; &#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=c1>// Execute command</span>
-</span></span><span class=line><span class=cl>    <span class=n>ProcessStartInfo</span> <span class=n>startInfo</span> <span class=p>=</span> <span class=k>new</span> <span class=n>ProcessStartInfo</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=n>FileName</span> <span class=p>=</span> <span class=n>args</span><span class=p>[</span><span class=m>0</span><span class=p>],</span>
-</span></span><span class=line><span class=cl>        <span class=n>Arguments</span> <span class=p>=</span> <span class=kt>string</span><span class=p>.</span><span class=n>Join</span><span class=p>(</span><span class=s>&#34;&#34;</span><span class=p>,</span> <span class=n>args</span><span class=p>.</span><span class=n>Skip</span><span class=p>(</span><span class=m>1</span><span class=p>).</span><span class=n>ToArray</span><span class=p>()),</span>
-</span></span><span class=line><span class=cl>        <span class=n>RedirectStandardOutput</span> <span class=p>=</span> <span class=kc>true</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>        <span class=n>RedirectStandardError</span> <span class=p>=</span> <span class=kc>true</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>    <span class=p>};</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=n>Process</span> <span class=n>proc</span> <span class=p>=</span> <span class=k>new</span> <span class=n>Process</span><span class=p>()</span> <span class=p>{</span> <span class=n>StartInfo</span> <span class=p>=</span> <span class=n>startInfo</span> <span class=p>};</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=c1>// Clear the standard output</span>
-</span></span><span class=line><span class=cl>    <span class=c1>// NOTE(kiennt26): This is a trick to remove the prefix from the command output</span>
-</span></span><span class=line><span class=cl>    <span class=n>proc</span><span class=p>.</span><span class=n>OutputDataReceived</span> <span class=p>+=</span> <span class=p>(</span><span class=n>sender</span><span class=p>,</span> <span class=n>e</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=n>e</span><span class=p>.</span><span class=n>Data</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>    <span class=n>proc</span><span class=p>.</span><span class=n>Start</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>    <span class=n>proc</span><span class=p>.</span><span class=n>BeginOutputReadLine</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>    <span class=n>proc</span><span class=p>.</span><span class=n>WaitForExit</span><span class=p>();</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></div><p>Build and run the shell, enter your desired command.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ ls
-</span></span><span class=line><span class=cl>KShell
-</span></span><span class=line><span class=cl>KShell.deps.json
-</span></span><span class=line><span class=cl>KShell.dll
-</span></span><span class=line><span class=cl>KShell.pdb
-</span></span><span class=line><span class=cl>KShell.runtimeconfig.json
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ ls -la
-</span></span><span class=line><span class=cl>total <span class=m>176</span>
-</span></span><span class=line><span class=cl>drwxrwxr-x <span class=m>2</span> kiennt kiennt   <span class=m>4096</span> Thg <span class=m>8</span>  <span class=m>21</span> 14:33 .
-</span></span><span class=line><span class=cl>drwxrwxr-x <span class=m>3</span> kiennt kiennt   <span class=m>4096</span> Thg <span class=m>8</span>  <span class=m>21</span> 14:28 ..
-</span></span><span class=line><span class=cl>-rwxr-xr-x <span class=m>1</span> kiennt kiennt <span class=m>142840</span> Thg <span class=m>8</span>  <span class=m>21</span> 14:52 KShell
-</span></span><span class=line><span class=cl>-rw-rw-r-- <span class=m>1</span> kiennt kiennt    <span class=m>388</span> Thg <span class=m>8</span>  <span class=m>21</span> 14:33 KShell.deps.json
-</span></span><span class=line><span class=cl>-rw-rw-r-- <span class=m>1</span> kiennt kiennt   <span class=m>6656</span> Thg <span class=m>8</span>  <span class=m>21</span> 14:52 KShell.dll
-</span></span><span class=line><span class=cl>-rw-rw-r-- <span class=m>1</span> kiennt kiennt  <span class=m>10676</span> Thg <span class=m>8</span>  <span class=m>21</span> 14:52 KShell.pdb
-</span></span><span class=line><span class=cl>-rw-rw-r-- <span class=m>1</span> kiennt kiennt    <span class=m>139</span> Thg <span class=m>8</span>  <span class=m>21</span> 14:33 KShell.runtimeconfig.json
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ <span class=nb>pwd</span>
-</span></span><span class=line><span class=cl>/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0
-</span></span></code></pre></div><p>It works nicely! It&rsquo;s starting to look like a real shell! But hold on, enter the super casual command - <code>cd</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ <span class=nb>cd</span>
-</span></span><span class=line><span class=cl>Unhandled exception. System.ComponentModel.Win32Exception <span class=o>(</span>2<span class=o>)</span>: An error occurred trying to start process <span class=s1>&#39;cd&#39;</span> with working directory <span class=s1>&#39;/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0&#39;</span>. No such file or directory
-</span></span><span class=line><span class=cl>...
-</span></span></code></pre></div><p>Huh, something went wrong here. Why does the <code>cd</code> command not work? <code>cd</code> is not <a href=https://stackoverflow.com/a/38776411>real</a> command, the functionality is a built-in command of the shell.</p><h2 id=shell-built-in-commands>Shell Built-in Commands</h2><p>Now, we will create some built-in commands. We have to modify the <code>ExecCommand</code> function: add a <code>switch</code> statement to the first argument (the command to execute) which is stored in <code>args[0]</code>.</p><h3 id=cd><code>cd</code></h3><p>First, implement <code>cd</code>:</p><ul><li>If user enters <code>cd ~</code> or <code>cd</code> without arguments, the working directory is home.</li><li>Change the working directory to the input.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=line><span class=cl>    <span class=kd>static</span> <span class=k>void</span> <span class=n>ExecCommand</span><span class=p>(</span><span class=kt>string</span> <span class=n>input</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=c1>// Split the input separate the command and the arguments</span>
-</span></span><span class=line><span class=cl>        <span class=kt>string</span><span class=p>[]</span> <span class=n>args</span> <span class=p>=</span> <span class=n>input</span><span class=p>.</span><span class=n>TrimEnd</span><span class=p>().</span><span class=n>Split</span><span class=p>(</span><span class=s>&#34; &#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=c1>// Check for the built-in shell commands</span>
-</span></span><span class=line><span class=cl>        <span class=k>switch</span> <span class=p>(</span><span class=n>args</span><span class=p>[</span><span class=m>0</span><span class=p>])</span>
-</span></span><span class=line><span class=cl>        <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=k>case</span> <span class=s>&#34;cd&#34;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>                <span class=n>BuiltInCD</span><span class=p>(</span><span class=n>args</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>                <span class=k>break</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>            <span class=k>case</span> <span class=s>&#34;#&#34;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>                <span class=c1>// Handle the comment case</span>
-</span></span><span class=line><span class=cl>                <span class=k>break</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>            <span class=k>default</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>                <span class=c1>// Execute command</span>
-</span></span><span class=line><span class=cl>                <span class=c1>// ...</span>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=cs>/// &lt;summary&gt;</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// Built-in cd - Change the shell working directory.</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// Change the current directory to DIR. The default DIR is the value of the</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// HOME shell variable.</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// cd [dir]</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// &lt;/summary&gt;</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt;</span>
-</span></span><span class=line><span class=cl>    <span class=kd>static</span> <span class=k>void</span> <span class=n>BuiltInCD</span><span class=p>(</span><span class=kt>string</span><span class=p>[]</span> <span class=n>args</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=kt>string</span> <span class=n>newWorkingDir</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>args</span><span class=p>.</span><span class=n>Length</span> <span class=p>&lt;</span> <span class=m>2</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=c1>// cd to home with empty path</span>
-</span></span><span class=line><span class=cl>            <span class=n>newWorkingDir</span> <span class=p>=</span> <span class=n>Environment</span><span class=p>.</span><span class=n>GetFolderPath</span><span class=p>(</span><span class=n>Environment</span><span class=p>.</span><span class=n>SpecialFolder</span><span class=p>.</span><span class=n>UserProfile</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>        <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=n>args</span><span class=p>[</span><span class=m>1</span><span class=p>]</span> <span class=p>==</span> <span class=s>&#34;~&#34;</span><span class=p>)</span> <span class=c1>// handle a special character</span>
-</span></span><span class=line><span class=cl>        <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=n>newWorkingDir</span> <span class=p>=</span> <span class=n>Environment</span><span class=p>.</span><span class=n>GetFolderPath</span><span class=p>(</span><span class=n>Environment</span><span class=p>.</span><span class=n>SpecialFolder</span><span class=p>.</span><span class=n>UserProfile</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>        <span class=k>else</span>
-</span></span><span class=line><span class=cl>        <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=n>newWorkingDir</span> <span class=p>=</span> <span class=n>args</span><span class=p>[</span><span class=m>1</span><span class=p>];</span>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=c1>// Change the directory</span>
-</span></span><span class=line><span class=cl>        <span class=n>Directory</span><span class=p>.</span><span class=n>SetCurrentDirectory</span><span class=p>(</span><span class=n>newWorkingDir</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=n>_currDir</span> <span class=p>=</span> <span class=n>Directory</span><span class=p>.</span><span class=n>GetCurrentDirectory</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span></code></pre></div><h3 id=exit><code>exit</code></h3><p>Similiarly, implement the <code>exit</code> command, it&rsquo;s quite simple.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=line><span class=cl>    <span class=c1>// ...</span>
-</span></span><span class=line><span class=cl>    <span class=c1>// ExecCommand</span>
-</span></span><span class=line><span class=cl>            <span class=k>case</span> <span class=s>&#34;exit&#34;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>                <span class=n>BuiltInExit</span><span class=p>(</span><span class=m>0</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>                <span class=k>break</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=c1>// ...</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=cs>/// &lt;summary&gt;</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// Built-in exit - Exit the shell with a status of n. If n is omitted,</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// the exit status is that of the last command executed.</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// exit [n]</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// &lt;/summary&gt;</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// &lt;param name=&#34;exitCode&#34;&gt;&lt;/param&gt;</span>
-</span></span><span class=line><span class=cl>    <span class=kd>static</span> <span class=k>void</span> <span class=n>BuiltInExit</span><span class=p>(</span><span class=kt>int</span> <span class=n>exitCode</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=c1>// TODO(kiennt26): Handle the given exit code, it should be in range 0-255</span>
-</span></span><span class=line><span class=cl>        <span class=n>Environment</span><span class=p>.</span><span class=n>Exit</span><span class=p>(</span><span class=n>exitCode</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span></code></pre></div><h3 id=which><code>which</code></h3><p><code>which</code> returns the pathnames of the files (or links) which would be executed in the current environment. It does this by searching the PATH for executable files matching the file names of the arguments.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=line><span class=cl><span class=c1>// Get the PATH environment variable for a list of directories.</span>
-</span></span><span class=line><span class=cl>    <span class=kd>private</span> <span class=kd>static</span> <span class=kt>string</span><span class=p>[]</span> <span class=n>_path</span> <span class=p>=</span> <span class=n>Environment</span><span class=p>.</span><span class=n>GetEnvironmentVariable</span><span class=p>(</span><span class=s>&#34;PATH&#34;</span><span class=p>).</span><span class=n>Split</span><span class=p>(</span><span class=s>&#34;:&#34;</span><span class=p>);</span>
-</span></span></code></pre></div><p>Create a function that searches the PATH for executable files matching the file names of the arguments.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=line><span class=cl>    <span class=kd>static</span> <span class=n>List</span><span class=p>&lt;</span><span class=kt>string</span><span class=p>&gt;</span> <span class=n>SearchInPath</span><span class=p>(</span><span class=kt>string</span> <span class=n>executable</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=n>List</span><span class=p>&lt;</span><span class=kt>string</span><span class=p>&gt;</span> <span class=n>pathNames</span> <span class=p>=</span> <span class=k>new</span> <span class=n>List</span><span class=p>&lt;</span><span class=kt>string</span><span class=p>&gt;();</span>
-</span></span><span class=line><span class=cl>        <span class=c1>// string[] pathNames = new string[0];</span>
-</span></span><span class=line><span class=cl>        <span class=k>foreach</span> <span class=p>(</span><span class=kt>string</span> <span class=n>p</span> <span class=k>in</span> <span class=n>_path</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>            <span class=n>pathNames</span><span class=p>.</span><span class=n>AddRange</span><span class=p>(</span><span class=n>Directory</span><span class=p>.</span><span class=n>GetFiles</span><span class=p>(</span><span class=n>p</span><span class=p>,</span> <span class=n>executable</span><span class=p>));</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>pathNames</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span></code></pre></div><p>Then, create <code>BuiltInWhich</code> function to print out the result. If there is no matching executable file, returns nothing.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=line><span class=cl>    <span class=c1>// ExecCommand</span>
-</span></span><span class=line><span class=cl>            <span class=k>case</span> <span class=s>&#34;which&#34;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>                <span class=n>BuiltInWhich</span><span class=p>(</span><span class=n>args</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>                <span class=k>break</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=cs>/// &lt;summary&gt;</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// Built-in which - locate a command</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// which returns the pathnames of the files (or links) which would be executed in the current environment.</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// It does this by searching the PATH for executable files matching the file names of the arguments.</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// &lt;/summary&gt;</span>
-</span></span><span class=line><span class=cl>    <span class=cs>/// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt;</span>
-</span></span><span class=line><span class=cl>    <span class=kd>static</span> <span class=k>void</span> <span class=n>BuiltInWhich</span><span class=p>(</span><span class=kt>string</span><span class=p>[]</span> <span class=n>args</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>args</span><span class=p>.</span><span class=n>Length</span> <span class=p>&lt;</span> <span class=m>2</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>            <span class=k>return</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=k>foreach</span> <span class=p>(</span><span class=kt>string</span> <span class=n>executable</span> <span class=k>in</span> <span class=n>args</span><span class=p>.</span><span class=n>Skip</span><span class=p>(</span><span class=m>1</span><span class=p>).</span><span class=n>ToArray</span><span class=p>())</span>
-</span></span><span class=line><span class=cl>        <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=k>foreach</span> <span class=p>(</span><span class=kt>string</span> <span class=n>p</span> <span class=k>in</span> <span class=n>SearchInPath</span><span class=p>(</span><span class=n>executable</span><span class=p>))</span>
-</span></span><span class=line><span class=cl>                <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=n>p</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ which ls
-</span></span><span class=line><span class=cl>/usr/bin/ls
-</span></span><span class=line><span class=cl>/bin/ls
-</span></span><span class=line><span class=cl>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ which <span class=nb>pwd</span>
-</span></span><span class=line><span class=cl>/usr/bin/pwd
-</span></span><span class=line><span class=cl>/bin/pwd
-</span></span><span class=line><span class=cl>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ which cat grep
-</span></span><span class=line><span class=cl>/usr/bin/cat
-</span></span><span class=line><span class=cl>/bin/cat
-</span></span><span class=line><span class=cl>/usr/bin/grep
-</span></span><span class=line><span class=cl>/bin/grep
-</span></span><span class=line><span class=cl>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$
-</span></span></code></pre></div><h3 id=help><code>help</code></h3><p>A help page always necessary, let&rsquo;s create one. Logic is simple:</p><ul><li>If user enter <code>help</code> command alone, returns a general help.</li><li>If user enter <code>help &lt;built-in></code>, returns the command specified help.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=line><span class=cl>    <span class=c1>// ExecCommand</span>
-</span></span><span class=line><span class=cl>            <span class=k>case</span> <span class=s>&#34;help&#34;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>                <span class=n>BuiltInHelp</span><span class=p>(</span><span class=n>args</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>                <span class=k>break</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=kd>static</span> <span class=k>void</span> <span class=n>BuiltInHelp</span><span class=p>(</span><span class=kt>string</span><span class=p>[]</span> <span class=n>args</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=kt>string</span> <span class=n>help</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=n>args</span><span class=p>.</span><span class=n>Length</span> <span class=p>&lt;</span> <span class=m>2</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=n>help</span> <span class=p>=</span> <span class=s>@&#34;
-</span></span></span><span class=line><span class=cl><span class=s>KShell aka. Kien&#39;s Shell, written in C#.
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>    Type program names and arguments, and hit &lt;enter&gt;.
-</span></span></span><span class=line><span class=cl><span class=s>    These shell commands are defined internally.  Type `help` to see this list.
-</span></span></span><span class=line><span class=cl><span class=s>    Type `help name` to find out more about the function `name&#39;.
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>    cd [dir]
-</span></span></span><span class=line><span class=cl><span class=s>    exit [n]
-</span></span></span><span class=line><span class=cl><span class=s>    which filename ...
-</span></span></span><span class=line><span class=cl><span class=s>    help&#34;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>        <span class=k>else</span>
-</span></span><span class=line><span class=cl>        <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=k>switch</span> <span class=p>(</span><span class=n>args</span><span class=p>[</span><span class=m>1</span><span class=p>])</span>
-</span></span><span class=line><span class=cl>            <span class=p>{</span>
-</span></span><span class=line><span class=cl>                <span class=k>case</span> <span class=s>&#34;cd&#34;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>                    <span class=n>help</span> <span class=p>=</span> <span class=s>@&#34;
-</span></span></span><span class=line><span class=cl><span class=s>cd: cd [dir]
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>    Change the shell working directory.
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>    Change the current directory to &#39;dir&#39;. The default &#39;dir&#39; is the value of the user&#39;s home directory.&#34;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>                    <span class=k>break</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>                <span class=k>case</span> <span class=s>&#34;exit&#34;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>                    <span class=n>help</span> <span class=p>=</span> <span class=s>@&#34;
-</span></span></span><span class=line><span class=cl><span class=s>exit: exit [n]
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>    Exit the shell.
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>    Exits the shell with a status of &#39;n&#39;.&#34;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>                    <span class=k>break</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>                <span class=k>case</span> <span class=s>&#34;which&#34;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>                    <span class=n>help</span> <span class=p>=</span> <span class=s>@&#34;
-</span></span></span><span class=line><span class=cl><span class=s>which: which filename ...
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>    Locate a command.
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>    which returns the pathnames of the files (or links) which would be executed in the current environment.
-</span></span></span><span class=line><span class=cl><span class=s>    It does this by searching the PATH for executable files matching the names of the arguments.
-</span></span></span><span class=line><span class=cl><span class=s>&#34;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>                    <span class=k>break</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>                <span class=k>default</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>                    <span class=n>help</span> <span class=p>=</span> <span class=s>@&#34;
-</span></span></span><span class=line><span class=cl><span class=s>KShell aka. Kien&#39;s Shell, written in C#.
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>    Type program names and arguments, and hit &lt;enter&gt;.
-</span></span></span><span class=line><span class=cl><span class=s>    These shell commands are defined internally.  Type `help` to see this list.
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>    cd [dir]
-</span></span></span><span class=line><span class=cl><span class=s>    exit [n]
-</span></span></span><span class=line><span class=cl><span class=s>    help&#34;</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>                    <span class=k>break</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>            <span class=p>}</span>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=n>help</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ <span class=nb>help</span> <span class=nb>cd</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>cd: <span class=nb>cd</span> <span class=o>[</span>dir<span class=o>]</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    Change the shell working directory.
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    Change the current directory to <span class=s1>&#39;dir&#39;</span>. The default <span class=s1>&#39;dir&#39;</span> is the value of the user<span class=err>&#39;</span>s home directory.
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ <span class=nb>help</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>KShell aka. Kien<span class=s1>&#39;s Shell, written in C#.
-</span></span></span><span class=line><span class=cl><span class=s1>
-</span></span></span><span class=line><span class=cl><span class=s1>    Type program names and arguments, and hit &lt;enter&gt;.
-</span></span></span><span class=line><span class=cl><span class=s1>    These shell commands are defined internally.  Type `help` to see this list.
-</span></span></span><span class=line><span class=cl><span class=s1>    Type `help name` to find out more about the function `name&#39;</span>.
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>    <span class=nb>cd</span> <span class=o>[</span>dir<span class=o>]</span>
-</span></span><span class=line><span class=cl>    <span class=nb>exit</span> <span class=o>[</span>n<span class=o>]</span>
-</span></span><span class=line><span class=cl>    which filename ...
-</span></span><span class=line><span class=cl>    <span class=nb>help</span>
-</span></span></code></pre></div><h2 id=improvement>Improvement</h2><h3 id=handle-exception>Handle exception</h3><p>Entering the wrong command, and a long stacktrace returns. It makes nonsense for the end user. The end user just need a message like: &ldquo;command not found&rdquo;. Just it.</p><p>We will wrap the main input loop in try/catch.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=line><span class=cl>    <span class=kd>static</span> <span class=k>void</span> <span class=n>Main</span><span class=p>(</span><span class=kt>string</span><span class=p>[]</span> <span class=n>args</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=c1>// Load config files, if any.</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=c1>// Run the input loop</span>
-</span></span><span class=line><span class=cl>        <span class=k>while</span> <span class=p>(</span><span class=kc>true</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=k>try</span>
-</span></span><span class=line><span class=cl>            <span class=p>{</span>
-</span></span><span class=line><span class=cl>                <span class=n>Console</span><span class=p>.</span><span class=n>Write</span><span class=p>(</span><span class=s>$&#34;{_currUser}@{_hostname}:{_currDir}$ &#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>                <span class=c1>// Read the keyboard input</span>
-</span></span><span class=line><span class=cl>                <span class=kt>string?</span> <span class=n>input</span> <span class=p>=</span> <span class=n>Console</span><span class=p>.</span><span class=n>ReadLine</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=p>(</span><span class=n>String</span><span class=p>.</span><span class=n>IsNullOrEmpty</span><span class=p>(</span><span class=n>input</span><span class=p>))</span>
-</span></span><span class=line><span class=cl>                    <span class=k>continue</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>                <span class=n>ExecCommand</span><span class=p>(</span><span class=n>input</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>            <span class=p>}</span>
-</span></span><span class=line><span class=cl>            <span class=k>catch</span> <span class=p>(</span><span class=n>Exception</span> <span class=n>e</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>            <span class=p>{</span>
-</span></span><span class=line><span class=cl>                <span class=n>Console</span><span class=p>.</span><span class=n>WriteLine</span><span class=p>(</span><span class=n>e</span><span class=p>.</span><span class=n>Message</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>                <span class=c1>// 0 - Success</span>
-</span></span><span class=line><span class=cl>                <span class=c1>// 1 - Fail</span>
-</span></span><span class=line><span class=cl>                <span class=n>BuiltInExit</span><span class=p>(</span><span class=m>1</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>            <span class=p>}</span>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span></code></pre></div><p>Looks much better now:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ wrongcommand
-</span></span><span class=line><span class=cl>An error occurred trying to start process <span class=s1>&#39;wrongcommand&#39;</span> with working directory <span class=s1>&#39;/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0&#39;</span>. No such file or directory
-</span></span></code></pre></div><h3 id=handle-command-not-found>Handle command not found</h3><p>The exception&rsquo;s message is still not clear enough for the end user. We can check if the command is existing before execute it. Remember <code>search3</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-csharp data-lang=csharp><span class=line><span class=cl>    <span class=c1>// ExecCommand</span>
-</span></span><span class=line><span class=cl>            <span class=k>default</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>                <span class=c1>// Check if args[0] is an executable file</span>
-</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=p>(</span><span class=n>SearchInPath</span><span class=p>(</span><span class=n>args</span><span class=p>[</span><span class=m>0</span><span class=p>]).</span><span class=n>Count</span> <span class=p>&lt;</span> <span class=m>1</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>                <span class=p>{</span>
-</span></span><span class=line><span class=cl>                    <span class=k>throw</span> <span class=k>new</span> <span class=n>Exception</span><span class=p>(</span><span class=s>$&#34;{args[0]}: command not found&#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>                <span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>                <span class=c1>// ...</span>
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ wrongcommand
-</span></span><span class=line><span class=cl>wrongcommand: <span class=nb>command</span> not found
+/</li><li class=current><a href=/posts/writing-a-simple-shell-in-c-sharp/>Writing a Simple Shell in C Sharp</a></li></ol></nav></header></header><main><h1>Writing a Simple Shell in C Sharp</h1><div class=terms-list><ul><li><a href=/tags/tech/>#Tech</a></li><li><a href=/tags/csharp/>#Csharp</a></li><li><a href=/tags/shell/>#Shell</a></li></ul></div><nav class=toc><strong>Table of contents</strong><div class=toc-content><nav id=TableOfContents><ol><li><a href=#what-is-a-shell>What is a shell?</a></li><li><a href=#basic-lifetime-of-a-shell>Basic lifetime of a shell</a></li><li><a href=#execute-command>Execute command</a></li><li><a href=#shell-built-in-commands>Shell Built-in Commands</a><ol><li><a href=#cd><code>cd</code></a></li><li><a href=#exit><code>exit</code></a></li><li><a href=#which><code>which</code></a></li><li><a href=#help><code>help</code></a></li></ol></li><li><a href=#improvement>Improvement</a><ol><li><a href=#handle-exception>Handle exception</a></li><li><a href=#handle-command-not-found>Handle command not found</a></li></ol></li><li><a href=#wrap-up>Wrap up</a></li></ol></nav></div></nav><p>In this post, we will write a minimalistic shell for UNIX(-like) operating systems in C# programming language. I create this for learning C# purpose.</p><p>Since its purpose demonstration (not feature completeness or even fitness for causual use), it has many limitations, including:</p><ul><li>Commands must be on a single line.</li><li>Arguments must be separated by whitespace.</li><li>No quoting arguments or escaping whitespace.</li><li>No piping or redirection.</li></ul><blockquote><p>Before we start, make sure you have .NET Core environment and knownledge.</p></blockquote><h2 id=what-is-a-shell>What is a shell?</h2><p>In computing, a <a href=https://en.wikipedia.org/wiki/Shell_(computing)>shell</a> is a computer program that exposes an operating system&rsquo;s services to a human user or other programs. In general, operating system shells use either a command-line interface (CLI) or graphical user interface (GUI), depending on a computer&rsquo;s role and particular operation. It is named a shell because it is the outermost layer around the operating system.</p><p>Some examples:</p><ul><li>Bash</li><li>Zsh</li><li>Gnome Shell</li></ul><p>In this article, I describe <em>a simple text-based, non-graphical shell</em> with the basic functionality: give an input command and receive the output of this command.</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#888;font-style:italic># Input</span>
+</span></span><span style=display:flex><span>$ ls
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Output</span>
+</span></span><span style=display:flex><span>Documents   Downloads   Desktop
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>That&rsquo;s it!</p><h2 id=basic-lifetime-of-a-shell>Basic lifetime of a shell</h2><p>Let&rsquo;s look at a shell from the top down. A shell does three main things its lifetime.</p><ul><li><strong>Initialize</strong>: A typical shell would read and execute its configuration files. These change aspects of the shell&rsquo;s behavior. If you&rsquo;re familiar with bash shell, you may know <code>.bashrc</code> file, where you put the custom configuration.</li><li><strong>Interpret</strong>: The shell reads commands from stdin (which could be interactive, or a file) and executes them.</li><li><strong>Terminate</strong>: After its commands are executed, the seehll executes any shutdown commands, fres up and memory, and terminates.</li></ul><p>But in our case, the shell will be simple as possible that there won&rsquo;t be any configuration files, and there won&rsquo;t be any shutdown command. So, we&rsquo;ll just call the input looping function and then terminate.</p><p>The basic structure looks like the following:</p><ul><li>Call our shell as <code>KShell</code></li><li>Print a prefix, just like Bash shell.</li><li>Read the user input from keyboard.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=display:flex><span><span style=font-weight:700>namespace</span> <span style=color:#666;font-weight:700;font-style:italic>KShell</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=font-weight:700>class</span> <span style=color:#666;font-weight:700;font-style:italic>KShell</span>
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#888;font-style:italic>// Test it in Linux only</span>
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>private</span> <span style=font-weight:700;font-style:italic>static</span> <span style=font-weight:700>string</span> _currUser = Environment.UserName;
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>private</span> <span style=font-weight:700;font-style:italic>static</span> <span style=font-weight:700>string</span> _currDir = Directory.GetCurrentDirectory();
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>private</span> <span style=font-weight:700;font-style:italic>static</span> <span style=font-weight:700>string</span> _hostname = Environment.MachineName;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>static</span> <span style=font-weight:700>void</span> Main(<span style=font-weight:700>string</span>[] args)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#888;font-style:italic>// Load config files, if any.</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#888;font-style:italic>// Run the input loop</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700>while</span> (<span style=font-weight:700>true</span>)
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            Console.Write(<span style=color:#666;font-style:italic>$&#34;{_currUser}@{_hostname}:{_currDir}$ &#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#888;font-style:italic>// Read the keyboard input</span>
+</span></span><span style=display:flex><span>            <span style=font-weight:700>string?</span> input = Console.ReadLine();
+</span></span><span style=display:flex><span>            <span style=font-weight:700>if</span> (String.IsNullOrEmpty(input))
+</span></span><span style=display:flex><span>                <span style=font-weight:700>continue</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            ExecCommand(input);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>static</span> <span style=font-weight:700>void</span> ExecCommand(<span style=font-weight:700>string</span> input)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#888;font-style:italic>// Just print</span>
+</span></span><span style=display:flex><span>        Console.WriteLine(<span style=color:#666;font-style:italic>$&#34;The input commmand: {input}&#34;</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Build, run and we have the result, do you feel familiar?</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ <span style=font-weight:700;font-style:italic>cd</span>
+</span></span><span style=display:flex><span>The input commmand: <span style=font-weight:700;font-style:italic>cd</span>
+</span></span></code></pre></div><h2 id=execute-command>Execute command</h2><p>Now, we want to execute the entered command in <code>ExecCommand(string input)</code> function.</p><ul><li>First, remove the trailing blank spaces of the input, then parse the input separate the command and the arguments.</li><li>Prepare the command.</li><li>Clear the standard output, this is a trick to remove the prefix (we created before) from the output.</li><li>Execute the command.<ul><li>Starting processes is the main function of shells.</li><li>C# and .NET takes care all the difficult stuffs for us, but I recommend you to read about how shells start processes on Unix-like operating systems.<ul><li>There are only two ways of starting processes on Unix. The first one (almost doesn&rsquo;t count) is by being <code>Init</code>. You see, when a Unix computer boots, its kernel is loaded. Once it is loaded and initialized, the kernel starts only one process, which is called Init. This process runs for the entire length of time that the computer is on, and it manages loading up the rest of the processes that you need for your computer to be useful.</li><li>Since most program aren&rsquo;t <code>Init</code>, that leaves only one practical way for processes to get started: the <code>fork()</code> system call. When this function is called, the operating system makes a duplicate of the process and starts them both running. The original process is called the &ldquo;parent&rdquo;, and the new one is called the &ldquo;child&rdquo;. <code>fork()</code> returns 0 to the child process, and it returns to the parent the process ID number (PID) of its child. In essence, this means that the only way for new processes is to start is by an existing one duplicating itself.</li><li>Typically, when you want to run a new process, you don&rsquo;t just want another copy of the same program - you want to run a different program. That&rsquo;s what the <code>exec()</code> system call is all about.</li><li>With the two system calls, we have the building blocks for how most program are run on Unix. First, an existing process forks itself into two separate ones. Then, the child uses <code>exec()</code> to replace itself with a new program. The parent process can continue doing other things, and it can even keep tabs on its children, using the system call <code>wait()</code>.</li></ul></li></ul></li></ul><figure class=figure><img src=http://www.it.uu.se/education/course/homepage/os/vt18/images/module-2/fork-exec-exit-wait.png alt="From it.uu.se: Operating systems"><figcaption><p>From it.uu.se: Operating systems</p></figcaption></figure><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=display:flex><span><span style=font-weight:700;font-style:italic>static</span> <span style=font-weight:700>void</span> ExecCommand(<span style=font-weight:700>string</span> input)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#888;font-style:italic>// Split the input separate the command and the arguments</span>
+</span></span><span style=display:flex><span>    <span style=font-weight:700>string</span>[] args = input.TrimEnd().Split(<span style=color:#666;font-style:italic>&#34; &#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-style:italic>// Execute command</span>
+</span></span><span style=display:flex><span>    ProcessStartInfo startInfo = <span style=font-weight:700>new</span> ProcessStartInfo()
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        FileName = args[0],
+</span></span><span style=display:flex><span>        Arguments = <span style=font-weight:700>string</span>.Join(<span style=color:#666;font-style:italic>&#34;&#34;</span>, args.Skip(1).ToArray()),
+</span></span><span style=display:flex><span>        RedirectStandardOutput = <span style=font-weight:700>true</span>,
+</span></span><span style=display:flex><span>        RedirectStandardError = <span style=font-weight:700>true</span>,
+</span></span><span style=display:flex><span>    };
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    Process proc = <span style=font-weight:700>new</span> Process() { StartInfo = startInfo };
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-style:italic>// Clear the standard output</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-style:italic>// NOTE(kiennt26): This is a trick to remove the prefix from the command output</span>
+</span></span><span style=display:flex><span>    proc.OutputDataReceived += (sender, e) =&gt; Console.WriteLine(e.Data);
+</span></span><span style=display:flex><span>    proc.Start();
+</span></span><span style=display:flex><span>    proc.BeginOutputReadLine();
+</span></span><span style=display:flex><span>    proc.WaitForExit();
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Build and run the shell, enter your desired command.</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ ls
+</span></span><span style=display:flex><span>KShell
+</span></span><span style=display:flex><span>KShell.deps.json
+</span></span><span style=display:flex><span>KShell.dll
+</span></span><span style=display:flex><span>KShell.pdb
+</span></span><span style=display:flex><span>KShell.runtimeconfig.json
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ ls -la
+</span></span><span style=display:flex><span>total 176
+</span></span><span style=display:flex><span>drwxrwxr-x 2 kiennt kiennt   4096 Thg 8  21 14:33 .
+</span></span><span style=display:flex><span>drwxrwxr-x 3 kiennt kiennt   4096 Thg 8  21 14:28 ..
+</span></span><span style=display:flex><span>-rwxr-xr-x 1 kiennt kiennt 142840 Thg 8  21 14:52 KShell
+</span></span><span style=display:flex><span>-rw-rw-r-- 1 kiennt kiennt    388 Thg 8  21 14:33 KShell.deps.json
+</span></span><span style=display:flex><span>-rw-rw-r-- 1 kiennt kiennt   6656 Thg 8  21 14:52 KShell.dll
+</span></span><span style=display:flex><span>-rw-rw-r-- 1 kiennt kiennt  10676 Thg 8  21 14:52 KShell.pdb
+</span></span><span style=display:flex><span>-rw-rw-r-- 1 kiennt kiennt    139 Thg 8  21 14:33 KShell.runtimeconfig.json
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ <span style=font-weight:700;font-style:italic>pwd</span>
+</span></span><span style=display:flex><span>/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0
+</span></span></code></pre></div><p>It works nicely! It&rsquo;s starting to look like a real shell! But hold on, enter the super casual command - <code>cd</code>:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ <span style=font-weight:700;font-style:italic>cd</span>
+</span></span><span style=display:flex><span>Unhandled exception. System.ComponentModel.Win32Exception (2): An error occurred trying to start process <span style=color:#666;font-style:italic>&#39;cd&#39;</span> with working directory <span style=color:#666;font-style:italic>&#39;/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0&#39;</span>. No such file or directory
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>Huh, something went wrong here. Why does the <code>cd</code> command not work? <code>cd</code> is not <a href=https://stackoverflow.com/a/38776411>real</a> command, the functionality is a built-in command of the shell.</p><h2 id=shell-built-in-commands>Shell Built-in Commands</h2><p>Now, we will create some built-in commands. We have to modify the <code>ExecCommand</code> function: add a <code>switch</code> statement to the first argument (the command to execute) which is stored in <code>args[0]</code>.</p><h3 id=cd><code>cd</code></h3><p>First, implement <code>cd</code>:</p><ul><li>If user enters <code>cd ~</code> or <code>cd</code> without arguments, the working directory is home.</li><li>Change the working directory to the input.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>static</span> <span style=font-weight:700>void</span> ExecCommand(<span style=font-weight:700>string</span> input)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#888;font-style:italic>// Split the input separate the command and the arguments</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700>string</span>[] args = input.TrimEnd().Split(<span style=color:#666;font-style:italic>&#34; &#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#888;font-style:italic>// Check for the built-in shell commands</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700>switch</span> (args[0])
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=font-weight:700>case</span> <span style=color:#666;font-style:italic>&#34;cd&#34;</span>:
+</span></span><span style=display:flex><span>                BuiltInCD(args);
+</span></span><span style=display:flex><span>                <span style=font-weight:700>break</span>;
+</span></span><span style=display:flex><span>            <span style=font-weight:700>case</span> <span style=color:#666;font-style:italic>&#34;#&#34;</span>:
+</span></span><span style=display:flex><span>                <span style=color:#888;font-style:italic>// Handle the comment case</span>
+</span></span><span style=display:flex><span>                <span style=font-weight:700>break</span>;
+</span></span><span style=display:flex><span>            <span style=font-weight:700>default</span>:
+</span></span><span style=display:flex><span>                <span style=color:#888;font-style:italic>// Execute command</span>
+</span></span><span style=display:flex><span>                <span style=color:#888;font-style:italic>// ...</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// &lt;summary&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// Built-in cd - Change the shell working directory.</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// Change the current directory to DIR. The default DIR is the value of the</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// HOME shell variable.</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// cd [dir]</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// &lt;/summary&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt;</span>
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>static</span> <span style=font-weight:700>void</span> BuiltInCD(<span style=font-weight:700>string</span>[] args)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=font-weight:700>string</span> newWorkingDir;
+</span></span><span style=display:flex><span>        <span style=font-weight:700>if</span> (args.Length &lt; 2)
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#888;font-style:italic>// cd to home with empty path</span>
+</span></span><span style=display:flex><span>            newWorkingDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=font-weight:700>else</span> <span style=font-weight:700>if</span> (args[1] == <span style=color:#666;font-style:italic>&#34;~&#34;</span>) <span style=color:#888;font-style:italic>// handle a special character</span>
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            newWorkingDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=font-weight:700>else</span>
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            newWorkingDir = args[1];
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#888;font-style:italic>// Change the directory</span>
+</span></span><span style=display:flex><span>        Directory.SetCurrentDirectory(newWorkingDir);
+</span></span><span style=display:flex><span>        _currDir = Directory.GetCurrentDirectory();
+</span></span><span style=display:flex><span>    }
+</span></span></code></pre></div><h3 id=exit><code>exit</code></h3><p>Similiarly, implement the <code>exit</code> command, it&rsquo;s quite simple.</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=display:flex><span>    <span style=color:#888;font-style:italic>// ...</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-style:italic>// ExecCommand</span>
+</span></span><span style=display:flex><span>            <span style=font-weight:700>case</span> <span style=color:#666;font-style:italic>&#34;exit&#34;</span>:
+</span></span><span style=display:flex><span>                BuiltInExit(0);
+</span></span><span style=display:flex><span>                <span style=font-weight:700>break</span>;
+</span></span><span style=display:flex><span>    <span style=color:#888;font-style:italic>// ...</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// &lt;summary&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// Built-in exit - Exit the shell with a status of n. If n is omitted,</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// the exit status is that of the last command executed.</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// exit [n]</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// &lt;/summary&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// &lt;param name=&#34;exitCode&#34;&gt;&lt;/param&gt;</span>
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>static</span> <span style=font-weight:700>void</span> BuiltInExit(<span style=font-weight:700>int</span> exitCode)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#888;font-style:italic>// TODO(kiennt26): Handle the given exit code, it should be in range 0-255</span>
+</span></span><span style=display:flex><span>        Environment.Exit(exitCode);
+</span></span><span style=display:flex><span>    }
+</span></span></code></pre></div><h3 id=which><code>which</code></h3><p><code>which</code> returns the pathnames of the files (or links) which would be executed in the current environment. It does this by searching the PATH for executable files matching the file names of the arguments.</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=display:flex><span><span style=color:#888;font-style:italic>// Get the PATH environment variable for a list of directories.</span>
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>private</span> <span style=font-weight:700;font-style:italic>static</span> <span style=font-weight:700>string</span>[] _path = Environment.GetEnvironmentVariable(<span style=color:#666;font-style:italic>&#34;PATH&#34;</span>).Split(<span style=color:#666;font-style:italic>&#34;:&#34;</span>);
+</span></span></code></pre></div><p>Create a function that searches the PATH for executable files matching the file names of the arguments.</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>static</span> List&lt;<span style=font-weight:700>string</span>&gt; SearchInPath(<span style=font-weight:700>string</span> executable)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        List&lt;<span style=font-weight:700>string</span>&gt; pathNames = <span style=font-weight:700>new</span> List&lt;<span style=font-weight:700>string</span>&gt;();
+</span></span><span style=display:flex><span>        <span style=color:#888;font-style:italic>// string[] pathNames = new string[0];</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700>foreach</span> (<span style=font-weight:700>string</span> p <span style=font-weight:700>in</span> _path)
+</span></span><span style=display:flex><span>            pathNames.AddRange(Directory.GetFiles(p, executable));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700>return</span> pathNames;
+</span></span><span style=display:flex><span>    }
+</span></span></code></pre></div><p>Then, create <code>BuiltInWhich</code> function to print out the result. If there is no matching executable file, returns nothing.</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=display:flex><span>    <span style=color:#888;font-style:italic>// ExecCommand</span>
+</span></span><span style=display:flex><span>            <span style=font-weight:700>case</span> <span style=color:#666;font-style:italic>&#34;which&#34;</span>:
+</span></span><span style=display:flex><span>                BuiltInWhich(args);
+</span></span><span style=display:flex><span>                <span style=font-weight:700>break</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// &lt;summary&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// Built-in which - locate a command</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// which returns the pathnames of the files (or links) which would be executed in the current environment.</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// It does this by searching the PATH for executable files matching the file names of the arguments.</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// &lt;/summary&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>/// &lt;param name=&#34;args&#34;&gt;&lt;/param&gt;</span>
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>static</span> <span style=font-weight:700>void</span> BuiltInWhich(<span style=font-weight:700>string</span>[] args)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=font-weight:700>if</span> (args.Length &lt; 2)
+</span></span><span style=display:flex><span>            <span style=font-weight:700>return</span>;
+</span></span><span style=display:flex><span>        <span style=font-weight:700>foreach</span> (<span style=font-weight:700>string</span> executable <span style=font-weight:700>in</span> args.Skip(1).ToArray())
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=font-weight:700>foreach</span> (<span style=font-weight:700>string</span> p <span style=font-weight:700>in</span> SearchInPath(executable))
+</span></span><span style=display:flex><span>                Console.WriteLine(p);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ which ls
+</span></span><span style=display:flex><span>/usr/bin/ls
+</span></span><span style=display:flex><span>/bin/ls
+</span></span><span style=display:flex><span>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ which <span style=font-weight:700;font-style:italic>pwd</span>
+</span></span><span style=display:flex><span>/usr/bin/pwd
+</span></span><span style=display:flex><span>/bin/pwd
+</span></span><span style=display:flex><span>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ which cat grep
+</span></span><span style=display:flex><span>/usr/bin/cat
+</span></span><span style=display:flex><span>/bin/cat
+</span></span><span style=display:flex><span>/usr/bin/grep
+</span></span><span style=display:flex><span>/bin/grep
+</span></span><span style=display:flex><span>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$
+</span></span></code></pre></div><h3 id=help><code>help</code></h3><p>A help page always necessary, let&rsquo;s create one. Logic is simple:</p><ul><li>If user enter <code>help</code> command alone, returns a general help.</li><li>If user enter <code>help &lt;built-in></code>, returns the command specified help.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=display:flex><span>    <span style=color:#888;font-style:italic>// ExecCommand</span>
+</span></span><span style=display:flex><span>            <span style=font-weight:700>case</span> <span style=color:#666;font-style:italic>&#34;help&#34;</span>:
+</span></span><span style=display:flex><span>                BuiltInHelp(args);
+</span></span><span style=display:flex><span>                <span style=font-weight:700>break</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>static</span> <span style=font-weight:700>void</span> BuiltInHelp(<span style=font-weight:700>string</span>[] args)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=font-weight:700>string</span> help;
+</span></span><span style=display:flex><span>        <span style=font-weight:700>if</span> (args.Length &lt; 2)
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            help = <span style=color:#666;font-style:italic>@&#34;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>KShell aka. Kien&#39;s Shell, written in C#.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    Type program names and arguments, and hit &lt;enter&gt;.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    These shell commands are defined internally.  Type `help` to see this list.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    Type `help name` to find out more about the function `name&#39;.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    cd [dir]
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    exit [n]
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    which filename ...
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    help&#34;</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=font-weight:700>else</span>
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=font-weight:700>switch</span> (args[1])
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>                <span style=font-weight:700>case</span> <span style=color:#666;font-style:italic>&#34;cd&#34;</span>:
+</span></span><span style=display:flex><span>                    help = <span style=color:#666;font-style:italic>@&#34;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>cd: cd [dir]
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    Change the shell working directory.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    Change the current directory to &#39;dir&#39;. The default &#39;dir&#39; is the value of the user&#39;s home directory.&#34;</span>;
+</span></span><span style=display:flex><span>                    <span style=font-weight:700>break</span>;
+</span></span><span style=display:flex><span>                <span style=font-weight:700>case</span> <span style=color:#666;font-style:italic>&#34;exit&#34;</span>:
+</span></span><span style=display:flex><span>                    help = <span style=color:#666;font-style:italic>@&#34;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>exit: exit [n]
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    Exit the shell.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    Exits the shell with a status of &#39;n&#39;.&#34;</span>;
+</span></span><span style=display:flex><span>                    <span style=font-weight:700>break</span>;
+</span></span><span style=display:flex><span>                <span style=font-weight:700>case</span> <span style=color:#666;font-style:italic>&#34;which&#34;</span>:
+</span></span><span style=display:flex><span>                    help = <span style=color:#666;font-style:italic>@&#34;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>which: which filename ...
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    Locate a command.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    which returns the pathnames of the files (or links) which would be executed in the current environment.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    It does this by searching the PATH for executable files matching the names of the arguments.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>&#34;</span>;
+</span></span><span style=display:flex><span>                    <span style=font-weight:700>break</span>;
+</span></span><span style=display:flex><span>                <span style=font-weight:700>default</span>:
+</span></span><span style=display:flex><span>                    help = <span style=color:#666;font-style:italic>@&#34;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>KShell aka. Kien&#39;s Shell, written in C#.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    Type program names and arguments, and hit &lt;enter&gt;.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    These shell commands are defined internally.  Type `help` to see this list.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    cd [dir]
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    exit [n]
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    help&#34;</span>;
+</span></span><span style=display:flex><span>                    <span style=font-weight:700>break</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        Console.WriteLine(help);
+</span></span><span style=display:flex><span>    }
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ <span style=font-weight:700;font-style:italic>help</span> <span style=font-weight:700;font-style:italic>cd</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>cd: <span style=font-weight:700;font-style:italic>cd</span> [dir]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    Change the shell working directory.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    Change the current directory to <span style=color:#666;font-style:italic>&#39;dir&#39;</span>. The default <span style=color:#666;font-style:italic>&#39;dir&#39;</span> is the value of the user<span>&#39;</span>s home directory.
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ <span style=font-weight:700;font-style:italic>help</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>KShell aka. Kien<span style=color:#666;font-style:italic>&#39;s Shell, written in C#.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    Type program names and arguments, and hit &lt;enter&gt;.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    These shell commands are defined internally.  Type `help` to see this list.
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    Type `help name` to find out more about the function `name&#39;</span>.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>cd</span> [dir]
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>exit</span> [n]
+</span></span><span style=display:flex><span>    which filename ...
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>help</span>
+</span></span></code></pre></div><h2 id=improvement>Improvement</h2><h3 id=handle-exception>Handle exception</h3><p>Entering the wrong command, and a long stacktrace returns. It makes nonsense for the end user. The end user just need a message like: &ldquo;command not found&rdquo;. Just it.</p><p>We will wrap the main input loop in try/catch.</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>static</span> <span style=font-weight:700>void</span> Main(<span style=font-weight:700>string</span>[] args)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#888;font-style:italic>// Load config files, if any.</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#888;font-style:italic>// Run the input loop</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700>while</span> (<span style=font-weight:700>true</span>)
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=font-weight:700>try</span>
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>                Console.Write(<span style=color:#666;font-style:italic>$&#34;{_currUser}@{_hostname}:{_currDir}$ &#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>                <span style=color:#888;font-style:italic>// Read the keyboard input</span>
+</span></span><span style=display:flex><span>                <span style=font-weight:700>string?</span> input = Console.ReadLine();
+</span></span><span style=display:flex><span>                <span style=font-weight:700>if</span> (String.IsNullOrEmpty(input))
+</span></span><span style=display:flex><span>                    <span style=font-weight:700>continue</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>                ExecCommand(input);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            <span style=font-weight:700>catch</span> (Exception e)
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>                Console.WriteLine(e.Message);
+</span></span><span style=display:flex><span>                <span style=color:#888;font-style:italic>// 0 - Success</span>
+</span></span><span style=display:flex><span>                <span style=color:#888;font-style:italic>// 1 - Fail</span>
+</span></span><span style=display:flex><span>                BuiltInExit(1);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span></code></pre></div><p>Looks much better now:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ wrongcommand
+</span></span><span style=display:flex><span>An error occurred trying to start process <span style=color:#666;font-style:italic>&#39;wrongcommand&#39;</span> with working directory <span style=color:#666;font-style:italic>&#39;/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0&#39;</span>. No such file or directory
+</span></span></code></pre></div><h3 id=handle-command-not-found>Handle command not found</h3><p>The exception&rsquo;s message is still not clear enough for the end user. We can check if the command is existing before execute it. Remember <code>search3</code></p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=display:flex><span>    <span style=color:#888;font-style:italic>// ExecCommand</span>
+</span></span><span style=display:flex><span>            <span style=font-weight:700>default</span>:
+</span></span><span style=display:flex><span>                <span style=color:#888;font-style:italic>// Check if args[0] is an executable file</span>
+</span></span><span style=display:flex><span>                <span style=font-weight:700>if</span> (SearchInPath(args[0]).Count &lt; 1)
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=font-weight:700>throw</span> <span style=font-weight:700>new</span> Exception(<span style=color:#666;font-style:italic>$&#34;{args[0]}: command not found&#34;</span>);
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>                <span style=color:#888;font-style:italic>// ...</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>kiennt@kiennt-ROG-Strix-G513IH-G513IH:/home/kiennt/Workspace/github.com/ntk148v/Solution1/KShell/bin/Debug/net6.0$ wrongcommand
+</span></span><span style=display:flex><span>wrongcommand: <span style=font-weight:700;font-style:italic>command</span> not found
 </span></span></code></pre></div><h2 id=wrap-up>Wrap up</h2><p>I hope you enjoyed it. I think, when you understand the concepts behind it, it&rsquo;s quite simple (especially with high-level programming language like C#).</p><p>Feel free to extend the shell with new features.</p><p>This post is highly inspired by:</p><ul><li><a href=https://simjue.pages.dev/post/2018/07-01-go-unix-shell/>Writing a simple shell in Go</a></li><li><a href=https://brennan.io/2015/01/16/write-a-shell-in-c/>Write a shell in C</a></li></ul><p>The code for <code>KShell</code> is available on <a href=https://github.com/ntk148v/KShell/tree/master>Github</a>.</p><time datetime=2023-08-20>2023-08-20&nbsp;</time><div class=terminal-nav><div class=back-nav><a href=../ class=back-link>../</a></div></div></main><footer><p>&copy; Copyright 2025 &#183;
 <a href=https://github.com/ntk148v/shibui>shibui</a></p></footer></body></html>

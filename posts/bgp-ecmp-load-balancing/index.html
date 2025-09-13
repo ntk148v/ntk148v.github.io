@@ -1,330 +1,330 @@
 <!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Bgp Ecmp Load Balancing | kiennt26's home</title><link rel=apple-touch-icon sizes=57x57 href=/favicon_io/apple-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=/favicon_io/apple-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=/favicon_io/apple-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=/favicon_io/apple-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=/favicon_io/apple-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=/favicon_io/apple-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=/favicon_io/apple-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=/favicon_io/apple-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=/favicon_io/apple-icon-180x180.png><link rel=icon type=image/png sizes=192x192 href=/favicon_io/android-icon-192x192.png><link rel=icon type=image/png sizes=32x32 href=/favicon_io/favicon-32x32.png><link rel=icon type=image/png sizes=96x96 href=/favicon_io/favicon-96x96.png><link rel=icon type=image/png sizes=16x16 href=/favicon_io/favicon-16x16.png><link rel=manifest href=/favicon_io/manifest.json><meta name=msapplication-TileColor content="#ffffff"><meta name=msapplication-TileImage content="/favicon_io/ms-icon-144x144.png"><meta name=theme-color content="#ffffff"><link rel=stylesheet href=/css/main.min.38925bdd47aabb0eb892bbce566836b59b62905bd8a5aec203df13887e0ef16f.css integrity="sha256-OJJb3Uequw64krvOVmg2tZtikFvYpa7CA98TiH4O8W8=" crossorigin=anonymous><script src=/js/main.23cd0c7d837263b9eaeb96ee2d9ccfa2969daa3fa00fa1c1fe8701a9b87251a1.js integrity="sha256-I80MfYNyY7nq65buLZzPopadqj+gD6HB/ocBqbhyUaE=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js></script></head><body><header><header><nav class=path-nav><ol><li>/
 <a href=/>kiennt26's home</a>
 /</li><li><a href=/posts/>Posts</a>
-/</li><li class=current><a href=/posts/bgp-ecmp-load-balancing/>Bgp Ecmp Load Balancing</a></li></ol></nav></header></header><main><h1>Bgp Ecmp Load Balancing</h1><div class=terms-list><ul><li><a href=/tags/tech/>#Tech</a></li><li><a href=/tags/network/>#Network</a></li><li><a href=/tags/bgp/>#Bgp</a></li><li><a href=/tags/ecmp/>#Ecmp</a></li></ul></div><nav class=toc><strong>Table of contents</strong><div class=toc-content><nav id=TableOfContents><ol><li><a href=#introduction>Introduction</a></li><li><a href=#lab-overview>Lab overview</a></li><li><a href=#configure>Configure</a><ol><li><a href=#isprouter>ISPRouter</a></li><li><a href=#edgerouter>EdgeRouter</a></li><li><a href=#switch>Switch</a></li><li><a href=#servers>Servers</a><ol><li><a href=#-configure-bird>. Configure Bird</a></li><li><a href=#-configure-exabgp>. Configure ExaBGP</a></li></ol></li></ol></li><li><a href=#validate>Validate</a><ol><li><a href=#scenario-1-both-servers-are-ok>Scenario 1: Both servers are OK</a></li><li><a href=#scenario-2-one-lb-is-down>Scenario 2: One lb is down</a></li></ol></li></ol></nav></div></nav><h2 id=introduction>Introduction</h2><p>We will build a Load balancer with <a href=https://en.wikipedia.org/wiki/Border_Gateway_Protocol>BGP</a> and <a href=https://en.wikipedia.org/wiki/Equal-cost_multi-path_routing>Equal-Cost Multipath routing (ECMP)</a> using both <a href=https://bird.network.cz/>Bird</a> and <a href=https://github.com/Exa-Networks/exabgp>ExaBGP</a>.</p><p>References:</p><ul><li><a href=https://gist.github.com/bufadu/0c3ba661c141a2176cd048f65430ae8d>How to build a load balancer with BGP and ECMP using VyOS</a></li><li><a href=https://vincent.bernat.ch/en/blog/2018-multi-tier-loadbalancer#first-tier-ecmp-routing>Multi-tier load balancer</a></li><li><a href=https://blog.cloudflare.com/cloudflares-architecture-eliminating-single-p/>Load balancing without Load balancers</a></li></ul><h2 id=lab-overview>Lab overview</h2><ul><li><a href=https://www.eve-ng.net/>EVE-NG</a> version 2.0.3-112</li><li>QEMU version 2.4.0</li></ul><figure class=figure><img src=/photos/bgp-ecmp-load-balancing/ecmp-bgp.png></figure><ul><li><code>AS 65000</code>: internet service provider. In this post, we will build a BGP session between EdgeRouter and ISP router.</li><li><code>ISPRouter</code> and <code>EdgeRouter</code> are <a href=https://docs.fortinet.com/document/fortigate/7.0.3>Fortinet Fortigate v7.0.3</a> instances. You can use other routers as well.</li><li><code>Switch</code> is a Cisco switch.</li><li><code>client</code>, <code>lb1</code>, and <code>lb2</code> are Ubuntu server 18.04 instances. <code>lb1</code> and <code>lb2</code> will be in the <code>10.12.12.0/24</code> private LAN, we will install nginx (LB L7) on these. Both servers will announce the same public IP (10.13.13.1) to <code>EdgeRouter</code> using BGP. Incoming traffic from internet to this public IP will be routed to <code>lb1</code> or <code>lb2</code> depending of a hash.</li><li>You need to download and install device virtual images. Follow <a href=https://www.eve-ng.net/index.php/documentation/howtos/howto-add-fortinet-images/>EVE-NG guide</a>.</li></ul><h2 id=configure>Configure</h2><h3 id=isprouter>ISPRouter</h3><p>Follow the <a href=https://docs.fortinet.com/document/fortigate/7.0.3>Fortigate document</a> for the basic commands.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># interfaces configurations</span>
-</span></span><span class=line><span class=cl>config system interface
-</span></span><span class=line><span class=cl>    edit <span class=s2>&#34;port1&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> mode static
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> ip 192.168.22.226 255.255.255.0
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> allowaccess ping https ssh http telnet
-</span></span><span class=line><span class=cl>    next
-</span></span><span class=line><span class=cl>    edit <span class=s2>&#34;port2&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> mode static
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> ip 10.0.0.254 255.255.255.0
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> allowaccess ping https ssh http telnet
-</span></span><span class=line><span class=cl>    next
-</span></span><span class=line><span class=cl>    edit <span class=s2>&#34;port3&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> mode static
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> ip 172.16.42.2 255.255.255.254
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> allowaccess ping https ssh http telnet
-</span></span><span class=line><span class=cl>    next
-</span></span><span class=line><span class=cl>end
-</span></span><span class=line><span class=cl><span class=c1># Simple BGP configuration</span>
-</span></span><span class=line><span class=cl>config router bgp
-</span></span><span class=line><span class=cl>    <span class=nb>set</span> as <span class=m>65000</span>
-</span></span><span class=line><span class=cl>    <span class=nb>set</span> router-id 172.16.42.2
-</span></span><span class=line><span class=cl>    config neighbor
-</span></span><span class=line><span class=cl>        edit <span class=s2>&#34;172.16.42.3&#34;</span>
-</span></span><span class=line><span class=cl>            <span class=nb>set</span> capability-default-originate <span class=nb>enable</span>
-</span></span><span class=line><span class=cl>            <span class=nb>set</span> remote-as <span class=m>65500</span>
-</span></span><span class=line><span class=cl>            <span class=nb>set</span> update-source <span class=s2>&#34;port3&#34;</span>
-</span></span><span class=line><span class=cl>        next
-</span></span><span class=line><span class=cl>    end
-</span></span><span class=line><span class=cl>end
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Firewall policy (simple allow all)</span>
-</span></span><span class=line><span class=cl>config firewall policy
-</span></span><span class=line><span class=cl>    edit <span class=m>1</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> name <span class=s2>&#34;allow&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> srcintf <span class=s2>&#34;any&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> dstintf <span class=s2>&#34;any&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> action accept
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> srcaddr <span class=s2>&#34;all&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> dstaddr <span class=s2>&#34;all&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> schedule <span class=s2>&#34;always&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> service <span class=s2>&#34;ALL&#34;</span>
-</span></span><span class=line><span class=cl>    next
-</span></span><span class=line><span class=cl>end
-</span></span></code></pre></div><h3 id=edgerouter>EdgeRouter</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>config system interface
-</span></span><span class=line><span class=cl>    edit <span class=s2>&#34;port1&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> vdom <span class=s2>&#34;root&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> ip 172.16.42.3 255.255.255.254
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> allowaccess ping https ssh snmp http telnet
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> <span class=nb>type</span> physical
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> snmp-index <span class=m>1</span>
-</span></span><span class=line><span class=cl>    next
-</span></span><span class=line><span class=cl>    edit <span class=s2>&#34;port2&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> vdom <span class=s2>&#34;root&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> ip 10.12.12.254 255.255.255.0
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> allowaccess ping https ssh snmp http telnet
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> <span class=nb>type</span> physical
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> snmp-index <span class=m>2</span>
-</span></span><span class=line><span class=cl>    next
-</span></span><span class=line><span class=cl>end
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># BGP config</span>
-</span></span><span class=line><span class=cl>config router bgp
-</span></span><span class=line><span class=cl>    <span class=nb>set</span> as <span class=m>65500</span>
-</span></span><span class=line><span class=cl>    <span class=nb>set</span> router-id 172.16.42.3
-</span></span><span class=line><span class=cl>    <span class=nb>set</span> ibgp-multipath <span class=nb>enable</span>
-</span></span><span class=line><span class=cl>    <span class=nb>set</span> additional-path <span class=nb>enable</span>
-</span></span><span class=line><span class=cl>    config neighbor
-</span></span><span class=line><span class=cl>        edit <span class=s2>&#34;10.12.12.2&#34;</span>
-</span></span><span class=line><span class=cl>            <span class=nb>set</span> remote-as <span class=m>65500</span>
-</span></span><span class=line><span class=cl>            <span class=nb>set</span> update-source <span class=s2>&#34;port2&#34;</span>
-</span></span><span class=line><span class=cl>        next
-</span></span><span class=line><span class=cl>        edit <span class=s2>&#34;10.12.12.1&#34;</span>
-</span></span><span class=line><span class=cl>            <span class=nb>set</span> remote-as <span class=m>65500</span>
-</span></span><span class=line><span class=cl>            <span class=nb>set</span> update-source <span class=s2>&#34;port2&#34;</span>
-</span></span><span class=line><span class=cl>        next
-</span></span><span class=line><span class=cl>        edit <span class=s2>&#34;172.16.42.2&#34;</span>
-</span></span><span class=line><span class=cl>            <span class=nb>set</span> remote-as <span class=m>65000</span>
-</span></span><span class=line><span class=cl>            <span class=nb>set</span> update-source <span class=s2>&#34;port1&#34;</span>
-</span></span><span class=line><span class=cl>        next
-</span></span><span class=line><span class=cl>    end
-</span></span><span class=line><span class=cl>end
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Firewall policy (simple allow all)</span>
-</span></span><span class=line><span class=cl>config firewall policy
-</span></span><span class=line><span class=cl>    edit <span class=m>1</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> name <span class=s2>&#34;allow&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> srcintf <span class=s2>&#34;any&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> dstintf <span class=s2>&#34;any&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> action accept
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> srcaddr <span class=s2>&#34;all&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> dstaddr <span class=s2>&#34;all&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> schedule <span class=s2>&#34;always&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nb>set</span> service <span class=s2>&#34;ALL&#34;</span>
-</span></span><span class=line><span class=cl>    next
-</span></span><span class=line><span class=cl>end
-</span></span></code></pre></div><ul><li>You can change <a href=https://docs.fortinet.com/document/fortigate/7.0.3/administration-guide/25967/equal-cost-multi-path>load-balancing algorithms</a>. By default, it is <code>source-ip-based</code>.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>config system settings
-</span></span><span class=line><span class=cl>    <span class=nb>set</span> v4-ecmp-mode <span class=o>{</span>source-ip-based* <span class=p>|</span> weight-based <span class=p>|</span> usage-based <span class=p>|</span> source-dest-ip-based<span class=o>}</span>
-</span></span><span class=line><span class=cl>end
-</span></span></code></pre></div><h3 id=switch>Switch</h3><ul><li>Set up mode access.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>configure terminal
-</span></span><span class=line><span class=cl>interface range Ethernet 0/0-2
-</span></span><span class=line><span class=cl>switchport mode access
-</span></span><span class=line><span class=cl>switchport access  vlan <span class=m>2</span>
-</span></span><span class=line><span class=cl><span class=nb>exit</span>
-</span></span><span class=line><span class=cl>copy running-config start-config
-</span></span></code></pre></div><h3 id=servers>Servers</h3><ul><li>Configure <code>10.13.13.1</code> on the local loopback interface.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lb1$ sudo cat <span class=s>&lt;&lt;EOF &gt; /etc/netplan/00-installer-config.yaml
-</span></span></span><span class=line><span class=cl><span class=s>network:
-</span></span></span><span class=line><span class=cl><span class=s>  ethernets:
-</span></span></span><span class=line><span class=cl><span class=s>    lo:
-</span></span></span><span class=line><span class=cl><span class=s>      addresses:
-</span></span></span><span class=line><span class=cl><span class=s>      - 10.13.13.1/24
-</span></span></span><span class=line><span class=cl><span class=s>    ens3:
-</span></span></span><span class=line><span class=cl><span class=s>      addresses:
-</span></span></span><span class=line><span class=cl><span class=s>      - 10.12.12.1/24 # change to 10.12.12.2 on lb2
-</span></span></span><span class=line><span class=cl><span class=s>      gateway4: 10.12.12.254
-</span></span></span><span class=line><span class=cl><span class=s>  version: 2
-</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lb1$ sudo netplan apply
-</span></span></code></pre></div><ul><li>Install nginx.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lb1$ sudo apt install nginx -y
-</span></span></code></pre></div><ul><li>Configure nginx:</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lb1$ sudo cat <span class=s>&lt;&lt;EOF &gt; /etc/nginx/sites-enabled/default
-</span></span></span><span class=line><span class=cl><span class=s>server {
-</span></span></span><span class=line><span class=cl><span class=s>        listen 80 default_server;
-</span></span></span><span class=line><span class=cl><span class=s>        listen [::]:80 default_server;
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>        root /var/www/html;
-</span></span></span><span class=line><span class=cl><span class=s>}
-</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># In lb1</span>
-</span></span><span class=line><span class=cl>lb1$ <span class=nb>echo</span> lb1 &gt; /var/www/html/hostname
-</span></span><span class=line><span class=cl><span class=c1># In lb2</span>
-</span></span><span class=line><span class=cl>lb2$ <span class=nb>echo</span> lb2 &gt; /var/www/html/hostname
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>lb1$ sudo service nginx start
-</span></span></code></pre></div><p>Choose one of the follow configurations (Bird or ExaBGP).</p><h4 id=-configure-bird>. Configure Bird</h4><ul><li>We will use <a href=https://github.com/CZ-NIC/bird>Bird</a>.</li><li>Install bird</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lb1$ sudo apt install  bird -y
-</span></span></code></pre></div><ul><li>Configure bird.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lb1$ sudo cat <span class=s>&lt;&lt;EOF &gt; /etc/bird.conf
-</span></span></span><span class=line><span class=cl><span class=s>protocol kernel {
-</span></span></span><span class=line><span class=cl><span class=s>        persist;
-</span></span></span><span class=line><span class=cl><span class=s>        scan time 20;
-</span></span></span><span class=line><span class=cl><span class=s>        export all;
-</span></span></span><span class=line><span class=cl><span class=s>}
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>protocol device {
-</span></span></span><span class=line><span class=cl><span class=s>        scan time 10;
-</span></span></span><span class=line><span class=cl><span class=s>}
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>protocol static {
-</span></span></span><span class=line><span class=cl><span class=s>}
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>protocol static static_bgp {
-</span></span></span><span class=line><span class=cl><span class=s>        import all;
-</span></span></span><span class=line><span class=cl><span class=s>        route 10.13.13.1/32 reject;
-</span></span></span><span class=line><span class=cl><span class=s>}
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>protocol bgp {
-</span></span></span><span class=line><span class=cl><span class=s>        local as 65500;
-</span></span></span><span class=line><span class=cl><span class=s>        neighbor 10.12.12.254 as 65500;
-</span></span></span><span class=line><span class=cl><span class=s>        import none;
-</span></span></span><span class=line><span class=cl><span class=s>        export where proto: &#34;static_bgp&#34;;
-</span></span></span><span class=line><span class=cl><span class=s>}
-</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
-</span></span></code></pre></div><ul><li>Start bird.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lb1$ sudo service bird start
-</span></span><span class=line><span class=cl>lb1$ sudo service bird status
-</span></span><span class=line><span class=cl>_ bird.service - BIRD Internet Routing Daemon <span class=o>(</span>IPv4<span class=o>)</span>
-</span></span><span class=line><span class=cl>   Loaded: loaded <span class=o>(</span>/lib/systemd/system/bird.service<span class=p>;</span> disabled<span class=p>;</span> vendor preset: enabled<span class=o>)</span>
-</span></span><span class=line><span class=cl>   Active: inactive <span class=o>(</span>dead<span class=o>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>Feb <span class=m>07</span> 08:11:13 lb2 systemd<span class=o>[</span>1<span class=o>]</span>: Starting BIRD Internet Routing Daemon <span class=o>(</span>IPv4<span class=o>)</span>...
-</span></span><span class=line><span class=cl>Feb <span class=m>07</span> 08:11:13 lb2 systemd<span class=o>[</span>1<span class=o>]</span>: Started BIRD Internet Routing Daemon <span class=o>(</span>IPv4<span class=o>)</span>.
-</span></span><span class=line><span class=cl>Feb <span class=m>07</span> 08:11:13 lb2 bird<span class=o>[</span>884<span class=o>]</span>: Chosen router ID 10.12.12.2 according to interface ens3
-</span></span><span class=line><span class=cl>Feb <span class=m>07</span> 08:11:13 lb2 bird<span class=o>[</span>884<span class=o>]</span>: Started
-</span></span></code></pre></div><h4 id=-configure-exabgp>. Configure ExaBGP</h4><ul><li>Instead of Bird, we can also use <a href=https://github.com/Exa-Networks/exabgp>ExaBGP</a>. ExaBGP provides a convenient way to implement Software Defined Networking by transforming BGP messages into friendly plain text or JSON, which can then be easily handled by simple scripts or your BSS/OSS.</li><li>Install ExaBGP</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lb1$ sudo apt install python3-pip python3-dev -y
-</span></span><span class=line><span class=cl>lb1$ sudo pip3 install exabgp
-</span></span><span class=line><span class=cl>lb1$ exabgp --run healthcheck --help
-</span></span></code></pre></div><ul><li>Create <code>exabgp</code> user and group.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lb1$ sudo useradd exabgp
-</span></span></code></pre></div><ul><li>Configure ExaBGP</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lb1$ sudo cat <span class=s>&lt;&lt;EOF &gt; /etc/exabgp/exabgp.conf
-</span></span></span><span class=line><span class=cl><span class=s>neighbor 10.12.12.254 {  # Remote neighbor to peer with
-</span></span></span><span class=line><span class=cl><span class=s>    router-id 10.12.12.1; # Local router-id, change to 10.12.12.2 on lb2
-</span></span></span><span class=line><span class=cl><span class=s>    local-address 10.12.12.1; # Local update-router, change to 10.12.12.2 on lb2
-</span></span></span><span class=line><span class=cl><span class=s>    local-as 65500; # Local AS
-</span></span></span><span class=line><span class=cl><span class=s>    peer-as 65500; # Peer AS
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>    family {
-</span></span></span><span class=line><span class=cl><span class=s>        ipv4 unicast;
-</span></span></span><span class=line><span class=cl><span class=s>    }
-</span></span></span><span class=line><span class=cl><span class=s>}
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>process watch-nginx {
-</span></span></span><span class=line><span class=cl><span class=s>    run python3 -m exabgp healthcheck --cmd &#34;curl -sf http://10.13.13.1&#34; --label nginx --ip 10.13.13.1/32;
-</span></span></span><span class=line><span class=cl><span class=s>    encoder json;
-</span></span></span><span class=line><span class=cl><span class=s>}
-</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
-</span></span></code></pre></div><ul><li>Configure ExaBGP service</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lb1$ sudo cat <span class=s>&lt;&lt;EOF &gt; /lib/systemd/system/exabgp.service
-</span></span></span><span class=line><span class=cl><span class=s>[Unit]
-</span></span></span><span class=line><span class=cl><span class=s>Description=ExaBGP
-</span></span></span><span class=line><span class=cl><span class=s>Documentation=man:exabgp(1)
-</span></span></span><span class=line><span class=cl><span class=s>Documentation=man:exabgp.conf(5)
-</span></span></span><span class=line><span class=cl><span class=s>Documentation=https://github.com/Exa-Networks/exabgp/wiki
-</span></span></span><span class=line><span class=cl><span class=s>After=network.target
-</span></span></span><span class=line><span class=cl><span class=s>ConditionPathExists=/etc/exabgp/exabgp.conf
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>[Service]
-</span></span></span><span class=line><span class=cl><span class=s>User=exabgp
-</span></span></span><span class=line><span class=cl><span class=s>Group=exabgp
-</span></span></span><span class=line><span class=cl><span class=s>Environment=exabgp_daemon_daemonize=false
-</span></span></span><span class=line><span class=cl><span class=s>RuntimeDirectory=exabgp
-</span></span></span><span class=line><span class=cl><span class=s>RuntimeDirectoryMode=0750
-</span></span></span><span class=line><span class=cl><span class=s>ExecStart=/usr/local/bin/exabgp /etc/exabgp/exabgp.conf
-</span></span></span><span class=line><span class=cl><span class=s>ExecReload=/bin/kill -USR1 $MAINPID
-</span></span></span><span class=line><span class=cl><span class=s>Restart=always
-</span></span></span><span class=line><span class=cl><span class=s>CapabilityBoundingSet=CAP_NET_ADMIN
-</span></span></span><span class=line><span class=cl><span class=s>AmbientCapabilities=CAP_NET_ADMIN
-</span></span></span><span class=line><span class=cl><span class=s>
-</span></span></span><span class=line><span class=cl><span class=s>[Install]
-</span></span></span><span class=line><span class=cl><span class=s>WantedBy=multi-user.target
-</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>lb1$ sudo service exabgp start
-</span></span><span class=line><span class=cl>lb1$ sudo service exabgp status
-</span></span></code></pre></div><h2 id=validate>Validate</h2><p>To make sure everything works as expected.</p><h3 id=scenario-1-both-servers-are-ok>Scenario 1: Both servers are OK</h3><ul><li>Client check.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>client$ curl http://10.13.13.1/hostname
-</span></span><span class=line><span class=cl>lb1
-</span></span></code></pre></div><ul><li></li><li><p>Change client ip. The load balancing works!</p></li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Set client&#39;s ip to 10.0.0.1</span>
-</span></span><span class=line><span class=cl>client$ ip a
-</span></span><span class=line><span class=cl>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class=m>65536</span> qdisc noqueue state UNKNOWN group default qlen <span class=m>1000</span>
-</span></span><span class=line><span class=cl>    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-</span></span><span class=line><span class=cl>    inet 127.0.0.1/8 scope host lo
-</span></span><span class=line><span class=cl>       valid_lft forever preferred_lft forever
-</span></span><span class=line><span class=cl>    inet6 ::1/128 scope host
-</span></span><span class=line><span class=cl>       valid_lft forever preferred_lft forever
-</span></span><span class=line><span class=cl>2: ens3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class=m>1500</span> qdisc fq_codel state UP group default qlen <span class=m>1000</span>
-</span></span><span class=line><span class=cl>    link/ether 00:50:00:00:05:00 brd ff:ff:ff:ff:ff:ff
-</span></span><span class=line><span class=cl>    inet 10.0.0.1/24 brd 10.0.0.255 scope global ens3
-</span></span><span class=line><span class=cl>       valid_lft forever preferred_lft forever
-</span></span><span class=line><span class=cl>    inet6 fe80::250:ff:fe00:500/64 scope link
-</span></span><span class=line><span class=cl>       valid_lft forever preferred_lft forever
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>client$ curl http://10.13.13.1/hostname
-</span></span><span class=line><span class=cl>lb1
-</span></span></code></pre></div><ul><li>Change client&rsquo;s ip address to <code>10.0.0.100</code> and send another request. You can the request was sent to <code>lb2</code> instead <code>lb1</code>.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>client$ curl http://10.13.13.1/hostname
-</span></span><span class=line><span class=cl>lb2
-</span></span></code></pre></div><ul><li>Check EdgeRouter.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>FortiGate-VM64-KVM # get router info routing-table all
-</span></span><span class=line><span class=cl>Codes: K - kernel, C - connected, S - static, R - RIP, B - BGP
-</span></span><span class=line><span class=cl>       O - OSPF, IA - OSPF inter area
-</span></span><span class=line><span class=cl>       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
-</span></span><span class=line><span class=cl>       E1 - OSPF external type 1, E2 - OSPF external type 2
-</span></span><span class=line><span class=cl>       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
-</span></span><span class=line><span class=cl>       * - candidate default
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>Routing table for VRF=0
-</span></span><span class=line><span class=cl>B*      0.0.0.0/0 [20/0] via 172.16.42.2 (recursive is directly connected, port1), 01:01:52
-</span></span><span class=line><span class=cl>C       10.12.12.0/24 is directly connected, port2
-</span></span><span class=line><span class=cl>B       10.13.13.1/32 [200/100] via 10.12.12.1 (recursive is directly connected, port2), 01:04:33
-</span></span><span class=line><span class=cl>                      [200/100] via 10.12.12.2 (recursive is directly connected, port2), 01:04:33
-</span></span><span class=line><span class=cl>C       172.16.42.2/31 is directly connected, port1
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>FortiGate-VM64-KVM # get router info bgp network
-</span></span><span class=line><span class=cl>VRF 0 BGP table version is 3, local router ID is 172.16.42.3
-</span></span><span class=line><span class=cl>Status codes: s suppressed, d damped, h history, * valid, &gt; best, i - internal,
-</span></span><span class=line><span class=cl>              S Stale
-</span></span><span class=line><span class=cl>Origin codes: i - IGP, e - EGP, ? - incomplete
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>   Network          Next Hop            Metric LocPrf Weight RouteTag Path
-</span></span><span class=line><span class=cl>*&gt; 0.0.0.0/0        172.16.42.2              0             0        0 65000 i &lt;-/1&gt;
-</span></span><span class=line><span class=cl>*&gt;i10.13.13.1/32    10.12.12.2             100    100      0        0 i &lt;-/2&gt;
-</span></span><span class=line><span class=cl>*&gt;i                 10.12.12.1             100    100      0        0 i &lt;-/1&gt;
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>Total number of prefixes 2
-</span></span></code></pre></div><ul><li>Check ISPRouter</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>FortiGate-VM64-KVM # get router info routing-table all
-</span></span><span class=line><span class=cl>Codes: K - kernel, C - connected, S - static, R - RIP, B - BGP
-</span></span><span class=line><span class=cl>       O - OSPF, IA - OSPF inter area
-</span></span><span class=line><span class=cl>       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
-</span></span><span class=line><span class=cl>       E1 - OSPF external type 1, E2 - OSPF external type 2
-</span></span><span class=line><span class=cl>       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
-</span></span><span class=line><span class=cl>       * - candidate default
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>Routing table for VRF=0
-</span></span><span class=line><span class=cl>C       10.0.0.0/24 is directly connected, port2
-</span></span><span class=line><span class=cl>B       10.13.13.1/32 [20/0] via 172.16.42.3 (recursive is directly connected, port3), 01:06:48
-</span></span><span class=line><span class=cl>C       172.16.42.2/31 is directly connected, port3
-</span></span><span class=line><span class=cl>C       192.168.22.0/24 is directly connected, port1
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>FortiGate-VM64-KVM # get router info bgp network
-</span></span><span class=line><span class=cl>VRF 0 BGP table version is 1, local router ID is 172.16.42.2
-</span></span><span class=line><span class=cl>Status codes: s suppressed, d damped, h history, * valid, &gt; best, i - internal,
-</span></span><span class=line><span class=cl>              S Stale
-</span></span><span class=line><span class=cl>Origin codes: i - IGP, e - EGP, ? - incomplete
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>   Network          Next Hop            Metric LocPrf Weight RouteTag Path
-</span></span><span class=line><span class=cl>*&gt; 10.13.13.1/32    172.16.42.3              0             0        0 65500 i &lt;-/1&gt;
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>Total number of prefixes 1
-</span></span></code></pre></div><h3 id=scenario-2-one-lb-is-down>Scenario 2: One lb is down</h3><ul><li>Stop nginx on lb2 (ExaBGP only, Bird may require the complete shutdown) or stop lb2 physically.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>lb2$ sudo service nginx stop
-</span></span><span class=line><span class=cl>lb2$ sudo journalctl -fu exabgp
-</span></span><span class=line><span class=cl>-- Logs begin at Thu 2022-01-27 12:07:29 UTC. --
-</span></span><span class=line><span class=cl>Feb <span class=m>07</span> 11:12:11 lb2 healthcheck<span class=o>[</span>13584<span class=o>]</span>: send announces <span class=k>for</span> DOWN state to ExaBGP
-</span></span><span class=line><span class=cl>Feb <span class=m>07</span> 11:12:11 lb2 exabgp<span class=o>[</span>13562<span class=o>]</span>: api             route added to neighbor 10.12.12.254 local-ip 10.12.12.2 local-as <span class=m>65500</span> peer-as <span class=m>65500</span> router-id 10.12.12.254 family-allowed in-open : 10.13.13.1/32 next-hop self med <span class=m>1000</span>
-</span></span></code></pre></div><ul><li>Check client</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>client$ curl 10.13.13.1/hostname
-</span></span><span class=line><span class=cl>lb1
-</span></span></code></pre></div><ul><li>Check EdgeRouter, you may notice that the metric of 10.12.12.2 hop became 1000.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>FortiGate-VM64-KVM <span class=c1># get router info bgp network</span>
-</span></span><span class=line><span class=cl>VRF <span class=m>0</span> BGP table version is 4, <span class=nb>local</span> router ID is 172.16.42.3
-</span></span><span class=line><span class=cl>Status codes: s suppressed, d damped, h history, * valid, &gt; best, i - internal,
-</span></span><span class=line><span class=cl>              S Stale
-</span></span><span class=line><span class=cl>Origin codes: i - IGP, e - EGP, ? - incomplete
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>   Network          Next Hop            Metric LocPrf Weight RouteTag Path
-</span></span><span class=line><span class=cl>*&gt; 0.0.0.0/0        172.16.42.2              <span class=m>0</span>             <span class=m>0</span>        <span class=m>0</span> <span class=m>65000</span> i &lt;-/1&gt;
-</span></span><span class=line><span class=cl>* i10.13.13.1/32    10.12.12.2            <span class=m>1000</span>    <span class=m>100</span>      <span class=m>0</span>        <span class=m>0</span> i &lt;-/-&gt;
-</span></span><span class=line><span class=cl>*&gt;i                 10.12.12.1             <span class=m>100</span>    <span class=m>100</span>      <span class=m>0</span>        <span class=m>0</span> i &lt;-/1&gt;
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>Total number of prefixes <span class=m>2</span>
-</span></span></code></pre></div><ul><li>Bring it back, then check client and EdgeRouter.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>FortiGate-VM64-KVM # get router info bgp network
-</span></span><span class=line><span class=cl>VRF 0 BGP table version is 5, local router ID is 172.16.42.3
-</span></span><span class=line><span class=cl>Status codes: s suppressed, d damped, h history, * valid, &gt; best, i - internal,
-</span></span><span class=line><span class=cl>              S Stale
-</span></span><span class=line><span class=cl>Origin codes: i - IGP, e - EGP, ? - incomplete
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>   Network          Next Hop            Metric LocPrf Weight RouteTag Path
-</span></span><span class=line><span class=cl>*&gt; 0.0.0.0/0        172.16.42.2              0             0        0 65000 i &lt;-/1&gt;
-</span></span><span class=line><span class=cl>*&gt;i10.13.13.1/32    10.12.12.2             100    100      0        0 i &lt;-/2&gt;
-</span></span><span class=line><span class=cl>*&gt;i                 10.12.12.1             100    100      0        0 i &lt;-/1&gt;
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>Total number of prefixes 2
-</span></span></code></pre></div><ul><li>Check client again.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>client$ curl 10.13.13.1/hostname
-</span></span><span class=line><span class=cl>lb2
+/</li><li class=current><a href=/posts/bgp-ecmp-load-balancing/>Bgp Ecmp Load Balancing</a></li></ol></nav></header></header><main><h1>Bgp Ecmp Load Balancing</h1><div class=terms-list><ul><li><a href=/tags/tech/>#Tech</a></li><li><a href=/tags/network/>#Network</a></li><li><a href=/tags/bgp/>#Bgp</a></li><li><a href=/tags/ecmp/>#Ecmp</a></li></ul></div><nav class=toc><strong>Table of contents</strong><div class=toc-content><nav id=TableOfContents><ol><li><a href=#introduction>Introduction</a></li><li><a href=#lab-overview>Lab overview</a></li><li><a href=#configure>Configure</a><ol><li><a href=#isprouter>ISPRouter</a></li><li><a href=#edgerouter>EdgeRouter</a></li><li><a href=#switch>Switch</a></li><li><a href=#servers>Servers</a><ol><li><a href=#-configure-bird>. Configure Bird</a></li><li><a href=#-configure-exabgp>. Configure ExaBGP</a></li></ol></li></ol></li><li><a href=#validate>Validate</a><ol><li><a href=#scenario-1-both-servers-are-ok>Scenario 1: Both servers are OK</a></li><li><a href=#scenario-2-one-lb-is-down>Scenario 2: One lb is down</a></li></ol></li></ol></nav></div></nav><h2 id=introduction>Introduction</h2><p>We will build a Load balancer with <a href=https://en.wikipedia.org/wiki/Border_Gateway_Protocol>BGP</a> and <a href=https://en.wikipedia.org/wiki/Equal-cost_multi-path_routing>Equal-Cost Multipath routing (ECMP)</a> using both <a href=https://bird.network.cz/>Bird</a> and <a href=https://github.com/Exa-Networks/exabgp>ExaBGP</a>.</p><p>References:</p><ul><li><a href=https://gist.github.com/bufadu/0c3ba661c141a2176cd048f65430ae8d>How to build a load balancer with BGP and ECMP using VyOS</a></li><li><a href=https://vincent.bernat.ch/en/blog/2018-multi-tier-loadbalancer#first-tier-ecmp-routing>Multi-tier load balancer</a></li><li><a href=https://blog.cloudflare.com/cloudflares-architecture-eliminating-single-p/>Load balancing without Load balancers</a></li></ul><h2 id=lab-overview>Lab overview</h2><ul><li><a href=https://www.eve-ng.net/>EVE-NG</a> version 2.0.3-112</li><li>QEMU version 2.4.0</li></ul><figure class=figure><img src=/photos/bgp-ecmp-load-balancing/ecmp-bgp.png></figure><ul><li><code>AS 65000</code>: internet service provider. In this post, we will build a BGP session between EdgeRouter and ISP router.</li><li><code>ISPRouter</code> and <code>EdgeRouter</code> are <a href=https://docs.fortinet.com/document/fortigate/7.0.3>Fortinet Fortigate v7.0.3</a> instances. You can use other routers as well.</li><li><code>Switch</code> is a Cisco switch.</li><li><code>client</code>, <code>lb1</code>, and <code>lb2</code> are Ubuntu server 18.04 instances. <code>lb1</code> and <code>lb2</code> will be in the <code>10.12.12.0/24</code> private LAN, we will install nginx (LB L7) on these. Both servers will announce the same public IP (10.13.13.1) to <code>EdgeRouter</code> using BGP. Incoming traffic from internet to this public IP will be routed to <code>lb1</code> or <code>lb2</code> depending of a hash.</li><li>You need to download and install device virtual images. Follow <a href=https://www.eve-ng.net/index.php/documentation/howtos/howto-add-fortinet-images/>EVE-NG guide</a>.</li></ul><h2 id=configure>Configure</h2><h3 id=isprouter>ISPRouter</h3><p>Follow the <a href=https://docs.fortinet.com/document/fortigate/7.0.3>Fortigate document</a> for the basic commands.</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#888;font-style:italic># interfaces configurations</span>
+</span></span><span style=display:flex><span>config system interface
+</span></span><span style=display:flex><span>    edit <span style=color:#666;font-style:italic>&#34;port1&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> mode static
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> ip 192.168.22.226 255.255.255.0
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> allowaccess ping https ssh http telnet
+</span></span><span style=display:flex><span>    next
+</span></span><span style=display:flex><span>    edit <span style=color:#666;font-style:italic>&#34;port2&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> mode static
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> ip 10.0.0.254 255.255.255.0
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> allowaccess ping https ssh http telnet
+</span></span><span style=display:flex><span>    next
+</span></span><span style=display:flex><span>    edit <span style=color:#666;font-style:italic>&#34;port3&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> mode static
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> ip 172.16.42.2 255.255.255.254
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> allowaccess ping https ssh http telnet
+</span></span><span style=display:flex><span>    next
+</span></span><span style=display:flex><span>end
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Simple BGP configuration</span>
+</span></span><span style=display:flex><span>config router bgp
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>set</span> as 65000
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>set</span> router-id 172.16.42.2
+</span></span><span style=display:flex><span>    config neighbor
+</span></span><span style=display:flex><span>        edit <span style=color:#666;font-style:italic>&#34;172.16.42.3&#34;</span>
+</span></span><span style=display:flex><span>            <span style=font-weight:700;font-style:italic>set</span> capability-default-originate <span style=font-weight:700;font-style:italic>enable</span>
+</span></span><span style=display:flex><span>            <span style=font-weight:700;font-style:italic>set</span> remote-as 65500
+</span></span><span style=display:flex><span>            <span style=font-weight:700;font-style:italic>set</span> update-source <span style=color:#666;font-style:italic>&#34;port3&#34;</span>
+</span></span><span style=display:flex><span>        next
+</span></span><span style=display:flex><span>    end
+</span></span><span style=display:flex><span>end
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Firewall policy (simple allow all)</span>
+</span></span><span style=display:flex><span>config firewall policy
+</span></span><span style=display:flex><span>    edit 1
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> name <span style=color:#666;font-style:italic>&#34;allow&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> srcintf <span style=color:#666;font-style:italic>&#34;any&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> dstintf <span style=color:#666;font-style:italic>&#34;any&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> action accept
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> srcaddr <span style=color:#666;font-style:italic>&#34;all&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> dstaddr <span style=color:#666;font-style:italic>&#34;all&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> schedule <span style=color:#666;font-style:italic>&#34;always&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> service <span style=color:#666;font-style:italic>&#34;ALL&#34;</span>
+</span></span><span style=display:flex><span>    next
+</span></span><span style=display:flex><span>end
+</span></span></code></pre></div><h3 id=edgerouter>EdgeRouter</h3><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>config system interface
+</span></span><span style=display:flex><span>    edit <span style=color:#666;font-style:italic>&#34;port1&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> vdom <span style=color:#666;font-style:italic>&#34;root&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> ip 172.16.42.3 255.255.255.254
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> allowaccess ping https ssh snmp http telnet
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> <span style=font-weight:700;font-style:italic>type</span> physical
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> snmp-index 1
+</span></span><span style=display:flex><span>    next
+</span></span><span style=display:flex><span>    edit <span style=color:#666;font-style:italic>&#34;port2&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> vdom <span style=color:#666;font-style:italic>&#34;root&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> ip 10.12.12.254 255.255.255.0
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> allowaccess ping https ssh snmp http telnet
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> <span style=font-weight:700;font-style:italic>type</span> physical
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> snmp-index 2
+</span></span><span style=display:flex><span>    next
+</span></span><span style=display:flex><span>end
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># BGP config</span>
+</span></span><span style=display:flex><span>config router bgp
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>set</span> as 65500
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>set</span> router-id 172.16.42.3
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>set</span> ibgp-multipath <span style=font-weight:700;font-style:italic>enable</span>
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>set</span> additional-path <span style=font-weight:700;font-style:italic>enable</span>
+</span></span><span style=display:flex><span>    config neighbor
+</span></span><span style=display:flex><span>        edit <span style=color:#666;font-style:italic>&#34;10.12.12.2&#34;</span>
+</span></span><span style=display:flex><span>            <span style=font-weight:700;font-style:italic>set</span> remote-as 65500
+</span></span><span style=display:flex><span>            <span style=font-weight:700;font-style:italic>set</span> update-source <span style=color:#666;font-style:italic>&#34;port2&#34;</span>
+</span></span><span style=display:flex><span>        next
+</span></span><span style=display:flex><span>        edit <span style=color:#666;font-style:italic>&#34;10.12.12.1&#34;</span>
+</span></span><span style=display:flex><span>            <span style=font-weight:700;font-style:italic>set</span> remote-as 65500
+</span></span><span style=display:flex><span>            <span style=font-weight:700;font-style:italic>set</span> update-source <span style=color:#666;font-style:italic>&#34;port2&#34;</span>
+</span></span><span style=display:flex><span>        next
+</span></span><span style=display:flex><span>        edit <span style=color:#666;font-style:italic>&#34;172.16.42.2&#34;</span>
+</span></span><span style=display:flex><span>            <span style=font-weight:700;font-style:italic>set</span> remote-as 65000
+</span></span><span style=display:flex><span>            <span style=font-weight:700;font-style:italic>set</span> update-source <span style=color:#666;font-style:italic>&#34;port1&#34;</span>
+</span></span><span style=display:flex><span>        next
+</span></span><span style=display:flex><span>    end
+</span></span><span style=display:flex><span>end
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Firewall policy (simple allow all)</span>
+</span></span><span style=display:flex><span>config firewall policy
+</span></span><span style=display:flex><span>    edit 1
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> name <span style=color:#666;font-style:italic>&#34;allow&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> srcintf <span style=color:#666;font-style:italic>&#34;any&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> dstintf <span style=color:#666;font-style:italic>&#34;any&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> action accept
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> srcaddr <span style=color:#666;font-style:italic>&#34;all&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> dstaddr <span style=color:#666;font-style:italic>&#34;all&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> schedule <span style=color:#666;font-style:italic>&#34;always&#34;</span>
+</span></span><span style=display:flex><span>        <span style=font-weight:700;font-style:italic>set</span> service <span style=color:#666;font-style:italic>&#34;ALL&#34;</span>
+</span></span><span style=display:flex><span>    next
+</span></span><span style=display:flex><span>end
+</span></span></code></pre></div><ul><li>You can change <a href=https://docs.fortinet.com/document/fortigate/7.0.3/administration-guide/25967/equal-cost-multi-path>load-balancing algorithms</a>. By default, it is <code>source-ip-based</code>.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>config system settings
+</span></span><span style=display:flex><span>    <span style=font-weight:700;font-style:italic>set</span> v4-ecmp-mode {source-ip-based* | weight-based | usage-based | source-dest-ip-based}
+</span></span><span style=display:flex><span>end
+</span></span></code></pre></div><h3 id=switch>Switch</h3><ul><li>Set up mode access.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>configure terminal
+</span></span><span style=display:flex><span>interface range Ethernet 0/0-2
+</span></span><span style=display:flex><span>switchport mode access
+</span></span><span style=display:flex><span>switchport access  vlan 2
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>exit</span>
+</span></span><span style=display:flex><span>copy running-config start-config
+</span></span></code></pre></div><h3 id=servers>Servers</h3><ul><li>Configure <code>10.13.13.1</code> on the local loopback interface.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>lb1$ sudo cat <span style=color:#666;font-style:italic>&lt;&lt;EOF &gt; /etc/netplan/00-installer-config.yaml
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>network:
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>  ethernets:
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    lo:
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>      addresses:
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>      - 10.13.13.1/24
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    ens3:
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>      addresses:
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>      - 10.12.12.1/24 # change to 10.12.12.2 on lb2
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>      gateway4: 10.12.12.254
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>  version: 2
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>EOF</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>lb1$ sudo netplan apply
+</span></span></code></pre></div><ul><li>Install nginx.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>lb1$ sudo apt install nginx -y
+</span></span></code></pre></div><ul><li>Configure nginx:</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>lb1$ sudo cat <span style=color:#666;font-style:italic>&lt;&lt;EOF &gt; /etc/nginx/sites-enabled/default
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>server {
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        listen 80 default_server;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        listen [::]:80 default_server;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        root /var/www/html;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>}
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>EOF</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># In lb1</span>
+</span></span><span style=display:flex><span>lb1$ <span style=font-weight:700;font-style:italic>echo</span> lb1 &gt; /var/www/html/hostname
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># In lb2</span>
+</span></span><span style=display:flex><span>lb2$ <span style=font-weight:700;font-style:italic>echo</span> lb2 &gt; /var/www/html/hostname
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>lb1$ sudo service nginx start
+</span></span></code></pre></div><p>Choose one of the follow configurations (Bird or ExaBGP).</p><h4 id=-configure-bird>. Configure Bird</h4><ul><li>We will use <a href=https://github.com/CZ-NIC/bird>Bird</a>.</li><li>Install bird</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>lb1$ sudo apt install  bird -y
+</span></span></code></pre></div><ul><li>Configure bird.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>lb1$ sudo cat <span style=color:#666;font-style:italic>&lt;&lt;EOF &gt; /etc/bird.conf
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>protocol kernel {
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        persist;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        scan time 20;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        export all;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>}
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>protocol device {
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        scan time 10;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>}
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>protocol static {
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>}
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>protocol static static_bgp {
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        import all;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        route 10.13.13.1/32 reject;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>}
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>protocol bgp {
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        local as 65500;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        neighbor 10.12.12.254 as 65500;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        import none;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        export where proto: &#34;static_bgp&#34;;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>}
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>EOF</span>
+</span></span></code></pre></div><ul><li>Start bird.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>lb1$ sudo service bird start
+</span></span><span style=display:flex><span>lb1$ sudo service bird status
+</span></span><span style=display:flex><span>_ bird.service - BIRD Internet Routing Daemon (IPv4)
+</span></span><span style=display:flex><span>   Loaded: loaded (/lib/systemd/system/bird.service; disabled; vendor preset: enabled)
+</span></span><span style=display:flex><span>   Active: inactive (dead)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Feb 07 08:11:13 lb2 systemd[1]: Starting BIRD Internet Routing Daemon (IPv4)...
+</span></span><span style=display:flex><span>Feb 07 08:11:13 lb2 systemd[1]: Started BIRD Internet Routing Daemon (IPv4).
+</span></span><span style=display:flex><span>Feb 07 08:11:13 lb2 bird[884]: Chosen router ID 10.12.12.2 according to interface ens3
+</span></span><span style=display:flex><span>Feb 07 08:11:13 lb2 bird[884]: Started
+</span></span></code></pre></div><h4 id=-configure-exabgp>. Configure ExaBGP</h4><ul><li>Instead of Bird, we can also use <a href=https://github.com/Exa-Networks/exabgp>ExaBGP</a>. ExaBGP provides a convenient way to implement Software Defined Networking by transforming BGP messages into friendly plain text or JSON, which can then be easily handled by simple scripts or your BSS/OSS.</li><li>Install ExaBGP</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>lb1$ sudo apt install python3-pip python3-dev -y
+</span></span><span style=display:flex><span>lb1$ sudo pip3 install exabgp
+</span></span><span style=display:flex><span>lb1$ exabgp --run healthcheck --help
+</span></span></code></pre></div><ul><li>Create <code>exabgp</code> user and group.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>lb1$ sudo useradd exabgp
+</span></span></code></pre></div><ul><li>Configure ExaBGP</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>lb1$ sudo cat <span style=color:#666;font-style:italic>&lt;&lt;EOF &gt; /etc/exabgp/exabgp.conf
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>neighbor 10.12.12.254 {  # Remote neighbor to peer with
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    router-id 10.12.12.1; # Local router-id, change to 10.12.12.2 on lb2
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    local-address 10.12.12.1; # Local update-router, change to 10.12.12.2 on lb2
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    local-as 65500; # Local AS
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    peer-as 65500; # Peer AS
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    family {
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>        ipv4 unicast;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    }
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>}
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>process watch-nginx {
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    run python3 -m exabgp healthcheck --cmd &#34;curl -sf http://10.13.13.1&#34; --label nginx --ip 10.13.13.1/32;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    encoder json;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>}
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>EOF</span>
+</span></span></code></pre></div><ul><li>Configure ExaBGP service</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>lb1$ sudo cat <span style=color:#666;font-style:italic>&lt;&lt;EOF &gt; /lib/systemd/system/exabgp.service
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>[Unit]
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>Description=ExaBGP
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>Documentation=man:exabgp(1)
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>Documentation=man:exabgp.conf(5)
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>Documentation=https://github.com/Exa-Networks/exabgp/wiki
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>After=network.target
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>ConditionPathExists=/etc/exabgp/exabgp.conf
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>[Service]
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>User=exabgp
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>Group=exabgp
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>Environment=exabgp_daemon_daemonize=false
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>RuntimeDirectory=exabgp
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>RuntimeDirectoryMode=0750
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>ExecStart=/usr/local/bin/exabgp /etc/exabgp/exabgp.conf
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>ExecReload=/bin/kill -USR1 $MAINPID
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>Restart=always
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>CapabilityBoundingSet=CAP_NET_ADMIN
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>AmbientCapabilities=CAP_NET_ADMIN
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>[Install]
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>WantedBy=multi-user.target
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>EOF</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>lb1$ sudo service exabgp start
+</span></span><span style=display:flex><span>lb1$ sudo service exabgp status
+</span></span></code></pre></div><h2 id=validate>Validate</h2><p>To make sure everything works as expected.</p><h3 id=scenario-1-both-servers-are-ok>Scenario 1: Both servers are OK</h3><ul><li>Client check.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>client$ curl http://10.13.13.1/hostname
+</span></span><span style=display:flex><span>lb1
+</span></span></code></pre></div><ul><li></li><li><p>Change client ip. The load balancing works!</p></li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#888;font-style:italic># Set client&#39;s ip to 10.0.0.1</span>
+</span></span><span style=display:flex><span>client$ ip a
+</span></span><span style=display:flex><span>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+</span></span><span style=display:flex><span>    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+</span></span><span style=display:flex><span>    inet 127.0.0.1/8 scope host lo
+</span></span><span style=display:flex><span>       valid_lft forever preferred_lft forever
+</span></span><span style=display:flex><span>    inet6 ::1/128 scope host
+</span></span><span style=display:flex><span>       valid_lft forever preferred_lft forever
+</span></span><span style=display:flex><span>2: ens3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+</span></span><span style=display:flex><span>    link/ether 00:50:00:00:05:00 brd ff:ff:ff:ff:ff:ff
+</span></span><span style=display:flex><span>    inet 10.0.0.1/24 brd 10.0.0.255 scope global ens3
+</span></span><span style=display:flex><span>       valid_lft forever preferred_lft forever
+</span></span><span style=display:flex><span>    inet6 fe80::250:ff:fe00:500/64 scope link
+</span></span><span style=display:flex><span>       valid_lft forever preferred_lft forever
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>client$ curl http://10.13.13.1/hostname
+</span></span><span style=display:flex><span>lb1
+</span></span></code></pre></div><ul><li>Change client&rsquo;s ip address to <code>10.0.0.100</code> and send another request. You can the request was sent to <code>lb2</code> instead <code>lb1</code>.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>client$ curl http://10.13.13.1/hostname
+</span></span><span style=display:flex><span>lb2
+</span></span></code></pre></div><ul><li>Check EdgeRouter.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>FortiGate-VM64-KVM # get router info routing-table all
+</span></span><span style=display:flex><span>Codes: K - kernel, C - connected, S - static, R - RIP, B - BGP
+</span></span><span style=display:flex><span>       O - OSPF, IA - OSPF inter area
+</span></span><span style=display:flex><span>       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+</span></span><span style=display:flex><span>       E1 - OSPF external type 1, E2 - OSPF external type 2
+</span></span><span style=display:flex><span>       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+</span></span><span style=display:flex><span>       * - candidate default
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Routing table for VRF=0
+</span></span><span style=display:flex><span>B*      0.0.0.0/0 [20/0] via 172.16.42.2 (recursive is directly connected, port1), 01:01:52
+</span></span><span style=display:flex><span>C       10.12.12.0/24 is directly connected, port2
+</span></span><span style=display:flex><span>B       10.13.13.1/32 [200/100] via 10.12.12.1 (recursive is directly connected, port2), 01:04:33
+</span></span><span style=display:flex><span>                      [200/100] via 10.12.12.2 (recursive is directly connected, port2), 01:04:33
+</span></span><span style=display:flex><span>C       172.16.42.2/31 is directly connected, port1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>FortiGate-VM64-KVM # get router info bgp network
+</span></span><span style=display:flex><span>VRF 0 BGP table version is 3, local router ID is 172.16.42.3
+</span></span><span style=display:flex><span>Status codes: s suppressed, d damped, h history, * valid, &gt; best, i - internal,
+</span></span><span style=display:flex><span>              S Stale
+</span></span><span style=display:flex><span>Origin codes: i - IGP, e - EGP, ? - incomplete
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   Network          Next Hop            Metric LocPrf Weight RouteTag Path
+</span></span><span style=display:flex><span>*&gt; 0.0.0.0/0        172.16.42.2              0             0        0 65000 i &lt;-/1&gt;
+</span></span><span style=display:flex><span>*&gt;i10.13.13.1/32    10.12.12.2             100    100      0        0 i &lt;-/2&gt;
+</span></span><span style=display:flex><span>*&gt;i                 10.12.12.1             100    100      0        0 i &lt;-/1&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Total number of prefixes 2
+</span></span></code></pre></div><ul><li>Check ISPRouter</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>FortiGate-VM64-KVM # get router info routing-table all
+</span></span><span style=display:flex><span>Codes: K - kernel, C - connected, S - static, R - RIP, B - BGP
+</span></span><span style=display:flex><span>       O - OSPF, IA - OSPF inter area
+</span></span><span style=display:flex><span>       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+</span></span><span style=display:flex><span>       E1 - OSPF external type 1, E2 - OSPF external type 2
+</span></span><span style=display:flex><span>       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+</span></span><span style=display:flex><span>       * - candidate default
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Routing table for VRF=0
+</span></span><span style=display:flex><span>C       10.0.0.0/24 is directly connected, port2
+</span></span><span style=display:flex><span>B       10.13.13.1/32 [20/0] via 172.16.42.3 (recursive is directly connected, port3), 01:06:48
+</span></span><span style=display:flex><span>C       172.16.42.2/31 is directly connected, port3
+</span></span><span style=display:flex><span>C       192.168.22.0/24 is directly connected, port1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>FortiGate-VM64-KVM # get router info bgp network
+</span></span><span style=display:flex><span>VRF 0 BGP table version is 1, local router ID is 172.16.42.2
+</span></span><span style=display:flex><span>Status codes: s suppressed, d damped, h history, * valid, &gt; best, i - internal,
+</span></span><span style=display:flex><span>              S Stale
+</span></span><span style=display:flex><span>Origin codes: i - IGP, e - EGP, ? - incomplete
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   Network          Next Hop            Metric LocPrf Weight RouteTag Path
+</span></span><span style=display:flex><span>*&gt; 10.13.13.1/32    172.16.42.3              0             0        0 65500 i &lt;-/1&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Total number of prefixes 1
+</span></span></code></pre></div><h3 id=scenario-2-one-lb-is-down>Scenario 2: One lb is down</h3><ul><li>Stop nginx on lb2 (ExaBGP only, Bird may require the complete shutdown) or stop lb2 physically.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>lb2$ sudo service nginx stop
+</span></span><span style=display:flex><span>lb2$ sudo journalctl -fu exabgp
+</span></span><span style=display:flex><span>-- Logs begin at Thu 2022-01-27 12:07:29 UTC. --
+</span></span><span style=display:flex><span>Feb 07 11:12:11 lb2 healthcheck[13584]: send announces <span style=font-weight:700>for</span> DOWN state to ExaBGP
+</span></span><span style=display:flex><span>Feb 07 11:12:11 lb2 exabgp[13562]: api             route added to neighbor 10.12.12.254 local-ip 10.12.12.2 local-as 65500 peer-as 65500 router-id 10.12.12.254 family-allowed in-open : 10.13.13.1/32 next-hop self med 1000
+</span></span></code></pre></div><ul><li>Check client</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>client$ curl 10.13.13.1/hostname
+</span></span><span style=display:flex><span>lb1
+</span></span></code></pre></div><ul><li>Check EdgeRouter, you may notice that the metric of 10.12.12.2 hop became 1000.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>FortiGate-VM64-KVM <span style=color:#888;font-style:italic># get router info bgp network</span>
+</span></span><span style=display:flex><span>VRF 0 BGP table version is 4, <span style=font-weight:700;font-style:italic>local</span> router ID is 172.16.42.3
+</span></span><span style=display:flex><span>Status codes: s suppressed, d damped, h history, * valid, &gt; best, i - internal,
+</span></span><span style=display:flex><span>              S Stale
+</span></span><span style=display:flex><span>Origin codes: i - IGP, e - EGP, ? - incomplete
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   Network          Next Hop            Metric LocPrf Weight RouteTag Path
+</span></span><span style=display:flex><span>*&gt; 0.0.0.0/0        172.16.42.2              0             0        0 65000 i &lt;-/1&gt;
+</span></span><span style=display:flex><span>* i10.13.13.1/32    10.12.12.2            1000    100      0        0 i &lt;-/-&gt;
+</span></span><span style=display:flex><span>*&gt;i                 10.12.12.1             100    100      0        0 i &lt;-/1&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Total number of prefixes 2
+</span></span></code></pre></div><ul><li>Bring it back, then check client and EdgeRouter.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>FortiGate-VM64-KVM # get router info bgp network
+</span></span><span style=display:flex><span>VRF 0 BGP table version is 5, local router ID is 172.16.42.3
+</span></span><span style=display:flex><span>Status codes: s suppressed, d damped, h history, * valid, &gt; best, i - internal,
+</span></span><span style=display:flex><span>              S Stale
+</span></span><span style=display:flex><span>Origin codes: i - IGP, e - EGP, ? - incomplete
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   Network          Next Hop            Metric LocPrf Weight RouteTag Path
+</span></span><span style=display:flex><span>*&gt; 0.0.0.0/0        172.16.42.2              0             0        0 65000 i &lt;-/1&gt;
+</span></span><span style=display:flex><span>*&gt;i10.13.13.1/32    10.12.12.2             100    100      0        0 i &lt;-/2&gt;
+</span></span><span style=display:flex><span>*&gt;i                 10.12.12.1             100    100      0        0 i &lt;-/1&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Total number of prefixes 2
+</span></span></code></pre></div><ul><li>Check client again.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>client$ curl 10.13.13.1/hostname
+</span></span><span style=display:flex><span>lb2
 </span></span></code></pre></div><time datetime=2022-02-07>2022-02-07&nbsp;</time><div class=terminal-nav><div class=back-nav><a href=../ class=back-link>../</a></div></div></main><footer><p>&copy; Copyright 2025 &#183;
 <a href=https://github.com/ntk148v/shibui>shibui</a></p></footer></body></html>

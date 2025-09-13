@@ -1,29 +1,29 @@
 <!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Rename Files in Linux | kiennt26's home</title><link rel=apple-touch-icon sizes=57x57 href=/favicon_io/apple-icon-57x57.png><link rel=apple-touch-icon sizes=60x60 href=/favicon_io/apple-icon-60x60.png><link rel=apple-touch-icon sizes=72x72 href=/favicon_io/apple-icon-72x72.png><link rel=apple-touch-icon sizes=76x76 href=/favicon_io/apple-icon-76x76.png><link rel=apple-touch-icon sizes=114x114 href=/favicon_io/apple-icon-114x114.png><link rel=apple-touch-icon sizes=120x120 href=/favicon_io/apple-icon-120x120.png><link rel=apple-touch-icon sizes=144x144 href=/favicon_io/apple-icon-144x144.png><link rel=apple-touch-icon sizes=152x152 href=/favicon_io/apple-icon-152x152.png><link rel=apple-touch-icon sizes=180x180 href=/favicon_io/apple-icon-180x180.png><link rel=icon type=image/png sizes=192x192 href=/favicon_io/android-icon-192x192.png><link rel=icon type=image/png sizes=32x32 href=/favicon_io/favicon-32x32.png><link rel=icon type=image/png sizes=96x96 href=/favicon_io/favicon-96x96.png><link rel=icon type=image/png sizes=16x16 href=/favicon_io/favicon-16x16.png><link rel=manifest href=/favicon_io/manifest.json><meta name=msapplication-TileColor content="#ffffff"><meta name=msapplication-TileImage content="/favicon_io/ms-icon-144x144.png"><meta name=theme-color content="#ffffff"><link rel=stylesheet href=/css/main.min.38925bdd47aabb0eb892bbce566836b59b62905bd8a5aec203df13887e0ef16f.css integrity="sha256-OJJb3Uequw64krvOVmg2tZtikFvYpa7CA98TiH4O8W8=" crossorigin=anonymous><script src=/js/main.23cd0c7d837263b9eaeb96ee2d9ccfa2969daa3fa00fa1c1fe8701a9b87251a1.js integrity="sha256-I80MfYNyY7nq65buLZzPopadqj+gD6HB/ocBqbhyUaE=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js></script></head><body><header><header><nav class=path-nav><ol><li>/
 <a href=/>kiennt26's home</a>
 /</li><li><a href=/posts/>Posts</a>
-/</li><li class=current><a href=/posts/rename-files-in-linux/>Rename Files in Linux</a></li></ol></nav></header></header><main><h1>Rename Files in Linux</h1><div class=terms-list><ul><li><a href=/tags/linux/>#Linux</a></li><li><a href=/tags/tech/>#Tech</a></li></ul></div><ul><li>Rename a single file with <code>mv</code>. Just a basic thing.</li><li>Rename multiple files with <code>mv</code>.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Rename files with suffix .yaml to yml</span>
-</span></span><span class=line><span class=cl><span class=k>for</span> f in *.yaml<span class=p>;</span> <span class=k>do</span> mv -- <span class=s2>&#34;</span><span class=nv>$f</span><span class=s2>&#34;</span> <span class=s2>&#34;</span><span class=si>${</span><span class=nv>f</span><span class=p>%.yaml</span><span class=si>}</span><span class=s2>.yml&#34;</span> <span class=k>done</span>
-</span></span></code></pre></div><ul><li>Rename multiple files with <code>rename</code>.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Install rename command</span>
-</span></span><span class=line><span class=cl><span class=c1># Ubuntu/Debian-derived distros</span>
-</span></span><span class=line><span class=cl>sudo apt install rename
-</span></span><span class=line><span class=cl><span class=c1># RedHat-derived distros</span>
-</span></span><span class=line><span class=cl>sudo yum install prename
-</span></span><span class=line><span class=cl><span class=c1># The follow examples are performed in Ubuntu/Debian-derived distros</span>
-</span></span><span class=line><span class=cl>rename <span class=s1>&#39;s/.yaml/.yml/&#39;</span> *.yaml
-</span></span><span class=line><span class=cl><span class=c1># Replace all occurrences of &#34;prev_&#34; with &#34;next_&#34;</span>
-</span></span><span class=line><span class=cl>rename <span class=s1>&#39;s/prev_/next_&#39;</span> *.c
-</span></span><span class=line><span class=cl><span class=c1># Delete part of a filename</span>
-</span></span><span class=line><span class=cl>rename <span class=s1>&#39;s/next_//&#39;</span> *.c
-</span></span><span class=line><span class=cl><span class=c1># Limit changes to specific parts of filenames</span>
-</span></span><span class=line><span class=cl><span class=c1># Only change the files that start with &#34;paramater&#34;</span>
-</span></span><span class=line><span class=cl>rename <span class=s1>&#39;s/^param/parameter/&#39;</span> *.c
-</span></span><span class=line><span class=cl><span class=c1># Search with grouping</span>
-</span></span><span class=line><span class=cl><span class=c1># Replace all occurrences of &#34;string&#34; and &#34;strong&#34;</span>
-</span></span><span class=line><span class=cl>rename <span class=s1>&#39;s/(str|stro)ng/strength&#39;</span> *.c
-</span></span><span class=line><span class=cl><span class=c1># Use translations with rename</span>
-</span></span><span class=line><span class=cl><span class=c1># Force filenames to uppercase</span>
-</span></span><span class=line><span class=cl>rename <span class=s1>&#39;y/a-z/A-Z&#39;</span> *.py
-</span></span><span class=line><span class=cl><span class=c1># More?</span>
-</span></span><span class=line><span class=cl>man rename
+/</li><li class=current><a href=/posts/rename-files-in-linux/>Rename Files in Linux</a></li></ol></nav></header></header><main><h1>Rename Files in Linux</h1><div class=terms-list><ul><li><a href=/tags/linux/>#Linux</a></li><li><a href=/tags/tech/>#Tech</a></li></ul></div><ul><li>Rename a single file with <code>mv</code>. Just a basic thing.</li><li>Rename multiple files with <code>mv</code>.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#888;font-style:italic># Rename files with suffix .yaml to yml</span>
+</span></span><span style=display:flex><span><span style=font-weight:700>for</span> f in *.yaml; <span style=font-weight:700>do</span> mv -- <span style=color:#666;font-style:italic>&#34;</span><span style=color:#666;font-weight:700;font-style:italic>$f</span><span style=color:#666;font-style:italic>&#34;</span> <span style=color:#666;font-style:italic>&#34;</span><span style=color:#666;font-style:italic>${</span><span style=color:#666;font-weight:700;font-style:italic>f</span>%.yaml<span style=color:#666;font-style:italic>}</span><span style=color:#666;font-style:italic>.yml&#34;</span> <span style=font-weight:700>done</span>
+</span></span></code></pre></div><ul><li>Rename multiple files with <code>rename</code>.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#888;font-style:italic># Install rename command</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Ubuntu/Debian-derived distros</span>
+</span></span><span style=display:flex><span>sudo apt install rename
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># RedHat-derived distros</span>
+</span></span><span style=display:flex><span>sudo yum install prename
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># The follow examples are performed in Ubuntu/Debian-derived distros</span>
+</span></span><span style=display:flex><span>rename <span style=color:#666;font-style:italic>&#39;s/.yaml/.yml/&#39;</span> *.yaml
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Replace all occurrences of &#34;prev_&#34; with &#34;next_&#34;</span>
+</span></span><span style=display:flex><span>rename <span style=color:#666;font-style:italic>&#39;s/prev_/next_&#39;</span> *.c
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Delete part of a filename</span>
+</span></span><span style=display:flex><span>rename <span style=color:#666;font-style:italic>&#39;s/next_//&#39;</span> *.c
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Limit changes to specific parts of filenames</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Only change the files that start with &#34;paramater&#34;</span>
+</span></span><span style=display:flex><span>rename <span style=color:#666;font-style:italic>&#39;s/^param/parameter/&#39;</span> *.c
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Search with grouping</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Replace all occurrences of &#34;string&#34; and &#34;strong&#34;</span>
+</span></span><span style=display:flex><span>rename <span style=color:#666;font-style:italic>&#39;s/(str|stro)ng/strength&#39;</span> *.c
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Use translations with rename</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Force filenames to uppercase</span>
+</span></span><span style=display:flex><span>rename <span style=color:#666;font-style:italic>&#39;y/a-z/A-Z&#39;</span> *.py
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># More?</span>
+</span></span><span style=display:flex><span>man rename
 </span></span></code></pre></div><time datetime=2021-12-16>2021-12-16&nbsp;</time><div class=terminal-nav><div class=back-nav><a href=../ class=back-link>../</a></div></div></main><footer><p>&copy; Copyright 2025 &#183;
 <a href=https://github.com/ntk148v/shibui>shibui</a></p></footer></body></html>

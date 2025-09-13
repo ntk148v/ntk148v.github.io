@@ -3,25 +3,25 @@
 /</li><li><a href=/posts/>Posts</a>
 /</li><li class=current><a href=/posts/getting-started-tiling-wm-part-1-i3/>Getting Started with Tiling WM [Part 1] - I3</a></li></ol></nav></header></header><main><h1>Getting Started with Tiling WM [Part 1] - I3</h1><div class=terms-list><ul><li><a href=/tags/tiling-wm/>#Tiling-Wm</a></li><li><a href=/tags/linux/>#Linux</a></li><li><a href=/tags/tech/>#Tech</a></li><li><a href=/tags/i3/>#I3</a></li></ul></div><nav class=toc><strong>Table of contents</strong><div class=toc-content><nav id=TableOfContents><ol><li><a href=#overview-window-manager>Overview Window Manager</a><ol><li><a href=#desktop-environment-vs-window-manager>Desktop Environment vs. Window Manager</a></li><li><a href=#types-of-window-manager>Types of Window Manager</a></li></ol></li><li><a href=#overview-i3>Overview I3</a></li><li><a href=#minimal-i3-setup>Minimal I3 setup</a><ol><li><a href=#operating-system>Operating System</a></li><li><a href=#install-i3>Install I3</a></li></ol></li><li><a href=#usage>Usage</a><ol><li><a href=#keybindings>Keybindings</a></li><li><a href=#workspace-container-and-window>Workspace, Container and Window</a></li><li><a href=#application-launcher>Application launcher</a></li></ol></li><li><a href=#configuration>Configuration</a></li><li><a href=#some-tricks-and-tips>Some tricks and tips</a></li><li><a href=#references>References</a></li></ol></nav></div></nav><blockquote><p><strong>Disclaimer</strong></p><p>I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I&rsquo;ve gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.</p></blockquote><h2 id=overview-window-manager>Overview Window Manager</h2><p>First of all, you have to know the basic concepts.</p><h3 id=desktop-environment-vs-window-manager>Desktop Environment vs. Window Manager</h3><p>We&rsquo;ll begin by showing how the Linux graphical desktop is layered. There are basically 3 layers that can be included in the Linux desktop:</p><ul><li><strong>X Window</strong>: All GUIs require an X Window System layer, which draws graphic elements on the display. Without the X server, neither a WM nor a DE could create images on a Linux display. X also creates a framework for moving windows and performing tasks using a mouse and keyboard.</li><li><strong>Window manager</strong>:<ul><li>A WM controls the placement and appearance of screen elements. Popular WMs: i3, awesome, dwm&mldr;</li><li>Requires configuration to get what you want.</li><li>Tends to be flexible and highly customizable.</li><li>Customizes most aspects of a Linux experience.</li><li>For Nerd: not user-friendly out of the box, need to edit configuration files&mldr;</li></ul></li><li><strong>Desktop environment</strong>:<ul><li>A DE requires both X and a WM. It also adds the deeper and seemless integration with applications, panels, system menus, status applets, drag-and-drop functionality,&mldr; The most popular DEs: KDE Plasma, GNOME, Pantheon, Cinnamon,&mldr; Sounds familiar, right?</li><li>Excellent default configurations.</li><li>May not be particularly customizable.</li><li>Gret if you don&rsquo;t want to customize everything.</li></ul></li></ul><div class=mermaid align=center>graph TD;
 A[Desktop Environment] --> B[Window Manager];
-B --> C[X Windows];</div><h3 id=types-of-window-manager>Types of Window Manager</h3><ul><li><strong>Stack window manager</strong>:<ul><li>A stack window manager renders the window one-by-one onto the screen at specific co-orinates. If one window&rsquo;s area overlaps another, then the window &ldquo;on top&rdquo; overwites part of the other&rsquo;s visible appearance. This results in the appearance familiar to many users in which windows act a little like pieces of paper on a desktop, which can be moved around and allowed to overlap.</li><li>Openbox, Fluxbox, Enlightenment&mldr;</li></ul></li><li><strong>Tiling window manager</strong>:<ul><li>A window manager with an organization of the screen into mutually non-overlapping frames (hence the name tiling), as opposed to the traditional approach of coordinate-based stacking of objects (windows) that tries to emulate the desk paradigm.</li><li>Awesome,<strong>i3</strong> (here we go), dwm, bspwm&mldr;</li></ul></li><li><strong>Compositing window manager</strong>:<ul><li>A compositing window manager may appear to the user similar to a stacking window manager. However, the individual windows are first renders in individual buffers, and then theirs images are composited onto the screen buffer; this two-step process means that visual effects (such as shadows, translucency) can be applied.</li><li>Mutter (GNOME), Xfwm (XFCE), Compiz (Unity), KWin (KDE)</li></ul></li></ul><h2 id=overview-i3>Overview I3</h2><ul><li><a href=https://i3wm.org>i3wm</a> is a tiling window manager designed for <a href=https://en.wikipedia.org/wiki/X_Window_System>X11</a>.</li><li>It supports tiling, stacking, and tabbing layouts, which it handles dynamically.</li><li>Configuration is achieved via plain text file.</li><li>Keyboard navigation: Hall full control with keyboard navigation.</li><li>Minimalistic: no window decorations or nonsense icons floating around. But you can fully customize it.</li><li>Window management: is left to the user. Windows are held inside containers, which can be split veritically or horizontally. They can also optionally be resized. There are also options for stacking the windows, as well as tabbing them.</li><li>Floating pop-up windows.</li><li>Want more, check <a href=https://i3wm.org/docs/userguide.html>this</a>.</li></ul><h2 id=minimal-i3-setup>Minimal I3 setup</h2><h3 id=operating-system>Operating System</h3><ul><li>Ubuntu 20.04 (Desktop/Server), download the <a href=https://ubuntu.com/download/>installer</a> and install Ubuntu by walking through installer.</li><li>If you choose Ubuntu Server, you&rsquo;ll need a display server so let&rsquo;s install X Window System (<a href=https://wiki.archlinux.org/index.php/Xorg>Xorg</a>).</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt install xinit
-</span></span><span class=line><span class=cl><span class=c1># The configuration files are stored in /etc/X11/xinit</span>
-</span></span><span class=line><span class=cl><span class=c1># You can override it by creating and modifying ~/.xinitrc</span>
-</span></span></code></pre></div><h3 id=install-i3>Install I3</h3><ul><li>You can install i3 from <a href="https://packages.ubuntu.com/search?keywords=i3">Ubuntu repository</a>. It includes the window manager, a screen locker and two programs which write a status line to i3bar through stdout.</li></ul><blockquote><p>Note that, i3-wm conflicts with <a href=https://github.com/Airblader/i3>i3-gaps</a> (a fork of i3 with gaps and other features).</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt install i3
-</span></span></code></pre></div><ul><li>Or build from source, I have a personal fork - <a href=https://github.com/ntk148v/i3>Rounded i3-gaps</a>.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Dependencies</span>
-</span></span><span class=line><span class=cl>sudo apt install git libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>    libxcb-util0-dev libxcb-icccm4-dev libyajl-dev <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>    libstartup-notification0-dev libxcb-randr0-dev <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>    libev-dev libxcb-cursor-dev libxcb-xinerama0-dev <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>    libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>    autoconf libxcb-xrm0 libxcb-xrm-dev automake i3status <span class=se>\
-</span></span></span><span class=line><span class=cl><span class=se></span>    ninja-build meson libxcb-shape0-dev build-essential -y
-</span></span><span class=line><span class=cl>git clone https://github.com/ntk148v/i3.git
-</span></span><span class=line><span class=cl><span class=nb>cd</span> i3/
-</span></span><span class=line><span class=cl><span class=c1># Compile</span>
-</span></span><span class=line><span class=cl>mkdir -p build <span class=o>&amp;&amp;</span> <span class=nb>cd</span> build
-</span></span><span class=line><span class=cl>meson ..
-</span></span><span class=line><span class=cl>ninja
-</span></span><span class=line><span class=cl>sudo ninja install
+B --> C[X Windows];</div><h3 id=types-of-window-manager>Types of Window Manager</h3><ul><li><strong>Stack window manager</strong>:<ul><li>A stack window manager renders the window one-by-one onto the screen at specific co-orinates. If one window&rsquo;s area overlaps another, then the window &ldquo;on top&rdquo; overwites part of the other&rsquo;s visible appearance. This results in the appearance familiar to many users in which windows act a little like pieces of paper on a desktop, which can be moved around and allowed to overlap.</li><li>Openbox, Fluxbox, Enlightenment&mldr;</li></ul></li><li><strong>Tiling window manager</strong>:<ul><li>A window manager with an organization of the screen into mutually non-overlapping frames (hence the name tiling), as opposed to the traditional approach of coordinate-based stacking of objects (windows) that tries to emulate the desk paradigm.</li><li>Awesome,<strong>i3</strong> (here we go), dwm, bspwm&mldr;</li></ul></li><li><strong>Compositing window manager</strong>:<ul><li>A compositing window manager may appear to the user similar to a stacking window manager. However, the individual windows are first renders in individual buffers, and then theirs images are composited onto the screen buffer; this two-step process means that visual effects (such as shadows, translucency) can be applied.</li><li>Mutter (GNOME), Xfwm (XFCE), Compiz (Unity), KWin (KDE)</li></ul></li></ul><h2 id=overview-i3>Overview I3</h2><ul><li><a href=https://i3wm.org>i3wm</a> is a tiling window manager designed for <a href=https://en.wikipedia.org/wiki/X_Window_System>X11</a>.</li><li>It supports tiling, stacking, and tabbing layouts, which it handles dynamically.</li><li>Configuration is achieved via plain text file.</li><li>Keyboard navigation: Hall full control with keyboard navigation.</li><li>Minimalistic: no window decorations or nonsense icons floating around. But you can fully customize it.</li><li>Window management: is left to the user. Windows are held inside containers, which can be split veritically or horizontally. They can also optionally be resized. There are also options for stacking the windows, as well as tabbing them.</li><li>Floating pop-up windows.</li><li>Want more, check <a href=https://i3wm.org/docs/userguide.html>this</a>.</li></ul><h2 id=minimal-i3-setup>Minimal I3 setup</h2><h3 id=operating-system>Operating System</h3><ul><li>Ubuntu 20.04 (Desktop/Server), download the <a href=https://ubuntu.com/download/>installer</a> and install Ubuntu by walking through installer.</li><li>If you choose Ubuntu Server, you&rsquo;ll need a display server so let&rsquo;s install X Window System (<a href=https://wiki.archlinux.org/index.php/Xorg>Xorg</a>).</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo apt install xinit
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># The configuration files are stored in /etc/X11/xinit</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># You can override it by creating and modifying ~/.xinitrc</span>
+</span></span></code></pre></div><h3 id=install-i3>Install I3</h3><ul><li>You can install i3 from <a href="https://packages.ubuntu.com/search?keywords=i3">Ubuntu repository</a>. It includes the window manager, a screen locker and two programs which write a status line to i3bar through stdout.</li></ul><blockquote><p>Note that, i3-wm conflicts with <a href=https://github.com/Airblader/i3>i3-gaps</a> (a fork of i3 with gaps and other features).</p></blockquote><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo apt install i3
+</span></span></code></pre></div><ul><li>Or build from source, I have a personal fork - <a href=https://github.com/ntk148v/i3>Rounded i3-gaps</a>.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#888;font-style:italic># Dependencies</span>
+</span></span><span style=display:flex><span>sudo apt install git libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev <span style=color:#666;font-style:italic>\
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic></span>    libxcb-util0-dev libxcb-icccm4-dev libyajl-dev <span style=color:#666;font-style:italic>\
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic></span>    libstartup-notification0-dev libxcb-randr0-dev <span style=color:#666;font-style:italic>\
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic></span>    libev-dev libxcb-cursor-dev libxcb-xinerama0-dev <span style=color:#666;font-style:italic>\
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic></span>    libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev <span style=color:#666;font-style:italic>\
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic></span>    autoconf libxcb-xrm0 libxcb-xrm-dev automake i3status <span style=color:#666;font-style:italic>\
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic></span>    ninja-build meson libxcb-shape0-dev build-essential -y
+</span></span><span style=display:flex><span>git clone https://github.com/ntk148v/i3.git
+</span></span><span style=display:flex><span><span style=font-weight:700;font-style:italic>cd</span> i3/
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Compile</span>
+</span></span><span style=display:flex><span>mkdir -p build &amp;&amp; <span style=font-weight:700;font-style:italic>cd</span> build
+</span></span><span style=display:flex><span>meson ..
+</span></span><span style=display:flex><span>ninja
+</span></span><span style=display:flex><span>sudo ninja install
 </span></span></code></pre></div><ul><li><p>Reboot. After reboot, choose i3 as your WM/DE.</p></li><li><p>A prompt will be shown to create a config file, just hit <code>&lt;Enter></code>.</p></li></ul><figure class=figure><img src=/photos/getting-started-tiling-wm-part-1/i3-prompt.png></figure><p><img src=/photos/getting-started-tiling-wm-part-1/i3-prompt.png alt></p><ul><li><p><code>&lt;mod></code> key is <code>Window</code> now. Hit <code>&lt;mod>+Enter</code> to start terminal emulator.</p></li><li><p>We have i3 first setup here with the default configuration. As mentioned before, configuration is achieved via plain text file.</p></li></ul><figure class=figure><img src=/photos/getting-started-tiling-wm-part-1/i3-default-config-file.png></figure><h2 id=usage>Usage</h2><p>This post doesn&rsquo;t aim to cover everything about i3, see the <a href=https://i3wm.org/docs/userguide.html>official documentation</a> for more information.</p><h3 id=keybindings>Keybindings</h3><ul><li>In i3, commands are invoked with a modifier key, referred to as <code>$mod</code>. This is <code>Alt (Mod1)</code> by default, with <code>Super (Mod4)</code> being a popular alternative. Super is the key usually represented on a keyboard as a Windows icon, or on an Apple keyboard as a Command key.</li><li>See <a href=https://i3wm.org/docs/refcard.html>i3 reference card</a> and <a href=https://i3wm.org/docs/userguide.html#_using_i3>Using i3</a> for defaults.</li></ul><figure class=figure><img src=/photos/getting-started-tiling-wm-part-1/i3-refcard.png></figure><h3 id=workspace-container-and-window>Workspace, Container and Window</h3><div class=mermaid align=center>graph TD;
 i3-->Workspace1;
 i3-->Workspace2;
@@ -37,171 +37,171 @@ style Workspace1 fill:#ea9999;
 style Workspace2 fill:#ea9999;
 style Container1 fill:#6fa8dc;
 style Container2 fill:#6fa8dc;
-style Container3 fill:#6fa8dc;</div><ul><li>In i3, <strong>workspace</strong> is simply the equivalent of a <a href=https://en.wikipedia.org/wiki/Virtual_desktop>virtual desktop</a>. You can have as many workspaces as you want.</li><li>i3 manages windows in a tree structure, with <strong>containers</strong> as building blocks.</li><li>A container contains one or multiple <strong>windows</strong>. Its windows will be positioned depending on the container&rsquo;s layout.</li><li>There are 3 different layouts possible:<ul><li><strong>Split</strong>: Each window share the container space and are split horizontally (<em>splith</em>) or vertically (<em>splitv</em>). This is the default layout.</li><li><strong>Stacked</strong> - The focused window is visible and the other ones are stacked behind. You can change the window’s focus via keystrokes easily. You have access to the list of windows open too, at the top of the container itself.</li><li><strong>Tabbed</strong> - This layout is similar as the stacked layout, except that the windows’ list is vertically split, and not horizontally.</li></ul></li><li>A window, where an application is running, can be created in a container. It will automatically position itself and be in focus, depending on the container’s layout. You can move them around or even change the layout of the container using keystrokes.</li><li>There are two different sorts of windows: <strong>fixed window</strong>s (by default) and <strong>floating windows</strong>.</li></ul><h3 id=application-launcher>Application launcher</h3><ul><li>i3 uses <a href=https://wiki.archlinux.org/title/Dmenu>dmenu</a> as an application launcher, which is bound by default to <code>$mod+d</code>.</li><li><a href=https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/>rofi</a> is a popular dmenu replacement and more that can list dekstop entries.</li></ul><h2 id=configuration>Configuration</h2><ul><li>You can use my minimal configuration. It requires some extra packages.</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt install hsetroot rofi compton -y
-</span></span></code></pre></div><details open title="Minimal I3 configuration"><summary>Details</summary><h2 id=cheat-sheat-shortcut>Cheat sheat shortcut</h2><table><thead><tr><th>Shortcut</th><th>Description</th></tr></thead><tbody><tr><td><kbd>$mod</kbd> + <kbd>Enter</kbd></td><td>Open a terminal</td></tr><tr><td><kbd>$mod</kbd> + <kbd>d</kbd></td><td>Open application launcher</td></tr><tr><td><kbd>$mod</kbd> + <kbd>c</kbd></td><td>Kill focused window</td></tr><tr><td><kbd>$mod</kbd> + <kbd>right/left/up/down</kbd></td><td>Change focus</td></tr><tr><td><kbd>$mod</kbd> + <kbd>Shift</kbd> + <kbd>right/left/up/down</kbd></td><td>Move focused window in direction</td></tr><tr><td><kbd>$mod</kbd> + <kbd>1/2/3&mldr;</kbd></td><td>Switch workspace</td></tr><tr><td><kbd>$mod</kbd> + <kbd>Shift</kbd> + <kbd>1/2/3&mldr;</kbd></td><td>Move focused window to the specified workspace</td></tr><tr><td><kbd>$mod</kbd> + <kbd>space</kbd></td><td>Change between focus and floating mode</td></tr><tr><td><kbd>$mod</kbd> + <kbd>Shift</kbd> + <kbd>r</kbd></td><td>Restart i3</td></tr><tr><td><kbd>$mod</kbd> + <kbd>Shift</kbd> + <kbd>c</kbd></td><td>Reload config i3</td></tr><tr><td><kbd>$mod</kbd> + <kbd>q</kbd></td><td>Quit i3</td></tr></tbody></table><h2 id=minimal-configuration-file>Minimal configuration file</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=c1># i3 config file</span>
-</span></span><span class=line><span class=cl><span class=c1># Please see https://i3wm.org/docs/userguide.html for a complete reference!</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Set modifier</span>
-</span></span><span class=line><span class=cl><span class=n>set</span> <span class=o>$</span><span class=n>mod</span> <span class=n>Mod4</span>
-</span></span><span class=line><span class=cl><span class=n>set</span> <span class=o>$</span><span class=n>alt</span> <span class=n>Mod1</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=n>default_orientation</span> <span class=n>auto</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Font for window titles.</span>
-</span></span><span class=line><span class=cl><span class=n>font</span> <span class=n>pango</span><span class=p>:</span><span class=n>DejaVu</span> <span class=n>Sans</span> <span class=n>Mono</span> <span class=mi>0</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Use Mouse+$mod to drag floating windows to their wanted position</span>
-</span></span><span class=line><span class=cl><span class=n>floating_modifier</span> <span class=o>$</span><span class=n>mod</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Here is the trick to disable titlebar completely</span>
-</span></span><span class=line><span class=cl><span class=n>for_window</span> <span class=p>[</span><span class=k>class</span><span class=o>=</span><span class=s2>&#34;^.*&#34;</span><span class=p>]</span> <span class=n>border</span> <span class=n>pixel</span> <span class=mi>0</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Autostart</span>
-</span></span><span class=line><span class=cl><span class=n>exec</span> <span class=o>--</span><span class=n>no</span><span class=o>-</span><span class=n>startup</span><span class=o>-</span><span class=n>id</span> <span class=n>hsetroot</span> <span class=o>-</span><span class=n>solid</span> <span class=s2>&#34;#F1CCBB&#34;</span>
-</span></span><span class=line><span class=cl><span class=n>exec</span> <span class=o>--</span><span class=n>no</span><span class=o>-</span><span class=n>startup</span><span class=o>-</span><span class=n>id</span> <span class=n>xsettingsd</span> <span class=o>&amp;</span>
-</span></span><span class=line><span class=cl><span class=n>exec</span> <span class=o>--</span><span class=n>no</span><span class=o>-</span><span class=n>startup</span><span class=o>-</span><span class=n>id</span> <span class=n>compton</span> <span class=o>-</span><span class=n>b</span>
-</span></span><span class=line><span class=cl><span class=n>exec</span> <span class=o>--</span><span class=n>no</span><span class=o>-</span><span class=n>startup</span><span class=o>-</span><span class=n>id</span> <span class=n>xss</span><span class=o>-</span><span class=n>lock</span> <span class=o>--</span><span class=n>transfer</span><span class=o>-</span><span class=n>sleep</span><span class=o>-</span><span class=n>lock</span> <span class=o>--</span> <span class=n>i3lock</span> <span class=o>--</span><span class=n>nofork</span>
-</span></span><span class=line><span class=cl><span class=n>exec</span> <span class=o>--</span><span class=n>no</span><span class=o>-</span><span class=n>startup</span><span class=o>-</span><span class=n>id</span> <span class=n>nm</span><span class=o>-</span><span class=n>applet</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Keybindings</span>
-</span></span><span class=line><span class=cl><span class=c1># start a terminal</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Return</span> <span class=n>exec</span> <span class=n>i3</span><span class=o>-</span><span class=n>sensible</span><span class=o>-</span><span class=n>terminal</span>
-</span></span><span class=line><span class=cl><span class=c1># kill focused window</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>c</span> <span class=n>kill</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>alt</span><span class=o>+</span><span class=n>F4</span> <span class=n>kill</span>
-</span></span><span class=line><span class=cl><span class=c1># start rofi</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=n>d</span> <span class=n>exec</span> <span class=n>i3</span><span class=o>-</span><span class=n>dmenu</span><span class=o>-</span><span class=n>desktop</span> <span class=o>--</span><span class=n>dmenu</span><span class=o>=</span><span class=s2>&#34;dmenu -i -fn &#39;DejaVu Sans:size=8&#39;&#34;</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>d</span> <span class=n>exec</span> <span class=n>rofi</span> <span class=o>-</span><span class=n>lines</span> <span class=mi>12</span> <span class=o>-</span><span class=n>padding</span> <span class=mi>18</span> <span class=o>-</span><span class=n>width</span> <span class=mi>60</span> <span class=o>-</span><span class=n>location</span> <span class=mi>0</span> <span class=o>-</span><span class=n>show</span> <span class=n>drun</span> <span class=o>-</span><span class=n>sidebar</span><span class=o>-</span><span class=n>mode</span> <span class=o>-</span><span class=n>columns</span> <span class=mi>3</span> <span class=o>-</span><span class=n>font</span> <span class=s1>&#39;DejaVu Sans 8&#39;</span>
-</span></span><span class=line><span class=cl><span class=c1># Use pactl to adjust volume in PulseAudio.</span>
-</span></span><span class=line><span class=cl><span class=n>set</span> <span class=o>$</span><span class=n>refresh_i3status</span> <span class=n>killall</span> <span class=o>-</span><span class=n>SIGUSR1</span> <span class=n>i3status</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=n>XF86AudioRaiseVolume</span> <span class=n>exec</span> <span class=o>--</span><span class=n>no</span><span class=o>-</span><span class=n>startup</span><span class=o>-</span><span class=n>id</span> <span class=n>pactl</span> <span class=n>set</span><span class=o>-</span><span class=n>sink</span><span class=o>-</span><span class=n>volume</span> <span class=err>@</span><span class=n>DEFAULT_SINK</span><span class=err>@</span> <span class=o>+</span><span class=mi>10</span><span class=o>%</span> <span class=o>&amp;&amp;</span> <span class=o>$</span><span class=n>refresh_i3status</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=n>XF86AudioLowerVolume</span> <span class=n>exec</span> <span class=o>--</span><span class=n>no</span><span class=o>-</span><span class=n>startup</span><span class=o>-</span><span class=n>id</span> <span class=n>pactl</span> <span class=n>set</span><span class=o>-</span><span class=n>sink</span><span class=o>-</span><span class=n>volume</span> <span class=err>@</span><span class=n>DEFAULT_SINK</span><span class=err>@</span> <span class=o>-</span><span class=mi>10</span><span class=o>%</span> <span class=o>&amp;&amp;</span> <span class=o>$</span><span class=n>refresh_i3status</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=n>XF86AudioMute</span> <span class=n>exec</span> <span class=o>--</span><span class=n>no</span><span class=o>-</span><span class=n>startup</span><span class=o>-</span><span class=n>id</span> <span class=n>pactl</span> <span class=n>set</span><span class=o>-</span><span class=n>sink</span><span class=o>-</span><span class=n>mute</span> <span class=err>@</span><span class=n>DEFAULT_SINK</span><span class=err>@</span> <span class=n>toggle</span> <span class=o>&amp;&amp;</span> <span class=o>$</span><span class=n>refresh_i3status</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=n>XF86AudioMicMute</span> <span class=n>exec</span> <span class=o>--</span><span class=n>no</span><span class=o>-</span><span class=n>startup</span><span class=o>-</span><span class=n>id</span> <span class=n>pactl</span> <span class=n>set</span><span class=o>-</span><span class=n>source</span><span class=o>-</span><span class=n>mute</span> <span class=err>@</span><span class=n>DEFAULT_SOURCE</span><span class=err>@</span> <span class=n>toggle</span> <span class=o>&amp;&amp;</span> <span class=o>$</span><span class=n>refresh_i3status</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># change focus</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Left</span> <span class=n>focus</span> <span class=n>left</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Down</span> <span class=n>focus</span> <span class=n>down</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Up</span> <span class=n>focus</span> <span class=n>up</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Right</span> <span class=n>focus</span> <span class=n>right</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># alternatively, you can use the cursor keys:</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=n>Left</span> <span class=n>move</span> <span class=n>left</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=n>Down</span> <span class=n>move</span> <span class=n>down</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=n>Up</span> <span class=n>move</span> <span class=n>up</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=n>Right</span> <span class=n>move</span> <span class=n>right</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># split in horizontal orientation</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>h</span> <span class=n>split</span> <span class=n>h</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># split in vertical orientation</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>v</span> <span class=n>split</span> <span class=n>v</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># enter fullscreen mode for the focused container</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>f</span> <span class=n>fullscreen</span> <span class=n>toggle</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># change container layout (stacked, tabbed, toggle split)</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>s</span> <span class=n>layout</span> <span class=n>stacking</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>w</span> <span class=n>layout</span> <span class=n>tabbed</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>e</span> <span class=n>layout</span> <span class=n>toggle</span> <span class=n>split</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># toggle tiling / floating</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=n>space</span> <span class=n>floating</span> <span class=n>toggle</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># change focus between tiling / floating windows</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>space</span> <span class=n>focus</span> <span class=n>mode_toggle</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># focus the parent container</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>a</span> <span class=n>focus</span> <span class=n>parent</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Define names for default workspaces for which we configure key bindings later on.</span>
-</span></span><span class=line><span class=cl><span class=c1># We use variables to avoid repeating the names in multiple places.</span>
-</span></span><span class=line><span class=cl><span class=n>set</span> <span class=o>$</span><span class=n>ws1</span> <span class=s2>&#34;1&#34;</span>
-</span></span><span class=line><span class=cl><span class=n>set</span> <span class=o>$</span><span class=n>ws2</span> <span class=s2>&#34;2&#34;</span>
-</span></span><span class=line><span class=cl><span class=n>set</span> <span class=o>$</span><span class=n>ws3</span> <span class=s2>&#34;3&#34;</span>
-</span></span><span class=line><span class=cl><span class=n>set</span> <span class=o>$</span><span class=n>ws4</span> <span class=s2>&#34;4&#34;</span>
-</span></span><span class=line><span class=cl><span class=n>set</span> <span class=o>$</span><span class=n>ws5</span> <span class=s2>&#34;5&#34;</span>
-</span></span><span class=line><span class=cl><span class=n>set</span> <span class=o>$</span><span class=n>ws6</span> <span class=s2>&#34;6&#34;</span>
-</span></span><span class=line><span class=cl><span class=n>set</span> <span class=o>$</span><span class=n>ws7</span> <span class=s2>&#34;7&#34;</span>
-</span></span><span class=line><span class=cl><span class=n>set</span> <span class=o>$</span><span class=n>ws8</span> <span class=s2>&#34;8&#34;</span>
-</span></span><span class=line><span class=cl><span class=n>set</span> <span class=o>$</span><span class=n>ws9</span> <span class=s2>&#34;9&#34;</span>
-</span></span><span class=line><span class=cl><span class=n>set</span> <span class=o>$</span><span class=n>ws10</span> <span class=s2>&#34;10&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># switch to workspace</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=mi>1</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws1</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=mi>2</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws2</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=mi>3</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws3</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=mi>4</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws4</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=mi>5</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws5</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=mi>6</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws6</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=mi>7</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws7</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=mi>8</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws8</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=mi>9</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws9</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=mi>0</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws10</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># move focused container to workspace</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=mi>1</span> <span class=n>move</span> <span class=n>container</span> <span class=n>to</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws1</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=mi>2</span> <span class=n>move</span> <span class=n>container</span> <span class=n>to</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws2</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=mi>3</span> <span class=n>move</span> <span class=n>container</span> <span class=n>to</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws3</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=mi>4</span> <span class=n>move</span> <span class=n>container</span> <span class=n>to</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws4</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=mi>5</span> <span class=n>move</span> <span class=n>container</span> <span class=n>to</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws5</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=mi>6</span> <span class=n>move</span> <span class=n>container</span> <span class=n>to</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws6</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=mi>7</span> <span class=n>move</span> <span class=n>container</span> <span class=n>to</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws7</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=mi>8</span> <span class=n>move</span> <span class=n>container</span> <span class=n>to</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws8</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=mi>9</span> <span class=n>move</span> <span class=n>container</span> <span class=n>to</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws9</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=mi>0</span> <span class=n>move</span> <span class=n>container</span> <span class=n>to</span> <span class=n>workspace</span> <span class=n>number</span> <span class=o>$</span><span class=n>ws10</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># reload the configuration file</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=n>c</span> <span class=n>reload</span>
-</span></span><span class=line><span class=cl><span class=c1># restart i3 inplace (preserves your layout/session, can be used to upgrade i3)</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=n>r</span> <span class=n>restart</span>
-</span></span><span class=line><span class=cl><span class=c1># exit i3 (logs you out of your X session)</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>Shift</span><span class=o>+</span><span class=n>e</span> <span class=n>exec</span> <span class=s2>&#34;i3-nagbar -t warning -m &#39;You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.&#39; -B &#39;Yes, exit i3&#39; &#39;i3-msg exit&#39;&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># resize window (you can also use the mouse for that)</span>
-</span></span><span class=line><span class=cl><span class=n>mode</span> <span class=s2>&#34;resize&#34;</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=n>bindsym</span> <span class=n>Left</span> <span class=n>resize</span> <span class=n>shrink</span> <span class=n>width</span> <span class=mi>5</span> <span class=n>px</span> <span class=ow>or</span> <span class=mi>5</span> <span class=n>ppt</span>
-</span></span><span class=line><span class=cl>        <span class=n>bindsym</span> <span class=n>Down</span> <span class=n>resize</span> <span class=n>grow</span> <span class=n>height</span> <span class=mi>5</span> <span class=n>px</span> <span class=ow>or</span> <span class=mi>5</span> <span class=n>ppt</span>
-</span></span><span class=line><span class=cl>        <span class=n>bindsym</span> <span class=n>Up</span> <span class=n>resize</span> <span class=n>shrink</span> <span class=n>height</span> <span class=mi>5</span> <span class=n>px</span> <span class=ow>or</span> <span class=mi>5</span> <span class=n>ppt</span>
-</span></span><span class=line><span class=cl>        <span class=n>bindsym</span> <span class=n>Right</span> <span class=n>resize</span> <span class=n>grow</span> <span class=n>width</span> <span class=mi>5</span> <span class=n>px</span> <span class=ow>or</span> <span class=mi>5</span> <span class=n>ppt</span>
-</span></span><span class=line><span class=cl>        <span class=n>bindsym</span> <span class=n>Return</span> <span class=n>mode</span> <span class=s2>&#34;default&#34;</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=n>bindsym</span> <span class=o>$</span><span class=n>mod</span><span class=o>+</span><span class=n>r</span> <span class=n>mode</span> <span class=s2>&#34;resize&#34;</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># panel</span>
-</span></span><span class=line><span class=cl><span class=n>bar</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=n>colors</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=n>background</span> <span class=c1>#2f343f</span>
-</span></span><span class=line><span class=cl>        <span class=n>statusline</span> <span class=c1>#2f343f</span>
-</span></span><span class=line><span class=cl>        <span class=n>separator</span> <span class=c1>#4b5262</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=c1># colour of border, background, and text</span>
-</span></span><span class=line><span class=cl>        <span class=n>focused_workspace</span>       <span class=c1>#2f343f #bf616a #d8dee8</span>
-</span></span><span class=line><span class=cl>        <span class=n>active_workspace</span>        <span class=c1>#2f343f #2f343f #d8dee8</span>
-</span></span><span class=line><span class=cl>        <span class=n>inactive_workspace</span>      <span class=c1>#2f343f #2f343f #d8dee8</span>
-</span></span><span class=line><span class=cl>        <span class=n>urgent_workspacei</span>       <span class=c1>#2f343f #ebcb8b #2f343f</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl>        <span class=n>status_command</span> <span class=n>i3status</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># gaps</span>
-</span></span><span class=line><span class=cl><span class=n>gaps</span> <span class=n>top</span>    <span class=mi>20</span>
-</span></span><span class=line><span class=cl><span class=n>gaps</span> <span class=n>left</span>   <span class=mi>10</span>
-</span></span><span class=line><span class=cl><span class=n>gaps</span> <span class=n>right</span>  <span class=mi>10</span>
-</span></span><span class=line><span class=cl><span class=n>gaps</span> <span class=n>bottom</span> <span class=mi>10</span>
-</span></span><span class=line><span class=cl><span class=n>gaps</span> <span class=n>inner</span>  <span class=mi>25</span>
-</span></span><span class=line><span class=cl><span class=n>border_radius</span> <span class=mi>10</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># Hide edge borders only if there is one window with no gaps</span>
-</span></span><span class=line><span class=cl><span class=n>hide_edge_borders</span> <span class=n>smart_no_gaps</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=c1># reload</span>
-</span></span><span class=line><span class=cl><span class=n>exec_always</span> <span class=n>hsetroot</span> <span class=o>-</span><span class=n>solid</span> <span class=s2>&#34;#F1CCBB&#34;</span>
-</span></span></code></pre></div></details><h2 id=some-tricks-and-tips>Some tricks and tips</h2><ul><li><p>A trick with terminal emulator:</p><ul><li>Disable scrollbar and menubar.</li></ul><figure class=figure><img src=/photos/getting-started-tiling-wm-part-1/terminal-trick-1.png></figure><figure class=figure><img src=/photos/getting-started-tiling-wm-part-1/terminal-trick-2.png></figure><ul><li>Configure padding for vte-terminal.</li></ul></li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>mkdir -p ~/.config/gtk-3.0
-</span></span><span class=line><span class=cl>cat <span class=s>&lt;&lt;EOT &gt;&gt; ~/.config/gtk-3.0/gtk.css
-</span></span></span><span class=line><span class=cl><span class=s>vte-terminal {
-</span></span></span><span class=line><span class=cl><span class=s>    padding: 30px;
-</span></span></span><span class=line><span class=cl><span class=s>}
-</span></span></span><span class=line><span class=cl><span class=s>EOT</span>
+style Container3 fill:#6fa8dc;</div><ul><li>In i3, <strong>workspace</strong> is simply the equivalent of a <a href=https://en.wikipedia.org/wiki/Virtual_desktop>virtual desktop</a>. You can have as many workspaces as you want.</li><li>i3 manages windows in a tree structure, with <strong>containers</strong> as building blocks.</li><li>A container contains one or multiple <strong>windows</strong>. Its windows will be positioned depending on the container&rsquo;s layout.</li><li>There are 3 different layouts possible:<ul><li><strong>Split</strong>: Each window share the container space and are split horizontally (<em>splith</em>) or vertically (<em>splitv</em>). This is the default layout.</li><li><strong>Stacked</strong> - The focused window is visible and the other ones are stacked behind. You can change the window’s focus via keystrokes easily. You have access to the list of windows open too, at the top of the container itself.</li><li><strong>Tabbed</strong> - This layout is similar as the stacked layout, except that the windows’ list is vertically split, and not horizontally.</li></ul></li><li>A window, where an application is running, can be created in a container. It will automatically position itself and be in focus, depending on the container’s layout. You can move them around or even change the layout of the container using keystrokes.</li><li>There are two different sorts of windows: <strong>fixed window</strong>s (by default) and <strong>floating windows</strong>.</li></ul><h3 id=application-launcher>Application launcher</h3><ul><li>i3 uses <a href=https://wiki.archlinux.org/title/Dmenu>dmenu</a> as an application launcher, which is bound by default to <code>$mod+d</code>.</li><li><a href=https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/>rofi</a> is a popular dmenu replacement and more that can list dekstop entries.</li></ul><h2 id=configuration>Configuration</h2><ul><li>You can use my minimal configuration. It requires some extra packages.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo apt install hsetroot rofi compton -y
+</span></span></code></pre></div><details open title="Minimal I3 configuration"><summary>Details</summary><h2 id=cheat-sheat-shortcut>Cheat sheat shortcut</h2><table><thead><tr><th>Shortcut</th><th>Description</th></tr></thead><tbody><tr><td><kbd>$mod</kbd> + <kbd>Enter</kbd></td><td>Open a terminal</td></tr><tr><td><kbd>$mod</kbd> + <kbd>d</kbd></td><td>Open application launcher</td></tr><tr><td><kbd>$mod</kbd> + <kbd>c</kbd></td><td>Kill focused window</td></tr><tr><td><kbd>$mod</kbd> + <kbd>right/left/up/down</kbd></td><td>Change focus</td></tr><tr><td><kbd>$mod</kbd> + <kbd>Shift</kbd> + <kbd>right/left/up/down</kbd></td><td>Move focused window in direction</td></tr><tr><td><kbd>$mod</kbd> + <kbd>1/2/3&mldr;</kbd></td><td>Switch workspace</td></tr><tr><td><kbd>$mod</kbd> + <kbd>Shift</kbd> + <kbd>1/2/3&mldr;</kbd></td><td>Move focused window to the specified workspace</td></tr><tr><td><kbd>$mod</kbd> + <kbd>space</kbd></td><td>Change between focus and floating mode</td></tr><tr><td><kbd>$mod</kbd> + <kbd>Shift</kbd> + <kbd>r</kbd></td><td>Restart i3</td></tr><tr><td><kbd>$mod</kbd> + <kbd>Shift</kbd> + <kbd>c</kbd></td><td>Reload config i3</td></tr><tr><td><kbd>$mod</kbd> + <kbd>q</kbd></td><td>Quit i3</td></tr></tbody></table><h2 id=minimal-configuration-file>Minimal configuration file</h2><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-gdscript3 data-lang=gdscript3><span style=display:flex><span><span style=color:#888;font-style:italic># i3 config file</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Please see https://i3wm.org/docs/userguide.html for a complete reference!</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Set modifier</span>
+</span></span><span style=display:flex><span>set $mod Mod4
+</span></span><span style=display:flex><span>set $alt Mod1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>default_orientation auto
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Font for window titles.</span>
+</span></span><span style=display:flex><span>font pango:DejaVu Sans Mono 0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Use Mouse+$mod to drag floating windows to their wanted position</span>
+</span></span><span style=display:flex><span>floating_modifier $mod
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Here is the trick to disable titlebar completely</span>
+</span></span><span style=display:flex><span>for_window [<span style=font-weight:700>class</span>=<span style=color:#666;font-style:italic>&#34;^.*&#34;</span>] border pixel 0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Autostart</span>
+</span></span><span style=display:flex><span>exec --no-startup-id hsetroot -solid <span style=color:#666;font-style:italic>&#34;#F1CCBB&#34;</span>
+</span></span><span style=display:flex><span>exec --no-startup-id xsettingsd &amp;
+</span></span><span style=display:flex><span>exec --no-startup-id compton -b
+</span></span><span style=display:flex><span>exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+</span></span><span style=display:flex><span>exec --no-startup-id nm-applet
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Keybindings</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># start a terminal</span>
+</span></span><span style=display:flex><span>bindsym $mod+Return exec i3-sensible-terminal
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># kill focused window</span>
+</span></span><span style=display:flex><span>bindsym $mod+c kill
+</span></span><span style=display:flex><span>bindsym $alt+F4 kill
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># start rofi</span>
+</span></span><span style=display:flex><span>bindsym $mod+Shift+d exec i3-dmenu-desktop --dmenu=<span style=color:#666;font-style:italic>&#34;dmenu -i -fn &#39;DejaVu Sans:size=8&#39;&#34;</span>
+</span></span><span style=display:flex><span>bindsym $mod+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font <span style=color:#666;font-style:italic>&#39;DejaVu Sans 8&#39;</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Use pactl to adjust volume in PulseAudio.</span>
+</span></span><span style=display:flex><span>set $refresh_i3status killall -SIGUSR1 i3status
+</span></span><span style=display:flex><span>bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume <span>@</span>DEFAULT_SINK<span>@</span> +10% &amp;&amp; $refresh_i3status
+</span></span><span style=display:flex><span>bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume <span>@</span>DEFAULT_SINK<span>@</span> -10% &amp;&amp; $refresh_i3status
+</span></span><span style=display:flex><span>bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute <span>@</span>DEFAULT_SINK<span>@</span> toggle &amp;&amp; $refresh_i3status
+</span></span><span style=display:flex><span>bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute <span>@</span>DEFAULT_SOURCE<span>@</span> toggle &amp;&amp; $refresh_i3status
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># change focus</span>
+</span></span><span style=display:flex><span>bindsym $mod+Left focus left
+</span></span><span style=display:flex><span>bindsym $mod+Down focus down
+</span></span><span style=display:flex><span>bindsym $mod+Up focus up
+</span></span><span style=display:flex><span>bindsym $mod+Right focus right
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># alternatively, you can use the cursor keys:</span>
+</span></span><span style=display:flex><span>bindsym $mod+Shift+Left move left
+</span></span><span style=display:flex><span>bindsym $mod+Shift+Down move down
+</span></span><span style=display:flex><span>bindsym $mod+Shift+Up move up
+</span></span><span style=display:flex><span>bindsym $mod+Shift+Right move right
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># split in horizontal orientation</span>
+</span></span><span style=display:flex><span>bindsym $mod+h split h
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># split in vertical orientation</span>
+</span></span><span style=display:flex><span>bindsym $mod+v split v
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># enter fullscreen mode for the focused container</span>
+</span></span><span style=display:flex><span>bindsym $mod+f fullscreen toggle
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># change container layout (stacked, tabbed, toggle split)</span>
+</span></span><span style=display:flex><span>bindsym $mod+s layout stacking
+</span></span><span style=display:flex><span>bindsym $mod+w layout tabbed
+</span></span><span style=display:flex><span>bindsym $mod+e layout toggle split
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># toggle tiling / floating</span>
+</span></span><span style=display:flex><span>bindsym $mod+Shift+space floating toggle
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># change focus between tiling / floating windows</span>
+</span></span><span style=display:flex><span>bindsym $mod+space focus mode_toggle
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># focus the parent container</span>
+</span></span><span style=display:flex><span>bindsym $mod+a focus parent
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Define names for default workspaces for which we configure key bindings later on.</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># We use variables to avoid repeating the names in multiple places.</span>
+</span></span><span style=display:flex><span>set $ws1 <span style=color:#666;font-style:italic>&#34;1&#34;</span>
+</span></span><span style=display:flex><span>set $ws2 <span style=color:#666;font-style:italic>&#34;2&#34;</span>
+</span></span><span style=display:flex><span>set $ws3 <span style=color:#666;font-style:italic>&#34;3&#34;</span>
+</span></span><span style=display:flex><span>set $ws4 <span style=color:#666;font-style:italic>&#34;4&#34;</span>
+</span></span><span style=display:flex><span>set $ws5 <span style=color:#666;font-style:italic>&#34;5&#34;</span>
+</span></span><span style=display:flex><span>set $ws6 <span style=color:#666;font-style:italic>&#34;6&#34;</span>
+</span></span><span style=display:flex><span>set $ws7 <span style=color:#666;font-style:italic>&#34;7&#34;</span>
+</span></span><span style=display:flex><span>set $ws8 <span style=color:#666;font-style:italic>&#34;8&#34;</span>
+</span></span><span style=display:flex><span>set $ws9 <span style=color:#666;font-style:italic>&#34;9&#34;</span>
+</span></span><span style=display:flex><span>set $ws10 <span style=color:#666;font-style:italic>&#34;10&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># switch to workspace</span>
+</span></span><span style=display:flex><span>bindsym $mod+1 workspace number $ws1
+</span></span><span style=display:flex><span>bindsym $mod+2 workspace number $ws2
+</span></span><span style=display:flex><span>bindsym $mod+3 workspace number $ws3
+</span></span><span style=display:flex><span>bindsym $mod+4 workspace number $ws4
+</span></span><span style=display:flex><span>bindsym $mod+5 workspace number $ws5
+</span></span><span style=display:flex><span>bindsym $mod+6 workspace number $ws6
+</span></span><span style=display:flex><span>bindsym $mod+7 workspace number $ws7
+</span></span><span style=display:flex><span>bindsym $mod+8 workspace number $ws8
+</span></span><span style=display:flex><span>bindsym $mod+9 workspace number $ws9
+</span></span><span style=display:flex><span>bindsym $mod+0 workspace number $ws10
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># move focused container to workspace</span>
+</span></span><span style=display:flex><span>bindsym $mod+Shift+1 move container to workspace number $ws1
+</span></span><span style=display:flex><span>bindsym $mod+Shift+2 move container to workspace number $ws2
+</span></span><span style=display:flex><span>bindsym $mod+Shift+3 move container to workspace number $ws3
+</span></span><span style=display:flex><span>bindsym $mod+Shift+4 move container to workspace number $ws4
+</span></span><span style=display:flex><span>bindsym $mod+Shift+5 move container to workspace number $ws5
+</span></span><span style=display:flex><span>bindsym $mod+Shift+6 move container to workspace number $ws6
+</span></span><span style=display:flex><span>bindsym $mod+Shift+7 move container to workspace number $ws7
+</span></span><span style=display:flex><span>bindsym $mod+Shift+8 move container to workspace number $ws8
+</span></span><span style=display:flex><span>bindsym $mod+Shift+9 move container to workspace number $ws9
+</span></span><span style=display:flex><span>bindsym $mod+Shift+0 move container to workspace number $ws10
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># reload the configuration file</span>
+</span></span><span style=display:flex><span>bindsym $mod+Shift+c reload
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># restart i3 inplace (preserves your layout/session, can be used to upgrade i3)</span>
+</span></span><span style=display:flex><span>bindsym $mod+Shift+r restart
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># exit i3 (logs you out of your X session)</span>
+</span></span><span style=display:flex><span>bindsym $mod+Shift+e exec <span style=color:#666;font-style:italic>&#34;i3-nagbar -t warning -m &#39;You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.&#39; -B &#39;Yes, exit i3&#39; &#39;i3-msg exit&#39;&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># resize window (you can also use the mouse for that)</span>
+</span></span><span style=display:flex><span>mode <span style=color:#666;font-style:italic>&#34;resize&#34;</span> {
+</span></span><span style=display:flex><span>        bindsym Left resize shrink width 5 px <span style=font-weight:700>or</span> 5 ppt
+</span></span><span style=display:flex><span>        bindsym Down resize grow height 5 px <span style=font-weight:700>or</span> 5 ppt
+</span></span><span style=display:flex><span>        bindsym Up resize shrink height 5 px <span style=font-weight:700>or</span> 5 ppt
+</span></span><span style=display:flex><span>        bindsym Right resize grow width 5 px <span style=font-weight:700>or</span> 5 ppt
+</span></span><span style=display:flex><span>        bindsym Return mode <span style=color:#666;font-style:italic>&#34;default&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>bindsym $mod+r mode <span style=color:#666;font-style:italic>&#34;resize&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># panel</span>
+</span></span><span style=display:flex><span>bar {
+</span></span><span style=display:flex><span>        colors {
+</span></span><span style=display:flex><span>        background <span style=color:#888;font-style:italic>#2f343f</span>
+</span></span><span style=display:flex><span>        statusline <span style=color:#888;font-style:italic>#2f343f</span>
+</span></span><span style=display:flex><span>        separator <span style=color:#888;font-style:italic>#4b5262</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#888;font-style:italic># colour of border, background, and text</span>
+</span></span><span style=display:flex><span>        focused_workspace       <span style=color:#888;font-style:italic>#2f343f #bf616a #d8dee8</span>
+</span></span><span style=display:flex><span>        active_workspace        <span style=color:#888;font-style:italic>#2f343f #2f343f #d8dee8</span>
+</span></span><span style=display:flex><span>        inactive_workspace      <span style=color:#888;font-style:italic>#2f343f #2f343f #d8dee8</span>
+</span></span><span style=display:flex><span>        urgent_workspacei       <span style=color:#888;font-style:italic>#2f343f #ebcb8b #2f343f</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>        status_command i3status
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># gaps</span>
+</span></span><span style=display:flex><span>gaps top    20
+</span></span><span style=display:flex><span>gaps left   10
+</span></span><span style=display:flex><span>gaps right  10
+</span></span><span style=display:flex><span>gaps bottom 10
+</span></span><span style=display:flex><span>gaps inner  25
+</span></span><span style=display:flex><span>border_radius 10
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># Hide edge borders only if there is one window with no gaps</span>
+</span></span><span style=display:flex><span>hide_edge_borders smart_no_gaps
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-style:italic># reload</span>
+</span></span><span style=display:flex><span>exec_always hsetroot -solid <span style=color:#666;font-style:italic>&#34;#F1CCBB&#34;</span>
+</span></span></code></pre></div></details><h2 id=some-tricks-and-tips>Some tricks and tips</h2><ul><li><p>A trick with terminal emulator:</p><ul><li>Disable scrollbar and menubar.</li></ul><figure class=figure><img src=/photos/getting-started-tiling-wm-part-1/terminal-trick-1.png></figure><figure class=figure><img src=/photos/getting-started-tiling-wm-part-1/terminal-trick-2.png></figure><ul><li>Configure padding for vte-terminal.</li></ul></li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir -p ~/.config/gtk-3.0
+</span></span><span style=display:flex><span>cat <span style=color:#666;font-style:italic>&lt;&lt;EOT &gt;&gt; ~/.config/gtk-3.0/gtk.css
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>vte-terminal {
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>    padding: 30px;
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>}
+</span></span></span><span style=display:flex><span><span style=color:#666;font-style:italic>EOT</span>
 </span></span></code></pre></div><ul><li>Result.</li></ul><figure class=figure><img src=/photos/getting-started-tiling-wm-part-1/i3-gaps-config.png></figure><h2 id=references>References</h2><ol><li><a href=https://www.lifewire.com/window-manager-vs-the-desktop-environment-in-linux-4588338>https://www.lifewire.com/window-manager-vs-the-desktop-environment-in-linux-4588338</a></li><li><a href=https://en.wikipedia.org/wiki/X_window_manager>https://en.wikipedia.org/wiki/X_window_manager</a></li><li><a href=https://i3wm.org/docs>https://i3wm.org/docs</a></li><li><a href=https://wiki.archlinux.org/title/i3>https://wiki.archlinux.org/title/i3</a></li></ol><time datetime=2021-04-19>2021-04-19&nbsp;</time><div class=terminal-nav><div class=back-nav><a href=../ class=back-link>../</a></div></div></main><footer><p>&copy; Copyright 2025 &#183;
 <a href=https://github.com/ntk148v/shibui>shibui</a></p></footer></body></html>
