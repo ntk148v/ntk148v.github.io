@@ -1,1 +1,6 @@
-
+:root {
+  /* Base theme knobs */
+  --bg-h: 34.7;
+  --bg-s: 51.4%;
+  --bg-l: 92.7%;
+}
