@@ -168,7 +168,8 @@
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold;font-style:italic"&gt;alias&lt;/span&gt; &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;ls&lt;/span&gt;=&lt;span style="color:#666;font-style:italic"&gt;&amp;#34;exa&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/exa-ls.png"&gt;
 &lt;/figure&gt;</description></item><item><title>Set Animated Gif as Wallpaper</title><link>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</link><pubDate>Thu, 14 Jan 2021 09:36:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: Environment Ubuntu 20.04&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: Environment Ubuntu 20.04&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id="dependencies"&gt;Dependencies&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/ujjwal96/xwinwrap"&gt;Xwinwrap&lt;/a&gt;:&lt;/li&gt;

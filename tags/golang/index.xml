@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on kiennt26's home</title><link>https://ntk148v.github.io/tags/golang/</link><description>Recent content in Golang on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Mon, 16 Jun 2025 11:00:28 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>Golang Async</title><link>https://ntk148v.github.io/posts/golang-async/</link><pubDate>Fri, 21 Jul 2023 16:16:31 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/golang-async/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;This article is Golang version of &lt;a href="https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/"&gt;Asynchronous programming with async and await guideline&lt;/a&gt;. They did really good job to demonstrate how asynchronous programming looks like.&lt;/p&gt;
-&lt;p&gt;You can find source code &lt;a href="https://github.com/ntk148v/testing/tree/master/golang/breakfast"&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;You can find source code &lt;a href="https://github.com/ntk148v/testing/tree/master/golang/breakfast"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;Throughout this article, we&amp;rsquo;ll write the instructions to make a breakfast.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;1. Pour a cup of coffee.
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;2. Heat a pan, then fry two eggs.
@@ -9,7 +10,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;5. Add butter and jam to the toast.
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;6. Pour a glass of orange juice.
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Each step takes time to finish, for example, you have to wait X seconds to make a glass of orange juice. Let&amp;rsquo;s write those instructions as Golang:&lt;/p&gt;</description></item><item><title>Goignore</title><link>https://ntk148v.github.io/posts/goignore/</link><pubDate>Fri, 26 Nov 2021 17:26:44 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/goignore/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;&lt;a href="https://github.com/ntk148v/goignore"&gt;Goignore&lt;/a&gt; - A &lt;code&gt;.gitignore&lt;/code&gt; wizard which gnerates &lt;code&gt;.gitignore&lt;/code&gt; files from the command line for you. Inspired by &lt;a href="https://github.com/karan/joe"&gt;joe&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;a href="https://github.com/ntk148v/goignore"&gt;Goignore&lt;/a&gt; - A &lt;code&gt;.gitignore&lt;/code&gt; wizard which gnerates &lt;code&gt;.gitignore&lt;/code&gt; files from the command line for you. Inspired by &lt;a href="https://github.com/karan/joe"&gt;joe&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id="features"&gt;Features&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;No installation necessary - just use the binary.&lt;/li&gt;
@@ -38,7 +40,8 @@
 &lt;li&gt;&lt;a href="https://pliutau.com/different-ways-to-block-go-runtime-forever/"&gt;https://pliutau.com/different-ways-to-block-go-runtime-forever/&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;NOTE: I run these with Golang 1.12&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;NOTE: I run these with Golang 1.12&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id="the-original"&gt;The original&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;package&lt;/span&gt; main
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;

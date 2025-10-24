@@ -6,7 +6,8 @@
 &lt;li&gt;&lt;a href="https://pliutau.com/different-ways-to-block-go-runtime-forever/"&gt;https://pliutau.com/different-ways-to-block-go-runtime-forever/&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;NOTE: I run these with Golang 1.12&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;NOTE: I run these with Golang 1.12&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id="the-original"&gt;The original&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;package&lt;/span&gt; main
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
