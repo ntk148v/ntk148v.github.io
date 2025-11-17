@@ -15,3 +15,5 @@ kiennt2609@gmail.com
 https://github.com/ntk148v
 
 https://t.me/@kiennt26
+
+https://www.linkedin.com/in/kiennt2609/
