@@ -24,7 +24,7 @@
 &lt;li&gt;Check whether a disk is fast enough for etcd using &lt;a href="https://github.com/axboe/fio"&gt;fio&lt;/a&gt;. If the 99th percentile of fdatasync is &lt;strong&gt;&amp;lt;10ms&lt;/strong&gt;, your storage is ok.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ fio --rw=write --ioengine=sync --fdatasync=1 --directory=test-data &lt;span style="color:#666;font-style:italic"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#666;font-style:italic"&gt;&lt;/span&gt; --size=22m --bs=2300 --name=mytest
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; --size=22m --bs=2300 --name=mytest
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;SSD&lt;/strong&gt; is recommended.&lt;/li&gt;
 &lt;/ul&gt;

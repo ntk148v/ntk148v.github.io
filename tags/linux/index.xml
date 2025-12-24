@@ -74,12 +74,12 @@
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Dependencies&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt install git libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev &lt;span style="color:#666;font-style:italic"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#666;font-style:italic"&gt;&lt;/span&gt; libxcb-util0-dev libxcb-icccm4-dev libyajl-dev &lt;span style="color:#666;font-style:italic"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#666;font-style:italic"&gt;&lt;/span&gt; libstartup-notification0-dev libxcb-randr0-dev &lt;span style="color:#666;font-style:italic"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#666;font-style:italic"&gt;&lt;/span&gt; libev-dev libxcb-cursor-dev libxcb-xinerama0-dev &lt;span style="color:#666;font-style:italic"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#666;font-style:italic"&gt;&lt;/span&gt; libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev &lt;span style="color:#666;font-style:italic"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#666;font-style:italic"&gt;&lt;/span&gt; autoconf libxcb-xrm0 libxcb-xrm-dev automake i3status &lt;span style="color:#666;font-style:italic"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#666;font-style:italic"&gt;&lt;/span&gt; ninja-build meson libxcb-shape0-dev build-essential -y
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; libxcb-util0-dev libxcb-icccm4-dev libyajl-dev &lt;span style="color:#666;font-style:italic"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; libstartup-notification0-dev libxcb-randr0-dev &lt;span style="color:#666;font-style:italic"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; libev-dev libxcb-cursor-dev libxcb-xinerama0-dev &lt;span style="color:#666;font-style:italic"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev &lt;span style="color:#666;font-style:italic"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; autoconf libxcb-xrm0 libxcb-xrm-dev automake i3status &lt;span style="color:#666;font-style:italic"&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ninja-build meson libxcb-shape0-dev build-essential -y
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;git clone https://github.com/ntk148v/i3.git
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold;font-style:italic"&gt;cd&lt;/span&gt; i3/
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Compile&lt;/span&gt;
@@ -525,7 +525,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="the-helper-script"&gt;The helper script&lt;/h2&gt;
 &lt;p&gt;A helper script to setup animated .gif in dual monitors.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-weight:bold"&gt;#!/bin/bash
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-weight:bold"&gt;&lt;/span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Uses xwinwrap to display given animated .gif in dual monitors.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Uses xwinwrap to display given animated .gif in dual monitors.&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;if&lt;/span&gt; [ &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;$#&lt;/span&gt; -ne 1 ]; &lt;span style="font-weight:bold"&gt;then&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="font-weight:bold;font-style:italic"&gt;echo&lt;/span&gt; 1&amp;gt;&amp;amp;2 Usage: &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;$0&lt;/span&gt; image.gif
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="font-weight:bold;font-style:italic"&gt;exit&lt;/span&gt; 1
