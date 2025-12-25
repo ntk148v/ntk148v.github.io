@@ -35,40 +35,40 @@ Server-Sent Events (SSE) is a web standard that enables servers to push data to 
 
 1. **The Connection**
 
-    ```http
-    GET /livescore HTTP/1.1
-    Accept: text/event-stream
-    ```
+   ```http
+   GET /livescore HTTP/1.1
+   Accept: text/event-stream
+   ```
 
-    The client makes a single HTTP request with `Accept: text/event-stream`, and the connection stays open. It's like subscribing to your friend's match updates on WhatsApp.
+   The client makes a single HTTP request with `Accept: text/event-stream`, and the connection stays open. It's like subscribing to your friend's match updates on WhatsApp.
 
 2. **The Message Format**
 
-    ```
-    event: goal  # Optional event type
-    data: {"score": {"home": 1, "away": 0}}
+   ```
+   event: goal  # Optional event type
+   data: {"score": {"home": 1, "away": 0}}
 
-    data: {"status": "Game in progress"}
-    ```
+   data: {"status": "Game in progress"}
+   ```
 
-    Messages are sent as UTF-8 text, with each message separated by double newlines. Like your friend sending multiple texts, but way more organized!
+   Messages are sent as UTF-8 text, with each message separated by double newlines. Like your friend sending multiple texts, but way more organized!
 
 3. **Event Types**
-    - `message` - Default event
-    - Custom events (like 'goal', 'halftime', 'fulltime')
-    - Each type can have its own event handler on the client
+   - `message` - Default event
+   - Custom events (like 'goal', 'halftime', 'fulltime')
+   - Each type can have its own event handler on the client
 
 4. **Built-in Goodies**
-    - Automatic reconnection (configurable with `retry: 3000`)
-    - Event IDs for tracking last received message
-    - Cross-origin support with standard CORS
+   - Automatic reconnection (configurable with `retry: 3000`)
+   - Event IDs for tracking last received message
+   - Cross-origin support with standard CORS
 
 5. **The Not-So-Fun Parts** 😅
-    - **Browser Connection Limits**: Most browsers limit the number of open SSE connections per domain (typically 6). It's like your friend can only update 6 people at once!
-    - **One-Way Street**: No built-in way to send data back to the server. Need to chat back? You'll need a separate HTTP request.
-    - **Plain Text Only**: Unlike WebSocket, SSE only supports UTF-8 text data. Binary data? Sorry, you'll need to encode it first.
-    - **Proxy Issues**: Some proxy servers don't play nice with long-lived connections. They might think your friend fell asleep and cut the connection!
-    - **Header Size Limits**: Some servers have a maximum header size limit, which can affect reconnection with large `Last-Event-ID` headers.
+   - **Browser Connection Limits**: Most browsers limit the number of open SSE connections per domain (typically 6). It's like your friend can only update 6 people at once!
+   - **One-Way Street**: No built-in way to send data back to the server. Need to chat back? You'll need a separate HTTP request.
+   - **Plain Text Only**: Unlike WebSocket, SSE only supports UTF-8 text data. Binary data? Sorry, you'll need to encode it first.
+   - **Proxy Issues**: Some proxy servers don't play nice with long-lived connections. They might think your friend fell asleep and cut the connection!
+   - **Header Size Limits**: Some servers have a maximum header size limit, which can affect reconnection with large `Last-Event-ID` headers.
 
 ## Show Me The Code! 💻
 
@@ -115,9 +115,9 @@ Let's break down what's happening:
 
 1. The `CORSMiddleware` allows our frontend to connect from any origin
 2. `livescore_generator()` is an async generator that:
-    - Loads match data (in real life, this would be live data)
-    - Yields properly formatted SSE messages
-    - Uses `asyncio.sleep()` to simulate real-time updates
+   - Loads match data (in real life, this would be live data)
+   - Yields properly formatted SSE messages
+   - Uses `asyncio.sleep()` to simulate real-time updates
 3. `StreamingResponse` keeps the connection open and streams data
 
 ### The Frontend (The Patient Listener)
@@ -128,29 +128,29 @@ const eventSource = new EventSource("http://localhost:8000/livescore");
 
 // 2. Set up our event handlers
 eventSource.onopen = () => {
-    console.log("Connection established!");
+  console.log("Connection established!");
 };
 
 eventSource.onmessage = (event) => {
-    // Parse the JSON data from the event
-    const data = JSON.parse(event.data);
-    // Update our UI with the new match data
-    updateMatch(data);
+  // Parse the JSON data from the event
+  const data = JSON.parse(event.data);
+  // Update our UI with the new match data
+  updateMatch(data);
 };
 
 eventSource.onerror = (error) => {
-    console.error("Connection lost! Attempting to reconnect...");
-    // The browser will automatically try to reconnect
+  console.error("Connection lost! Attempting to reconnect...");
+  // The browser will automatically try to reconnect
 };
 
 // 3. Update the UI with the match data
 function updateMatch(data) {
-    // Update score
-    document.querySelector(".score").textContent =
-        `${data.score.home} - ${data.score.away}`;
-    // Update match status
-    document.querySelector(".match-status").textContent = data.status;
-    // ... more UI updates
+  // Update score
+  document.querySelector(".score").textContent =
+    `${data.score.home} - ${data.score.away}`;
+  // Update match status
+  document.querySelector(".match-status").textContent = data.status;
+  // ... more UI updates
 }
 ```
 
@@ -168,24 +168,24 @@ function updateMatch(data) {
 
 1. Clone this repo:
 
-    ```bash
-    git clone https://github.com/ntk148v/sse-fastapi.git
-    cd sse-fastapi
-    ```
+   ```bash
+   git clone https://github.com/ntk148v/sse-fastapi.git
+   cd sse-fastapi
+   ```
 
 2. Install dependencies (we use `uv` because we're cool):
 
-    ```bash
-    uv venv .venv
-    . .venv/bin/activate
-    uv pip install -e .
-    ```
+   ```bash
+   uv venv .venv
+   . .venv/bin/activate
+   uv pip install -e .
+   ```
 
 3. Run the server:
 
-    ```bash
-    python main.py
-    ```
+   ```bash
+   python main.py
+   ```
 
 4. Open http://localhost:8000 in your browser and watch the soccer match unfold!
 
@@ -211,122 +211,122 @@ Don't use SSE when:
 ### Perfect Fits for SSE 🎯
 
 1. **Live Sports Updates**
-    - Real-time scores (like our example!)
-    - Play-by-play commentary
-    - Team statistics
+   - Real-time scores (like our example!)
+   - Play-by-play commentary
+   - Team statistics
 
 2. **Financial Applications**
-    - Stock price updates
-    - Currency exchange rates
-    - Trading notifications
+   - Stock price updates
+   - Currency exchange rates
+   - Trading notifications
 
 3. **Social Media Features**
-    - News feeds
-    - Notification systems
-    - Like/comment counters
+   - News feeds
+   - Notification systems
+   - Like/comment counters
 
 4. **System Monitoring**
-    - Server health metrics
-    - Log streaming
-    - Resource usage stats
+   - Server health metrics
+   - Log streaming
+   - Resource usage stats
 
 5. **Content Management**
-    - Content update notifications
-    - Publishing status
-    - Collaborative editing notifications
+   - Content update notifications
+   - Publishing status
+   - Collaborative editing notifications
 
 ### Best Practices 🏆
 
 1. **Connection Management**
 
-    ```javascript
-    // Always handle reconnection gracefully
-    const connect = () => {
-        const eventSource = new EventSource("/events");
-        eventSource.onerror = (error) => {
-            eventSource.close();
-            setTimeout(connect, 5000); // Custom reconnect logic
-        };
-        return eventSource;
-    };
-    ```
+   ```javascript
+   // Always handle reconnection gracefully
+   const connect = () => {
+     const eventSource = new EventSource("/events");
+     eventSource.onerror = (error) => {
+       eventSource.close();
+       setTimeout(connect, 5000); // Custom reconnect logic
+     };
+     return eventSource;
+   };
+   ```
 
 2. **Event ID Tracking**
 
-    ```python
-    # Server-side
-    async def generator():
-        for event in events:
-            yield f"id: {event.id}\ndata: {json.dumps(event.data)}\n\n"
+   ```python
+   # Server-side
+   async def generator():
+       for event in events:
+           yield f"id: {event.id}\ndata: {json.dumps(event.data)}\n\n"
 
-    # Client-side
-    eventSource.addEventListener('message', (e) => {
-        localStorage.setItem('lastEventId', e.lastEventId);
-    });
-    ```
+   # Client-side
+   eventSource.addEventListener('message', (e) => {
+       localStorage.setItem('lastEventId', e.lastEventId);
+   });
+   ```
 
 3. **Resource Management**
-    - Keep payload sizes small (< 10KB recommended)
-    - Batch updates when possible
-    - Use compression for large datasets
+   - Keep payload sizes small (< 10KB recommended)
+   - Batch updates when possible
+   - Use compression for large datasets
 
-    ```python
-    # Batch updates example
-    async def batch_generator():
-        updates = []
-        for event in events:
-            updates.append(event)
-            if len(updates) >= 5:
-                yield f"data: {json.dumps(updates)}\n\n"
-                updates = []
-    ```
+   ```python
+   # Batch updates example
+   async def batch_generator():
+       updates = []
+       for event in events:
+           updates.append(event)
+           if len(updates) >= 5:
+               yield f"data: {json.dumps(updates)}\n\n"
+               updates = []
+   ```
 
 4. **Error Handling**
-    - Always include error events
-    - Implement custom retry logic when needed
-    - Monitor connection health
+   - Always include error events
+   - Implement custom retry logic when needed
+   - Monitor connection health
 
-    ```python
-    # Server-side error handling
-    @app.get("/stream")
-    async def stream():
-        try:
-            return StreamingResponse(generator())
-        except Exception as e:
-            yield f"event: error\ndata: {str(e)}\n\n"
-    ```
+   ```python
+   # Server-side error handling
+   @app.get("/stream")
+   async def stream():
+       try:
+           return StreamingResponse(generator())
+       except Exception as e:
+           yield f"event: error\ndata: {str(e)}\n\n"
+   ```
 
 5. **Security Considerations**
-    - Implement proper authentication
-    - Use HTTPS in production
-    - Rate limit connections per client
+   - Implement proper authentication
+   - Use HTTPS in production
+   - Rate limit connections per client
 
-    ```python
-    # Basic rate limiting example
-    from fastapi import HTTPException
+   ```python
+   # Basic rate limiting example
+   from fastapi import HTTPException
 
-    CLIENTS = {}
-    MAX_CONNECTIONS = 3
+   CLIENTS = {}
+   MAX_CONNECTIONS = 3
 
-    @app.get("/stream")
-    async def stream(request):
-        client_ip = request.client.host
-        if CLIENTS.get(client_ip, 0) >= MAX_CONNECTIONS:
-            raise HTTPException(429, "Too many connections")
-        CLIENTS[client_ip] = CLIENTS.get(client_ip, 0) + 1
-    ```
+   @app.get("/stream")
+   async def stream(request):
+       client_ip = request.client.host
+       if CLIENTS.get(client_ip, 0) >= MAX_CONNECTIONS:
+           raise HTTPException(429, "Too many connections")
+       CLIENTS[client_ip] = CLIENTS.get(client_ip, 0) + 1
+   ```
 
 6. **Production Tips**
-    - Use a load balancer that supports long polling
-    - Implement heartbeat messages
-    - Monitor server resources
-    ```python
-    # Heartbeat example
-    async def generator_with_heartbeat():
-        while True:
-            yield ":\n\n"  # Heartbeat
-            await asyncio.sleep(30)
-    ```
+   - Use a load balancer that supports long polling
+   - Implement heartbeat messages
+   - Monitor server resources
+   ```python
+   # Heartbeat example
+   async def generator_with_heartbeat():
+       while True:
+           yield ":\n\n"  # Heartbeat
+           await asyncio.sleep(30)
+   ```
 
 ## The End 🎬
 
