@@ -2,7 +2,7 @@
 title: "Problem Solving Techniques"
 date: "2023-01-18T15:18:34+07:00"
 tags: ["algorithm", "techniques"]
-draft: false
+draft: true
 comment: true
 ---
 

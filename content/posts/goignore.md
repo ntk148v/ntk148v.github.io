@@ -3,7 +3,7 @@ title: "Goignore"
 date: 2021-11-26T17:26:44+07:00
 tags: ["tech", "golang"]
 comments: true
-draft: false
+draft: true
 ---
 
 > [Goignore](https://github.com/ntk148v/goignore) - A `.gitignore` wizard which gnerates `.gitignore` files from the command line for you. Inspired by [joe](https://github.com/karan/joe)
