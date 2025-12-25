@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on kiennt26's home</title><link>https://ntk148v.github.io/tags/linux/</link><description>Recent content in Linux on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 24 Dec 2025 15:17:54 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Run in the Background</title><link>https://ntk148v.github.io/posts/linux-run-in-the-background/</link><pubDate>Fri, 03 Mar 2023 14:28:09 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-run-in-the-background/</guid><description>&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on kiennt26's home</title><link>https://ntk148v.github.io/tags/linux/</link><description>Recent content in Linux on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Thu, 25 Dec 2025 10:24:10 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Run in the Background</title><link>https://ntk148v.github.io/posts/linux-run-in-the-background/</link><pubDate>Fri, 03 Mar 2023 14:28:09 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-run-in-the-background/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Environment:&lt;/strong&gt; Ubuntu 22.04, but it should work in other Linux distributions.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Source&lt;/strong&gt;: &lt;a href="https://www.sobyte.net/post/2023-03/linux-services-in-the-background/"&gt;https://www.sobyte.net/post/2023-03/linux-services-in-the-background/&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -115,38 +115,7 @@
 &lt;/figure&gt;
 
 &lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-3.png"&gt;
-&lt;/figure&gt;</description></item><item><title>Rename Files in Linux</title><link>https://ntk148v.github.io/posts/rename-files-in-linux/</link><pubDate>Thu, 16 Dec 2021 10:22:05 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/rename-files-in-linux/</guid><description>&lt;ul&gt;
-&lt;li&gt;Rename a single file with &lt;code&gt;mv&lt;/code&gt;. Just a basic thing.&lt;/li&gt;
-&lt;li&gt;Rename multiple files with &lt;code&gt;mv&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Rename files with suffix .yaml to yml&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;for&lt;/span&gt; f in *.yaml; &lt;span style="font-weight:bold"&gt;do&lt;/span&gt; mv -- &lt;span style="color:#666;font-style:italic"&gt;&amp;#34;&lt;/span&gt;&lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;$f&lt;/span&gt;&lt;span style="color:#666;font-style:italic"&gt;&amp;#34;&lt;/span&gt; &lt;span style="color:#666;font-style:italic"&gt;&amp;#34;&lt;/span&gt;&lt;span style="color:#666;font-style:italic"&gt;${&lt;/span&gt;&lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;f&lt;/span&gt;%.yaml&lt;span style="color:#666;font-style:italic"&gt;}&lt;/span&gt;&lt;span style="color:#666;font-style:italic"&gt;.yml&amp;#34;&lt;/span&gt; &lt;span style="font-weight:bold"&gt;done&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;Rename multiple files with &lt;code&gt;rename&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Install rename command&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Ubuntu/Debian-derived distros&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt install rename
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# RedHat-derived distros&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo yum install prename
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# The follow examples are performed in Ubuntu/Debian-derived distros&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rename &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;s/.yaml/.yml/&amp;#39;&lt;/span&gt; *.yaml
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Replace all occurrences of &amp;#34;prev_&amp;#34; with &amp;#34;next_&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rename &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;s/prev_/next_&amp;#39;&lt;/span&gt; *.c
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Delete part of a filename&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rename &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;s/next_//&amp;#39;&lt;/span&gt; *.c
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Limit changes to specific parts of filenames&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Only change the files that start with &amp;#34;paramater&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rename &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;s/^param/parameter/&amp;#39;&lt;/span&gt; *.c
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Search with grouping&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Replace all occurrences of &amp;#34;string&amp;#34; and &amp;#34;strong&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rename &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;s/(str|stro)ng/strength&amp;#39;&lt;/span&gt; *.c
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Use translations with rename&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Force filenames to uppercase&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rename &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;y/a-z/A-Z&amp;#39;&lt;/span&gt; *.py
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# More?&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;man rename
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Getting Started with Tiling WM [Part 1] - I3</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</guid><description>&lt;blockquote&gt;
+&lt;/figure&gt;</description></item><item><title>Getting Started with Tiling WM [Part 1] - I3</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Disclaimer&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I&amp;rsquo;ve gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -505,7 +474,41 @@
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold;font-style:italic"&gt;alias&lt;/span&gt; &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;ls&lt;/span&gt;=&lt;span style="color:#666;font-style:italic"&gt;&amp;#34;exa&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/exa-ls.png"&gt;
-&lt;/figure&gt;</description></item><item><title>Set Animated Gif as Wallpaper</title><link>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</link><pubDate>Thu, 14 Jan 2021 09:36:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</guid><description>&lt;blockquote&gt;
+&lt;/figure&gt;
+
+&lt;h2 id="rename"&gt;rename&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Rename a single file with &lt;code&gt;mv&lt;/code&gt;. Just a basic thing.&lt;/li&gt;
+&lt;li&gt;Rename multiple files with &lt;code&gt;mv&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Rename files with suffix .yaml to yml&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;for&lt;/span&gt; f in *.yaml; &lt;span style="font-weight:bold"&gt;do&lt;/span&gt; mv -- &lt;span style="color:#666;font-style:italic"&gt;&amp;#34;&lt;/span&gt;&lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;$f&lt;/span&gt;&lt;span style="color:#666;font-style:italic"&gt;&amp;#34;&lt;/span&gt; &lt;span style="color:#666;font-style:italic"&gt;&amp;#34;&lt;/span&gt;&lt;span style="color:#666;font-style:italic"&gt;${&lt;/span&gt;&lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;f&lt;/span&gt;%.yaml&lt;span style="color:#666;font-style:italic"&gt;}&lt;/span&gt;&lt;span style="color:#666;font-style:italic"&gt;.yml&amp;#34;&lt;/span&gt; &lt;span style="font-weight:bold"&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Rename multiple files with &lt;code&gt;rename&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Install rename command&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Ubuntu/Debian-derived distros&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt install rename
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# RedHat-derived distros&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo yum install prename
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# The follow examples are performed in Ubuntu/Debian-derived distros&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rename &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;s/.yaml/.yml/&amp;#39;&lt;/span&gt; *.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Replace all occurrences of &amp;#34;prev_&amp;#34; with &amp;#34;next_&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rename &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;s/prev_/next_&amp;#39;&lt;/span&gt; *.c
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Delete part of a filename&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rename &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;s/next_//&amp;#39;&lt;/span&gt; *.c
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Limit changes to specific parts of filenames&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Only change the files that start with &amp;#34;paramater&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rename &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;s/^param/parameter/&amp;#39;&lt;/span&gt; *.c
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Search with grouping&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Replace all occurrences of &amp;#34;string&amp;#34; and &amp;#34;strong&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rename &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;s/(str|stro)ng/strength&amp;#39;&lt;/span&gt; *.c
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Use translations with rename&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Force filenames to uppercase&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rename &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;y/a-z/A-Z&amp;#39;&lt;/span&gt; *.py
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# More?&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;man rename
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Set Animated Gif as Wallpaper</title><link>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</link><pubDate>Thu, 14 Jan 2021 09:36:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: Environment Ubuntu 20.04&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="dependencies"&gt;Dependencies&lt;/h2&gt;

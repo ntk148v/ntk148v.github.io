@@ -9,30 +9,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;4. Toast two pieces of bread.
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;5. Add butter and jam to the toast.
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;6. Pour a glass of orange juice.
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Each step takes time to finish, for example, you have to wait X seconds to make a glass of orange juice. Let&amp;rsquo;s write those instructions as Golang:&lt;/p&gt;</description></item><item><title>Goignore</title><link>https://ntk148v.github.io/posts/goignore/</link><pubDate>Fri, 26 Nov 2021 17:26:44 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/goignore/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;&lt;a href="https://github.com/ntk148v/goignore"&gt;Goignore&lt;/a&gt; - A &lt;code&gt;.gitignore&lt;/code&gt; wizard which gnerates &lt;code&gt;.gitignore&lt;/code&gt; files from the command line for you. Inspired by &lt;a href="https://github.com/karan/joe"&gt;joe&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id="features"&gt;Features&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;No installation necessary - just use the binary.&lt;/li&gt;
-&lt;li&gt;Works on Linux, Windows &amp;amp; MacOS.&lt;/li&gt;
-&lt;li&gt;Interactive user interface with &lt;a href="https://github.com/charmbracelet/bubbletea"&gt;bubbletea&lt;/a&gt;: Pagination, Filtering, Help&amp;hellip;&lt;/li&gt;
-&lt;li&gt;Supports all Github-supported &lt;a href="https://github.com/github/gitignore.git"&gt;.gitignore files&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id="install"&gt;Install&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Download the latest binary from the &lt;a href="https://github.com/ntk148v/goignore/releases"&gt;Release page&lt;/a&gt;. It&amp;rsquo;s the easiest way to get started with &lt;code&gt;goignore&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Make sure to add the location of the binary to your &lt;code&gt;$PATH&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id="usage"&gt;Usage&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Just run.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;chmod a+x goignore
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;goignore
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;At the first time, &lt;code&gt;goignore&lt;/code&gt; will download the Gitignore templates from Github. It may take a few seconds (depend on your network).&lt;/p&gt;</description></item><item><title>Golang: Block forever</title><link>https://ntk148v.github.io/posts/golang-block-forever/</link><pubDate>Mon, 27 Apr 2020 15:59:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/golang-block-forever/</guid><description>&lt;p&gt;Sometimes, you want to block the current goroutine when allowing others to continue. Here is some tricks I&amp;rsquo;ve collected:&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Each step takes time to finish, for example, you have to wait X seconds to make a glass of orange juice. Let&amp;rsquo;s write those instructions as Golang:&lt;/p&gt;</description></item><item><title>Golang: Block forever</title><link>https://ntk148v.github.io/posts/golang-block-forever/</link><pubDate>Mon, 27 Apr 2020 15:59:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/golang-block-forever/</guid><description>&lt;p&gt;Sometimes, you want to block the current goroutine when allowing others to continue. Here is some tricks I&amp;rsquo;ve collected:&lt;/p&gt;
 &lt;h2 id="references"&gt;References&lt;/h2&gt;
 &lt;p&gt;Firstly give them some credits:&lt;/p&gt;
 &lt;ol&gt;
