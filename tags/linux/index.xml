@@ -60,12 +60,26 @@
 &lt;p&gt;The complete network data flow:&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="http://web.archive.org/web/20170905131225if_/https://wiki.linuxfoundation.org/images/1/1c/Network_data_flow_through_kernel.png" alt=""&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;
+ &lt;img
+ src="http://web.archive.org/web/20170905131225if_/https://wiki.linuxfoundation.org/images/1/1c/Network_data_flow_through_kernel.png"
+ alt=""
+ loading="lazy"
+ 
+ /&gt;&lt;/figure&gt;
+&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;It&amp;rsquo;s a getting started. Before perform any tuning, let make sure that we understand how computers running Linux receive packets.&lt;/li&gt;
 &lt;li&gt;Linux queue:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://github.com/leandromoreira/linux-network-performance-parameters/raw/master/img/linux_network_flow.png" alt=""&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;
+ &lt;img
+ src="https://github.com/leandromoreira/linux-network-performance-parameters/raw/master/img/linux_network_flow.png"
+ alt=""
+ loading="lazy"
+ 
+ /&gt;&lt;/figure&gt;
+&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: The follow sections will heavily use &lt;code&gt;sysctl&lt;/code&gt;. If you don&amp;rsquo;t familiar with this command, take a look at &lt;a href="#sysctl"&gt;HOWTO#sysctl section&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>Getting Started Tiling Wm [Part 6] I3 Rounded Corners</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-6-i3-rounded-corners/</link><pubDate>Mon, 10 Jan 2022 13:45:01 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-6-i3-rounded-corners/</guid><description>&lt;p&gt;According to &lt;a href="https://www.reddit.com/r/unixporn/comments/7h0rm0/what_would_you_want_in_a_wm/"&gt;Reddis post&lt;/a&gt; and &lt;a href="https://github.com/Airblader/i3/issues/167"&gt;i3-gaps issue&lt;/a&gt;, it seems like a lot of people would like this. But Airblade - i3-gaps maintainer &lt;a href="https://github.com/Airblader/i3/issues/167#issuecomment-328562433"&gt;doesn&amp;rsquo;t like it&lt;/a&gt;. But nevermind, we still have two ways to achieve it.&lt;/p&gt;
 &lt;h2 id="rounded-i3-gaps"&gt;Rounded i3-gaps&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://github.com/resloved"&gt;Resloved&lt;/a&gt; have an awesome &lt;a href="https://github.com/resloved/i3"&gt;fork&lt;/a&gt; to implement rounded corners. I fork it again to keep it up-to-date with the upstream i3-gaps. You can check it &lt;a href="https://github.com/ntk148v/i3"&gt;here&lt;/a&gt;.&lt;/p&gt;

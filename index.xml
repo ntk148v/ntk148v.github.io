@@ -106,12 +106,26 @@
 &lt;p&gt;The complete network data flow:&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="http://web.archive.org/web/20170905131225if_/https://wiki.linuxfoundation.org/images/1/1c/Network_data_flow_through_kernel.png" alt=""&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;
+ &lt;img
+ src="http://web.archive.org/web/20170905131225if_/https://wiki.linuxfoundation.org/images/1/1c/Network_data_flow_through_kernel.png"
+ alt=""
+ loading="lazy"
+ 
+ /&gt;&lt;/figure&gt;
+&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;It&amp;rsquo;s a getting started. Before perform any tuning, let make sure that we understand how computers running Linux receive packets.&lt;/li&gt;
 &lt;li&gt;Linux queue:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://github.com/leandromoreira/linux-network-performance-parameters/raw/master/img/linux_network_flow.png" alt=""&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;
+ &lt;img
+ src="https://github.com/leandromoreira/linux-network-performance-parameters/raw/master/img/linux_network_flow.png"
+ alt=""
+ loading="lazy"
+ 
+ /&gt;&lt;/figure&gt;
+&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: The follow sections will heavily use &lt;code&gt;sysctl&lt;/code&gt;. If you don&amp;rsquo;t familiar with this command, take a look at &lt;a href="#sysctl"&gt;HOWTO#sysctl section&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>Goat Playground</title><link>https://ntk148v.github.io/posts/goat-playground/</link><pubDate>Tue, 31 Jan 2023 14:15:12 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/goat-playground/</guid><description>&lt;p&gt;Hey, this is a simple post to play with &lt;a href="https://github.com/blampe/goat"&gt;GoAT Diagram&lt;/a&gt;.&lt;/p&gt;
 
 
