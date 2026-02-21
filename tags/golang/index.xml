@@ -1,9 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on kiennt26's home</title><link>https://ntk148v.github.io/tags/golang/</link><description>Recent content in Golang on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Mon, 16 Jun 2025 11:00:28 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>Golang Async</title><link>https://ntk148v.github.io/posts/golang-async/</link><pubDate>Fri, 21 Jul 2023 16:16:31 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/golang-async/</guid><description>&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on kiennt26's home</title><link>https://ntk148v.github.io/tags/golang/</link><description>Recent content in Golang on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Sat, 21 Feb 2026 11:10:44 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>Bloom Filter in Go</title><link>https://ntk148v.github.io/posts/bloom-filter/</link><pubDate>Sat, 21 Feb 2026 10:29:11 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/bloom-filter/</guid><description>&lt;p&gt;Source:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Bloom_filter"&gt;https://en.wikipedia.org/wiki/Bloom_filter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://redis.io/docs/latest/develop/data-types/probabilistic/bloom-filter/"&gt;https://redis.io/docs/latest/develop/data-types/probabilistic/bloom-filter/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree#table_engine-mergetree-data_skipping-indexes"&gt;https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree#table_engine-mergetree-data_skipping-indexes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="what-is-bloom-filter"&gt;What is Bloom filter?&lt;/h2&gt;
+&lt;p&gt;When building high-performance systems, minimizing expensive operations like disk reads or remote database queries is critical.&lt;/p&gt;
+&lt;p&gt;A Bloom filter is a highly space-efficient, probabilistic data structure designed to test whether an element is a member of a set. It was conceived by Burton Howard Bloom in 1970.&lt;/p&gt;
+&lt;p&gt;Unlike standard data structures like hash tables or binary search trees that store the actual data, a Bloom filter only stores a cryptographic representation of the data. Because it does not store the raw elements, it requires a fraction of the memory.&lt;/p&gt;</description></item><item><title>Golang Async</title><link>https://ntk148v.github.io/posts/golang-async/</link><pubDate>Fri, 21 Jul 2023 16:16:31 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/golang-async/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;This article is Golang version of &lt;a href="https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/"&gt;Asynchronous programming with async and await guideline&lt;/a&gt;. They did really good job to demonstrate how asynchronous programming looks like.&lt;/p&gt;
 &lt;p&gt;You can find source code &lt;a href="https://github.com/ntk148v/testing/tree/master/golang/breakfast"&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Throughout this article, we&amp;rsquo;ll write the instructions to make a breakfast.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;1. Pour a cup of coffee.
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;1. Pour a cup of coffee.
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;2. Heat a pan, then fry two eggs.
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;3. Fry three slices of bacon.
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;4. Toast two pieces of bread.
@@ -20,7 +29,7 @@
 &lt;p&gt;NOTE: I run these with Golang 1.12&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="the-original"&gt;The original&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;package&lt;/span&gt; main
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;package&lt;/span&gt; main
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;import&lt;/span&gt; &lt;span style="color:#666;font-style:italic"&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
@@ -36,7 +45,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; fmt.&lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;Println&lt;/span&gt;(&lt;span style="color:#666;font-style:italic"&gt;&amp;#34;OK we&amp;#39;re done&amp;#34;&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="bad---an-empty-infinite-loop"&gt;Bad - An empty infinite loop&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;package&lt;/span&gt; main
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;package&lt;/span&gt; main
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;import&lt;/span&gt; (
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#666;font-style:italic"&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;

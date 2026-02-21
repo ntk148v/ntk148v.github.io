@@ -54,7 +54,7 @@
 |                       |       Send actual scale request
 ---------------------+--+
 
-</pre><blockquote><p>NOTE: The stack leverages OpenStack instance metadata and Prometheus labels.</p></blockquote><ul><li>Prometheus server scrapes metrics from exporters that launch inside Instance.</li><li>Prometheus server evaluates metrics with pre-defined rules.</li><li>Prometheus server fires alert to Prometheus alertmanager.</li><li>Prometheus alertmanager sends Alerts via pre-configured webhook URL - Faythe endpoint.</li><li>Faythe receives and processes Alerts (dedup, group alert and generate a Heat signal URL) and creates a POST request to scale endpoint.</li></ul><h3 id=guideline>Guideline</h3><p>The current aprroach requires some further setup and configuration from Prometheus and Heat stack. You will see that it&rsquo;s quite complicated.</p><p><strong>The simplify in logic is paid by the complex config steps.</strong></p><p><strong>Step 1:</strong> Create a stack - the following is the sample template. It has several requirements:</p><ul><li>OS::Heat::ScalingPolicy has to be named as <code>scaleout_policy</code> and <code>scalein_policy</code>.</li><li>OS::Heat::AutoScalingGroup&rsquo;s instance metadata has to contain <code>stack_asg_name</code> and <code>stack_asg_id</code>. It will be used to generate signal URL.</li><li>Instance should have a cloud init script to enable and start Prometheus exporters automatically.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#666;font-weight:700;font-style:italic>---</span>
+</pre><blockquote><p>NOTE: The stack leverages OpenStack instance metadata and Prometheus labels.</p></blockquote><ul><li>Prometheus server scrapes metrics from exporters that launch inside Instance.</li><li>Prometheus server evaluates metrics with pre-defined rules.</li><li>Prometheus server fires alert to Prometheus alertmanager.</li><li>Prometheus alertmanager sends Alerts via pre-configured webhook URL - Faythe endpoint.</li><li>Faythe receives and processes Alerts (dedup, group alert and generate a Heat signal URL) and creates a POST request to scale endpoint.</li></ul><h3 id=guideline>Guideline</h3><p>The current aprroach requires some further setup and configuration from Prometheus and Heat stack. You will see that it&rsquo;s quite complicated.</p><p><strong>The simplify in logic is paid by the complex config steps.</strong></p><p><strong>Step 1:</strong> Create a stack - the following is the sample template. It has several requirements:</p><ul><li>OS::Heat::ScalingPolicy has to be named as <code>scaleout_policy</code> and <code>scalein_policy</code>.</li><li>OS::Heat::AutoScalingGroup&rsquo;s instance metadata has to contain <code>stack_asg_name</code> and <code>stack_asg_id</code>. It will be used to generate signal URL.</li><li>Instance should have a cloud init script to enable and start Prometheus exporters automatically.</li></ul><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#666;font-weight:700;font-style:italic>---</span>
 </span></span><span style=display:flex><span>resources:
 </span></span><span style=display:flex><span>  asg:
 </span></span><span style=display:flex><span>    type: OS::Heat::AutoScalingGroup
@@ -92,7 +92,7 @@
 </span></span><span style=display:flex><span>      auto_scaling_group_id: { get_resource: asg }
 </span></span><span style=display:flex><span>      cooldown: { get_param: scale_in_cooldown }
 </span></span><span style=display:flex><span>      scaling_adjustment: { get_param: scaling_in_adjustment }
-</span></span></code></pre></div><p><strong>Step 2:</strong> Configure Prometheus openstack discovery</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>- job_name: openstack_scale_test
+</span></span></code></pre></div><p><strong>Step 2:</strong> Configure Prometheus openstack discovery</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-yaml data-lang=yaml><span style=display:flex><span>- job_name: openstack_scale_test
 </span></span><span style=display:flex><span>  openstack_sd_configs:
 </span></span><span style=display:flex><span>    - role: instance
 </span></span><span style=display:flex><span>      identity_endpoint: <span style=color:#666;font-style:italic>&#34;&lt;openstackendpoint&gt;&#34;</span>
@@ -126,7 +126,7 @@
 </span></span><span style=display:flex><span>    - source_labels: [__meta_openstack_tag_stack_asg_id]
 </span></span><span style=display:flex><span>      target_label: stack_asg_id
 </span></span><span style=display:flex><span>      replacement: $1
-</span></span></code></pre></div><p><strong>Step 3:</strong> Define a Prometheus rule, for example:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>groups:
+</span></span></code></pre></div><p><strong>Step 3:</strong> Define a Prometheus rule, for example:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-yaml data-lang=yaml><span style=display:flex><span>groups:
 </span></span><span style=display:flex><span>  - name: targets
 </span></span><span style=display:flex><span>    rules:
 </span></span><span style=display:flex><span>      - alert: high_memory_load
@@ -137,7 +137,7 @@
 </span></span><span style=display:flex><span>        annotations:
 </span></span><span style=display:flex><span>          summary: <span style=color:#666;font-style:italic>&#34;High memory&#34;</span>
 </span></span><span style=display:flex><span>          description: <span style=color:#666;font-style:italic>&#34;Instance {{ $labels.instance }} of job {{ $labels.job }} (stack {{ $labels.stack_id }} has been high af for 5m&#34;</span>
-</span></span></code></pre></div><p><strong>Step 4:</strong> Configure Prometheus Alertmanager webhook, for example:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>route:
+</span></span></code></pre></div><p><strong>Step 4:</strong> Configure Prometheus Alertmanager webhook, for example:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-yaml data-lang=yaml><span style=display:flex><span>route:
 </span></span><span style=display:flex><span>  receiver: <span style=color:#666;font-style:italic>&#34;custom_alert&#34;</span>
 </span></span><span style=display:flex><span>  group_wait: 20s
 </span></span><span style=display:flex><span>  group_interval: 3m
@@ -151,7 +151,7 @@
 </span></span><span style=display:flex><span>          basic_auth:
 </span></span><span style=display:flex><span>            username: <span style=color:#666;font-style:italic>&#34;admin&#34;</span>
 </span></span><span style=display:flex><span>            password: <span style=color:#666;font-style:italic>&#34;password&#34;</span>
-</span></span></code></pre></div><p>Note that, <code>openstack-1f</code> has to be the name of OpenStack configuration group in Faythe config file. It helps Faythe to work with multiple OpenStack.</p><p><strong>Step 5:</strong> Configure Faythe</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#888;font-style:italic>## OpenStackConfiguration.</span>
+</span></span></code></pre></div><p>Note that, <code>openstack-1f</code> has to be the name of OpenStack configuration group in Faythe config file. It helps Faythe to work with multiple OpenStack.</p><p><strong>Step 5:</strong> Configure Faythe</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#888;font-style:italic>## OpenStackConfiguration.</span>
 </span></span><span style=display:flex><span>openstack_configs:
 </span></span><span style=display:flex><span>  openstack-1f:
 </span></span><span style=display:flex><span>    region_name: <span style=color:#666;font-style:italic>&#34;RegionOne&#34;</span>

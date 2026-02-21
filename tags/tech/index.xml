@@ -1,4 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech on kiennt26's home</title><link>https://ntk148v.github.io/tags/tech/</link><description>Recent content in Tech on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Thu, 25 Dec 2025 10:24:10 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>A clumsy Docker network notes</title><link>https://ntk148v.github.io/posts/clumsy-docker-network-notes/</link><pubDate>Tue, 12 Dec 2023 14:47:26 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/clumsy-docker-network-notes/</guid><description>&lt;h1 id="a-clumsy-docker-networking-notes"&gt;A clumsy Docker networking notes&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tech on kiennt26's home</title><link>https://ntk148v.github.io/tags/tech/</link><description>Recent content in Tech on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Sat, 21 Feb 2026 11:10:44 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Bloom Filter in Go</title><link>https://ntk148v.github.io/posts/bloom-filter/</link><pubDate>Sat, 21 Feb 2026 10:29:11 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/bloom-filter/</guid><description>&lt;p&gt;Source:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Bloom_filter"&gt;https://en.wikipedia.org/wiki/Bloom_filter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://redis.io/docs/latest/develop/data-types/probabilistic/bloom-filter/"&gt;https://redis.io/docs/latest/develop/data-types/probabilistic/bloom-filter/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree#table_engine-mergetree-data_skipping-indexes"&gt;https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/mergetree#table_engine-mergetree-data_skipping-indexes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="what-is-bloom-filter"&gt;What is Bloom filter?&lt;/h2&gt;
+&lt;p&gt;When building high-performance systems, minimizing expensive operations like disk reads or remote database queries is critical.&lt;/p&gt;
+&lt;p&gt;A Bloom filter is a highly space-efficient, probabilistic data structure designed to test whether an element is a member of a set. It was conceived by Burton Howard Bloom in 1970.&lt;/p&gt;
+&lt;p&gt;Unlike standard data structures like hash tables or binary search trees that store the actual data, a Bloom filter only stores a cryptographic representation of the data. Because it does not store the raw elements, it requires a fraction of the memory.&lt;/p&gt;</description></item><item><title>A clumsy Docker network notes</title><link>https://ntk148v.github.io/posts/clumsy-docker-network-notes/</link><pubDate>Tue, 12 Dec 2023 14:47:26 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/clumsy-docker-network-notes/</guid><description>&lt;h1 id="a-clumsy-docker-networking-notes"&gt;A clumsy Docker networking notes&lt;/h1&gt;
 &lt;p&gt;Nguồn:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/ntk148v/til/tree/master/docker/networking"&gt;https://github.com/ntk148v/til/tree/master/docker/networking&lt;/a&gt;&lt;/li&gt;
@@ -21,7 +30,7 @@
 &lt;li&gt;Networking namespace là một trong các loại namespace. Mỗi network namespace có &lt;a href="https://en.wikipedia.org/wiki/Network_stack"&gt;network stack&lt;/a&gt; riêng: địa chỉ IP, network interface, route table, &amp;hellip;&lt;/li&gt;
 &lt;li&gt;Bạn có thể xem thao tác các network namespace bằng câu lệnh sau:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ sudo ip netns &amp;lt;sub-command&amp;gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ sudo ip netns &amp;lt;sub-command&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href="https://wiki.archlinux.org/index.php/Network_bridge"&gt;Network bridge&lt;/a&gt;: một thiết bị mạng ảo chuyển tiếp các gói giữa hai hoặc nhiều phân đoạn mạng.&lt;/p&gt;</description></item><item><title>Writing a Simple Shell in C Sharp</title><link>https://ntk148v.github.io/posts/writing-a-simple-shell-in-c-sharp/</link><pubDate>Sun, 20 Aug 2023 23:15:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/writing-a-simple-shell-in-c-sharp/</guid><description>&lt;p&gt;In this post, we will write a minimalistic shell for UNIX(-like) operating systems in C# programming language. I create this for learning C# purpose.&lt;/p&gt;
@@ -38,7 +47,7 @@
 &lt;p&gt;You can find source code &lt;a href="https://github.com/ntk148v/testing/tree/master/golang/breakfast"&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Throughout this article, we&amp;rsquo;ll write the instructions to make a breakfast.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;1. Pour a cup of coffee.
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;1. Pour a cup of coffee.
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;2. Heat a pan, then fry two eggs.
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;3. Fry three slices of bacon.
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;4. Toast two pieces of bread.
@@ -49,7 +58,7 @@
 &lt;p&gt;&lt;strong&gt;Source&lt;/strong&gt;: &lt;a href="https://www.sobyte.net/post/2023-03/linux-services-in-the-background/"&gt;https://www.sobyte.net/post/2023-03/linux-services-in-the-background/&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;You run some commands, it may take a long time to execute, and you don&amp;rsquo;t want to wait for it. So what should you do in that scenario?&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;graph TD
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;graph TD
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;A(You don&amp;#39;t want to wait &amp;lt;br&amp;gt;for a running command) --&amp;gt; B{Do you want to see output?}
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;A --&amp;gt; C{Do you want the command to stay &amp;lt;br&amp;gt;running after the session ends?}
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;C --&amp;gt; |Yes| E(screen)
@@ -917,7 +926,7 @@
 &lt;p&gt;If you&amp;rsquo;re running Docker on a host that is exposed to the Internet (network bridge), you will probably want to restrict external access.&lt;/p&gt;
 &lt;h2 id="docker-network"&gt;Docker network&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s start with a fact that Docker manipulates &lt;code&gt;iptables&lt;/code&gt; rules to provide network isolation, on Linux. Docker installs custom iptables chains named &lt;code&gt;DOCKER&lt;/code&gt;, &lt;code&gt;DOCKER-USER&lt;/code&gt; and &lt;code&gt;DOCKER-ISOLATION-STAGE-*&lt;/code&gt;, and it ensures that incoming packets are always checked by these chains first.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;iptables -L -n
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;iptables -L -n
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Re.Docker network, I won&amp;rsquo;t describe here because it&amp;rsquo;s a lot of knowledge. You may want to check &lt;a href="https://github.com/ntk148v/til/blob/master/docker/networking/README.md"&gt;Docker network note&lt;/a&gt;. I will only show iptables packet flow: For example, we have a host with ip 10.0.10.26, then start a container that is exposed port 8000 to internet.&lt;/p&gt;</description></item><item><title>Moving from Utterances to Giscus</title><link>https://ntk148v.github.io/posts/moving-from-utterances-to-giscus/</link><pubDate>Tue, 30 Aug 2022 11:09:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/moving-from-utterances-to-giscus/</guid><description>&lt;p&gt;I&amp;rsquo;ve used &lt;a href="./lets-comment.md"&gt;Utterances&lt;/a&gt; for a while. Using Github&amp;rsquo;s issue feature as a backend for comments is a very elegant solution IM O: no tracking, no ads, simple. But today, I decide to switch to a better alternative - &lt;a href="https://github.com/giscus/giscus"&gt;Giscus&lt;/a&gt;. Giscus is heavily inspired by Utterances except one thing: instead of using Github issues it uses the fairly new Discussions features to store comments.&lt;/p&gt;
 &lt;p&gt;So..&lt;/p&gt;
 &lt;h2 id="why-migrate"&gt;Why migrate?&lt;/h2&gt;
@@ -961,7 +970,7 @@
 &lt;ul&gt;
 &lt;li&gt;Install i3-gaps.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Dependencies&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Dependencies&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt install git libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev &lt;span style="color:#666;font-style:italic"&gt;\
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; libxcb-util0-dev libxcb-icccm4-dev libyajl-dev &lt;span style="color:#666;font-style:italic"&gt;\
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; libstartup-notification0-dev libxcb-randr0-dev &lt;span style="color:#666;font-style:italic"&gt;\
@@ -979,7 +988,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;Configure rounded corners by adding this to your config.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;border_radius 10
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;border_radius 10
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;Result, but you can see that these corners look so jagged (check out this &lt;a href="https://github.com/Airblader/i3/issues/167#issuecomment-485263770"&gt;comment&lt;/a&gt;).&lt;/li&gt;
 &lt;/ul&gt;
@@ -995,7 +1004,7 @@
 &lt;li&gt;Install picom.&lt;/li&gt;
 &lt;li&gt;Configure rounded corners by changing &lt;code&gt;corner_radius&lt;/code&gt; value.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;# Path ~/.config/picom.conf
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;# Path ~/.config/picom.conf
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;corner_radius: 10;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;Result looks much smoother.&lt;/li&gt;
@@ -1036,15 +1045,15 @@
 &lt;ul&gt;
 &lt;li&gt;Installing &lt;code&gt;rofi&lt;/code&gt; is quite easy.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt install rofi -y
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt install rofi -y
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;Run it for the first time.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;DejaVu Sans 8&amp;#39;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;DejaVu Sans 8&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;details&gt;
  &lt;summary&gt;Details&lt;/summary&gt;
- &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; -show mode
+ &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; -show mode
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Open rofi in a certain mode. Available modes are window, run, drun, ssh, combi. The
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; special argument keys can be used to open a searchable list of supported key bind‐
@@ -1109,12 +1118,12 @@
 &lt;/li&gt;
 &lt;li&gt;We will use configuration file.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;mkdir -p ~/.config/rofi/themes
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;mkdir -p ~/.config/rofi/themes
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;touch ~/.config/rofi/themes/onedark.theme
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;Copy the follow content into &lt;code&gt;~/.config/rofi/themes/onedark.theme&lt;/code&gt;:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;configuration {
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;configuration {
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; show-icons: true;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; font: &amp;#34;DejaVu Sans Mono 10&amp;#34;;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; modi: &amp;#34;window,run,drun&amp;#34;;
@@ -1178,14 +1187,14 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;Run it and you can see the magic!&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rofi -theme ~/.config/rofi/themes/onedark.theme -show drun
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rofi -theme ~/.config/rofi/themes/onedark.theme -show drun
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-1/rofi-custom.png"&gt;
 &lt;/figure&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Don&amp;rsquo;t forget to update hotkey in i3 configuration file.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;bindsym $mod+d exec rofi -theme ~/.config/rofi/themes/onedark.theme -show drun
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;bindsym $mod+d exec rofi -theme ~/.config/rofi/themes/onedark.theme -show drun
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Getting Started with Tiling WM [Part 3] - Polybar</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://polybar.github.io/"&gt;According to Polybar frontpage&lt;/a&gt;, &lt;code&gt;Polybar is A fast and easy to use tool for creating status bars &lt;/code&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1215,7 +1224,7 @@
 &lt;li&gt;&lt;a href="https://httpie.io"&gt;httpie&lt;/a&gt;: a user-friendly command-line HTTP client for the API era. It comes with JSON support, syntax highlighting, persistent sessions, wget-like downloads, plugins, and more.&lt;/li&gt;
 &lt;li&gt;Examples:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Hello world&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Hello world&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ http httpie.io/hello
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Custom HTTP method, HTTP headers and JSON data&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ http PUT pie.dev/put X-API-Token:123 &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;name&lt;/span&gt;=John
@@ -1231,7 +1240,7 @@
 &lt;li&gt;&lt;a href="https://github.com/BurntSushi/ripgrep#quick-examples-comparing-tools"&gt;Benchmark&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;Examples:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Basic use&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Basic use&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ rg fast README.md
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Regular expressions&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ rg &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;fast\w+&amp;#39;&lt;/span&gt; README.md
@@ -1262,7 +1271,7 @@
 &lt;ul&gt;
 &lt;li&gt;Example config:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;[core]
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;[core]
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; pager: delta
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;[delta]
@@ -1277,14 +1286,14 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;Completely replace &lt;code&gt;diff&lt;/code&gt; with &lt;code&gt;delta&lt;/code&gt;:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold;font-style:italic"&gt;alias&lt;/span&gt; &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;diff&lt;/span&gt;=&lt;span style="color:#666;font-style:italic"&gt;&amp;#34;delta&amp;#34;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold;font-style:italic"&gt;alias&lt;/span&gt; &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;diff&lt;/span&gt;=&lt;span style="color:#666;font-style:italic"&gt;&amp;#34;delta&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="z"&gt;z&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Tired for &lt;code&gt;cd&lt;/code&gt;ing into the same directories over and over? Save your time with &lt;code&gt;z&lt;/code&gt; command!&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/rupa/z"&gt;z&lt;/a&gt;: jump around. Z is a shell script that makes jumping around your file directory pleasantly simple. Instead of trying to remember the exact path of where you need to go, or worse, &lt;code&gt;cd&lt;/code&gt;ing into the next directory followed by &lt;code&gt;ls&lt;/code&gt;ing and then cding again over and over (we’ve all been there), Z allows you to “lazy type” where you want to go and it’ll handle the rest.&lt;/li&gt;
 &lt;li&gt;Examples:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Takes me to my workspace folder from anywhere.&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Takes me to my workspace folder from anywhere.&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ z workspace
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="fzf"&gt;fzf&lt;/h2&gt;
 &lt;ul&gt;
@@ -1292,7 +1301,7 @@
 &lt;li&gt;It&amp;rsquo;s an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.&lt;/li&gt;
 &lt;li&gt;Examples:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Read the list from STDIN and write the selected item to STDOUT&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Read the list from STDIN and write the selected item to STDOUT&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ find * -type f | fzf &amp;gt; selected
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ vim &lt;span style="font-weight:bold"&gt;$(&lt;/span&gt;fzf&lt;span style="font-weight:bold"&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# COMMAND **&amp;lt;TAB&amp;gt;&lt;/span&gt;
@@ -1340,7 +1349,7 @@
 &lt;ul&gt;
 &lt;li&gt;Examples:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ apt-get install vim
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ apt-get install vim
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;E: Could not open lock file /var/lib/dpkg/lock - open (13: Permission denied)
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;E: Unable to lock the administration directory (/var/lib/dpkg/), are you root?
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
@@ -1361,7 +1370,7 @@
 &lt;ul&gt;
 &lt;li&gt;Completely replace &lt;code&gt;ls&lt;/code&gt; with &lt;code&gt;exa&lt;/code&gt;:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold;font-style:italic"&gt;alias&lt;/span&gt; &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;ls&lt;/span&gt;=&lt;span style="color:#666;font-style:italic"&gt;&amp;#34;exa&amp;#34;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold;font-style:italic"&gt;alias&lt;/span&gt; &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;ls&lt;/span&gt;=&lt;span style="color:#666;font-style:italic"&gt;&amp;#34;exa&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/exa-ls.png"&gt;
 &lt;/figure&gt;
 
@@ -1370,12 +1379,12 @@
 &lt;li&gt;Rename a single file with &lt;code&gt;mv&lt;/code&gt;. Just a basic thing.&lt;/li&gt;
 &lt;li&gt;Rename multiple files with &lt;code&gt;mv&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Rename files with suffix .yaml to yml&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Rename files with suffix .yaml to yml&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;for&lt;/span&gt; f in *.yaml; &lt;span style="font-weight:bold"&gt;do&lt;/span&gt; mv -- &lt;span style="color:#666;font-style:italic"&gt;&amp;#34;&lt;/span&gt;&lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;$f&lt;/span&gt;&lt;span style="color:#666;font-style:italic"&gt;&amp;#34;&lt;/span&gt; &lt;span style="color:#666;font-style:italic"&gt;&amp;#34;&lt;/span&gt;&lt;span style="color:#666;font-style:italic"&gt;${&lt;/span&gt;&lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;f&lt;/span&gt;%.yaml&lt;span style="color:#666;font-style:italic"&gt;}&lt;/span&gt;&lt;span style="color:#666;font-style:italic"&gt;.yml&amp;#34;&lt;/span&gt; &lt;span style="font-weight:bold"&gt;done&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;Rename multiple files with &lt;code&gt;rename&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Install rename command&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Install rename command&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Ubuntu/Debian-derived distros&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt install rename
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# RedHat-derived distros&lt;/span&gt;
@@ -1404,7 +1413,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/ujjwal96/xwinwrap"&gt;Xwinwrap&lt;/a&gt;:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt-get install xorg-dev build-essential libx11-dev x11proto-xext-dev libxrender-dev libxext-dev
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt-get install xorg-dev build-essential libx11-dev x11proto-xext-dev libxrender-dev libxext-dev
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;git clone https://github.com/ujjwal96/xwinwrap.git
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold;font-style:italic"&gt;cd&lt;/span&gt; xwinwrap
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;make
@@ -1413,10 +1422,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;Gifsicle:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt install gifsicle
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt install gifsicle
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="the-helper-script"&gt;The helper script&lt;/h2&gt;
 &lt;p&gt;A helper script to setup animated .gif in dual monitors.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-weight:bold"&gt;#!/bin/bash
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-weight:bold"&gt;#!/bin/bash
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Uses xwinwrap to display given animated .gif in dual monitors.&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;if&lt;/span&gt; [ &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;$#&lt;/span&gt; -ne 1 ]; &lt;span style="font-weight:bold"&gt;then&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="font-weight:bold;font-style:italic"&gt;echo&lt;/span&gt; 1&amp;gt;&amp;amp;2 Usage: &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;$0&lt;/span&gt; image.gif
@@ -1435,8 +1444,8 @@
 &lt;p&gt;Swap file systems support virtual memory, data is written to a swap file system when there is not enough RAM to store the data your system is processing.&lt;/p&gt;
 &lt;h2 id="swap-partition-size"&gt;Swap partition size&lt;/h2&gt;
 &lt;h3 id="old-rule-of-thumb"&gt;Old rule of thumb&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;swap: 2 * the-amount-of-RAM
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So if a computer had 64KB of RAM, a swap partition of 128KB would be an optimum size. This rule took into the facts that RAM sizes were typically quite small at the time. Nowadays, RAM has become a &lt;code&gt;cheap&lt;/code&gt; &amp;amp; &lt;code&gt;affordable&lt;/code&gt; commondity, so the 2x rule is outdated.&lt;/p&gt;</description></item><item><title>Ansitheus</title><link>https://ntk148v.github.io/posts/ansitheus/</link><pubDate>Tue, 05 May 2020 13:51:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/ansitheus/</guid><description>&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Ansitheus: Ansible + Prometheus
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;swap: 2 * the-amount-of-RAM
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So if a computer had 64KB of RAM, a swap partition of 128KB would be an optimum size. This rule took into the facts that RAM sizes were typically quite small at the time. Nowadays, RAM has become a &lt;code&gt;cheap&lt;/code&gt; &amp;amp; &lt;code&gt;affordable&lt;/code&gt; commondity, so the 2x rule is outdated.&lt;/p&gt;</description></item><item><title>Ansitheus</title><link>https://ntk148v.github.io/posts/ansitheus/</link><pubDate>Tue, 05 May 2020 13:51:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/ansitheus/</guid><description>&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Ansitheus: Ansible + Prometheus
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="prometheus-overview"&gt;Prometheus overview&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: Checkout the &lt;a href="https://prometheus.io/docs/introduction/overview/"&gt;Prometheus official documentation&lt;/a&gt;.&lt;/p&gt;
@@ -1478,7 +1487,7 @@
 &lt;li&gt;An etcd cluster is very sensitive to disk latencies. Since etcd must persist proposals to its log, disk activity from other processes may cause long &lt;code&gt;fsync&lt;/code&gt; latencies. The upshot is etcd may miss heartbeats, causing request timeouts and temporary leader loss. An etcd server can sometimes stably run alongside these processes when given a high disk priority.&lt;/li&gt;
 &lt;li&gt;Check whether a disk is fast enough for etcd using &lt;a href="https://github.com/axboe/fio"&gt;fio&lt;/a&gt;. If the 99th percentile of fdatasync is &lt;strong&gt;&amp;lt;10ms&lt;/strong&gt;, your storage is ok.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ fio --rw=write --ioengine=sync --fdatasync=1 --directory=test-data &lt;span style="color:#666;font-style:italic"&gt;\
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ fio --rw=write --ioengine=sync --fdatasync=1 --directory=test-data &lt;span style="color:#666;font-style:italic"&gt;\
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; --size=22m --bs=2300 --name=mytest
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;SSD&lt;/strong&gt; is recommended.&lt;/li&gt;
@@ -1509,7 +1518,7 @@
 &lt;/li&gt;
 &lt;li&gt;The heartbeat interval and election timeout value should be &lt;strong&gt;the same for all members in one cluster&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Command line arguments:&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Command line arguments:&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ etcd --heartbeat-interval=100 --election-timeout=500
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Environment variables:&lt;/span&gt;
@@ -1518,7 +1527,7 @@
 &lt;ul&gt;
 &lt;li&gt;An etcd server can sometimes stably run alongside these processes when given a high disk priority using &lt;a href="https://linux.die.net/man/1/ionice"&gt;ionice&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# best effort, highest priority&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# best effort, highest priority&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ sudo ionice -c2 -n0 -p &lt;span style="color:#666;font-style:italic"&gt;`&lt;/span&gt;pgrep etcd&lt;span style="color:#666;font-style:italic"&gt;`&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="snapshot"&gt;Snapshot&lt;/h3&gt;
 &lt;ul&gt;
@@ -1527,7 +1536,7 @@
 &lt;li&gt;Default: make snapshots after every &lt;strong&gt;10 000 changes&lt;/strong&gt;.&lt;/li&gt;
 &lt;li&gt;Tuning: Just in case that etcd&amp;rsquo;s memory and disk usage is too high, lower threshold.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Command line arguments:&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Command line arguments:&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ etcd --snapshot-count=5000
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Environment variables:&lt;/span&gt;
@@ -1538,7 +1547,7 @@
 &lt;li&gt;Etcd keeps an exact history of its keyspace, the history should be periodically compacted to avoid performance degradation and eventual storage space exhaustion.&lt;/li&gt;
 &lt;li&gt;Etcd can be set to automatically compact the keyspace with the &lt;code&gt;--auto-compaction-*&lt;/code&gt; option with a period of hours.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# keep one hour of history&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# keep one hour of history&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ etcd --auto-compaction-retention=1 --auto-compaction-mode=periodic
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;Compaction modes:
@@ -1554,7 +1563,7 @@
 &lt;li&gt;Internal fragmentation space is available for use by etcd but unavailable to the host filesystem.&lt;/li&gt;
 &lt;li&gt;Solution: Release this space back to the filesystem with defrag.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ etcdctl defrag
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ etcdctl defrag
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;It should be run rather infrequently, as there is always going to be an unavoidable pause.&lt;/li&gt;
 &lt;/ul&gt;
