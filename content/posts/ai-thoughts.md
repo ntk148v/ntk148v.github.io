@@ -6,7 +6,7 @@ draft: false
 comment: true
 ---
 
-Two years ago I was hyped every time a new AI coding tool dropped. Cursor, Claude, agents, whatever — I’d dive in immediately, feeling like I suddenly had superpowers (yes, I even made a [superpowers](https://github.com/obra/superpowers) repo, don’t judge).
+Two years ago I was hyped every time a new AI coding tool dropped. Cursor, Claude, agents, whatever — I’d dive in immediately, feeling like I suddenly had [superpowers](https://github.com/obra/superpowers).
 
 Today I open Twitter, Reddit, or my feed and mostly feel **drained**. The speed, the noise, the endless updates… it’s overwhelming.
 
