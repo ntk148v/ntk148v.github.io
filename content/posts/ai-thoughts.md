@@ -1,7 +1,7 @@
 ---
-title: 'Some Thoughts about AI and Software Development'
-date: '2026-04-21T14:52:58+07:00'
-tags: ['tech']
+title: "Some Thoughts about AI and Software Development"
+date: "2026-04-21T14:52:58+07:00"
+tags: ["tech"]
 draft: false
 comment: true
 ---
