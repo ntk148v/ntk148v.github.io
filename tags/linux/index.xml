@@ -11,7 +11,11 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;B --&amp;gt; |Yes| F{Do you have requirements &amp;lt;br&amp;gt;for log cutting, running users?}
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;F --&amp;gt; |No| G(nohup)
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;F --&amp;gt; |Yes| H(supervisor or systemd)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="ctrl-z-or-"&gt;Ctrl-Z or &amp;amp;&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id="ctrl-z-or-"&gt;
+ Ctrl-Z or &amp;amp;
+&lt;/h2&gt;
 &lt;p&gt;For example, you have to excute &lt;code&gt;ping&lt;/code&gt; command:&lt;/p&gt;</description></item><item><title>Linux Network Performance Ultimate Guide</title><link>https://ntk148v.github.io/posts/linux-network-performance-ultimate-guide/</link><pubDate>Fri, 24 Feb 2023 17:22:02 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-network-performance-ultimate-guide/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;The following content is from &lt;a href="https://github.com/ntk148v/til/blob/master/linux/network-performance-ultimate-guide.md"&gt;my #til github&lt;/a&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -26,7 +30,11 @@
 &lt;li&gt;&lt;a href="https://blog.csdn.net/armlinuxww/article/details/111930788"&gt;https://blog.csdn.net/armlinuxww/article/details/111930788&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://www.ibm.com/docs/en/linux-on-systems?topic=recommendations-network-performance-tuning"&gt;https://www.ibm.com/docs/en/linux-on-systems?topic=recommendations-network-performance-tuning&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="linux-networking-stack"&gt;Linux Networking stack&lt;/h2&gt;
+
+
+&lt;h2 id="linux-networking-stack"&gt;
+ Linux Networking stack
+&lt;/h2&gt;
 &lt;p&gt;Source:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -81,7 +89,11 @@
  /&gt;&lt;/figure&gt;
 &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: The follow sections will heavily use &lt;code&gt;sysctl&lt;/code&gt;. If you don&amp;rsquo;t familiar with this command, take a look at &lt;a href="#sysctl"&gt;HOWTO#sysctl section&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>Getting Started Tiling Wm [Part 6] I3 Rounded Corners</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-6-i3-rounded-corners/</link><pubDate>Mon, 10 Jan 2022 13:45:01 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-6-i3-rounded-corners/</guid><description>&lt;p&gt;According to &lt;a href="https://www.reddit.com/r/unixporn/comments/7h0rm0/what_would_you_want_in_a_wm/"&gt;Reddis post&lt;/a&gt; and &lt;a href="https://github.com/Airblader/i3/issues/167"&gt;i3-gaps issue&lt;/a&gt;, it seems like a lot of people would like this. But Airblade - i3-gaps maintainer &lt;a href="https://github.com/Airblader/i3/issues/167#issuecomment-328562433"&gt;doesn&amp;rsquo;t like it&lt;/a&gt;. But nevermind, we still have two ways to achieve it.&lt;/p&gt;
-&lt;h2 id="rounded-i3-gaps"&gt;Rounded i3-gaps&lt;/h2&gt;
+
+
+&lt;h2 id="rounded-i3-gaps"&gt;
+ Rounded i3-gaps
+&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://github.com/resloved"&gt;Resloved&lt;/a&gt; have an awesome &lt;a href="https://github.com/resloved/i3"&gt;fork&lt;/a&gt; to implement rounded corners. I fork it again to keep it up-to-date with the upstream i3-gaps. You can check it &lt;a href="https://github.com/ntk148v/i3"&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Install i3-gaps.&lt;/li&gt;
@@ -114,7 +126,11 @@
 &lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/getting-started-tiling-wm-part-6/rounded-corners-4.png"&gt;
 &lt;/figure&gt;
 
-&lt;h2 id="picom"&gt;picom&lt;/h2&gt;
+
+
+&lt;h2 id="picom"&gt;
+ picom
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;You can also achieve rounded corners by using &lt;a href="https://github.com/yshui/picom"&gt;picom&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;Install picom.&lt;/li&gt;
@@ -133,11 +149,19 @@
 &lt;p&gt;&lt;strong&gt;Disclaimer&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;I love customizing desktop. I make changes in my desktop everyday, make it look eye candy. My colleagues ask me how to make their desktop look like mine. But there are many steps and things to learn and follow, I know because I&amp;rsquo;ve gone throught it. Therefore I decide to write this getting-started guide to give people a shortest path to Fancy world.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id="overview-window-manager"&gt;Overview Window Manager&lt;/h2&gt;
+
+
+&lt;h2 id="overview-window-manager"&gt;
+ Overview Window Manager
+&lt;/h2&gt;
 &lt;p&gt;First of all, you have to know the basic concepts.&lt;/p&gt;</description></item><item><title>Getting Started with Tiling WM [Part 2] - Rofi</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-2-rofi/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;In the &lt;a href="https://ntk148v.github.io/posts/getting-started-tiling-wm-part-1-i3/"&gt;part1&lt;/a&gt;, I&amp;rsquo;ve used &lt;code&gt;rofi&lt;/code&gt; instead of &lt;code&gt;dmenu&lt;/code&gt;. This part will show you how to start with &lt;code&gt;rofi&lt;/code&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+
+
+&lt;h2 id="introduction"&gt;
+ Introduction
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/davatorium/rofi"&gt;Rofi&lt;/a&gt; is a window switcher, application launcher and dmenu replacement.&lt;/li&gt;
 &lt;li&gt;Features:
@@ -157,7 +181,11 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="getting-started"&gt;Getting started&lt;/h2&gt;
+
+
+&lt;h2 id="getting-started"&gt;
+ Getting started
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Installing &lt;code&gt;rofi&lt;/code&gt; is quite easy.&lt;/li&gt;
 &lt;/ul&gt;
@@ -222,7 +250,11 @@
 &lt;li&gt;Press hot key (defined in i3 configuration file) &lt;code&gt;&amp;lt;Window&amp;gt;+d&lt;/code&gt; to start rofi. Use &lt;code&gt;&amp;lt;Shift&amp;gt;+&amp;lt;left/right&amp;gt;&lt;/code&gt; to switch between mode.&lt;/li&gt;
 &lt;li&gt;More details you can found in &lt;a href="https://github.com/davatorium/rofi"&gt;rofi github&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="tweaking"&gt;Tweaking&lt;/h2&gt;
+
+
+&lt;h2 id="tweaking"&gt;
+ Tweaking
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;The default setup looks quite boring. Let&amp;rsquo;s tweak a bit!&lt;/li&gt;
 &lt;li&gt;There are currently three methods of setting configuration options:
@@ -311,7 +343,9 @@
 &lt;li&gt;Don&amp;rsquo;t forget to update hotkey in i3 configuration file.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;bindsym $mod+d exec rofi -theme ~/.config/rofi/themes/onedark.theme -show drun
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Getting Started with Tiling WM [Part 3] - Polybar</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</guid><description>&lt;h2 id="overview"&gt;Overview&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Getting Started with Tiling WM [Part 3] - Polybar</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-3-polybar/</guid><description>&lt;h2 id="overview"&gt;
+ Overview
+&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://polybar.github.io/"&gt;According to Polybar frontpage&lt;/a&gt;, &lt;code&gt;Polybar is A fast and easy to use tool for creating status bars &lt;/code&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;WIP&lt;/strong&gt;&lt;/p&gt;
@@ -319,7 +353,9 @@
 &lt;p&gt;&lt;strong&gt;WIP&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;</description></item><item><title>Getting Started with Tiling WM [Part 5] - Compton</title><link>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</link><pubDate>Mon, 19 Apr 2021 10:10:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/getting-started-tiling-wm-part-5-compton/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;WIP&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</description></item><item><title>Linux tools that you never knew you needed</title><link>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</link><pubDate>Wed, 07 Apr 2021 09:45:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</guid><description>&lt;h2 id="bat---cat-alternative"&gt;bat - (cat alternative)&lt;/h2&gt;
+&lt;/blockquote&gt;</description></item><item><title>Linux tools that you never knew you needed</title><link>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</link><pubDate>Wed, 07 Apr 2021 09:45:59 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-tools-that-you-never-knew-you-needed/</guid><description>&lt;h2 id="bat---cat-alternative"&gt;
+ bat - (cat alternative)
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/sharkdp/bat"&gt;bat&lt;/a&gt;: A cat(1) clone with syntax highlighting and Git integration.&lt;/li&gt;
 &lt;li&gt;Example:&lt;/li&gt;
@@ -327,7 +363,11 @@
 &lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/bat.png"&gt;
 &lt;/figure&gt;
 
-&lt;h2 id="fd---find-alternative"&gt;fd - (find alternative)&lt;/h2&gt;
+
+
+&lt;h2 id="fd---find-alternative"&gt;
+ fd - (find alternative)
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/sharkdp/fd"&gt;fd&lt;/a&gt;: a simple, fast and user-friendly alternative to &lt;code&gt;find&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Examples:&lt;/li&gt;
@@ -335,7 +375,11 @@
 &lt;figure class="figure"&gt;&lt;img src="https://raw.githubusercontent.com/sharkdp/fd/master/doc/screencast.svg"&gt;
 &lt;/figure&gt;
 
-&lt;h2 id="httpie---wgetcurl-alternative"&gt;httpie - (wget/curl alternative)&lt;/h2&gt;
+
+
+&lt;h2 id="httpie---wgetcurl-alternative"&gt;
+ httpie - (wget/curl alternative)
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://httpie.io"&gt;httpie&lt;/a&gt;: a user-friendly command-line HTTP client for the API era. It comes with JSON support, syntax highlighting, persistent sessions, wget-like downloads, plugins, and more.&lt;/li&gt;
 &lt;li&gt;Examples:&lt;/li&gt;
@@ -350,7 +394,11 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ http pie.dev/post &amp;lt; files/data.json
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# ...&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# For more examples, check out: https://httpie.io&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="ripgrep---grep-alternative"&gt;ripgrep - (grep alternative)&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id="ripgrep---grep-alternative"&gt;
+ ripgrep - (grep alternative)
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/BurntSushi/ripgrep"&gt;ripgrep&lt;/a&gt;: a faster &lt;code&gt;grep&lt;/code&gt;. ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern. By default, ripgrep will respect your .gitignore and automatically skip hidden files/directories and binary files.&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/BurntSushi/ripgrep#quick-examples-comparing-tools"&gt;Benchmark&lt;/a&gt;.&lt;/li&gt;
@@ -364,7 +412,11 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ rg &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;fn write\(&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# ...&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# For more examples, checkout: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="delta"&gt;delta&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id="delta"&gt;
+ delta
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/dandavison/delta"&gt;delta&lt;/a&gt;: Code evolves, and we all spend time studying diffs. Delta aims to make this both efficient and enjoyable: it allows you to make extensive changes to the layout and styling of diffs, as well as allowing you to stay arbitrarily close to the default git/diff output.&lt;/li&gt;
 &lt;li&gt;Diff/git diff doesn&amp;rsquo;t show you exactly what was changed.&lt;/li&gt;
@@ -403,7 +455,11 @@
 &lt;li&gt;Completely replace &lt;code&gt;diff&lt;/code&gt; with &lt;code&gt;delta&lt;/code&gt;:&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold;font-style:italic"&gt;alias&lt;/span&gt; &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;diff&lt;/span&gt;=&lt;span style="color:#666;font-style:italic"&gt;&amp;#34;delta&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="z"&gt;z&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id="z"&gt;
+ z
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Tired for &lt;code&gt;cd&lt;/code&gt;ing into the same directories over and over? Save your time with &lt;code&gt;z&lt;/code&gt; command!&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/rupa/z"&gt;z&lt;/a&gt;: jump around. Z is a shell script that makes jumping around your file directory pleasantly simple. Instead of trying to remember the exact path of where you need to go, or worse, &lt;code&gt;cd&lt;/code&gt;ing into the next directory followed by &lt;code&gt;ls&lt;/code&gt;ing and then cding again over and over (we’ve all been there), Z allows you to “lazy type” where you want to go and it’ll handle the rest.&lt;/li&gt;
@@ -411,7 +467,11 @@
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Takes me to my workspace folder from anywhere.&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;$ z workspace
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="fzf"&gt;fzf&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id="fzf"&gt;
+ fzf
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/junegunn/fzf"&gt;fzf&lt;/a&gt;: fzf is a general-purpose command-line fuzzy finder.&lt;/li&gt;
 &lt;li&gt;It&amp;rsquo;s an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc.&lt;/li&gt;
@@ -455,7 +515,11 @@
 &lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/fzf-cd.png"&gt;
 &lt;/figure&gt;
 
-&lt;h2 id="thefuck"&gt;thefuck&lt;/h2&gt;
+
+
+&lt;h2 id="thefuck"&gt;
+ thefuck
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/nvbn/thefuck"&gt;thefuck&lt;/a&gt;: Magnificent app which corrects your previous console command.&lt;/li&gt;
 &lt;/ul&gt;
@@ -475,7 +539,11 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;...
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# ...&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# For more examples, check out: https://github.com/nvbn/thefuck&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="exa---ls-alternative"&gt;exa - (ls alternative)&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id="exa---ls-alternative"&gt;
+ exa - (ls alternative)
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://the.exa.website"&gt;exa&lt;/a&gt;: A modern replacement for ls. &lt;code&gt;exa&lt;/code&gt; is an improved file lister with more features and better defaults. It uses colours to distinguish file types and metadata. It knows about symlinks, extended attributes, and Git. And it’s small, fast, and just one single binary.&lt;/li&gt;
 &lt;li&gt;Examples:&lt;/li&gt;
@@ -490,7 +558,11 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure class="figure"&gt;&lt;img src="https://ntk148v.github.io/photos/linux-tools-that-you-never-knew-you-needed/exa-ls.png"&gt;
 &lt;/figure&gt;
 
-&lt;h2 id="rename"&gt;rename&lt;/h2&gt;
+
+
+&lt;h2 id="rename"&gt;
+ rename
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Rename a single file with &lt;code&gt;mv&lt;/code&gt;. Just a basic thing.&lt;/li&gt;
 &lt;li&gt;Rename multiple files with &lt;code&gt;mv&lt;/code&gt;.&lt;/li&gt;
@@ -525,7 +597,11 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Set Animated Gif as Wallpaper</title><link>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</link><pubDate>Thu, 14 Jan 2021 09:36:34 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/set-animated-gif-as-wallpaper/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: Environment Ubuntu 20.04&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id="dependencies"&gt;Dependencies&lt;/h2&gt;
+
+
+&lt;h2 id="dependencies"&gt;
+ Dependencies
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/ujjwal96/xwinwrap"&gt;Xwinwrap&lt;/a&gt;:&lt;/li&gt;
 &lt;/ul&gt;
@@ -539,7 +615,11 @@
 &lt;li&gt;Gifsicle:&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt install gifsicle
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="the-helper-script"&gt;The helper script&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id="the-helper-script"&gt;
+ The helper script
+&lt;/h2&gt;
 &lt;p&gt;A helper script to setup animated .gif in dual monitors.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-weight:bold"&gt;#!/bin/bash
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#888;font-style:italic"&gt;# Uses xwinwrap to display given animated .gif in dual monitors.&lt;/span&gt;
@@ -556,9 +636,19 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;xwinwrap -g &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;$SCR1&lt;/span&gt; -ov -ni -s -nf -- gifview -w WID &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;$gif&lt;/span&gt; -a &amp;amp;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;xwinwrap -g &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;$SCR2&lt;/span&gt; -ov -ni -s -nf -- gifview -w WID &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;$gif&lt;/span&gt; -a &amp;amp;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you want to run xwinwrap by yourself, here is the example:&lt;/p&gt;</description></item><item><title>Swap space note</title><link>https://ntk148v.github.io/posts/linux-swap-space-note/</link><pubDate>Wed, 20 May 2020 09:30:28 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-swap-space-note/</guid><description>&lt;h2 id="what-is-swap"&gt;What is Swap?&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you want to run xwinwrap by yourself, here is the example:&lt;/p&gt;</description></item><item><title>Swap space note</title><link>https://ntk148v.github.io/posts/linux-swap-space-note/</link><pubDate>Wed, 20 May 2020 09:30:28 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/linux-swap-space-note/</guid><description>&lt;h2 id="what-is-swap"&gt;
+ What is Swap?
+&lt;/h2&gt;
 &lt;p&gt;Swap file systems support virtual memory, data is written to a swap file system when there is not enough RAM to store the data your system is processing.&lt;/p&gt;
-&lt;h2 id="swap-partition-size"&gt;Swap partition size&lt;/h2&gt;
-&lt;h3 id="old-rule-of-thumb"&gt;Old rule of thumb&lt;/h3&gt;
+
+
+&lt;h2 id="swap-partition-size"&gt;
+ Swap partition size
+&lt;/h2&gt;
+
+
+&lt;h3 id="old-rule-of-thumb"&gt;
+ Old rule of thumb
+&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;swap: 2 * the-amount-of-RAM
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So if a computer had 64KB of RAM, a swap partition of 128KB would be an optimum size. This rule took into the facts that RAM sizes were typically quite small at the time. Nowadays, RAM has become a &lt;code&gt;cheap&lt;/code&gt; &amp;amp; &lt;code&gt;affordable&lt;/code&gt; commondity, so the 2x rule is outdated.&lt;/p&gt;</description></item></channel></rss>

@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Network on kiennt26's home</title><link>https://ntk148v.github.io/tags/network/</link><description>Recent content in Network on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 25 Dec 2024 10:38:20 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/network/index.xml" rel="self" type="application/rss+xml"/><item><title>Bgp Ecmp Load Balancing</title><link>https://ntk148v.github.io/posts/bgp-ecmp-load-balancing/</link><pubDate>Mon, 07 Feb 2022 15:35:08 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/bgp-ecmp-load-balancing/</guid><description>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Network on kiennt26's home</title><link>https://ntk148v.github.io/tags/network/</link><description>Recent content in Network on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 25 Dec 2024 10:38:20 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/network/index.xml" rel="self" type="application/rss+xml"/><item><title>Bgp Ecmp Load Balancing</title><link>https://ntk148v.github.io/posts/bgp-ecmp-load-balancing/</link><pubDate>Mon, 07 Feb 2022 15:35:08 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/bgp-ecmp-load-balancing/</guid><description>&lt;h2 id="introduction"&gt;
+ Introduction
+&lt;/h2&gt;
 &lt;p&gt;We will build a Load balancer with &lt;a href="https://en.wikipedia.org/wiki/Border_Gateway_Protocol"&gt;BGP&lt;/a&gt; and &lt;a href="https://en.wikipedia.org/wiki/Equal-cost_multi-path_routing"&gt;Equal-Cost Multipath routing (ECMP)&lt;/a&gt; using both &lt;a href="https://bird.network.cz/"&gt;Bird&lt;/a&gt; and &lt;a href="https://github.com/Exa-Networks/exabgp"&gt;ExaBGP&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;References:&lt;/p&gt;
 &lt;ul&gt;
@@ -6,7 +8,11 @@
 &lt;li&gt;&lt;a href="https://vincent.bernat.ch/en/blog/2018-multi-tier-loadbalancer#first-tier-ecmp-routing"&gt;Multi-tier load balancer&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://blog.cloudflare.com/cloudflares-architecture-eliminating-single-p/"&gt;Load balancing without Load balancers&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="lab-overview"&gt;Lab overview&lt;/h2&gt;
+
+
+&lt;h2 id="lab-overview"&gt;
+ Lab overview
+&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://www.eve-ng.net/"&gt;EVE-NG&lt;/a&gt; version 2.0.3-112&lt;/li&gt;
 &lt;li&gt;QEMU version 2.4.0&lt;/li&gt;
@@ -21,6 +27,14 @@
 &lt;li&gt;&lt;code&gt;client&lt;/code&gt;, &lt;code&gt;lb1&lt;/code&gt;, and &lt;code&gt;lb2&lt;/code&gt; are Ubuntu server 18.04 instances. &lt;code&gt;lb1&lt;/code&gt; and &lt;code&gt;lb2&lt;/code&gt; will be in the &lt;code&gt;10.12.12.0/24&lt;/code&gt; private LAN, we will install nginx (LB L7) on these. Both servers will announce the same public IP (10.13.13.1) to &lt;code&gt;EdgeRouter&lt;/code&gt; using BGP. Incoming traffic from internet to this public IP will be routed to &lt;code&gt;lb1&lt;/code&gt; or &lt;code&gt;lb2&lt;/code&gt; depending of a hash.&lt;/li&gt;
 &lt;li&gt;You need to download and install device virtual images. Follow &lt;a href="https://www.eve-ng.net/index.php/documentation/howtos/howto-add-fortinet-images/"&gt;EVE-NG guide&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="configure"&gt;Configure&lt;/h2&gt;
-&lt;h3 id="isprouter"&gt;ISPRouter&lt;/h3&gt;
+
+
+&lt;h2 id="configure"&gt;
+ Configure
+&lt;/h2&gt;
+
+
+&lt;h3 id="isprouter"&gt;
+ ISPRouter
+&lt;/h3&gt;
 &lt;p&gt;Follow the &lt;a href="https://docs.fortinet.com/document/fortigate/7.0.3"&gt;Fortigate document&lt;/a&gt; for the basic commands.&lt;/p&gt;</description></item></channel></rss>

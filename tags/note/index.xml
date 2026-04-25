@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Note on kiennt26's home</title><link>https://ntk148v.github.io/tags/note/</link><description>Recent content in Note on kiennt26's home</description><generator>Hugo</generator><language>en-us</language><managingEditor>kiennt2609@gmail.com (Kien Nguyen-Tuan)</managingEditor><webMaster>kiennt2609@gmail.com (Kien Nguyen-Tuan)</webMaster><lastBuildDate>Wed, 30 Aug 2023 09:43:02 +0700</lastBuildDate><atom:link href="https://ntk148v.github.io/tags/note/index.xml" rel="self" type="application/rss+xml"/><item><title>Golang: Block forever</title><link>https://ntk148v.github.io/posts/golang-block-forever/</link><pubDate>Mon, 27 Apr 2020 15:59:21 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/golang-block-forever/</guid><description>&lt;p&gt;Sometimes, you want to block the current goroutine when allowing others to continue. Here is some tricks I&amp;rsquo;ve collected:&lt;/p&gt;
-&lt;h2 id="references"&gt;References&lt;/h2&gt;
+
+
+&lt;h2 id="references"&gt;
+ References
+&lt;/h2&gt;
 &lt;p&gt;Firstly give them some credits:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="https://blog.sgmansfield.com/2016/06/how-to-block-forever-in-go/"&gt;https://blog.sgmansfield.com/2016/06/how-to-block-forever-in-go/&lt;/a&gt;&lt;/li&gt;
@@ -8,7 +12,11 @@
 &lt;blockquote&gt;
 &lt;p&gt;NOTE: I run these with Golang 1.12&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id="the-original"&gt;The original&lt;/h2&gt;
+
+
+&lt;h2 id="the-original"&gt;
+ The original
+&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;package&lt;/span&gt; main
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;import&lt;/span&gt; &lt;span style="color:#666;font-style:italic"&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
@@ -24,7 +32,11 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="font-weight:bold"&gt;go&lt;/span&gt; &lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;show&lt;/span&gt;() &lt;span style="color:#888;font-style:italic"&gt;// The main goroutine is exited before the show() be done.&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; fmt.&lt;span style="color:#666;font-weight:bold;font-style:italic"&gt;Println&lt;/span&gt;(&lt;span style="color:#666;font-style:italic"&gt;&amp;#34;OK we&amp;#39;re done&amp;#34;&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="bad---an-empty-infinite-loop"&gt;Bad - An empty infinite loop&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id="bad---an-empty-infinite-loop"&gt;
+ Bad - An empty infinite loop
+&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-go" data-lang="go"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;package&lt;/span&gt; main
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="font-weight:bold"&gt;import&lt;/span&gt; (

@@ -2,5 +2,9 @@
 &lt;p&gt;NOTE(kiennt): There is a &lt;a href="https://github.com/vCloud-DFTBA/faythe/blob/legacy/docs/autoscaling.md"&gt;legacy Faythe guideline&lt;/a&gt;. The new version is coming soon, check &lt;a href="https://github.com/vCloud-DFTBA/faythe"&gt;its repository&lt;/a&gt; for status.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;This guide describes how to automatically scale out your Compute instances in response to heavy system usage. By combining with Prometheus pre-defined rules that consider factors such as CPU or memory usage, you can configure OpenStack Orchestration (Heat) to add and remove additional instances automatically, when they are needed.&lt;/p&gt;
-&lt;h2 id="the-standard-openstack-autoscaling-approach"&gt;The standard OpenStack Autoscaling approach&lt;/h2&gt;
+
+
+&lt;h2 id="the-standard-openstack-autoscaling-approach"&gt;
+ The standard OpenStack Autoscaling approach
+&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s talk about the standard OpenStack Autoscaling approach before goes to the new approach.&lt;/p&gt;</description></item></channel></rss>
