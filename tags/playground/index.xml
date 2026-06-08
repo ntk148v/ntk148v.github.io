@@ -3,14 +3,14 @@
 
 
 &lt;div class="goat svg-container "&gt;
- 
- &lt;svg
- xmlns="http://www.w3.org/2000/svg"
- font-family="Menlo,Lucida Console,monospace"
- 
- viewBox="0 0 760 841"
- &gt;
- &lt;g transform='translate(8,16)'&gt;
+	
+		&lt;svg
+			xmlns="http://www.w3.org/2000/svg"
+			font-family="Menlo,Lucida Console,monospace"
+			
+				viewBox="0 0 760 841"
+			&gt;
+			&lt;g transform='translate(8,16)'&gt;
 &lt;path d='M 64,32 L 128,32' fill='none' stroke='currentColor'&gt;&lt;/path&gt;
 &lt;path d='M 176,32 L 192,32' fill='none' stroke='currentColor'&gt;&lt;/path&gt;
 &lt;path d='M 192,32 L 224,32' fill='none' stroke='currentColor'&gt;&lt;/path&gt;
@@ -783,6 +783,6 @@
 &lt;text text-anchor='middle' x='720' y='388' fill='currentColor' style='font-size:1em'&gt;k&lt;/text&gt;
 &lt;/g&gt;
 
- &lt;/svg&gt;
- 
+		&lt;/svg&gt;
+	
 &lt;/div&gt;</description></item></channel></rss>

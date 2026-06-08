@@ -160,14 +160,14 @@
 
 
 &lt;div class="goat svg-container "&gt;
- 
- &lt;svg
- xmlns="http://www.w3.org/2000/svg"
- font-family="Menlo,Lucida Console,monospace"
- 
- viewBox="0 0 760 841"
- &gt;
- &lt;g transform='translate(8,16)'&gt;
+	
+		&lt;svg
+			xmlns="http://www.w3.org/2000/svg"
+			font-family="Menlo,Lucida Console,monospace"
+			
+				viewBox="0 0 760 841"
+			&gt;
+			&lt;g transform='translate(8,16)'&gt;
 &lt;path d='M 64,32 L 128,32' fill='none' stroke='currentColor'&gt;&lt;/path&gt;
 &lt;path d='M 176,32 L 192,32' fill='none' stroke='currentColor'&gt;&lt;/path&gt;
 &lt;path d='M 192,32 L 224,32' fill='none' stroke='currentColor'&gt;&lt;/path&gt;
@@ -940,8 +940,8 @@
 &lt;text text-anchor='middle' x='720' y='388' fill='currentColor' style='font-size:1em'&gt;k&lt;/text&gt;
 &lt;/g&gt;
 
- &lt;/svg&gt;
- 
+		&lt;/svg&gt;
+	
 &lt;/div&gt;</description></item><item><title>Docker and Iptables: You may do it wrong!</title><link>https://ntk148v.github.io/posts/docker-iptables/</link><pubDate>Tue, 25 Oct 2022 10:29:11 +0700</pubDate><author>kiennt2609@gmail.com (Kien Nguyen-Tuan)</author><guid>https://ntk148v.github.io/posts/docker-iptables/</guid><description>&lt;h2 id="mission"&gt;
  Mission
 &lt;/h2&gt;
@@ -1120,8 +1120,8 @@
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font &lt;span style="color:#666;font-style:italic"&gt;&amp;#39;DejaVu Sans 8&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;details&gt;
- &lt;summary&gt;Details&lt;/summary&gt;
- &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; -show mode
+	&lt;summary&gt;Details&lt;/summary&gt;
+	&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; -show mode
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Open rofi in a certain mode. Available modes are window, run, drun, ssh, combi. The
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; special argument keys can be used to open a searchable list of supported key bind‐
